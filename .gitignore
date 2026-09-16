@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+manifold_project/build/
+manifold_project/experiments/results/
+manifold_project/experiments/*/results/

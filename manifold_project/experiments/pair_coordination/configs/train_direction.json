@@ -1,0 +1,12 @@
+{
+  "mode": "direction",
+  "method": "analytic",
+  "baseline": "zero",
+  "seed": 42,
+  "episodes": 1024,
+  "direction_steps": 200,
+  "direction_lr": 0.05,
+  "q_max": 1.0,
+  "log_every": 10,
+  "budget": 50000
+}

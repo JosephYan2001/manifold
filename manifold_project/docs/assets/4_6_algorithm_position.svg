@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" role="img" aria-labelledby="title desc">
+  <title id="title">第 4.6 节：参考策略基点的坐标可恢复性</title>
+  <desc id="desc">同一历史进入两条支路。上支路经过固定的旧编码器与旧坐标 actor，产生参考动作概率；下支路使用由旧编码器参数复制并更新得到的候选编码器，再由只读取坐标的基点函数产生重构概率。两者通过前向 KL 比较，以检验候选坐标是否保留参考策略基点。</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#f1f5f9"/>
+    </linearGradient>
+    <filter id="shadow" x="-12%" y="-14%" width="124%" height="136%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.09"/>
+    </filter>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="8.5" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="10" markerHeight="10" refX="8.5" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#ea580c"/>
+    </marker>
+    <marker id="arrow-slate" markerWidth="10" markerHeight="10" refX="8.5" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#475569"/>
+    </marker>
+    <style>
+      .title { font: 700 31px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #0f172a; }
+      .subtitle { font: 16px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #64748b; }
+      .lane { font: 700 17px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; }
+      .box-title { font: 700 19px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #0f172a; }
+      .body { font: 15px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #475569; }
+      .small { font: 14px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #64748b; }
+      .math { font: 18px "Cambria Math", "Times New Roman", serif; fill: #1e293b; }
+      .chip { font: 700 14px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="760" rx="26" fill="url(#bg)"/>
+  <text x="800" y="48" text-anchor="middle" class="title">同一历史的两条读取路径</text>
+  <text x="800" y="80" text-anchor="middle" class="subtitle">固定参考策略提供被恢复的基点；候选编码器由旧参数复制并更新，用于检验新的历史分组</text>
+
+  <g filter="url(#shadow)">
+    <rect x="55" y="298" width="190" height="120" rx="19" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+  </g>
+  <text x="150" y="337" text-anchor="middle" class="box-title">历史样本</text>
+  <text x="150" y="371" text-anchor="middle" class="math">H ∼ d<tspan baseline-shift="super" font-size="12">μ</tspan></text>
+  <text x="150" y="398" text-anchor="middle" class="small">两条支路读取同一个 H</text>
+
+  <text x="310" y="137" class="lane" fill="#1d4ed8">固定参考支路 · 定义被恢复的策略基点</text>
+  <rect x="290" y="153" width="1040" height="210" rx="23" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+
+  <path d="M245 332 C270 332 267 258 300 258" fill="none" stroke="#2563eb" stroke-width="2.6" marker-end="url(#arrow-blue)"/>
+  <g filter="url(#shadow)">
+    <rect x="330" y="199" width="245" height="118" rx="17" fill="#ffffff" stroke="#60a5fa" stroke-width="2"/>
+  </g>
+  <rect x="348" y="211" width="64" height="25" rx="12" fill="#dbeafe"/>
+  <text x="380" y="229" text-anchor="middle" class="chip" fill="#1d4ed8">固定</text>
+  <text x="350" y="267" class="box-title">旧编码器 C<tspan baseline-shift="sub" font-size="12">φ−</tspan></text>
+  <text x="350" y="297" class="math">C<tspan baseline-shift="super" font-size="12">ref</tspan> = C<tspan baseline-shift="sub" font-size="12">φ−</tspan>(H)</text>
+
+  <path d="M575 258 L640 258" fill="none" stroke="#2563eb" stroke-width="2.6" marker-end="url(#arrow-blue)"/>
+  <g filter="url(#shadow)">
+    <rect x="665" y="199" width="260" height="118" rx="17" fill="#ffffff" stroke="#60a5fa" stroke-width="2"/>
+  </g>
+  <rect x="683" y="211" width="64" height="25" rx="12" fill="#dbeafe"/>
+  <text x="715" y="229" text-anchor="middle" class="chip" fill="#1d4ed8">固定</text>
+  <text x="685" y="267" class="box-title">旧坐标 actor</text>
+  <text x="685" y="297" class="math">π̄<tspan baseline-shift="sub" font-size="12">θ−</tspan>( · | C<tspan baseline-shift="super" font-size="12">ref</tspan>)</text>
+
+  <path d="M925 258 L990 258" fill="none" stroke="#2563eb" stroke-width="2.6" marker-end="url(#arrow-blue)"/>
+  <g filter="url(#shadow)">
+    <rect x="1015" y="199" width="275" height="118" rx="17" fill="#ffffff" stroke="#2563eb" stroke-width="2.3"/>
+  </g>
+  <text x="1036" y="243" class="box-title">参考概率标签</text>
+  <text x="1036" y="278" class="math">μ<tspan baseline-shift="sub" font-size="12">H</tspan> = μ( · | H)</text>
+  <text x="1036" y="304" class="small">作为基点恢复目标，始终不变</text>
+
+  <text x="310" y="431" class="lane" fill="#c2410c">候选坐标支路 · 复制旧编码器参数，更新后检验新的历史分组</text>
+  <rect x="290" y="447" width="1040" height="210" rx="23" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+
+  <path d="M245 384 C270 384 267 552 300 552" fill="none" stroke="#ea580c" stroke-width="2.6" marker-end="url(#arrow-orange)"/>
+  <g filter="url(#shadow)">
+    <rect x="330" y="493" width="245" height="118" rx="17" fill="#ffffff" stroke="#fb923c" stroke-width="2"/>
+  </g>
+  <rect x="348" y="505" width="84" height="25" rx="12" fill="#ffedd5"/>
+  <text x="390" y="523" text-anchor="middle" class="chip" fill="#c2410c">更新副本</text>
+  <text x="350" y="561" class="box-title">候选坐标 C<tspan baseline-shift="sub" font-size="12">φ</tspan></text>
+  <text x="350" y="591" class="math">C<tspan baseline-shift="super" font-size="12">cand</tspan> = C<tspan baseline-shift="sub" font-size="12">φ</tspan>(H)</text>
+
+  <path d="M575 552 L640 552" fill="none" stroke="#ea580c" stroke-width="2.6" marker-end="url(#arrow-orange)"/>
+  <g filter="url(#shadow)">
+    <rect x="665" y="493" width="260" height="118" rx="17" fill="#ffffff" stroke="#fb923c" stroke-width="2"/>
+  </g>
+  <text x="685" y="537" class="box-title">只读坐标的函数</text>
+  <text x="685" y="572" class="math">b( · | C<tspan baseline-shift="super" font-size="12">cand</tspan>)</text>
+  <text x="685" y="598" class="small">理论最优值为 b*<tspan baseline-shift="sub" font-size="10">φ</tspan></text>
+
+  <path d="M925 552 L990 552" fill="none" stroke="#ea580c" stroke-width="2.6" marker-end="url(#arrow-orange)"/>
+  <g filter="url(#shadow)">
+    <rect x="1015" y="493" width="275" height="118" rx="17" fill="#ffffff" stroke="#ea580c" stroke-width="2.3"/>
+  </g>
+  <text x="1036" y="537" class="box-title">坐标重构概率</text>
+  <text x="1036" y="572" class="math">b(C<tspan baseline-shift="super" font-size="12">cand</tspan>)</text>
+  <text x="1036" y="598" class="small">同一坐标只能对应一个输出</text>
+
+  <path d="M1290 258 C1350 258 1342 318 1368 326" fill="none" stroke="#2563eb" stroke-width="2.8" marker-end="url(#arrow-blue)"/>
+  <path d="M1290 552 C1350 552 1342 444 1368 436" fill="none" stroke="#ea580c" stroke-width="2.8" marker-end="url(#arrow-orange)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="1375" y="294" width="180" height="176" rx="20" fill="#ffffff" stroke="#475569" stroke-width="2.3"/>
+  </g>
+  <text x="1465" y="331" text-anchor="middle" class="box-title">前向 KL 比较</text>
+  <text x="1465" y="369" text-anchor="middle" class="math">KL[ μ<tspan baseline-shift="sub" font-size="12">H</tspan> ‖ b(C<tspan baseline-shift="super" font-size="12">cand</tspan>) ]</text>
+  <line x1="1402" y1="390" x2="1528" y2="390" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="1465" y="420" text-anchor="middle" class="small">最小值 G<tspan baseline-shift="sub" font-size="10">base</tspan>(φ)</text>
+  <text x="1465" y="447" text-anchor="middle" class="small">为 0 ⇔ 基点可恢复</text>
+
+  <path d="M1465 470 L1465 510" fill="none" stroke="#475569" stroke-width="2.4" marker-end="url(#arrow-slate)"/>
+  <rect x="1358" y="527" width="214" height="77" rx="15" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.6"/>
+  <text x="1465" y="557" text-anchor="middle" class="small">若误差非零</text>
+  <text x="1465" y="584" text-anchor="middle" class="body">坐标合并了不同基点</text>
+
+  <rect x="300" y="684" width="1000" height="42" rx="16" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="800" y="711" text-anchor="middle" class="body">本节只检验参考策略在候选坐标下能否因子化；不产生新 actor，也不执行策略更新。</text>
+</svg>

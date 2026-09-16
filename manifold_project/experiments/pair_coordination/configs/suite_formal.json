@@ -1,0 +1,24 @@
+{
+  "protocol_status": "candidate_not_frozen",
+  "description": "正式重复数量与机制网格；训练预算和优化参数仍是候选值，源试运行后另存冻结配置",
+  "training_seeds": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+  "training": {
+    "mode": "policy", "baseline": "zero", "acceptance": "empirical",
+    "device": "auto", "hidden_width": 128, "hidden_depth": 2,
+    "episodes_per_round": 1024, "check_episodes": 1024, "max_source_episodes": 262144,
+    "batch_size_episodes": 128, "direction_epochs": 64, "actor_epochs": 64,
+    "direction_lr": 0.001, "actor_lr": 0.001, "log_every": 100000,
+    "save_update_logs": false
+  },
+  "mechanisms": {
+    "frozen_probabilities": [[0.5, 0.5], [0.2, 0.8]],
+    "sample_sizes": [128, 512, 2048, 8192],
+    "data_seeds": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+    "direction_steps": 256, "direction_lr": 0.05, "q_max": 1.0,
+    "step_sizes": [0.01, 0.05, 0.1, 0.2], "fit_steps": [32, 128, 512],
+    "actor_lr": 0.05, "beta": 0.02, "transport_sample_size": 2048,
+    "epsilons": [0.01, 0.05, 0.1], "check_sizes": [128, 512, 2048, 8192]
+  },
+  "bootstrap_repeats": 10000,
+  "curve_points": 20
+}

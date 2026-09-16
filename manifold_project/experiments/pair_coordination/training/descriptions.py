@@ -1,0 +1,47 @@
+"""训练参数及日志指标的中文说明。"""
+
+PARAMETERS = {
+    "algorithm": "direction 为方向学习；pg 为每批新数据一次直接策略梯度更新",
+    "direction_check_enabled": "是否执行独立方向检查；关闭时不采样这批数据",
+    "return_check_enabled": "是否执行独立回报检查；关闭时采用首个有效拟合候选",
+    "save_update_logs": "是否记录每次梯度更新；批量实验默认关闭以减少日志",
+    "device": "PyTorch 训练设备：auto 自动选择 CUDA，否则 CPU；支持 cuda:0",
+    "save_batches": "保存完整采样 NPZ，默认关闭",
+    "save_direction_snapshots": "保存每轮旧 actor 与方向快照，默认关闭",
+    "checkpoint_every": "旧配置兼容参数（不再控制保存）；仅保留 best.json 与 final.json",
+    "batch_size_episodes": "每次梯度更新的完整回合数；0 使用整批",
+    "direction_epochs": "方向训练完整遍历数据的次数；0 使用旧 direction-steps 模式",
+    "actor_epochs": "actor 拟合完整遍历数据的次数；0 使用旧 fit-steps 模式",
+    "actor_model": "执行策略模型：mlp 为神经网络，table 为类型表",
+    "direction_model": "改进方向模型：mlp 为神经网络，table 为类型表",
+    "hidden_width": "每个隐藏层的神经元数量，作用于两个 MLP",
+    "hidden_depth": "隐藏层数量，作用于两个 MLP",
+    "mode": "direction 固定策略只学方向；policy 继续拟合并检查策略更新",
+    "method": "analytic 使用解析 Fisher 二次项；sampled 使用采样平方项",
+    "baseline": "zero 用团队奖励作标签；table 减去独立拟合的集中基线",
+    "acceptance": "hoeffding 按置信下界接受；empirical 按经验均值接受",
+    "seed": "控制初始化与源采样的随机种子",
+    "episodes": "每轮用于方向训练的完整团队回合数",
+    "critic_episodes": "每轮单独用于拟合集中基线的源回合数",
+    "check_episodes": "每批独立方向检查或回报检查的回合数",
+    "direction_steps": "在同一批数据上更新方向参数的次数",
+    "fit_steps": "每个候选目标的 actor 拟合次数",
+    "log_every": "每隔多少次方向更新记录一次指标",
+    "rounds": "策略学习的最多轮数；direction 模式只执行一轮",
+    "attempts": "每轮最多尝试的候选步幅数，每次将 eta 减半",
+    "budget": "每次独立运行的总源回合上限，包含所有检查回合",
+    "direction_lr": "方向网络优化器的学习率",
+    "fit_lr": "actor 拟合优化器的学习率",
+    "q_max": "每个方向分量的绝对值上限，也影响置信半径",
+    "beta": "均匀概率混合比例；每个动作概率至少为 beta/2",
+    "eta": "将方向转为目标概率时的初始步幅",
+    "alpha": "预设重复检查的总错误概率预算，仅置信检查使用其保证",
+}
+
+VALUES = {"analytic": "解析 Fisher 二次项", "sampled": "采样平方项",
+          "zero": "零基线", "table": "类型表基线", "empirical": "经验均值筛选",
+          "hoeffding": "Hoeffding 置信检查"}
+
+METRICS = {"expected_return": "精确平均团队回报", "direction_error": "真实方向误差",
+           "score": "总体方向分数", "information_gap": "本地信息造成的一阶方向差距",
+           "exact_skipped": "已跳过精确枚举"}

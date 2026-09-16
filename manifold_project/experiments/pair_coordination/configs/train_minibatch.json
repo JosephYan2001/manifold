@@ -1,0 +1,18 @@
+{
+  "mode": "policy",
+  "actor_model": "mlp",
+  "direction_model": "mlp",
+  "hidden_width": 128,
+  "hidden_depth": 2,
+  "episodes_per_round": 1024,
+  "batch_size_episodes": 128,
+  "direction_epochs": 256,
+  "actor_epochs": 256,
+  "direction_lr": 0.001,
+  "actor_lr": 0.001,
+  "acceptance": "empirical",
+  "check_episodes": 1024,
+  "max_rounds": 50, 
+  "max_source_episodes": 10000000,
+  "seed": 40
+}

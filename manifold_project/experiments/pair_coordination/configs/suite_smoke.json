@@ -1,0 +1,23 @@
+{
+  "protocol_status": "smoke_only",
+  "description": "仅验证所有入口、数据流和结果文件，不用于方法结论",
+  "training_seeds": [0],
+  "training": {
+    "mode": "policy", "baseline": "zero", "acceptance": "empirical",
+    "device": "cpu", "hidden_width": 4, "hidden_depth": 1,
+    "episodes_per_round": 16, "check_episodes": 16, "max_source_episodes": 128,
+    "batch_size_episodes": 8, "direction_epochs": 4, "actor_epochs": 4,
+    "direction_lr": 0.01, "actor_lr": 0.01, "log_every": 100,
+    "save_update_logs": false
+  },
+  "mechanisms": {
+    "frozen_probabilities": [[0.5, 0.5], [0.2, 0.8]],
+    "sample_sizes": [16, 32], "data_seeds": [0, 1],
+    "direction_steps": 8, "direction_lr": 0.05, "q_max": 1.0,
+    "step_sizes": [0.01, 0.1], "fit_steps": [4, 16], "actor_lr": 0.05,
+    "beta": 0.02, "transport_sample_size": 32,
+    "epsilons": [0.01, 0.05, 0.1], "check_sizes": [16, 32]
+  },
+  "bootstrap_repeats": 1000,
+  "curve_points": 20
+}
