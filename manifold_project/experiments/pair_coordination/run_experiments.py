@@ -53,7 +53,15 @@ def resolve_plan(args):
     if args.threads < 1:
         raise ValueError("threads must be positive")
     jobs = []
-    for condition in conditions_for(experiments):
+    conditions = conditions_for(experiments)
+    requested = config.get("training_conditions")
+    if requested is not None:
+        if (not isinstance(requested, list) or not requested
+                or any(name not in conditions for name in requested)
+                or len(set(requested)) != len(requested)):
+            raise ValueError("training_conditions must be unique conditions belonging to the selected experiments")
+        conditions = [name for name in conditions if name in requested]
+    for condition in conditions:
         for seed in config["training_seeds"]:
             settings = condition_settings(base, condition, seed)
             plan = training_plan(source, settings)
@@ -216,7 +224,7 @@ def main():
         parser.error(str(error))
     print(f"协议状态：{config['protocol_status']}｜{config['description']}", flush=True)
     print(json.dumps({"experiments": plan["experiments"], "counts": plan["counts"],
-                      "conditions": conditions_for(plan["experiments"]),
+                      "conditions": list(dict.fromkeys(job["condition"] for job in plan["jobs"])),
                       "source_budget_per_run": base.budget}, ensure_ascii=False, indent=2), flush=True)
     if args.dry_run:
         return 0

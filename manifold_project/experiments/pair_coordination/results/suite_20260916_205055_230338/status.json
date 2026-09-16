@@ -1,0 +1,29 @@
+{
+  "jobs": {
+    "P-M1": {
+      "status": "complete",
+      "seconds": 18.510415199998533,
+      "records": 72
+    },
+    "P-M2": {
+      "status": "complete",
+      "seconds": 0.6004026000009617,
+      "records": 24
+    },
+    "P-M3": {
+      "status": "complete",
+      "seconds": 0.0468786000055843,
+      "records": 27
+    },
+    "P-M4": {
+      "status": "complete",
+      "seconds": 0.0031267999947885983,
+      "records": 3
+    },
+    "P-H": {
+      "status": "complete",
+      "seconds": 8.918294999995851,
+      "records": 108
+    }
+  }
+}

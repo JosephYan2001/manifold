@@ -1,0 +1,176 @@
+{
+  "identity": {
+    "config": {
+      "protocol_status": "source_development",
+      "description": "源试运行配置；用于预算与优化设置选择，不是正式统计结果",
+      "training_seeds": [
+        40,
+        41,
+        42
+      ],
+      "training": {
+        "mode": "policy",
+        "baseline": "zero",
+        "acceptance": "empirical",
+        "device": "auto",
+        "hidden_width": 128,
+        "hidden_depth": 2,
+        "episodes_per_round": 1024,
+        "check_episodes": 1024,
+        "max_source_episodes": 131072,
+        "batch_size_episodes": 128,
+        "direction_epochs": 64,
+        "actor_epochs": 64,
+        "direction_lr": 0.001,
+        "actor_lr": 0.001,
+        "log_every": 100000,
+        "save_update_logs": false
+      },
+      "mechanisms": {
+        "frozen_probabilities": [
+          [
+            0.5,
+            0.5
+          ],
+          [
+            0.2,
+            0.8
+          ]
+        ],
+        "sample_sizes": [
+          128,
+          512,
+          2048
+        ],
+        "data_seeds": [
+          40,
+          41,
+          42
+        ],
+        "direction_steps": 256,
+        "direction_lr": 0.05,
+        "q_max": 1.0,
+        "step_sizes": [
+          0.01,
+          0.05,
+          0.1,
+          0.2
+        ],
+        "fit_steps": [
+          32,
+          128,
+          512
+        ],
+        "actor_lr": 0.05,
+        "beta": 0.02,
+        "transport_sample_size": 2048,
+        "epsilons": [
+          0.01,
+          0.05,
+          0.1
+        ],
+        "check_sizes": [
+          128,
+          512,
+          2048
+        ]
+      },
+      "bootstrap_repeats": 10000,
+      "curve_points": 20
+    },
+    "source": {
+      "n_agents": 4,
+      "type_probs": [
+        0.6,
+        0.4
+      ],
+      "local_bias": [
+        -0.2,
+        0.3
+      ],
+      "pair_payoff": [
+        [
+          1.0,
+          -0.5
+        ],
+        [
+          -0.5,
+          1.0
+        ]
+      ],
+      "interaction_strength": 0.7
+    },
+    "threads": 1
+  },
+  "experiments": [
+    "P-M1",
+    "P-M2",
+    "P-M3",
+    "P-M4",
+    "P-H"
+  ],
+  "plan": {
+    "experiments": [
+      "P-M1",
+      "P-M2",
+      "P-M3",
+      "P-M4",
+      "P-H"
+    ],
+    "counts": {
+      "training_runs": 0,
+      "training_source_episode_cap": 0,
+      "P-M1_fits": 72,
+      "P-M1_unique_sampled_episodes": 16128,
+      "P-M2_records": 24,
+      "P-M3_records": 27,
+      "P-M4_records": 3,
+      "P-H_records": 108,
+      "P-H_unique_sampled_episodes": 72576
+    },
+    "jobs": [],
+    "config_path": "D:\\manifold\\manifold_project\\experiments\\pair_coordination\\configs\\suite_pilot.json",
+    "threads": 1
+  },
+  "runtime": {
+    "python": "3.11.13",
+    "numpy": "2.3.1",
+    "executable": "D:\\python_exercise_program\\dqn+pso\\.conda\\python.exe"
+  },
+  "selection": "final only; oracle diagnostics never select training candidates",
+  "protocol_status": "source_development",
+  "code_sha256": {
+    "experiments\\__init__.py": "9e09d0947544812acfe750a5c386b5d734d703bdf2f112cda8e18976ab504d4f",
+    "experiments\\mechanisms.py": "8a1c7b8825eeb8458368c4241598792cbc048010d5948a3a1d35934d3d01e124",
+    "experiments\\plotting.py": "4be136810c6408bd86d464ced868df19950a62f163d4d557c1981d63045d3c8b",
+    "experiments\\protocol.py": "c24db6e833a3167f92cde18523078bdbcd11fe87146455280991752a6a546ce4",
+    "experiments\\reporting.py": "22d5f8cceecb9dca1d17e104f44423a6b596d080a171d62ec985dea0ede421ab",
+    "training\\__init__.py": "2fc74f6919b59626fef74599c792396fb1d56d8d604c424e96d059bf27d96cda",
+    "training\\acceptance.py": "e2830da66982eb55979503d022364e5ec3ff966e7c118c4ba0e227dc33c215b6",
+    "training\\actor_fit.py": "9384af38d8ad611e34ae268b857a79d482dea62021347e7d00a33d95fb3689a9",
+    "training\\batching.py": "2cbd18912057c5cbd0257683f5ea704da5be43aa72bf495ae1bcd6cf6b7a0965",
+    "training\\checkpoints.py": "56bbe03e1b6c9aaa681adcb686d1e7ffcc78dbaab63a07e11172aa2b03aee63b",
+    "training\\config.py": "256e988c714a9c34ed05b0555db6d4416be3a4ecb39cb6b2edb0b191ff6e197e",
+    "training\\descriptions.py": "27a6fe732e09599d2773f761699d6f3b6039888fb6d0f2653c3e9f787ab2d9a6",
+    "training\\direction_loss.py": "aa335d72c8cf0cf5432ab8a90ba2a5d355eb256cfa511fe972ac90b1380641ad",
+    "training\\labels.py": "e8fe52b2deb51b4a0dc4663f51cecac428ca89ec1503b8927f861363b2b21fb1",
+    "training\\logging.py": "6babde7145fc6f589cdcd84603c35ac3d8dbd90cf031300db7e63874371c3dac",
+    "training\\optim.py": "a30c8767579a4bc281c838cb4701237b7b2e9e5e6ed77f7de338d7c506964ca3",
+    "training\\plan.py": "5f56da775829a9f221bc384e3d28cb0e6d137bde1001a90bf25c005066688004",
+    "training\\policy_gradient.py": "4ea8961e51e1e1c810e5a3811ba800a82c6c07811a473e3156c4ef0a43a4fe46",
+    "training\\progress.py": "a5a530154dc2de72d6e54d44baa561f1f447e4ed8560613af3792cf0978e51bd",
+    "training\\runner.py": "ad36389a5e3c86e02a9b47173ccfdaf2d29aee77296b0b056e1d142690bd5e86",
+    "training\\torch_fit.py": "c30bdeec9f35a5c8532e80cdfb270e4bb7d6ff4c03132def59e79ac4285e0323",
+    "models\\__init__.py": "c7b853d9a75d46bb976ab3b83ead97faffb2205c64c7ce09fd3cc86bff1bc05a",
+    "models\\actor.py": "14926d521b6c1f3b1502aeef2b8e4b643afc83b2ec7ce120f1301f441b5d9fce",
+    "models\\critic.py": "7e2b1bae9c55ffa38447c665d1bfb418be84abd4fc7c010887e2e7e327f0dcb4",
+    "models\\direction.py": "6433ee1340d25e2c7d86bb542105589ea4f236ae00ce3f09ebbf9f75ce7a1acf",
+    "models\\mlp.py": "0406e837fc90c729556f24316681ddce16b6772f4abd24992ecaf91bcd1f89e6",
+    "models\\torch_models.py": "b18bf5afa3d33d21cae21120ffde76a57c444cf2a8b04280f3afef32f13a2922",
+    "evaluation\\__init__.py": "8f99b9e4987487a9ba1479f2f6948d6a238ceec3fbf8c574e37ebefd48fae908",
+    "evaluation\\exact_pair.py": "74125cc364d4bc4b30a6dce7ed3d7dc887b94c1fdce55be7630d9b9c11e66f8f",
+    "envs\\__init__.py": "8ae1bdd7eaa8b5e56f000f218fda622244939cd3c809377712a7c329e6863b63",
+    "envs\\pair_coordination.py": "d050794caf6b33a474179c74ce34e0956d7773c09450c37e8f8afb1da07eef58",
+    "run_experiments.py": "e4dda21ccc6004f9e8211f2bfee7ab81e5f826a03315e58838e78623a0bbed2b"
+  }
+}
