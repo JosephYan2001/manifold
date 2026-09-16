@@ -3,5 +3,4 @@ __pycache__/
 .pytest_cache/
 .venv/
 manifold_project/build/
-manifold_project/experiments/results/
-manifold_project/experiments/*/results/
+

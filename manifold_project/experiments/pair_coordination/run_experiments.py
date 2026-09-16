@@ -9,6 +9,9 @@ import platform
 import sys
 import time
 
+import os
+os.environ['KMP_DUPLICATE_LIB_OK']='TRUE'
+
 if __name__ == "__main__" and not __package__:
     sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
     __package__ = "manifold_project.experiments.pair_coordination"
@@ -23,6 +26,7 @@ from .experiments.reporting import (write_csv, read_csv, run_metrics, summarize_
 
 ROOT = Path(__file__).resolve().parent
 
+#   python manifold\manifold_project\experiments\pair_coordination\run_experiments.py --profile pilot --experiments P-C P-A --plot
 
 def build_parser():
     parser = argparse.ArgumentParser(description="成对协作实验：按文档编号执行、复用、统计")
