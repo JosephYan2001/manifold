@@ -22,7 +22,7 @@ from .training.plan import training_plan
 from .experiments.protocol import (EXPERIMENTS, selected_experiments, conditions_for,
                                    condition_settings, validate_protocol)
 from .experiments.reporting import (write_csv, read_csv, run_metrics, summarize_runs,
-                                    summarize_mechanism)
+                                    summarize_mechanism, paired_direction_summary)
 
 ROOT = Path(__file__).resolve().parent
 
@@ -162,7 +162,7 @@ def execute(args, source, base, config, plan):
             from .training.runner import run_training
             settings = TrainConfig(**job["settings"])
             started = time.perf_counter()
-            run_training(source, settings, directory/key)
+            run_training(source, settings, directory/key, compact_output=True)
             metrics, curves = run_metrics(directory/key, settings, job["condition"],
                                            time.perf_counter()-started, config["curve_points"])
             return {"metrics": metrics, "curves": curves}
@@ -185,6 +185,9 @@ def execute(args, source, base, config, plan):
             summary = summarize_mechanism(name, rows, config["bootstrap_repeats"])
             if summary:
                 write_csv(directory/name/"summary.csv", summary)
+            if name == "P-M1":
+                write_csv(directory/name/"paired_summary.csv",
+                          paired_direction_summary(rows, config["bootstrap_repeats"]))
             return {"records": len(rows)}
         run_job(name, mechanism)
 

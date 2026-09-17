@@ -39,7 +39,7 @@ def atomic_json(path, value):
                 warnings.warn(f"临时文件暂时无法清理：{name}；{cleanup_error}", RuntimeWarning)
 
 
-def save_checkpoint(directory, source, settings, actor, round_index, sampler, accepted, best=None, optimizer_state=None):
+def save_checkpoint(directory, source, settings, actor, round_index, sampler, accepted, best=None, optimizer_state=None, *, legacy_alias=True):
     state = {"format_version": 1, "boundary": "completed_round", "actor": actor.state(),
              "source": asdict(source), "training": asdict(settings), "round": round_index,
              "source_episodes": sampler.used, "sampler_calls": sampler.calls, "accepted": accepted,
@@ -57,5 +57,6 @@ def save_checkpoint(directory, source, settings, actor, round_index, sampler, ac
     atomic_json(folder/"final.json", state)
     if improved or not (folder/"best.json").exists():
         atomic_json(folder/"best.json", best)
-    atomic_json(Path(directory)/"actor.json", state)
+    if legacy_alias:
+        atomic_json(Path(directory)/"actor.json", state)
     return state

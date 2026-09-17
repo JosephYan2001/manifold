@@ -29,7 +29,7 @@ def diagnostics(source, policy, direction=None):
             ("expected_return", "direction_error", "score", "information_gap")}
 
 
-def _run_training(source, settings, output_dir, resume=None, stop_after_round=None, requested_config=None):
+def _run_training(source, settings, output_dir, resume=None, stop_after_round=None, requested_config=None, compact_output=False):
     from ..models.torch_models import TorchModel, resolve_device
     import torch
     device = resolve_device(settings.device)
@@ -58,14 +58,20 @@ def _run_training(source, settings, output_dir, resume=None, stop_after_round=No
     runtime = {"backend": "pytorch", "torch": torch.__version__, "cuda_build": torch.version.cuda,
                "requested_device": settings.device, "device": str(device), "dtype": "float64",
                "gpu": torch.cuda.get_device_name(device) if device.type == "cuda" else None}
-    save_json(directory/"runtime.json", runtime)
     print(f"训练设备：{device}；PyTorch {torch.__version__}；float64")
-    save_json(directory/"requested_config.json", requested_config or {"programmatic": asdict(settings)})
-    save_json(directory/"resolved_config.json", {"source": asdict(source), "training": public_config(settings)})
     plan = training_plan(source, settings)
-    save_json(directory/"training_plan.json", plan)
-    save_json(directory/"config.json", {"source": asdict(source), "training": asdict(settings),
-              "python": platform.python_version(), "numpy": np.__version__})
+    metadata = {"source": asdict(source), "training": asdict(settings),
+                "python": platform.python_version(), "numpy": np.__version__}
+    extras = {"runtime": runtime,
+              "requested_config": requested_config or {"programmatic": asdict(settings)},
+              "resolved_config": {"source": asdict(source), "training": public_config(settings)},
+              "training_plan": plan}
+    if compact_output:
+        metadata.update(extras)
+    else:
+        for name, value in extras.items():
+            save_json(directory/f"{name}.json", value)
+    save_json(directory/"config.json", metadata)
     sampler = SourceSampler(source, settings, directory)
     progress = Progress(directory, sampler)
     completed = restored["round"] if restored else 0
@@ -82,7 +88,8 @@ def _run_training(source, settings, output_dir, resume=None, stop_after_round=No
     best = restored.get("best_checkpoint") if restored else None
     checkpoint = save_checkpoint(directory, source, settings, actor, completed, sampler,
                                  restored.get("accepted", False) if restored else False, best,
-                                 optimizer_snapshot(pg_optimizer, actor) if pg_optimizer else None)
+                                 optimizer_snapshot(pg_optimizer, actor) if pg_optimizer else None,
+                                 legacy_alias=not compact_output)
     best = checkpoint["best_checkpoint"]
     alpha = alpha_per_check(settings.alpha, settings.rounds, settings.attempts)
     append_json(directory/"policy.jsonl", {"round": completed, "source_episodes": sampler.used,
@@ -120,7 +127,7 @@ def _run_training(source, settings, output_dir, resume=None, stop_after_round=No
             append_json(directory/"policy.jsonl", {"round": completed, "source_episodes": sampler.used,
                         "accepted": True, **diagnostics(source, actor.table())})
             checkpoint = save_checkpoint(directory, source, settings, actor, completed, sampler, True,
-                                         best, optimizer_snapshot(pg_optimizer, actor))
+                                         best, optimizer_snapshot(pg_optimizer, actor), legacy_alias=not compact_output)
             best = checkpoint["best_checkpoint"]
             progress.finish()
             append_json(directory/"rounds.jsonl", {"round": completed, "source_episodes": sampler.used,
@@ -209,7 +216,8 @@ def _run_training(source, settings, output_dir, resume=None, stop_after_round=No
         append_json(directory/"policy.jsonl", {
             "round": round_index, "source_episodes": sampler.used, "accepted": accepted,
             **diagnostics(source, actor.table())})
-        checkpoint = save_checkpoint(directory, source, settings, actor, round_index, sampler, accepted, best)
+        checkpoint = save_checkpoint(directory, source, settings, actor, round_index, sampler, accepted, best,
+                                     legacy_alias=not compact_output)
         best = checkpoint["best_checkpoint"]
         progress.finish()
         append_json(directory/"rounds.jsonl", {"round": round_index, "source_episodes": sampler.used,
@@ -233,18 +241,22 @@ def _run_training(source, settings, output_dir, resume=None, stop_after_round=No
                "best_checkpoint": str((directory/"checkpoints/best.json").resolve()),
                "best_round": best["round"], "best_expected_return": best["selection_score"],
                "last_direction_at_reference_actor": last_direction}
-    save_json(directory/"summary.json", summary)
+    saved_summary = {k: v for k, v in summary.items() if k != "actor"} if compact_output else summary
+    save_json(directory/"summary.json", saved_summary)
+    if compact_output and summary["stop_reason"] != "requested_pause":
+        for name in ("progress.json", "sampling_progress.json"):
+            (directory/name).unlink(missing_ok=True)
     print(f"停止原因：{ {'round_limit': '达到轮数上限', 'source_budget': '源预算不足', 'requested_pause': '按请求暂停'}[summary['stop_reason']]}；"
           f"完成 {completed} 轮；已用 {sampler.used}，剩余 {settings.budget-sampler.used} 回合；"
           f"下一轮至少需要 {minimum} 回合。", flush=True)
     return summary
 
 
-def run_training(source, settings, output_dir, resume=None, stop_after_round=None, requested_config=None):
+def run_training(source, settings, output_dir, resume=None, stop_after_round=None, requested_config=None, compact_output=False):
     directory = Path(output_dir)
     existed = directory.exists()
     try:
-        return _run_training(source, settings, output_dir, resume, stop_after_round, requested_config)
+        return _run_training(source, settings, output_dir, resume, stop_after_round, requested_config, compact_output)
     except (Exception, KeyboardInterrupt) as error:
         if not existed and directory.exists():
             def read(name):

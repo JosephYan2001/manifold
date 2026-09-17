@@ -1,9 +1,0 @@
-{
-  "backend": "pytorch",
-  "torch": "2.7.1+cu128",
-  "cuda_build": "12.8",
-  "requested_device": "auto",
-  "device": "cuda",
-  "dtype": "float64",
-  "gpu": "NVIDIA GeForce RTX 4070 Ti SUPER"
-}

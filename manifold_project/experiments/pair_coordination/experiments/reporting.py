@@ -1,6 +1,7 @@
 """Small CSV artifacts and seed-level summaries; no per-run plot explosion."""
 import csv
 import json
+import math
 from pathlib import Path
 import numpy as np
 
@@ -41,6 +42,49 @@ def bootstrap(values, repeats=10000):
             "ci_low": float(np.quantile(means, .025)), "ci_high": float(np.quantile(means, .975))}
 
 
+def binomial_interval(values):
+    """Two-sided 95% Wilson interval, including zero/all-event samples."""
+    values = np.asarray(values, float)
+    n = len(values)
+    if not n or not np.isin(values, [0, 1]).all():
+        raise ValueError("Binomial observations must be a nonempty binary sample")
+    p = float(values.mean())
+    z = 1.959963984540054
+    denominator = 1 + z*z/n
+    center = (p + z*z/(2*n))/denominator
+    half = z*math.sqrt(p*(1-p)/n + z*z/(4*n*n))/denominator
+    return {"count": n, "events": int(values.sum()), "mean": p,
+            "std": float(values.std(ddof=1)) if n > 1 else None,
+            "ci_low": max(0., center-half), "ci_high": min(1., center+half),
+            "ci_method": "wilson_95"}
+
+
+def paired_direction_summary(rows, repeats):
+    groups = {}
+    for row in rows:
+        key = (row['actor_id'], row['label'], row['sample_size'])
+        pair = groups.setdefault(key, {}).setdefault(row['seed'], {})
+        if row['method'] in pair:
+            raise ValueError("Duplicate direction estimate for a paired seed")
+        pair[row['method']] = row
+    result = []
+    for key, pairs in groups.items():
+        differences = []
+        for pair in pairs.values():
+            if set(pair) != {'analytic', 'sampled'}:
+                raise ValueError("Missing method in paired direction estimates")
+            a, b = pair['analytic'], pair['sampled']
+            if a['dataset_sha256'] != b['dataset_sha256']:
+                raise ValueError("Paired methods must share the same dataset")
+            differences.append(float(a['direction_error'])-float(b['direction_error']))
+        result.append({**dict(zip(('actor_id', 'label', 'sample_size'), key)),
+                       'metric': 'analytic_minus_sampled_direction_error',
+                       'interpretation': 'negative_favors_analytic',
+                       'ci_method': 'paired_seed_bootstrap_95',
+                       **bootstrap(differences, repeats)})
+    return result
+
+
 def run_metrics(directory, settings, condition, seconds, curve_points):
     directory = Path(directory)
     summary = json.loads((directory/"summary.json").read_text(encoding="utf-8"))
@@ -70,6 +114,17 @@ def run_metrics(directory, settings, condition, seconds, curve_points):
                "candidate_count": sum(r["candidate_count"] for r in rounds),
                "return_check_rejections": sum(not r["accepted"] for r in return_checks),
                "mean_fit_kl": float(np.mean(fits)) if fits else None}
+    for threshold in (1.95, 1.96):
+        indices = np.flatnonzero(ys >= threshold)
+        suffix = str(threshold).replace('.', '_')
+        metrics['reached_'+suffix] = bool(len(indices))
+        metrics['episodes_to_'+suffix] = int(xs[indices[0]]) if len(indices) else None
+    before = {r['round']: p['expected_return'] for p, r in zip(policies, policies[1:])}
+    metrics['return_check_false_rejections'] = sum(
+        not r['accepted'] and r['candidate_diagnostics']['expected_return']-before[r['round']] > 1e-6
+        for r in return_checks)
+    metrics['direction_check_rejections'] = sum(
+        not r['accepted'] for r in checks if r['kind'] == 'direction')
     for purpose in ("direction_train", "pg_train", "critic", "direction_check", "return_old", "return_candidate"):
         metrics[purpose+"_episodes"] = sum(r["episodes"] for r in batches if r["purpose"] == purpose)
     batches_per_epoch = int(np.ceil(settings.episodes/(settings.batch_size_episodes or settings.episodes)))
@@ -89,7 +144,10 @@ def run_metrics(directory, settings, condition, seconds, curve_points):
 def summarize_runs(rows, repeats):
     result = []
     metrics = ("final_return", "budget_normalized_auc", "seconds", "source_episodes",
-               "decline_fraction", "candidate_count", "mean_fit_kl", "optimizer_updates")
+               "decline_fraction", "candidate_count", "mean_fit_kl", "optimizer_updates",
+               "reached_1_95", "episodes_to_1_95", "reached_1_96", "episodes_to_1_96",
+               "direction_check_rejections", "return_check_false_rejections",
+               "direction_check_episodes", "return_old_episodes", "return_candidate_episodes")
     for condition in dict.fromkeys(row["condition"] for row in rows):
         all_rows = [r for r in rows if r["condition"] == condition]
         complete = [r for r in all_rows if r["status"] == "complete"]
@@ -97,7 +155,8 @@ def summarize_runs(rows, repeats):
             values = [float(r[key]) for r in complete if r.get(key) is not None]
             result.append({"condition": condition, "metric": key, "planned_runs": len(all_rows),
                            "failed_or_interrupted": len(all_rows)-len(complete),
-                           "statistics_scope": "completed_runs_only", **bootstrap(values, repeats)})
+                           "statistics_scope": ("completed_threshold_reachers_only" if key.startswith('episodes_to_')
+                                                else "completed_runs_only"), **bootstrap(values, repeats)})
     return result
 
 
@@ -115,6 +174,12 @@ def summarize_mechanism(name, rows, repeats):
     for group in groups:
         selected = [r for r in rows if tuple(r[k] for k in keys) == group]
         for metric in metrics:
+            if name == 'P-H':
+                positive = float(selected[0]['true_value']) > 1e-12
+                if (metric == 'false_accept' and positive) or (metric == 'false_reject' and not positive):
+                    continue
+            stats = (binomial_interval([float(r[metric]) for r in selected]) if name == 'P-H'
+                     else bootstrap([float(r[metric]) for r in selected], repeats))
             result.append({**dict(zip(keys, group)), "metric": metric,
-                           **bootstrap([float(r[metric]) for r in selected], repeats)})
+                           **stats})
     return result

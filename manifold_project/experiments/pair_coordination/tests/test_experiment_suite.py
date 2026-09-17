@@ -15,7 +15,8 @@ from manifold_project.experiments.pair_coordination.evaluation.exact_pair import
 from manifold_project.experiments.pair_coordination.models.actor import TableActor
 from manifold_project.experiments.pair_coordination.experiments import mechanisms
 from manifold_project.experiments.pair_coordination.experiments.protocol import conditions_for, selected_experiments, condition_settings
-from manifold_project.experiments.pair_coordination.experiments.reporting import bootstrap, summarize_runs
+from manifold_project.experiments.pair_coordination.experiments.reporting import (bootstrap, summarize_runs,
+    binomial_interval, paired_direction_summary, summarize_mechanism)
 from manifold_project.experiments.pair_coordination.run_experiments import build_parser, resolve_plan, execute
 from manifold_project.experiments.pair_coordination.training.config import TrainConfig
 from manifold_project.experiments.pair_coordination.training.plan import training_plan
@@ -79,6 +80,41 @@ class MechanismTests(unittest.TestCase):
 
 
 class ProtocolTests(unittest.TestCase):
+    def test_binomial_zero_events_has_positive_upper_bound(self):
+        zero = binomial_interval([0]*200)
+        self.assertEqual(zero['mean'], 0)
+        self.assertAlmostEqual(zero['ci_high'], 0.0188453263772666)
+        one = binomial_interval([1]*200)
+        self.assertAlmostEqual(one['ci_low'], 1-zero['ci_high'])
+
+    def test_paired_direction_interval_and_dataset_guard(self):
+        rows = []
+        for seed, offset in enumerate([1., 10., 100.]):
+            for method, error in [('analytic', offset), ('sampled', offset+2)]:
+                rows.append(dict(actor_id=1, label='return', sample_size=128, seed=seed,
+                                 method=method, direction_error=error, dataset_sha256=str(seed)))
+        summary = paired_direction_summary(rows, 100)[0]
+        self.assertEqual(summary['mean'], -2)
+        self.assertEqual(summary['ci_low'], -2)
+        rows[-1]['dataset_sha256'] = 'mismatched'
+        with self.assertRaises(ValueError):
+            paired_direction_summary(rows, 100)
+
+    def test_paper_plans_have_independent_repetitions(self):
+        root = Path(__file__).resolve().parents[1]/'configs'
+        for file, experiments, key, expected in [
+            ('training', ['P-C','P-A'], 'training_runs', 60),
+            ('mechanisms', ['P-M1','P-M3'], 'P-M1_fits', 640),
+            ('checks', ['P-H'], 'P-H_records', 9600),
+        ]:
+            args = build_parser().parse_args(['--suite-config',str(root/f'suite_paper_{file}.json'),
+                                              '--experiments',*experiments,'--dry-run'])
+            _, _, config, plan = resolve_plan(args)
+            self.assertEqual(plan['counts'][key], expected)
+            self.assertEqual(config['training_seeds'], list(range(100,110)))
+            if file == 'mechanisms':
+                self.assertEqual(plan['counts']['P-M3_records'], 180)
+
     def test_plan_deduplicates_and_declares_dependencies(self):
         args = build_parser().parse_args(["--profile", "formal", "--dry-run"])
         _, _, config, plan = resolve_plan(args)
