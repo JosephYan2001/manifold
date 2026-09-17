@@ -1,0 +1,9 @@
+# Additional environment dependencies for an existing working PyTorch installation.
+# Validated with Python 3.11; SciPy accepts NumPy >=1.25.2,<2.6.
+# Does not request a PyTorch or CUDA installation.
+mpe2==1.1.1
+pettingzoo==1.27.0
+pygame-ce==2.5.8
+gymnasium==1.2.0
+scipy==1.16.0
+matplotlib==3.10.3
