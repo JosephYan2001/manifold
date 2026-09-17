@@ -6,6 +6,8 @@
 
 按实验文档批量运行算法比较、消融和机制验证，请先读[实验运行说明](实验运行说明.md)。统一入口为 run_experiments.py；原 train.py 继续用于单次训练。
 
+目前已完成机制试运行及 83 次完整开发训练。已有结果按实验内容命名，见[结果目录索引](results/结果目录索引.md)和[最新结果分析](results/后续三组实验分析_20260917.md)。下一批论文确认实验使用三份 `suite_paper_*.json`，命令见[论文补充实验运行说明](论文补充实验运行说明.md)；配置已准备，不代表正式结果已完成。
+
 | 文档 | 内容 |
 |---|---|
 | [设计文档](设计文档.md) | 环境规则、计分例子与实验安排 |
@@ -13,7 +15,7 @@
 | [训练指标与调参说明](训练指标与调参说明.md) | 指标含义、学习率及预算排查 |
 | 本页 | 配置、训练命令、输出文件与恢复 |
 
-训练入口使用 PyTorch，实现 MLP 或类型表的自动微分与 Adam 更新，支持 CUDA。采样、精确枚举、统计接受检查和类型表 critic 在 CPU 上执行。NumPy 模型保留为数值核验与旧权重读取实现。直接策略更新对照和正式容量比较仍待完成。
+完整训练入口使用 PyTorch，实现 MLP 或类型表的自动微分与 Adam 更新，支持 CUDA。采样、精确枚举、统计接受检查和类型表 critic 在 CPU 上执行。NumPy 模型用于数值核验、机制实验与旧权重读取。PG 对照、检查消融、拟合预算消融和 P-M1 至 P-M4/P-H 机制入口均已实现；正式确认实验尚需执行。
 
 先激活已安装 PyTorch 的环境。本机可用环境为：
 
@@ -24,7 +26,7 @@ python -c "import torch; print(torch.__version__); print(torch.cuda.is_available
 
 `--device auto` 为默认设置，CUDA 可用时使用 GPU；`--device cuda` 强制使用 GPU，不可用时报错；`--device cpu` 使用 CPU，也支持 `--device cuda:0`。学习损失、反向传播和参数更新在所选设备上执行。当前使用 float64 核对数学实验，pair 网络较小，GPU 不保证比 CPU 更快。
 
-每次运行的 `runtime.json` 记录 PyTorch 版本、CUDA 构建版本、实际设备、GPU 名称和计算精度。checkpoint 继续使用 JSON 保存权重，可加载已有模型。恢复时允许用 `--device` 切换设备。旧 NumPy 训练迁移为 PyTorch 后可继续训练；跨实现或跨设备的后续数值不保证逐位相同。优化器每轮重新初始化，checkpoint 对应已完成轮次。
+单次 `train.py` 的 `runtime.json`、套件子运行 `config.json` 的 `runtime` 字段记录 PyTorch/CUDA 版本、实际设备和精度。checkpoint 使用 JSON 保存权重，恢复允许切换设备，但跨实现或设备的数值不保证逐位相同。方向学习与候选拟合每次重新初始化优化器；PG 的 Adam 状态跨轮保留并写入 checkpoint。恢复点均为完成轮次边界。
 
 ## 1. 先检查本次训练计划
 
@@ -38,7 +40,7 @@ python manifold_project/experiments/pair_coordination/train.py --training-config
 
 当前配置中的两个学习率均为 0.001，训练中保持恒定。方向使用 direction_lr，actor 拟合使用 actor_lr。类型表 critic 采用条件样本均值拟合，没有梯度学习率。
 
-当前文件设置最多 500 轮、500000 源回合。每轮检查一个候选时，一轮消耗 4096 回合，500 轮需要 2048000 回合；两项停止上限分别生效。以每轮一个候选估算，现有预算只能支持约 122 轮。实际次数取决于检查分支。
+当前 `train_minibatch.json` 是单次调试配置：隐藏宽度 128、方向与 Actor 各 256 epochs、最多 50 轮、10000000 源回合、empirical 检查。每轮检查一个候选时消耗 4096 回合，50 轮约 204800 回合；实际成本取决于检查分支。这与套件 pilot 的 64 epochs、131072 预算不同，不应混用。参数以文件和 `--dry-run` 为准。
 
 ## 2. 开始训练
 
@@ -46,7 +48,7 @@ python manifold_project/experiments/pair_coordination/train.py --training-config
 python manifold_project/experiments/pair_coordination/train.py --training-config manifold_project/experiments/pair_coordination/configs/train_minibatch.json --max-rounds 5 --acceptance empirical --plot
 ~~~
 
-empirical 使用独立源数据的经验均值筛选，没有 Hoeffding 置信保证。省略该覆盖时采用文件中的 hoeffding 检查；当前样本量可能不足以通过保守检查。
+empirical 使用独立源数据的经验均值筛选，没有 Hoeffding 置信保证。当前 `train_minibatch.json` 本身也是 empirical；只有显式选择 `--acceptance hoeffding` 或使用相应配置时才采用置信下界检查。
 
 支持直接脚本与 python -m manifold_project.experiments.pair_coordination.train 两种启动方式。手动指定的相对路径均相对于终端当前目录。
 
@@ -71,13 +73,17 @@ empirical 使用独立源数据的经验均值筛选，没有 Hoeffding 置信�
 
 命令行覆盖 JSON，JSON 覆盖默认值。新运行未指定优化计数方式时，默认使用小批次 epoch 模式。episodes、rounds、budget、fit_lr 为兼容名称；direction_steps、fit_steps 仅用于旧全批次模式，已从常用帮助隐藏。正 epoch 与对应旧 steps 同时提供会报错；冲突别名和未知字段也会报错。--print-config 可查看内部兼容字段；正式运行的 resolved_config.json 使用规范名称。
 
-当前 1024 回合、每批 128 回合、25 epochs，意味着每个 epoch 8 次更新，共 200 次。同一回合全部机器人保持在同一批；每个 epoch 重新打乱，最后不足一批的回合仍参与训练。方向和 actor 分别更新自己的参数。
+当前单次配置 1024 回合、每批 128 回合、256 epochs，意味着每个 epoch 8 次更新，每个模块共 2048 次。套件标准配置 64 epochs 对应 512 次，fit_quarter 的 Actor 16 epochs 对应 128 次。同一回合全部机器人保持在同一批；每个 epoch 重新打乱，最后不足一批的回合仍参与训练。PG 每个新批次仅进行一次策略更新。
 
 ## 4. 怎样阅读训练过程
 
 每轮依次执行冻结 actor、可选 critic、训练采样、方向学习、方向检查、候选拟合、回报检查、提交结果。终端打印方向更新次数、候选数量、拟合 KL、接受决定及最新 checkpoint 路径。方向未通过时，候选数为零。
 
 停止时显示原因、完成轮数、已用预算、剩余预算及下一轮最低启动成本。当前控制器会为启动新一轮预留训练、方向检查和至少一个候选回报检查的预算。
+
+套件成功子运行只保留 `config.json`、`summary.json`、`events.jsonl`、`checkpoints/best.json` 和 `checkpoints/final.json`。配置、运行环境和计划合并在 config 中；events 每行通过 `stream` 区分 policy、checks、batches 等记录，原始字段在 `record` 中。套件默认关闭逐梯度更新记录。读取与绘图兼容新旧布局。
+
+下表仅为直接运行 `train.py` 时的调试输出；其中 JSONL 名称在套件中对应同名 stream，不是独立文件。
 
 | 文件 | 用途 |
 |---|---|
@@ -146,7 +152,7 @@ python -m manifold_project.experiments.pair_coordination.analysis.plot_training 
 - --save-direction-snapshots：保存旧 actor 与方向及可选 critic 快照，默认关闭。
 - --checkpoint-every：仅兼容旧配置，不再控制保存频率。
 
-checkpoints 目录仅保留两个模型：best.json 保存源环境精确期望团队回报最高的执行策略（含初始策略，回报相同时保留较早的模型）；final.json 每个完成轮次覆盖更新，训练结束时即为最后模型，中断后也可用于恢复。评分按本环境独立同分布类型和成对奖励的解析公式计算，不需要联合枚举或额外采样，不参与训练接受检查；被拒绝的候选不参与最优模型评选。actor.json 保留为最后模型的兼容入口。
+checkpoints 目录仅保留两个模型：best.json 保存源环境精确期望团队回报最高的执行策略（含初始策略，回报相同时保留较早的模型）；final.json 每个完成轮次覆盖更新，训练结束时即为最后模型，中断后也可用于恢复。评分按本环境独立同分布类型和成对奖励的解析公式计算，不需要联合枚举或额外采样，不参与训练接受检查；被拒绝的候选不参与最优模型评选。套件不保存 actor.json；单次 train.py 仍保存该兼容副本。论文主比较使用 final，不按精确回报事后挑选 best。
 
 模型使用原子替换，不再生成 actor_round_*.json 或 latest.json。final.json 内携带最优快照，单独复制后恢复也能延续历史最优记录；从旧格式 checkpoint 恢复时，以该恢复点为起点重新记录最优。已有历史结果不会自动删除。summary.json 记录 best_checkpoint、best_round 和 best_expected_return。
 
@@ -154,7 +160,7 @@ checkpoints 目录仅保留两个模型：best.json 保存源环境精确期望�
 python manifold_project/experiments/pair_coordination/train.py --resume "原运行目录/checkpoints/final.json" --output-dir "新运行目录"
 ~~~
 
-恢复仅支持已完成轮次边界，沿用原配置及检查预算。每轮优化器重新创建，后续初始化、采样与分批均由确定性种子控制，已测试恢复与连续运行一致。未完成轮次需重新执行；failure.json 记录中断前已采集但未提交的成本，正式总成本还需加入这些消耗。恢复后的日志只记录续跑段，原日志仍保留。
+恢复仅支持已完成轮次边界，沿用原配置及检查预算；不能靠 resume 更改总预算。方向方法重新创建每轮优化器，PG 恢复 checkpoint 中的 Adam 状态；采样与分批由确定性种子控制。未完成轮次需重新执行，failure.json 记录已采集但未提交的成本，正式总成本还需加入这些消耗。恢复后只记录续跑段；套件 `--resume-suite` 仅复用已完成任务，不自动续跑中断训练。
 
 ## 8. 批量比较与冻结评价
 
@@ -173,8 +179,7 @@ configs/pair_conflict.json、pair_second_order.json 分别用于偏好冲突和�
 python -m unittest discover -s manifold_project/experiments/pair_coordination/tests -v
 python -m pip install -r manifold_project/experiments/pair_coordination/requirements.txt
 python -m pip install -r manifold_project/experiments/pair_coordination/requirements-visualization.txt
-python -m manifold_project.experiments.pair_coordination.run_demo
 python -m manifold_project.experiments.pair_coordination.visualization.render
 ~~~
 
-环境演示和静态图展示固定策略与计分例子。学习结果由 train 产生。三环境的总体安排见[实验方案](../../docs/策略流形研究设计.实验方案.md)。
+visualization.render 展示固定策略与计分例子；旧 run_demo.py 已不在当前目录中。学习结果由 train.py 或 run_experiments.py 产生。三环境总体安排见[实验方案](../../docs/策略流形研究设计.实验方案.md)。

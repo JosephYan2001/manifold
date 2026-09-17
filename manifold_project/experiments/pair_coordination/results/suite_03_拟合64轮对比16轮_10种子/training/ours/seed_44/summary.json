@@ -1,0 +1,22 @@
+{
+  "rounds": 30,
+  "source_episodes": 131072,
+  "stop_reason": "source_budget",
+  "mode": "policy",
+  "method": "analytic",
+  "algorithm": "direction",
+  "acceptance": "empirical",
+  "final_actor_diagnostics": {
+    "expected_return": 1.9626655995583582
+  },
+  "checkpoint": "D:\\manifold\\manifold_project\\experiments\\pair_coordination\\results\\suite_03_拟合64轮对比16轮_10种子\\training\\ours\\seed_44\\checkpoints\\final.json",
+  "best_checkpoint": "D:\\manifold\\manifold_project\\experiments\\pair_coordination\\results\\suite_03_拟合64轮对比16轮_10种子\\training\\ours\\seed_44\\checkpoints\\best.json",
+  "best_round": 29,
+  "best_expected_return": 1.962665599558358,
+  "last_direction_at_reference_actor": {
+    "expected_return": 1.9626655995583582,
+    "direction_error": 4.056306245205549e-05,
+    "score": 0.02292370202420079,
+    "information_gap": 0.0003727120345676897
+  }
+}

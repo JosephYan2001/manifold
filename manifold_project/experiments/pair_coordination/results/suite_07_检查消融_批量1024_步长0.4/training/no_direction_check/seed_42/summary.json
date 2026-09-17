@@ -1,0 +1,22 @@
+{
+  "rounds": 36,
+  "source_episodes": 131072,
+  "stop_reason": "source_budget",
+  "mode": "policy",
+  "method": "analytic",
+  "algorithm": "direction",
+  "acceptance": "empirical",
+  "final_actor_diagnostics": {
+    "expected_return": 1.962665599886652
+  },
+  "checkpoint": "D:\\manifold\\manifold_project\\experiments\\pair_coordination\\results\\suite_07_检查消融_批量1024_步长0.4\\training\\no_direction_check\\seed_42\\checkpoints\\final.json",
+  "best_checkpoint": "D:\\manifold\\manifold_project\\experiments\\pair_coordination\\results\\suite_07_检查消融_批量1024_步长0.4\\training\\no_direction_check\\seed_42\\checkpoints\\best.json",
+  "best_round": 36,
+  "best_expected_return": 1.9626655998866518,
+  "last_direction_at_reference_actor": {
+    "expected_return": 1.962665599880646,
+    "direction_error": 7.297212674372537e-06,
+    "score": 0.022956967758694154,
+    "information_gap": 0.0003727120326930365
+  }
+}

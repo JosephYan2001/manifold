@@ -1,0 +1,1831 @@
+{
+  "jobs": {
+    "training/ours/seed_40": {
+      "status": "complete",
+      "seconds": 34.07087210007012,
+      "metrics": {
+        "condition": "ours",
+        "seed": 40,
+        "status": "complete",
+        "run_dir": "D:\\manifold\\manifold_project\\experiments\\pair_coordination\\results\\suite_04_检查消融_批量128_步长0.2\\training\\ours\\seed_40",
+        "seconds": 34.03659799997695,
+        "source_episodes": 129536,
+        "budget": 131072,
+        "unused_budget": 1536,
+        "rounds": 36,
+        "stop_reason": "source_budget",
+        "initial_return": 0.38376000000000016,
+        "final_return": 1.9626655971763296,
+        "budget_normalized_auc": 1.6957404699671224,
+        "accepted_updates": 32,
+        "declining_updates": 0,
+        "decline_fraction": 0.0,
+        "total_decline": -0.0,
+        "candidate_count": 43,
+        "return_check_rejections": 11,
+        "mean_fit_kl": 0.0001619337106896892,
+        "direction_train_episodes": 4608,
+        "pg_train_episodes": 0,
+        "critic_episodes": 0,
+        "direction_check_episodes": 36864,
+        "return_old_episodes": 44032,
+        "return_candidate_episodes": 44032,
+        "optimizer_updates": 5056
+      },
+      "curves": [
+        {
+          "condition": "ours",
+          "seed": 40,
+          "budget_checkpoint": 0,
+          "model_source_episodes": 0,
+          "model_round": 0,
+          "expected_return": 0.38376000000000016
+        },
+        {
+          "condition": "ours",
+          "seed": 40,
+          "budget_checkpoint": 6553,
+          "model_source_episodes": 6400,
+          "model_round": 2,
+          "expected_return": 0.6182002589995874
+        },
+        {
+          "condition": "ours",
+          "seed": 40,
+          "budget_checkpoint": 13107,
+          "model_source_episodes": 12800,
+          "model_round": 4,
+          "expected_return": 0.8866280789158468
+        },
+        {
+          "condition": "ours",
+          "seed": 40,
+          "budget_checkpoint": 19660,
+          "model_source_episodes": 19200,
+          "model_round": 6,
+          "expected_return": 1.1603784175028193
+        },
+        {
+          "condition": "ours",
+          "seed": 40,
+          "budget_checkpoint": 26214,
+          "model_source_episodes": 25600,
+          "model_round": 8,
+          "expected_return": 1.4300908013511873
+        },
+        {
+          "condition": "ours",
+          "seed": 40,
+          "budget_checkpoint": 32768,
+          "model_source_episodes": 32000,
+          "model_round": 10,
+          "expected_return": 1.6519274362886107
+        },
+        {
+          "condition": "ours",
+          "seed": 40,
+          "budget_checkpoint": 39321,
+          "model_source_episodes": 38400,
+          "model_round": 12,
+          "expected_return": 1.7905646706666263
+        },
+        {
+          "condition": "ours",
+          "seed": 40,
+          "budget_checkpoint": 45875,
+          "model_source_episodes": 44800,
+          "model_round": 14,
+          "expected_return": 1.8897058156738236
+        },
+        {
+          "condition": "ours",
+          "seed": 40,
+          "budget_checkpoint": 52428,
+          "model_source_episodes": 51200,
+          "model_round": 16,
+          "expected_return": 1.9532590162977337
+        },
+        {
+          "condition": "ours",
+          "seed": 40,
+          "budget_checkpoint": 58982,
+          "model_source_episodes": 57600,
+          "model_round": 18,
+          "expected_return": 1.962663191363114
+        },
+        {
+          "condition": "ours",
+          "seed": 40,
+          "budget_checkpoint": 65536,
+          "model_source_episodes": 60800,
+          "model_round": 19,
+          "expected_return": 1.9626655090497351
+        },
+        {
+          "condition": "ours",
+          "seed": 40,
+          "budget_checkpoint": 72089,
+          "model_source_episodes": 69248,
+          "model_round": 21,
+          "expected_return": 1.9626655840293894
+        },
+        {
+          "condition": "ours",
+          "seed": 40,
+          "budget_checkpoint": 78643,
+          "model_source_episodes": 75648,
+          "model_round": 23,
+          "expected_return": 1.962665592153366
+        },
+        {
+          "condition": "ours",
+          "seed": 40,
+          "budget_checkpoint": 85196,
+          "model_source_episodes": 84096,
+          "model_round": 25,
+          "expected_return": 1.9626655937650757
+        },
+        {
+          "condition": "ours",
+          "seed": 40,
+          "budget_checkpoint": 91750,
+          "model_source_episodes": 90496,
+          "model_round": 27,
+          "expected_return": 1.9626655952233127
+        },
+        {
+          "condition": "ours",
+          "seed": 40,
+          "budget_checkpoint": 98304,
+          "model_source_episodes": 93696,
+          "model_round": 28,
+          "expected_return": 1.96266559565804
+        },
+        {
+          "condition": "ours",
+          "seed": 40,
+          "budget_checkpoint": 104857,
+          "model_source_episodes": 102144,
+          "model_round": 30,
+          "expected_return": 1.9626655962462909
+        },
+        {
+          "condition": "ours",
+          "seed": 40,
+          "budget_checkpoint": 111411,
+          "model_source_episodes": 107392,
+          "model_round": 31,
+          "expected_return": 1.9626655964656265
+        },
+        {
+          "condition": "ours",
+          "seed": 40,
+          "budget_checkpoint": 117964,
+          "model_source_episodes": 115840,
+          "model_round": 33,
+          "expected_return": 1.962665596793742
+        },
+        {
+          "condition": "ours",
+          "seed": 40,
+          "budget_checkpoint": 124518,
+          "model_source_episodes": 121088,
+          "model_round": 34,
+          "expected_return": 1.9626655969358162
+        },
+        {
+          "condition": "ours",
+          "seed": 40,
+          "budget_checkpoint": 131072,
+          "model_source_episodes": 129536,
+          "model_round": 36,
+          "expected_return": 1.9626655971763296
+        }
+      ]
+    },
+    "training/ours/seed_41": {
+      "status": "complete",
+      "seconds": 32.9490044999402,
+      "metrics": {
+        "condition": "ours",
+        "seed": 41,
+        "status": "complete",
+        "run_dir": "D:\\manifold\\manifold_project\\experiments\\pair_coordination\\results\\suite_04_检查消融_批量128_步长0.2\\training\\ours\\seed_41",
+        "seconds": 32.9161084999796,
+        "source_episodes": 130432,
+        "budget": 131072,
+        "unused_budget": 640,
+        "rounds": 35,
+        "stop_reason": "source_budget",
+        "initial_return": 0.38376000000000016,
+        "final_return": 1.962665596991647,
+        "budget_normalized_auc": 1.7038831816219837,
+        "accepted_updates": 30,
+        "declining_updates": 0,
+        "decline_fraction": 0.0,
+        "total_decline": -0.0,
+        "candidate_count": 44,
+        "return_check_rejections": 14,
+        "mean_fit_kl": 0.00016908537653944903,
+        "direction_train_episodes": 4480,
+        "pg_train_episodes": 0,
+        "critic_episodes": 0,
+        "direction_check_episodes": 35840,
+        "return_old_episodes": 45056,
+        "return_candidate_episodes": 45056,
+        "optimizer_updates": 5056
+      },
+      "curves": [
+        {
+          "condition": "ours",
+          "seed": 41,
+          "budget_checkpoint": 0,
+          "model_source_episodes": 0,
+          "model_round": 0,
+          "expected_return": 0.38376000000000016
+        },
+        {
+          "condition": "ours",
+          "seed": 41,
+          "budget_checkpoint": 6553,
+          "model_source_episodes": 6400,
+          "model_round": 2,
+          "expected_return": 0.6250003545090032
+        },
+        {
+          "condition": "ours",
+          "seed": 41,
+          "budget_checkpoint": 13107,
+          "model_source_episodes": 12800,
+          "model_round": 4,
+          "expected_return": 0.8829179824601191
+        },
+        {
+          "condition": "ours",
+          "seed": 41,
+          "budget_checkpoint": 19660,
+          "model_source_episodes": 19200,
+          "model_round": 6,
+          "expected_return": 1.183443412731596
+        },
+        {
+          "condition": "ours",
+          "seed": 41,
+          "budget_checkpoint": 26214,
+          "model_source_episodes": 25600,
+          "model_round": 8,
+          "expected_return": 1.4782345987801484
+        },
+        {
+          "condition": "ours",
+          "seed": 41,
+          "budget_checkpoint": 32768,
+          "model_source_episodes": 32000,
+          "model_round": 10,
+          "expected_return": 1.6833232196622012
+        },
+        {
+          "condition": "ours",
+          "seed": 41,
+          "budget_checkpoint": 39321,
+          "model_source_episodes": 38400,
+          "model_round": 12,
+          "expected_return": 1.8283526601886873
+        },
+        {
+          "condition": "ours",
+          "seed": 41,
+          "budget_checkpoint": 45875,
+          "model_source_episodes": 44800,
+          "model_round": 14,
+          "expected_return": 1.9202770883479547
+        },
+        {
+          "condition": "ours",
+          "seed": 41,
+          "budget_checkpoint": 52428,
+          "model_source_episodes": 51200,
+          "model_round": 16,
+          "expected_return": 1.962040754308532
+        },
+        {
+          "condition": "ours",
+          "seed": 41,
+          "budget_checkpoint": 58982,
+          "model_source_episodes": 56448,
+          "model_round": 17,
+          "expected_return": 1.9626582271107562
+        },
+        {
+          "condition": "ours",
+          "seed": 41,
+          "budget_checkpoint": 65536,
+          "model_source_episodes": 64896,
+          "model_round": 19,
+          "expected_return": 1.9626653968398098
+        },
+        {
+          "condition": "ours",
+          "seed": 41,
+          "budget_checkpoint": 72089,
+          "model_source_episodes": 71296,
+          "model_round": 21,
+          "expected_return": 1.9626655826990613
+        },
+        {
+          "condition": "ours",
+          "seed": 41,
+          "budget_checkpoint": 78643,
+          "model_source_episodes": 76544,
+          "model_round": 22,
+          "expected_return": 1.9626655826990613
+        },
+        {
+          "condition": "ours",
+          "seed": 41,
+          "budget_checkpoint": 85196,
+          "model_source_episodes": 82944,
+          "model_round": 24,
+          "expected_return": 1.9626655919936917
+        },
+        {
+          "condition": "ours",
+          "seed": 41,
+          "budget_checkpoint": 91750,
+          "model_source_episodes": 91392,
+          "model_round": 26,
+          "expected_return": 1.9626655936408255
+        },
+        {
+          "condition": "ours",
+          "seed": 41,
+          "budget_checkpoint": 98304,
+          "model_source_episodes": 96640,
+          "model_round": 27,
+          "expected_return": 1.9626655942126334
+        },
+        {
+          "condition": "ours",
+          "seed": 41,
+          "budget_checkpoint": 104857,
+          "model_source_episodes": 101888,
+          "model_round": 28,
+          "expected_return": 1.9626655942126334
+        },
+        {
+          "condition": "ours",
+          "seed": 41,
+          "budget_checkpoint": 111411,
+          "model_source_episodes": 108288,
+          "model_round": 30,
+          "expected_return": 1.962665595770501
+        },
+        {
+          "condition": "ours",
+          "seed": 41,
+          "budget_checkpoint": 117964,
+          "model_source_episodes": 116736,
+          "model_round": 32,
+          "expected_return": 1.9626655965145634
+        },
+        {
+          "condition": "ours",
+          "seed": 41,
+          "budget_checkpoint": 124518,
+          "model_source_episodes": 119936,
+          "model_round": 33,
+          "expected_return": 1.9626655968194564
+        },
+        {
+          "condition": "ours",
+          "seed": 41,
+          "budget_checkpoint": 131072,
+          "model_source_episodes": 130432,
+          "model_round": 35,
+          "expected_return": 1.962665596991647
+        }
+      ]
+    },
+    "training/ours/seed_42": {
+      "status": "complete",
+      "seconds": 34.78962589986622,
+      "metrics": {
+        "condition": "ours",
+        "seed": 42,
+        "status": "complete",
+        "run_dir": "D:\\manifold\\manifold_project\\experiments\\pair_coordination\\results\\suite_04_检查消融_批量128_步长0.2\\training\\ours\\seed_42",
+        "seconds": 34.75454040011391,
+        "source_episodes": 130176,
+        "budget": 131072,
+        "unused_budget": 896,
+        "rounds": 33,
+        "stop_reason": "source_budget",
+        "initial_return": 0.38375999999999993,
+        "final_return": 1.9626655951435528,
+        "budget_normalized_auc": 1.718457580323605,
+        "accepted_updates": 27,
+        "declining_updates": 0,
+        "decline_fraction": 0.0,
+        "total_decline": -0.0,
+        "candidate_count": 45,
+        "return_check_rejections": 18,
+        "mean_fit_kl": 0.00011213877394345575,
+        "direction_train_episodes": 4224,
+        "pg_train_episodes": 0,
+        "critic_episodes": 0,
+        "direction_check_episodes": 33792,
+        "return_old_episodes": 46080,
+        "return_candidate_episodes": 46080,
+        "optimizer_updates": 4992
+      },
+      "curves": [
+        {
+          "condition": "ours",
+          "seed": 42,
+          "budget_checkpoint": 0,
+          "model_source_episodes": 0,
+          "model_round": 0,
+          "expected_return": 0.38375999999999993
+        },
+        {
+          "condition": "ours",
+          "seed": 42,
+          "budget_checkpoint": 6553,
+          "model_source_episodes": 6400,
+          "model_round": 2,
+          "expected_return": 0.6601188650876081
+        },
+        {
+          "condition": "ours",
+          "seed": 42,
+          "budget_checkpoint": 13107,
+          "model_source_episodes": 12800,
+          "model_round": 4,
+          "expected_return": 0.9567138883416118
+        },
+        {
+          "condition": "ours",
+          "seed": 42,
+          "budget_checkpoint": 19660,
+          "model_source_episodes": 19200,
+          "model_round": 6,
+          "expected_return": 1.2601013739722107
+        },
+        {
+          "condition": "ours",
+          "seed": 42,
+          "budget_checkpoint": 26214,
+          "model_source_episodes": 25600,
+          "model_round": 8,
+          "expected_return": 1.521669601722482
+        },
+        {
+          "condition": "ours",
+          "seed": 42,
+          "budget_checkpoint": 32768,
+          "model_source_episodes": 32000,
+          "model_round": 10,
+          "expected_return": 1.7296746376087762
+        },
+        {
+          "condition": "ours",
+          "seed": 42,
+          "budget_checkpoint": 39321,
+          "model_source_episodes": 38400,
+          "model_round": 12,
+          "expected_return": 1.8495874194649997
+        },
+        {
+          "condition": "ours",
+          "seed": 42,
+          "budget_checkpoint": 45875,
+          "model_source_episodes": 44800,
+          "model_round": 14,
+          "expected_return": 1.9251364742117159
+        },
+        {
+          "condition": "ours",
+          "seed": 42,
+          "budget_checkpoint": 52428,
+          "model_source_episodes": 51200,
+          "model_round": 16,
+          "expected_return": 1.9623733156765781
+        },
+        {
+          "condition": "ours",
+          "seed": 42,
+          "budget_checkpoint": 58982,
+          "model_source_episodes": 56448,
+          "model_round": 17,
+          "expected_return": 1.9626620112585071
+        },
+        {
+          "condition": "ours",
+          "seed": 42,
+          "budget_checkpoint": 65536,
+          "model_source_episodes": 64896,
+          "model_round": 19,
+          "expected_return": 1.9626654863841806
+        },
+        {
+          "condition": "ours",
+          "seed": 42,
+          "budget_checkpoint": 72089,
+          "model_source_episodes": 70144,
+          "model_round": 20,
+          "expected_return": 1.9626655629157006
+        },
+        {
+          "condition": "ours",
+          "seed": 42,
+          "budget_checkpoint": 78643,
+          "model_source_episodes": 75392,
+          "model_round": 21,
+          "expected_return": 1.9626655629157006
+        },
+        {
+          "condition": "ours",
+          "seed": 42,
+          "budget_checkpoint": 85196,
+          "model_source_episodes": 83840,
+          "model_round": 23,
+          "expected_return": 1.9626655854611814
+        },
+        {
+          "condition": "ours",
+          "seed": 42,
+          "budget_checkpoint": 91750,
+          "model_source_episodes": 89088,
+          "model_round": 24,
+          "expected_return": 1.9626655854611814
+        },
+        {
+          "condition": "ours",
+          "seed": 42,
+          "budget_checkpoint": 98304,
+          "model_source_episodes": 95488,
+          "model_round": 26,
+          "expected_return": 1.9626655922777445
+        },
+        {
+          "condition": "ours",
+          "seed": 42,
+          "budget_checkpoint": 104857,
+          "model_source_episodes": 100736,
+          "model_round": 27,
+          "expected_return": 1.962665592987951
+        },
+        {
+          "condition": "ours",
+          "seed": 42,
+          "budget_checkpoint": 111411,
+          "model_source_episodes": 111232,
+          "model_round": 29,
+          "expected_return": 1.9626655938036977
+        },
+        {
+          "condition": "ours",
+          "seed": 42,
+          "budget_checkpoint": 117964,
+          "model_source_episodes": 116480,
+          "model_round": 30,
+          "expected_return": 1.9626655938036977
+        },
+        {
+          "condition": "ours",
+          "seed": 42,
+          "budget_checkpoint": 124518,
+          "model_source_episodes": 119680,
+          "model_round": 31,
+          "expected_return": 1.962665594764849
+        },
+        {
+          "condition": "ours",
+          "seed": 42,
+          "budget_checkpoint": 131072,
+          "model_source_episodes": 130176,
+          "model_round": 33,
+          "expected_return": 1.9626655951435528
+        }
+      ]
+    },
+    "training/no_direction_check/seed_40": {
+      "status": "complete",
+      "seconds": 43.75594919989817,
+      "metrics": {
+        "condition": "no_direction_check",
+        "seed": 40,
+        "status": "complete",
+        "run_dir": "D:\\manifold\\manifold_project\\experiments\\pair_coordination\\results\\suite_04_检查消融_批量128_步长0.2\\training\\no_direction_check\\seed_40",
+        "seconds": 43.714161900104955,
+        "source_episodes": 130560,
+        "budget": 131072,
+        "unused_budget": 512,
+        "rounds": 44,
+        "stop_reason": "source_budget",
+        "initial_return": 0.38376000000000016,
+        "final_return": 1.962665597912492,
+        "budget_normalized_auc": 1.7469303849214939,
+        "accepted_updates": 37,
+        "declining_updates": 0,
+        "decline_fraction": 0.0,
+        "total_decline": -0.0,
+        "candidate_count": 61,
+        "return_check_rejections": 24,
+        "mean_fit_kl": 0.00015516722936720015,
+        "direction_train_episodes": 5632,
+        "pg_train_episodes": 0,
+        "critic_episodes": 0,
+        "direction_check_episodes": 0,
+        "return_old_episodes": 62464,
+        "return_candidate_episodes": 62464,
+        "optimizer_updates": 6720
+      },
+      "curves": [
+        {
+          "condition": "no_direction_check",
+          "seed": 40,
+          "budget_checkpoint": 0,
+          "model_source_episodes": 0,
+          "model_round": 0,
+          "expected_return": 0.38376000000000016
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 40,
+          "budget_checkpoint": 6553,
+          "model_source_episodes": 6400,
+          "model_round": 2,
+          "expected_return": 0.5557403791813775
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 40,
+          "budget_checkpoint": 13107,
+          "model_source_episodes": 12928,
+          "model_round": 5,
+          "expected_return": 0.965699162868503
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 40,
+          "budget_checkpoint": 19660,
+          "model_source_episodes": 19456,
+          "model_round": 8,
+          "expected_return": 1.3803966895829947
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 40,
+          "budget_checkpoint": 26214,
+          "model_source_episodes": 25984,
+          "model_round": 11,
+          "expected_return": 1.7210669272557664
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 40,
+          "budget_checkpoint": 32768,
+          "model_source_episodes": 32512,
+          "model_round": 14,
+          "expected_return": 1.8936188486828673
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 40,
+          "budget_checkpoint": 39321,
+          "model_source_episodes": 36864,
+          "model_round": 16,
+          "expected_return": 1.9415281556392765
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 40,
+          "budget_checkpoint": 45875,
+          "model_source_episodes": 43264,
+          "model_round": 18,
+          "expected_return": 1.9621715263128388
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 40,
+          "budget_checkpoint": 52428,
+          "model_source_episodes": 51712,
+          "model_round": 20,
+          "expected_return": 1.9626654486627109
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 40,
+          "budget_checkpoint": 58982,
+          "model_source_episodes": 58112,
+          "model_round": 22,
+          "expected_return": 1.962665574091073
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 40,
+          "budget_checkpoint": 65536,
+          "model_source_episodes": 62464,
+          "model_round": 24,
+          "expected_return": 1.9626655904472143
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 40,
+          "budget_checkpoint": 72089,
+          "model_source_episodes": 68864,
+          "model_round": 26,
+          "expected_return": 1.9626655925698653
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 40,
+          "budget_checkpoint": 78643,
+          "model_source_episodes": 75264,
+          "model_round": 28,
+          "expected_return": 1.9626655946225617
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 40,
+          "budget_checkpoint": 85196,
+          "model_source_episodes": 81664,
+          "model_round": 30,
+          "expected_return": 1.9626655958214958
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 40,
+          "budget_checkpoint": 91750,
+          "model_source_episodes": 88064,
+          "model_round": 32,
+          "expected_return": 1.9626655963670017
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 40,
+          "budget_checkpoint": 98304,
+          "model_source_episodes": 96512,
+          "model_round": 34,
+          "expected_return": 1.9626655965371176
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 40,
+          "budget_checkpoint": 104857,
+          "model_source_episodes": 102912,
+          "model_round": 36,
+          "expected_return": 1.962665597060865
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 40,
+          "budget_checkpoint": 111411,
+          "model_source_episodes": 109312,
+          "model_round": 38,
+          "expected_return": 1.9626655975032015
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 40,
+          "budget_checkpoint": 117964,
+          "model_source_episodes": 117888,
+          "model_round": 41,
+          "expected_return": 1.962665597912492
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 40,
+          "budget_checkpoint": 124518,
+          "model_source_episodes": 122112,
+          "model_round": 42,
+          "expected_return": 1.962665597912492
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 40,
+          "budget_checkpoint": 131072,
+          "model_source_episodes": 130560,
+          "model_round": 44,
+          "expected_return": 1.962665597912492
+        }
+      ]
+    },
+    "training/no_direction_check/seed_41": {
+      "status": "complete",
+      "seconds": 48.84806039999239,
+      "metrics": {
+        "condition": "no_direction_check",
+        "seed": 41,
+        "status": "complete",
+        "run_dir": "D:\\manifold\\manifold_project\\experiments\\pair_coordination\\results\\suite_04_检查消融_批量128_步长0.2\\training\\no_direction_check\\seed_41",
+        "seconds": 48.817848100094125,
+        "source_episodes": 131072,
+        "budget": 131072,
+        "unused_budget": 0,
+        "rounds": 48,
+        "stop_reason": "source_budget",
+        "initial_return": 0.38376000000000016,
+        "final_return": 1.9626655983754335,
+        "budget_normalized_auc": 1.7928566197610991,
+        "accepted_updates": 40,
+        "declining_updates": 0,
+        "decline_fraction": 0.0,
+        "total_decline": -0.0,
+        "candidate_count": 61,
+        "return_check_rejections": 21,
+        "mean_fit_kl": 0.0002072801980206327,
+        "direction_train_episodes": 6144,
+        "pg_train_episodes": 0,
+        "critic_episodes": 0,
+        "direction_check_episodes": 0,
+        "return_old_episodes": 62464,
+        "return_candidate_episodes": 62464,
+        "optimizer_updates": 6976
+      },
+      "curves": [
+        {
+          "condition": "no_direction_check",
+          "seed": 41,
+          "budget_checkpoint": 0,
+          "model_source_episodes": 0,
+          "model_round": 0,
+          "expected_return": 0.38376000000000016
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 41,
+          "budget_checkpoint": 6553,
+          "model_source_episodes": 6528,
+          "model_round": 3,
+          "expected_return": 0.7722724385965103
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 41,
+          "budget_checkpoint": 13107,
+          "model_source_episodes": 13056,
+          "model_round": 6,
+          "expected_return": 1.225100466482
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 41,
+          "budget_checkpoint": 19660,
+          "model_source_episodes": 19584,
+          "model_round": 9,
+          "expected_return": 1.6338371611487077
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 41,
+          "budget_checkpoint": 26214,
+          "model_source_episodes": 26112,
+          "model_round": 12,
+          "expected_return": 1.8530858181081318
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 41,
+          "budget_checkpoint": 32768,
+          "model_source_episodes": 32640,
+          "model_round": 15,
+          "expected_return": 1.9485209884824584
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 41,
+          "budget_checkpoint": 39321,
+          "model_source_episodes": 39168,
+          "model_round": 18,
+          "expected_return": 1.9626654562546133
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 41,
+          "budget_checkpoint": 45875,
+          "model_source_episodes": 45696,
+          "model_round": 21,
+          "expected_return": 1.9626655896848637
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 41,
+          "budget_checkpoint": 52428,
+          "model_source_episodes": 52096,
+          "model_round": 23,
+          "expected_return": 1.96266559231919
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 41,
+          "budget_checkpoint": 58982,
+          "model_source_episodes": 56320,
+          "model_round": 24,
+          "expected_return": 1.96266559231919
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 41,
+          "budget_checkpoint": 65536,
+          "model_source_episodes": 64896,
+          "model_round": 27,
+          "expected_return": 1.9626655952491134
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 41,
+          "budget_checkpoint": 72089,
+          "model_source_episodes": 71296,
+          "model_round": 29,
+          "expected_return": 1.962665595944154
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 41,
+          "budget_checkpoint": 78643,
+          "model_source_episodes": 75648,
+          "model_round": 31,
+          "expected_return": 1.962665596757771
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 41,
+          "budget_checkpoint": 85196,
+          "model_source_episodes": 84096,
+          "model_round": 33,
+          "expected_return": 1.9626655971191065
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 41,
+          "budget_checkpoint": 91750,
+          "model_source_episodes": 90496,
+          "model_round": 35,
+          "expected_return": 1.9626655973358293
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 41,
+          "budget_checkpoint": 98304,
+          "model_source_episodes": 94720,
+          "model_round": 36,
+          "expected_return": 1.9626655973358293
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 41,
+          "budget_checkpoint": 104857,
+          "model_source_episodes": 103296,
+          "model_round": 39,
+          "expected_return": 1.9626655976982232
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 41,
+          "budget_checkpoint": 111411,
+          "model_source_episodes": 109696,
+          "model_round": 41,
+          "expected_return": 1.9626655978413259
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 41,
+          "budget_checkpoint": 117964,
+          "model_source_episodes": 116224,
+          "model_round": 44,
+          "expected_return": 1.9626655981874217
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 41,
+          "budget_checkpoint": 124518,
+          "model_source_episodes": 120448,
+          "model_round": 45,
+          "expected_return": 1.962665598235577
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 41,
+          "budget_checkpoint": 131072,
+          "model_source_episodes": 131072,
+          "model_round": 48,
+          "expected_return": 1.9626655983754335
+        }
+      ]
+    },
+    "training/no_direction_check/seed_42": {
+      "status": "complete",
+      "seconds": 48.36228969995864,
+      "metrics": {
+        "condition": "no_direction_check",
+        "seed": 42,
+        "status": "complete",
+        "run_dir": "D:\\manifold\\manifold_project\\experiments\\pair_coordination\\results\\suite_04_检查消融_批量128_步长0.2\\training\\no_direction_check\\seed_42",
+        "seconds": 48.309550300007686,
+        "source_episodes": 131072,
+        "budget": 131072,
+        "unused_budget": 0,
+        "rounds": 48,
+        "stop_reason": "source_budget",
+        "initial_return": 0.38375999999999993,
+        "final_return": 1.9626655984215189,
+        "budget_normalized_auc": 1.7866812801347929,
+        "accepted_updates": 43,
+        "declining_updates": 0,
+        "decline_fraction": 0.0,
+        "total_decline": -0.0,
+        "candidate_count": 61,
+        "return_check_rejections": 18,
+        "mean_fit_kl": 0.00019028617178473714,
+        "direction_train_episodes": 6144,
+        "pg_train_episodes": 0,
+        "critic_episodes": 0,
+        "direction_check_episodes": 0,
+        "return_old_episodes": 62464,
+        "return_candidate_episodes": 62464,
+        "optimizer_updates": 6976
+      },
+      "curves": [
+        {
+          "condition": "no_direction_check",
+          "seed": 42,
+          "budget_checkpoint": 0,
+          "model_source_episodes": 0,
+          "model_round": 0,
+          "expected_return": 0.38375999999999993
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 42,
+          "budget_checkpoint": 6553,
+          "model_source_episodes": 6528,
+          "model_round": 3,
+          "expected_return": 0.7549502486382544
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 42,
+          "budget_checkpoint": 13107,
+          "model_source_episodes": 13056,
+          "model_round": 6,
+          "expected_return": 1.215049112701317
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 42,
+          "budget_checkpoint": 19660,
+          "model_source_episodes": 19584,
+          "model_round": 9,
+          "expected_return": 1.5955048163106655
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 42,
+          "budget_checkpoint": 26214,
+          "model_source_episodes": 26112,
+          "model_round": 12,
+          "expected_return": 1.8195511981385024
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 42,
+          "budget_checkpoint": 32768,
+          "model_source_episodes": 32640,
+          "model_round": 15,
+          "expected_return": 1.939828497481787
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 42,
+          "budget_checkpoint": 39321,
+          "model_source_episodes": 39040,
+          "model_round": 17,
+          "expected_return": 1.9610585567215595
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 42,
+          "budget_checkpoint": 45875,
+          "model_source_episodes": 45440,
+          "model_round": 19,
+          "expected_return": 1.9626466951520132
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 42,
+          "budget_checkpoint": 52428,
+          "model_source_episodes": 51968,
+          "model_round": 22,
+          "expected_return": 1.962665580046574
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 42,
+          "budget_checkpoint": 58982,
+          "model_source_episodes": 56192,
+          "model_round": 23,
+          "expected_return": 1.962665585514752
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 42,
+          "budget_checkpoint": 65536,
+          "model_source_episodes": 64768,
+          "model_round": 26,
+          "expected_return": 1.9626655924311216
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 42,
+          "budget_checkpoint": 72089,
+          "model_source_episodes": 71168,
+          "model_round": 28,
+          "expected_return": 1.9626655945014682
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 42,
+          "budget_checkpoint": 78643,
+          "model_source_episodes": 77568,
+          "model_round": 30,
+          "expected_return": 1.9626655957254084
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 42,
+          "budget_checkpoint": 85196,
+          "model_source_episodes": 83968,
+          "model_round": 32,
+          "expected_return": 1.9626655963269588
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 42,
+          "budget_checkpoint": 91750,
+          "model_source_episodes": 90496,
+          "model_round": 35,
+          "expected_return": 1.962665597149711
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 42,
+          "budget_checkpoint": 98304,
+          "model_source_episodes": 97024,
+          "model_round": 38,
+          "expected_return": 1.9626655977663645
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 42,
+          "budget_checkpoint": 104857,
+          "model_source_episodes": 103424,
+          "model_round": 40,
+          "expected_return": 1.9626655979645375
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 42,
+          "budget_checkpoint": 111411,
+          "model_source_episodes": 107776,
+          "model_round": 42,
+          "expected_return": 1.9626655981892798
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 42,
+          "budget_checkpoint": 117964,
+          "model_source_episodes": 116224,
+          "model_round": 44,
+          "expected_return": 1.9626655983046892
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 42,
+          "budget_checkpoint": 124518,
+          "model_source_episodes": 122624,
+          "model_round": 46,
+          "expected_return": 1.9626655983911656
+        },
+        {
+          "condition": "no_direction_check",
+          "seed": 42,
+          "budget_checkpoint": 131072,
+          "model_source_episodes": 131072,
+          "model_round": 48,
+          "expected_return": 1.9626655984215189
+        }
+      ]
+    },
+    "training/no_return_check/seed_40": {
+      "status": "complete",
+      "seconds": 95.43198620015755,
+      "metrics": {
+        "condition": "no_return_check",
+        "seed": 40,
+        "status": "complete",
+        "run_dir": "D:\\manifold\\manifold_project\\experiments\\pair_coordination\\results\\suite_04_检查消融_批量128_步长0.2\\training\\no_return_check\\seed_40",
+        "seconds": 95.39251110004261,
+        "source_episodes": 130176,
+        "budget": 131072,
+        "unused_budget": 896,
+        "rounds": 113,
+        "stop_reason": "source_budget",
+        "initial_return": 0.38376000000000016,
+        "final_return": 1.962665599663842,
+        "budget_normalized_auc": 1.8709513656080035,
+        "accepted_updates": 113,
+        "declining_updates": 0,
+        "decline_fraction": 0.0,
+        "total_decline": -0.0,
+        "candidate_count": 113,
+        "return_check_rejections": 0,
+        "mean_fit_kl": 0.0003392617929108526,
+        "direction_train_episodes": 14464,
+        "pg_train_episodes": 0,
+        "critic_episodes": 0,
+        "direction_check_episodes": 115712,
+        "return_old_episodes": 0,
+        "return_candidate_episodes": 0,
+        "optimizer_updates": 14464
+      },
+      "curves": [
+        {
+          "condition": "no_return_check",
+          "seed": 40,
+          "budget_checkpoint": 0,
+          "model_source_episodes": 0,
+          "model_round": 0,
+          "expected_return": 0.38376000000000016
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 40,
+          "budget_checkpoint": 6553,
+          "model_source_episodes": 5760,
+          "model_round": 5,
+          "expected_return": 1.107410623951213
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 40,
+          "budget_checkpoint": 13107,
+          "model_source_episodes": 12672,
+          "model_round": 11,
+          "expected_return": 1.7524071053035803
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 40,
+          "budget_checkpoint": 19660,
+          "model_source_episodes": 19584,
+          "model_round": 17,
+          "expected_return": 1.9623030410785371
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 40,
+          "budget_checkpoint": 26214,
+          "model_source_episodes": 25344,
+          "model_round": 22,
+          "expected_return": 1.9626655895701486
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 40,
+          "budget_checkpoint": 32768,
+          "model_source_episodes": 32256,
+          "model_round": 28,
+          "expected_return": 1.9626655964274513
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 40,
+          "budget_checkpoint": 39321,
+          "model_source_episodes": 39168,
+          "model_round": 34,
+          "expected_return": 1.9626655979170817
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 40,
+          "budget_checkpoint": 45875,
+          "model_source_episodes": 44928,
+          "model_round": 39,
+          "expected_return": 1.962665598463647
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 40,
+          "budget_checkpoint": 52428,
+          "model_source_episodes": 51840,
+          "model_round": 45,
+          "expected_return": 1.9626655988226438
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 40,
+          "budget_checkpoint": 58982,
+          "model_source_episodes": 58752,
+          "model_round": 51,
+          "expected_return": 1.962665599042417
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 40,
+          "budget_checkpoint": 65536,
+          "model_source_episodes": 64512,
+          "model_round": 56,
+          "expected_return": 1.962665599144469
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 40,
+          "budget_checkpoint": 72089,
+          "model_source_episodes": 71424,
+          "model_round": 62,
+          "expected_return": 1.9626655992645559
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 40,
+          "budget_checkpoint": 78643,
+          "model_source_episodes": 78336,
+          "model_round": 68,
+          "expected_return": 1.9626655993589432
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 40,
+          "budget_checkpoint": 85196,
+          "model_source_episodes": 84096,
+          "model_round": 73,
+          "expected_return": 1.9626655994163549
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 40,
+          "budget_checkpoint": 91750,
+          "model_source_episodes": 91008,
+          "model_round": 79,
+          "expected_return": 1.9626655994715043
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 40,
+          "budget_checkpoint": 98304,
+          "model_source_episodes": 97920,
+          "model_round": 85,
+          "expected_return": 1.9626655995239146
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 40,
+          "budget_checkpoint": 104857,
+          "model_source_episodes": 104832,
+          "model_round": 91,
+          "expected_return": 1.9626655995627857
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 40,
+          "budget_checkpoint": 111411,
+          "model_source_episodes": 110592,
+          "model_round": 96,
+          "expected_return": 1.9626655995873723
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 40,
+          "budget_checkpoint": 117964,
+          "model_source_episodes": 117504,
+          "model_round": 102,
+          "expected_return": 1.962665599620303
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 40,
+          "budget_checkpoint": 124518,
+          "model_source_episodes": 124416,
+          "model_round": 108,
+          "expected_return": 1.96266559964753
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 40,
+          "budget_checkpoint": 131072,
+          "model_source_episodes": 130176,
+          "model_round": 113,
+          "expected_return": 1.962665599663842
+        }
+      ]
+    },
+    "training/no_return_check/seed_41": {
+      "status": "complete",
+      "seconds": 94.47622549999505,
+      "metrics": {
+        "condition": "no_return_check",
+        "seed": 41,
+        "status": "complete",
+        "run_dir": "D:\\manifold\\manifold_project\\experiments\\pair_coordination\\results\\suite_04_检查消融_批量128_步长0.2\\training\\no_return_check\\seed_41",
+        "seconds": 94.42797299986705,
+        "source_episodes": 130176,
+        "budget": 131072,
+        "unused_budget": 896,
+        "rounds": 113,
+        "stop_reason": "source_budget",
+        "initial_return": 0.38376000000000016,
+        "final_return": 1.9626655996677382,
+        "budget_normalized_auc": 1.8739407408998117,
+        "accepted_updates": 113,
+        "declining_updates": 0,
+        "decline_fraction": 0.0,
+        "total_decline": -0.0,
+        "candidate_count": 113,
+        "return_check_rejections": 0,
+        "mean_fit_kl": 0.000368245955475677,
+        "direction_train_episodes": 14464,
+        "pg_train_episodes": 0,
+        "critic_episodes": 0,
+        "direction_check_episodes": 115712,
+        "return_old_episodes": 0,
+        "return_candidate_episodes": 0,
+        "optimizer_updates": 14464
+      },
+      "curves": [
+        {
+          "condition": "no_return_check",
+          "seed": 41,
+          "budget_checkpoint": 0,
+          "model_source_episodes": 0,
+          "model_round": 0,
+          "expected_return": 0.38376000000000016
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 41,
+          "budget_checkpoint": 6553,
+          "model_source_episodes": 5760,
+          "model_round": 5,
+          "expected_return": 1.0995040324735172
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 41,
+          "budget_checkpoint": 13107,
+          "model_source_episodes": 12672,
+          "model_round": 11,
+          "expected_return": 1.7974260788505452
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 41,
+          "budget_checkpoint": 19660,
+          "model_source_episodes": 19584,
+          "model_round": 17,
+          "expected_return": 1.962653131282145
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 41,
+          "budget_checkpoint": 26214,
+          "model_source_episodes": 25344,
+          "model_round": 22,
+          "expected_return": 1.9626655899879195
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 41,
+          "budget_checkpoint": 32768,
+          "model_source_episodes": 32256,
+          "model_round": 28,
+          "expected_return": 1.962665596494737
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 41,
+          "budget_checkpoint": 39321,
+          "model_source_episodes": 39168,
+          "model_round": 34,
+          "expected_return": 1.9626655979869165
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 41,
+          "budget_checkpoint": 45875,
+          "model_source_episodes": 44928,
+          "model_round": 39,
+          "expected_return": 1.9626655984462409
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 41,
+          "budget_checkpoint": 52428,
+          "model_source_episodes": 51840,
+          "model_round": 45,
+          "expected_return": 1.9626655987905175
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 41,
+          "budget_checkpoint": 58982,
+          "model_source_episodes": 58752,
+          "model_round": 51,
+          "expected_return": 1.962665599015096
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 41,
+          "budget_checkpoint": 65536,
+          "model_source_episodes": 64512,
+          "model_round": 56,
+          "expected_return": 1.9626655991501996
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 41,
+          "budget_checkpoint": 72089,
+          "model_source_episodes": 71424,
+          "model_round": 62,
+          "expected_return": 1.9626655992706303
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 41,
+          "budget_checkpoint": 78643,
+          "model_source_episodes": 78336,
+          "model_round": 68,
+          "expected_return": 1.9626655993627817
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 41,
+          "budget_checkpoint": 85196,
+          "model_source_episodes": 84096,
+          "model_round": 73,
+          "expected_return": 1.9626655994219997
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 41,
+          "budget_checkpoint": 91750,
+          "model_source_episodes": 91008,
+          "model_round": 79,
+          "expected_return": 1.9626655994761606
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 41,
+          "budget_checkpoint": 98304,
+          "model_source_episodes": 97920,
+          "model_round": 85,
+          "expected_return": 1.9626655995258946
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 41,
+          "budget_checkpoint": 104857,
+          "model_source_episodes": 104832,
+          "model_round": 91,
+          "expected_return": 1.962665599566785
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 41,
+          "budget_checkpoint": 111411,
+          "model_source_episodes": 110592,
+          "model_round": 96,
+          "expected_return": 1.9626655995946454
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 41,
+          "budget_checkpoint": 117964,
+          "model_source_episodes": 117504,
+          "model_round": 102,
+          "expected_return": 1.9626655996228477
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 41,
+          "budget_checkpoint": 124518,
+          "model_source_episodes": 124416,
+          "model_round": 108,
+          "expected_return": 1.962665599649433
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 41,
+          "budget_checkpoint": 131072,
+          "model_source_episodes": 130176,
+          "model_round": 113,
+          "expected_return": 1.9626655996677382
+        }
+      ]
+    },
+    "training/no_return_check/seed_42": {
+      "status": "complete",
+      "seconds": 94.76876379991882,
+      "metrics": {
+        "condition": "no_return_check",
+        "seed": 42,
+        "status": "complete",
+        "run_dir": "D:\\manifold\\manifold_project\\experiments\\pair_coordination\\results\\suite_04_检查消融_批量128_步长0.2\\training\\no_return_check\\seed_42",
+        "seconds": 94.73503379989415,
+        "source_episodes": 130176,
+        "budget": 131072,
+        "unused_budget": 896,
+        "rounds": 113,
+        "stop_reason": "source_budget",
+        "initial_return": 0.38375999999999993,
+        "final_return": 1.9626655996478128,
+        "budget_normalized_auc": 1.8743758966734196,
+        "accepted_updates": 113,
+        "declining_updates": 0,
+        "decline_fraction": 0.0,
+        "total_decline": -0.0,
+        "candidate_count": 113,
+        "return_check_rejections": 0,
+        "mean_fit_kl": 0.00035032398089218083,
+        "direction_train_episodes": 14464,
+        "pg_train_episodes": 0,
+        "critic_episodes": 0,
+        "direction_check_episodes": 115712,
+        "return_old_episodes": 0,
+        "return_candidate_episodes": 0,
+        "optimizer_updates": 14464
+      },
+      "curves": [
+        {
+          "condition": "no_return_check",
+          "seed": 42,
+          "budget_checkpoint": 0,
+          "model_source_episodes": 0,
+          "model_round": 0,
+          "expected_return": 0.38375999999999993
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 42,
+          "budget_checkpoint": 6553,
+          "model_source_episodes": 5760,
+          "model_round": 5,
+          "expected_return": 1.093015340325007
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 42,
+          "budget_checkpoint": 13107,
+          "model_source_episodes": 12672,
+          "model_round": 11,
+          "expected_return": 1.7980740520121925
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 42,
+          "budget_checkpoint": 19660,
+          "model_source_episodes": 19584,
+          "model_round": 17,
+          "expected_return": 1.9626643649935491
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 42,
+          "budget_checkpoint": 26214,
+          "model_source_episodes": 25344,
+          "model_round": 22,
+          "expected_return": 1.962665592975312
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 42,
+          "budget_checkpoint": 32768,
+          "model_source_episodes": 32256,
+          "model_round": 28,
+          "expected_return": 1.9626655968385813
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 42,
+          "budget_checkpoint": 39321,
+          "model_source_episodes": 39168,
+          "model_round": 34,
+          "expected_return": 1.9626655979758811
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 42,
+          "budget_checkpoint": 45875,
+          "model_source_episodes": 44928,
+          "model_round": 39,
+          "expected_return": 1.9626655984616743
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 42,
+          "budget_checkpoint": 52428,
+          "model_source_episodes": 51840,
+          "model_round": 45,
+          "expected_return": 1.962665598820659
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 42,
+          "budget_checkpoint": 58982,
+          "model_source_episodes": 58752,
+          "model_round": 51,
+          "expected_return": 1.9626655990273811
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 42,
+          "budget_checkpoint": 65536,
+          "model_source_episodes": 64512,
+          "model_round": 56,
+          "expected_return": 1.9626655991499236
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 42,
+          "budget_checkpoint": 72089,
+          "model_source_episodes": 71424,
+          "model_round": 62,
+          "expected_return": 1.9626655992585849
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 42,
+          "budget_checkpoint": 78643,
+          "model_source_episodes": 78336,
+          "model_round": 68,
+          "expected_return": 1.962665599338108
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 42,
+          "budget_checkpoint": 85196,
+          "model_source_episodes": 84096,
+          "model_round": 73,
+          "expected_return": 1.9626655994031992
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 42,
+          "budget_checkpoint": 91750,
+          "model_source_episodes": 91008,
+          "model_round": 79,
+          "expected_return": 1.9626655994577382
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 42,
+          "budget_checkpoint": 98304,
+          "model_source_episodes": 97920,
+          "model_round": 85,
+          "expected_return": 1.9626655995048774
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 42,
+          "budget_checkpoint": 104857,
+          "model_source_episodes": 104832,
+          "model_round": 91,
+          "expected_return": 1.9626655995438873
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 42,
+          "budget_checkpoint": 111411,
+          "model_source_episodes": 110592,
+          "model_round": 96,
+          "expected_return": 1.9626655995721694
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 42,
+          "budget_checkpoint": 117964,
+          "model_source_episodes": 117504,
+          "model_round": 102,
+          "expected_return": 1.9626655996008109
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 42,
+          "budget_checkpoint": 124518,
+          "model_source_episodes": 124416,
+          "model_round": 108,
+          "expected_return": 1.9626655996272886
+        },
+        {
+          "condition": "no_return_check",
+          "seed": 42,
+          "budget_checkpoint": 131072,
+          "model_source_episodes": 130176,
+          "model_round": 113,
+          "expected_return": 1.9626655996478128
+        }
+      ]
+    }
+  }
+}

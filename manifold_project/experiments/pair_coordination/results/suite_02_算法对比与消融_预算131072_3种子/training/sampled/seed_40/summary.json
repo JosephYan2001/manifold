@@ -1,0 +1,22 @@
+{
+  "rounds": 30,
+  "source_episodes": 129024,
+  "stop_reason": "source_budget",
+  "mode": "policy",
+  "method": "sampled",
+  "algorithm": "direction",
+  "acceptance": "empirical",
+  "final_actor_diagnostics": {
+    "expected_return": 1.962665599658286
+  },
+  "checkpoint": "D:\\manifold\\manifold_project\\experiments\\pair_coordination\\results\\suite_02_算法对比与消融_预算131072_3种子\\training\\sampled\\seed_40\\checkpoints\\final.json",
+  "best_checkpoint": "D:\\manifold\\manifold_project\\experiments\\pair_coordination\\results\\suite_02_算法对比与消融_预算131072_3种子\\training\\sampled\\seed_40\\checkpoints\\best.json",
+  "best_round": 30,
+  "best_expected_return": 1.9626655996582856,
+  "last_direction_at_reference_actor": {
+    "expected_return": 1.9626655996150901,
+    "direction_error": 0.002732350123572282,
+    "score": 0.020231914942359007,
+    "information_gap": 0.00037271203423846697
+  }
+}
