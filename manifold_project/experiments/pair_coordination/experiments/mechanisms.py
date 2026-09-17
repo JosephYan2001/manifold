@@ -2,6 +2,7 @@
 from dataclasses import replace
 import hashlib
 import math
+import time
 import numpy as np
 from ..envs.pair_coordination import PairConfig, sample_episodes, validate_policy
 from ..evaluation.exact_pair import (closed_form_expected_return, closed_form_local_direction,
@@ -182,11 +183,18 @@ def second_order(config):
     return rows
 
 
-def check_rules(source, config, training):
+def check_rules(source, config, training, progress=None):
     policy = np.full((source.n_types, 2), .5)
     v = closed_form_local_direction(source, policy)
     alpha = alpha_per_check(training.alpha, training.rounds, training.attempts)
     rows = []
+    total_episodes = 9*sum(config['check_sizes'])*len(config['data_seeds'])
+    total_batches = 6*len(config['check_sizes'])*len(config['data_seeds'])
+    completed_episodes = completed_batches = 0
+    started = last_report = time.perf_counter()
+    if progress is not None:
+        progress(dict(completed_episodes=0,total_episodes=total_episodes,
+                      completed_batches=0,total_batches=total_batches,elapsed_seconds=0.,eta_seconds=None))
     for kind in ("direction", "return"):
         for sign in (-1, 0, 1):
             q = sign*v
@@ -215,4 +223,15 @@ def check_rules(source, config, training):
                                      "false_accept": result["accepted"] and truth <= 1e-12,
                                      "false_reject": not result["accepted"] and truth > 1e-12,
                                      "evaluation_episodes": size*(2 if kind == "return" else 1)})
+                    completed_episodes += size*(2 if kind == 'return' else 1)
+                    completed_batches += 1
+                    now = time.perf_counter()
+                    if progress is not None and (now-last_report >= 5 or completed_batches == total_batches):
+                        elapsed = now-started
+                        progress(dict(completed_episodes=completed_episodes,total_episodes=total_episodes,
+                                      completed_batches=completed_batches,total_batches=total_batches,
+                                      elapsed_seconds=elapsed,
+                                      eta_seconds=elapsed*(total_episodes-completed_episodes)/completed_episodes,
+                                      kind=kind,truth_class=sign,sample_size=size,seed=seed))
+                        last_report = now
     return rows

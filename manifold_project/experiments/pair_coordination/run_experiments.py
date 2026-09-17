@@ -142,9 +142,11 @@ def execute(args, source, base, config, plan):
         state["jobs"][key] = {"status": "running"}
         atomic_json(directory/"status.json", state)
         started = time.perf_counter()
+        print(f"开始：{key}", flush=True)
         try:
             result = function()
             state["jobs"][key] = {"status": "complete", "seconds": time.perf_counter()-started, **result}
+            print(f"完成：{key}，耗时 {time.perf_counter()-started:.1f} 秒", flush=True)
         except KeyboardInterrupt:
             state["jobs"][key] = {"status": "interrupted", "seconds": time.perf_counter()-started}
             atomic_json(directory/"status.json", state)
@@ -168,12 +170,23 @@ def execute(args, source, base, config, plan):
             return {"metrics": metrics, "curves": curves}
         run_job(key, train, training=True)
 
+    def check_progress(record):
+        state['jobs']['P-H']['progress'] = record
+        atomic_json(directory/'status.json', state)
+        completed, total = record['completed_episodes'], record['total_episodes']
+        eta = record['eta_seconds']
+        estimate = '估算中' if eta is None else f'{eta/60:.1f} 分钟'
+        percent = 100*completed/total if total else 100.
+        print(f"P-H：{completed:,}/{total:,} 回合（{percent:.1f}%），"
+              f"数据组 {record['completed_batches']}/{record['total_batches']}，"
+              f"已用 {record['elapsed_seconds']/60:.1f} 分钟，预计剩余 {estimate}", flush=True)
+
     functions = {"P-M1": lambda: mechanisms.direction_estimation(source, config["mechanisms"]),
                  "P-M2": lambda: mechanisms.actor_realization(source, config["mechanisms"]),
                  "P-M3": lambda: mechanisms.direction_transport(source, config["mechanisms"],
                                       read_csv(directory/"P-M1/records.csv")),
                  "P-M4": lambda: mechanisms.second_order(config["mechanisms"]),
-                 "P-H": lambda: mechanisms.check_rules(source, config["mechanisms"], base)}
+                 "P-H": lambda: mechanisms.check_rules(source, config["mechanisms"], base, progress=check_progress)}
     for name in plan["experiments"]:
         if name not in functions:
             continue
@@ -181,7 +194,9 @@ def execute(args, source, base, config, plan):
             if name == "P-M3" and state["jobs"].get("P-M1", {}).get("status") != "complete":
                 raise ValueError("P-M1 dependency did not complete")
             rows = functions[name]()
+            print(f"{name}：计算完成，保存 {len(rows)} 行原始记录……", flush=True)
             write_csv(directory/name/"records.csv", rows)
+            print(f"{name}：汇总统计……", flush=True)
             summary = summarize_mechanism(name, rows, config["bootstrap_repeats"])
             if summary:
                 write_csv(directory/name/"summary.csv", summary)
@@ -211,8 +226,10 @@ def execute(args, source, base, config, plan):
         write_csv(directory/"training_summary.csv", summarize_runs(records, config["bootstrap_repeats"]))
         write_csv(directory/"learning_curves.csv", curves)
     if args.plot:
+        print("生成总览图 overview.png……", flush=True)
         from .experiments.plotting import plot_suite
         plot_suite(directory)
+        print("总览图已保存。", flush=True)
     failed = [key for key, value in state["jobs"].items() if value["status"] != "complete"]
     print(f"已完成 {len(state['jobs'])-len(failed)} 项；失败/中断 {len(failed)} 项。结果：{directory}", flush=True)
     return 1 if failed else 0

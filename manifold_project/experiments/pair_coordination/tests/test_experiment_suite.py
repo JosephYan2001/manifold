@@ -24,6 +24,20 @@ from manifold_project.experiments.pair_coordination.training.runner import run_t
 
 
 class MechanismTests(unittest.TestCase):
+    def test_check_progress_counts_sampling_once_without_changing_results(self):
+        config = {'check_sizes':[2,4], 'data_seeds':[0,1], 'q_max':1.}
+        source, training = PairConfig(), TrainConfig()
+        expected = mechanisms.check_rules(source,config,training)
+        progress = []
+        actual = mechanisms.check_rules(source,config,training,progress=progress.append)
+        self.assertEqual(actual,expected)
+        self.assertEqual(progress[0]['completed_episodes'],0)
+        self.assertEqual(progress[-1]['completed_episodes'],9*(2+4)*2)
+        self.assertEqual(progress[-1]['total_episodes'],9*(2+4)*2)
+        self.assertEqual(progress[-1]['completed_batches'],6*2*2)
+        self.assertEqual(progress[-1]['eta_seconds'],0)
+        self.assertEqual(len(actual),2*6*2*2)
+
     def test_exact_advantage_is_conditional_on_joint_types(self):
         source = PairConfig(n_agents=2)
         policy = np.array([[.8, .2], [.2, .8]])
