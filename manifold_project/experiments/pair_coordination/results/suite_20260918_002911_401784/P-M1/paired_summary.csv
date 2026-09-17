@@ -1,0 +1,17 @@
+﻿actor_id,label,sample_size,metric,interpretation,ci_method,count,mean,std,ci_low,ci_high
+0,exact_advantage,128,analytic_minus_sampled_direction_error,negative_favors_analytic,paired_seed_bootstrap_95,20,0.0,0.0,0.0,0.0
+0,return,128,analytic_minus_sampled_direction_error,negative_favors_analytic,paired_seed_bootstrap_95,20,0.0,0.0,0.0,0.0
+0,exact_advantage,512,analytic_minus_sampled_direction_error,negative_favors_analytic,paired_seed_bootstrap_95,20,0.0,0.0,0.0,0.0
+0,return,512,analytic_minus_sampled_direction_error,negative_favors_analytic,paired_seed_bootstrap_95,20,0.0,0.0,0.0,0.0
+0,exact_advantage,2048,analytic_minus_sampled_direction_error,negative_favors_analytic,paired_seed_bootstrap_95,20,0.0,0.0,0.0,0.0
+0,return,2048,analytic_minus_sampled_direction_error,negative_favors_analytic,paired_seed_bootstrap_95,20,0.0,0.0,0.0,0.0
+0,exact_advantage,8192,analytic_minus_sampled_direction_error,negative_favors_analytic,paired_seed_bootstrap_95,20,0.0,0.0,0.0,0.0
+0,return,8192,analytic_minus_sampled_direction_error,negative_favors_analytic,paired_seed_bootstrap_95,20,0.0,0.0,0.0,0.0
+1,exact_advantage,128,analytic_minus_sampled_direction_error,negative_favors_analytic,paired_seed_bootstrap_95,20,0.00039096031688090106,0.003942986786944934,-0.001276556638222165,0.002082870541255169
+1,return,128,analytic_minus_sampled_direction_error,negative_favors_analytic,paired_seed_bootstrap_95,20,-0.005543705734217861,0.0062618133412012346,-0.008367924902131457,-0.0030823900859465437
+1,exact_advantage,512,analytic_minus_sampled_direction_error,negative_favors_analytic,paired_seed_bootstrap_95,20,0.00017861474186031575,0.0004473481632211372,-1.4011453684584499e-05,0.0003692609425038799
+1,return,512,analytic_minus_sampled_direction_error,negative_favors_analytic,paired_seed_bootstrap_95,20,-0.0007305747151275311,0.0007935005769992367,-0.0011036115658640243,-0.0004205155750407133
+1,exact_advantage,2048,analytic_minus_sampled_direction_error,negative_favors_analytic,paired_seed_bootstrap_95,20,4.703720256025592e-05,0.00015240520957231603,-1.737914124072559e-05,0.0001141901225593452
+1,return,2048,analytic_minus_sampled_direction_error,negative_favors_analytic,paired_seed_bootstrap_95,20,-0.0003104292180533026,0.00027252065983229503,-0.0004375888801173371,-0.00020113009905194256
+1,exact_advantage,8192,analytic_minus_sampled_direction_error,negative_favors_analytic,paired_seed_bootstrap_95,20,1.542125194056667e-05,3.565539459161558e-05,1.093774794168134e-06,3.136895133404126e-05
+1,return,8192,analytic_minus_sampled_direction_error,negative_favors_analytic,paired_seed_bootstrap_95,20,-6.374890703898553e-05,7.687890290965529e-05,-9.922158470780296e-05,-3.405070236252938e-05

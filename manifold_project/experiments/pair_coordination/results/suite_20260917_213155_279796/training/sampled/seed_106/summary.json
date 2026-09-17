@@ -1,0 +1,22 @@
+{
+  "rounds": 55,
+  "source_episodes": 262144,
+  "stop_reason": "source_budget",
+  "mode": "policy",
+  "method": "sampled",
+  "algorithm": "direction",
+  "acceptance": "empirical",
+  "final_actor_diagnostics": {
+    "expected_return": 1.962665599845509
+  },
+  "checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\pair_coordination\\results\\suite_20260917_213155_279796\\training\\sampled\\seed_106\\checkpoints\\final.json",
+  "best_checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\pair_coordination\\results\\suite_20260917_213155_279796\\training\\sampled\\seed_106\\checkpoints\\best.json",
+  "best_round": 55,
+  "best_expected_return": 1.9626655998455091,
+  "last_direction_at_reference_actor": {
+    "expected_return": 1.962665599841638,
+    "direction_error": 0.0007723750618557055,
+    "score": 0.022191889923441795,
+    "information_gap": 0.0003727120329199765
+  }
+}
