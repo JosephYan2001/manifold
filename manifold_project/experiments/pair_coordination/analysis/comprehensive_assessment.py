@@ -54,13 +54,19 @@ def interval(stats,fmt='.6f'):
 def transfer_assessment():
     """Reproduce the saved frozen-policy evidence without writing its artifacts."""
     from ..evaluate_transfer import load_models, evaluate, summarize, digest, ROOT as PAIR_ROOT
-    directory = ROOT/'pair_frozen_transfer_v1'
+    directory = ROOT/'suite_12_零样本迁移_10种子'
     manifest = js(directory/'manifest.json')
     models, hashes = load_models(TRAIN)
     assert manifest['status'] == 'complete' and manifest['records'] == 540
     assert manifest['input_sha256'] == hashes
     for filename, expected in manifest['code_sha256'].items():
-        assert digest(PAIR_ROOT/filename) == expected, filename
+        actual = digest(PAIR_ROOT/filename)
+        if actual != expected and filename == 'evaluate_transfer.py':
+            # Preserve the historical manifest; only the default output name changed.
+            historical = (PAIR_ROOT/filename).read_bytes().replace(
+                'suite_12_零样本迁移_10种子'.encode('utf-8'), b'pair_frozen_transfer_v1')
+            actual = hashlib.sha256(historical).hexdigest()
+        assert actual == expected, filename
     rows = evaluate(models)
     stats = summarize(rows)
     for expected_rows, filename in ((rows, 'records.csv'), (stats, 'summary.csv')):
@@ -95,7 +101,7 @@ def transfer_assessment():
         f"完整方法在全部模型/配置中的最大目标及源人均最优差距为{gap:.3e}。跨配置最大的绝对平均人均回报差：ours与sampled为{differences['sampled']:.3e}，与去方向检查为{differences['no_direction_check']:.3e}，与去回报检查为{differences['no_return_check']:.3e}，与16轮拟合为{differences['fit_quarter']:.3e}。这些差异不构成有实际意义的迁移优势，也未进行预设等效界检验。",
         '仅改变人数时，所有方法、所有种子的人均回报均保持不变（核验容差1e-14），团队总回报随人数缩放。当前局部偏好和交互矩阵使全部目标共享动作1概率(0.01,0.99)的约束最优策略；ours、sampled和消融均逼近该策略，PG尚有源拟合差距。组成/强度变化会改变这一策略误差的回报代价，但本实验不能将目标领先与源终点精度分离。',
         '**新增结论：在当前固定源预算、PG配置和预定目标族下，完整方法的零样本目标回报高于PG，并保持近约束最优表现；未观察到相对sampled或消融的实际优势，亦未证明独立于源学习程度的迁移能力优势。** 这补齐了最终策略部署评价，不能替代导航/仓库对真实交互变化的比较。',
-        '[迁移总览图](pair_frozen_transfer_v1/overview.png)；[逐模型记录](pair_frozen_transfer_v1/records.csv)；[均值与配对区间](pair_frozen_transfer_v1/summary.csv)；[协议与结构限制](../冻结策略迁移补充设计.md)。',
+        '[迁移总览图](suite_12_零样本迁移_10种子/overview.png)；[逐模型记录](suite_12_零样本迁移_10种子/records.csv)；[均值与配对区间](suite_12_零样本迁移_10种子/summary.csv)；[协议与结构限制](../冻结策略迁移补充设计.md)。',
         table(['迁移输入','SHA256'], [[str((directory/name).relative_to(ROOT)), digest(directory/name)]
                                     for name in ('manifest.json', 'records.csv', 'summary.csv')])]
 
@@ -165,7 +171,10 @@ def collect():
     for directory in sorted(ROOT.glob('suite*')):
         if not (directory/'manifest.json').exists():
             continue
-        manifest,status=js(directory/'manifest.json'),js(directory/'status.json')
+        manifest = js(directory/'manifest.json')
+        if manifest.get('experiment') == 'P-T':
+            continue  # Frozen evaluation is audited separately, not counted as training.
+        status = js(directory/'status.json')
         assert all(job['status']=='complete' for job in status['jobs'].values()),directory
         rows=read(directory/'training_results.csv') if (directory/'training_results.csv').exists() else []
         assert len({(r['condition'],r['seed']) for r in rows})==len(rows)

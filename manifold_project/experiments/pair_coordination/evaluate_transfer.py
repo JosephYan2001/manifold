@@ -146,7 +146,7 @@ def plot(rows, path):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source-suite', type=Path, default=ROOT/'results/suite_09_论文比较与消融_10种子')
-    parser.add_argument('--output-dir', type=Path, default=ROOT/'results/pair_frozen_transfer_v1')
+    parser.add_argument('--output-dir', type=Path, default=ROOT/'results/suite_12_零样本迁移_10种子')
     parser.add_argument('--dry-run', action='store_true', help='Validate all 60 final models without target evaluation or output.')
     parser.add_argument('--plot', action='store_true')
     args = parser.parse_args(argv)
