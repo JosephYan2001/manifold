@@ -4,6 +4,35 @@ from pathlib import Path
 import numpy as np
 from ..envs.pair_coordination import sample_episodes
 
+LOG_STREAMS = ('policy', 'rounds', 'checks', 'batches', 'direction',
+               'actor_fit', 'data', 'stages', 'updates')
+
+
+def read_records(path, tolerate_partial=False):
+    """Read a legacy stream or its records inside the unified event log."""
+    path = Path(path)
+    unified = not path.exists() and (path.parent/'events.jsonl').exists()
+    source = path.parent/'events.jsonl' if unified else path
+    if not source.exists():
+        return []
+    rows = []
+    lines = source.read_text(encoding='utf-8').splitlines()
+    for index, line in enumerate(lines):
+        if not line.strip():
+            continue
+        try:
+            row = json.loads(line)
+        except json.JSONDecodeError:
+            if tolerate_partial and index == len(lines)-1:
+                break
+            raise
+        if unified:
+            if row['stream'] != path.stem:
+                continue
+            row = row['record']
+        rows.append(row)
+    return rows
+
 
 def save_json(path, value):
     Path(path).write_text(json.dumps(value, ensure_ascii=False, indent=2,
@@ -11,7 +40,11 @@ def save_json(path, value):
 
 
 def append_json(path, value):
-    with Path(path).open("a", encoding="utf-8") as stream:
+    path = Path(path)
+    if path.stem in LOG_STREAMS and (path.parent/'events.jsonl').exists():
+        value = {'stream': path.stem, 'record': value}
+        path = path.parent/'events.jsonl'
+    with path.open("a", encoding="utf-8") as stream:
         stream.write(json.dumps(value, ensure_ascii=False, allow_nan=False)+"\n")
 
 

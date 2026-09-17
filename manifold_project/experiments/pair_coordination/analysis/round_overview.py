@@ -4,21 +4,8 @@ from pathlib import Path
 
 
 def snapshot_records(path):
-    path = Path(path)
-    if not path.exists():
-        return []
-    lines = path.read_text(encoding="utf-8").splitlines()
-    rows = []
-    for index, line in enumerate(lines):
-        if not line.strip():
-            continue
-        try:
-            rows.append(json.loads(line))
-        except json.JSONDecodeError:
-            if index == len(lines)-1:
-                break  # 正在运行时最后一行可能尚未写完。
-            raise
-    return rows
+    from ..training.logging import read_records
+    return read_records(path, tolerate_partial=True)
 
 
 def collect_overview(directory):

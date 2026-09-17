@@ -55,6 +55,8 @@ def _run_training(source, settings, output_dir, resume=None, stop_after_round=No
     if settings.budget < minimum:
         raise ValueError(f"Budget must allow at least one round ({minimum} episodes)")
     directory.mkdir(parents=True, exist_ok=False)
+    if compact_output:
+        (directory/'events.jsonl').touch()
     runtime = {"backend": "pytorch", "torch": torch.__version__, "cuda_build": torch.version.cuda,
                "requested_device": settings.device, "device": str(device), "dtype": "float64",
                "gpu": torch.cuda.get_device_name(device) if device.type == "cuda" else None}

@@ -11,7 +11,8 @@ def chinese_fonts(plt):
 
 
 def read_records(path):
-    return [json.loads(line) for line in Path(path).read_text(encoding="utf-8").splitlines() if line]
+    from ..training.logging import read_records as read_stream
+    return read_stream(path, tolerate_partial=True)
 
 
 def representative_rounds(rows, limit=6):
@@ -102,7 +103,7 @@ def plot_debug(directory):
             fig.savefig(directory/f"{name}.{suffix}", dpi=160)
         plt.close(fig)
 
-    if (directory/"actor_fit.jsonl").exists():
+    if read_records(directory/"actor_fit.jsonl"):
         rows = read_records(directory/"actor_fit.jsonl")
         checks = read_records(directory/"checks.jsonl")
         decisions = {(r["round"], r["attempt"]): r["accepted"] for r in checks if r["kind"] == "return"}
@@ -119,7 +120,7 @@ def plot_debug(directory):
         axis.grid(alpha=.2)
         axis.legend(fontsize=8)
         save(fig, "actor_fit_epochs")
-    if (directory/"checks.jsonl").exists():
+    if read_records(directory/"checks.jsonl"):
         rows = [r for r in read_records(directory/"checks.jsonl") if r["kind"] == "direction"]
         fig, axis = plt.subplots(figsize=(8, 4), layout="constrained")
         axis.plot([r["round"] for r in rows], [r["mean"] for r in rows], marker="o", label="独立样本平均分数")
@@ -128,7 +129,7 @@ def plot_debug(directory):
         axis.set(xlabel="训练轮次", ylabel="方向检查分数", title="独立方向检查（判断值大于零时通过）")
         axis.legend()
         save(fig, "direction_checks")
-    if (directory/"stages.jsonl").exists():
+    if read_records(directory/"stages.jsonl"):
         rows = read_records(directory/"stages.jsonl")
         stages = sorted({r["stage"] for r in rows})
         fig, axes = plt.subplots(1, 2, figsize=(12, 4), layout="constrained")

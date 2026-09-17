@@ -24,9 +24,8 @@ def read_csv(path):
 
 
 def read_jsonl(path):
-    if not Path(path).exists():
-        return []
-    return [json.loads(line) for line in Path(path).read_text(encoding="utf-8").splitlines() if line.strip()]
+    from ..training.logging import read_records
+    return read_records(path)
 
 
 def bootstrap(values, repeats=10000):
