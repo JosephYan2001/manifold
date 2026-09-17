@@ -54,7 +54,7 @@ def new_directory(profile, tag=''):
             continue
     raise RuntimeError('结果编号空间已满')
 
-
+#  python manifold\manifold_project\experiments\cooperative_navigation\run_experiments.py --profile pilot --experiments N-C N-A --plot
 def parser():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--profile',choices=['smoke','pilot','formal'],default=None)

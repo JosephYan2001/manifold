@@ -1,0 +1,73 @@
+{
+  "config": {
+    "n_agents": 4,
+    "horizon": 100,
+    "agent_neighbors": 2,
+    "landmark_neighbors": 2,
+    "local_ratio": 0.5,
+    "history": 8,
+    "gamma": 0.99,
+    "hidden": 128,
+    "beta": 0.02,
+    "q_max": 1.0,
+    "train_episodes": 16,
+    "direction_check_episodes": 8,
+    "return_check_episodes": 8,
+    "minibatch_episodes": 4,
+    "direction_epochs": 16,
+    "actor_epochs": 16,
+    "critic_epochs": 10,
+    "ppo_epochs": 10,
+    "actor_lr": 0.0003,
+    "direction_lr": 0.0003,
+    "critic_lr": 0.0003,
+    "grad_norm": 0.5,
+    "eta": 0.1,
+    "attempts": 2,
+    "gae_lambda": 0.95,
+    "ppo_clip": 0.2,
+    "entropy_coef": 0.01,
+    "value_coef": 0.5,
+    "ppo_normalize_advantage": true,
+    "direction_label": "mc",
+    "ppo_label": "gae",
+    "audit_rounds": [
+      1,
+      5,
+      10,
+      20
+    ],
+    "audit_episodes": 200,
+    "transfer_sizes": [
+      3,
+      4,
+      6,
+      8
+    ],
+    "transfer_episodes": 200,
+    "bootstrap_repeats": 2000,
+    "device": "cpu",
+    "threads": 1,
+    "protocol_status": "candidate_not_frozen",
+    "method_overrides": {},
+    "budget": 200000,
+    "seeds": [
+      40,
+      41,
+      42
+    ],
+    "eval_fractions": [
+      0,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      1
+    ],
+    "eval_episodes": 20,
+    "final_episodes": 20
+  },
+  "condition": "no_return_check",
+  "seed": 40,
+  "audit": false
+}
