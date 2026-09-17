@@ -51,6 +51,55 @@ def interval(stats,fmt='.6f'):
     return f"{stats['mean']:{fmt}} [{stats['ci_low']:{fmt}}, {stats['ci_high']:{fmt}}]"
 
 
+def transfer_assessment():
+    """Reproduce the saved frozen-policy evidence without writing its artifacts."""
+    from ..evaluate_transfer import load_models, evaluate, summarize, digest, ROOT as PAIR_ROOT
+    directory = ROOT/'pair_frozen_transfer_v1'
+    manifest = js(directory/'manifest.json')
+    models, hashes = load_models(TRAIN)
+    assert manifest['status'] == 'complete' and manifest['records'] == 540
+    assert manifest['input_sha256'] == hashes
+    for filename, expected in manifest['code_sha256'].items():
+        assert digest(PAIR_ROOT/filename) == expected, filename
+    rows = evaluate(models)
+    stats = summarize(rows)
+    for expected_rows, filename in ((rows, 'records.csv'), (stats, 'summary.csv')):
+        actual_rows = read(directory/filename)
+        assert len(expected_rows) == len(actual_rows)
+        for expected, actual in zip(expected_rows, actual_rows):
+            for key, value in expected.items():
+                if isinstance(value, (int, float)):
+                    assert np.isclose(value, float(actual[key]), atol=1e-14, rtol=0), (filename, key)
+                else:
+                    assert value == actual[key], (filename, key)
+    names = list(dict.fromkeys(r['target'] for r in rows))
+    def stat(name, method, kind='method'):
+        return next(s for s in stats if s['target'] == name and s['condition'] == method
+                    and s['kind'] == kind and s['metric'] == 'per_agent_return')
+    for (method, seed), _ in models.items():
+        values = [r['per_agent_return'] for r in rows if r['condition'] == method and r['seed'] == seed
+                  and r['target'] in ('source', 'agents_2', 'agents_6', 'agents_8')]
+        assert np.allclose(values, values[0], atol=1e-14, rtol=0)
+    differences = {c: max(abs(s['mean']) for s in stats if s['condition'] == c
+                   and s['kind'] == 'paired_ours_minus_comparator' and s['metric'] == 'per_agent_return')
+                   for c in CONDITIONS if c != 'ours'}
+    gap = max(r['optimality_gap_per_agent'] for r in rows if r['condition'] == 'ours')
+    print('Frozen-transfer audit passed: 540 records, 297 summary rows, input/code hashes and population invariance.')
+    return [
+        '## 7.1 新增 P-T：最终冻结策略的零样本评价',
+        '已完成6方法×10原训练种子×9配置=540条精确评价，其中60条源参照、480条目标记录。复用suite_09的final，不新增训练种子或回合，不更新参数、不选best。逐条重算records.csv和297行summary.csv，输入文件与评价代码哈希均通过核对。此为事后增加的评价协议，不称原确认实验的预注册迁移检验。',
+        table(['配置','完整方法人均回报','PG人均回报','ours−PG及95%配对区间'], [
+            [name, f"{stat(name,'ours')['mean']:.9f}", f"{stat(name,'pg')['mean']:.9f}",
+             interval(stat(name,'pg','paired_ours_minus_comparator'), '.9f')] for name in names]),
+        '所有8个目标配置的ours−PG人均回报差均为正，逐目标95%配对区间均高于零。目标差值约0.0001054～0.0005434；原源差值为0.0003244。区间以10个训练seed重采样，未作多重比较校正；共享模型和目标结构使这些配置并非独立证据，不能把480条目标记录当独立训练重复。',
+        f"完整方法在全部模型/配置中的最大目标及源人均最优差距为{gap:.3e}。跨配置最大的绝对平均人均回报差：ours与sampled为{differences['sampled']:.3e}，与去方向检查为{differences['no_direction_check']:.3e}，与去回报检查为{differences['no_return_check']:.3e}，与16轮拟合为{differences['fit_quarter']:.3e}。这些差异不构成有实际意义的迁移优势，也未进行预设等效界检验。",
+        '仅改变人数时，所有方法、所有种子的人均回报均保持不变（核验容差1e-14），团队总回报随人数缩放。当前局部偏好和交互矩阵使全部目标共享动作1概率(0.01,0.99)的约束最优策略；ours、sampled和消融均逼近该策略，PG尚有源拟合差距。组成/强度变化会改变这一策略误差的回报代价，但本实验不能将目标领先与源终点精度分离。',
+        '**新增结论：在当前固定源预算、PG配置和预定目标族下，完整方法的零样本目标回报高于PG，并保持近约束最优表现；未观察到相对sampled或消融的实际优势，亦未证明独立于源学习程度的迁移能力优势。** 这补齐了最终策略部署评价，不能替代导航/仓库对真实交互变化的比较。',
+        '[迁移总览图](pair_frozen_transfer_v1/overview.png)；[逐模型记录](pair_frozen_transfer_v1/records.csv)；[均值与配对区间](pair_frozen_transfer_v1/summary.csv)；[协议与结构限制](../冻结策略迁移补充设计.md)。',
+        table(['迁移输入','SHA256'], [[str((directory/name).relative_to(ROOT)), digest(directory/name)]
+                                    for name in ('manifest.json', 'records.csv', 'summary.csv')])]
+
+
 def audit_run(suite,row):
     directory=suite/'training'/row['condition']/f"seed_{row['seed']}"
     events=defaultdict(list)
@@ -266,18 +315,20 @@ def report(suites,groups,paired,m1,m3,ph):
             ['检查带来端到端保护收益','尚未展示','训练无退化候选，无法识别保护收益；检查消耗大量交互并存在误拒绝'],
             ['empirical检查安全','不支持','固定退化候选可被误接；样本增大仅在该候选幅度下降低误接'],
             ['方向可跨人数运输','在构造假设下支持','归一化iid完全图中局部方向对人数不敏感；组成/强度变化引起漂移'],
+            ['最终策略零样本迁移优于其他方法','仅相对当前PG的目标回报支持','P-T已完成；ours高于当前PG但与sampled/消融实际接近，不能分离源终点差距与迁移能力'],
             ['一阶驻点意味着联合最优','反例否定','存在一阶方向为零但共同扰动产生二阶收益的任务'],
             ['已经验证复杂任务普遍优势','不支持','当前是小型可枚举任务；导航/仓库的实际学习与迁移尚需独立实验']]),
         '**可直接用于论文结果节的概括：** 在可枚举成对协作任务中，解析二次方向目标在偏置策略与回报标签条件下改善了方向估计精度，运输与表达受限构造揭示了局部方向改进的适用边界。然而，这一估计收益未转化为完整方法的整体训练效率优势。源交互预算包含检查开销时，去检查变体取得更高AUC，而缩短Actor拟合降低了计算成本。固定候选诊断进一步表明，经验回报检查存在有限样本误接，Hoeffding检查在当前界与预算下过于保守。',
         '## 9. 是否还需继续补成对实验',
         '若论文主张是“机制、适用边界和成本取舍”，环境1的预定补充清单已完成，可以封版整理，不必再次运行相同三组命令或盲目追加预算。下一项应按既定导航协议进行七条件源pilot，考察多步部分观测下是否出现不同的学习与检查行为。',
-        '若坚持更强主张，必须另行预先设计证据：要声称整体优越，需开发种子上等预算调优基线并冻结新比较；要声称逐次保护，需预定会产生退化候选的机制场景和独立审计；要声称真实部署迁移，需训练final策略在目标任务上的冻结性能评价。不能用当前P-M3参考方向迁移或P-H固定候选替代这些证据。',
+        'P-T最终冻结策略评价也已完成，无需默认重跑；它支持当前目标族中的近约束最优部署及相对当前PG的回报差，不支持算法普遍迁移领先。若要更强主张：整体优越需公平调优基线；逐次保护需预定退化场景和独立审计；复杂任务迁移优势需导航/仓库冻结final比较。不能用P-M3单轮方向运输或P-H固定候选替代这些证据。',
         '## 10. 复核与结果入口',
         '统计与图可重复生成：`python -m manifold_project.experiments.pair_coordination.analysis.comprehensive_assessment`。该脚本只读原始结果，重建本报告和一张综合图，不训练、不改原始统计。',
         '[综合图](完整实验判断_20260918.png)；确认训练原始表：[training_results.csv]('+TRAIN.name+'/training_results.csv)；方向配对表：[paired_summary.csv]('+MECHANISM.name+'/P-M1/paired_summary.csv)；检查区间表：[P-H/summary.csv]('+CHECK.name+'/P-H/summary.csv)。',
         '关键输入 SHA256（用于识别本报告读取的版本）：',
         table(['输入','SHA256'],[[str(p.relative_to(ROOT)),hashlib.sha256(p.read_bytes()).hexdigest()] for p in
               (TRAIN/'training_results.csv',MECHANISM/'P-M1/records.csv',MECHANISM/'P-M3/records.csv',CHECK/'P-H/records.csv')])]
+    md[md.index('## 8. 可写入论文的判断与不能声称的内容'):md.index('## 8. 可写入论文的判断与不能声称的内容')] = transfer_assessment()
     (ROOT/'完整实验判断_20260918.md').write_text('\n\n'.join(md)+'\n',encoding='utf-8')
 
 

@@ -1,0 +1,364 @@
+{
+  "experiment": "P-T",
+  "status": "complete",
+  "source_suite": "D:\\manifold\\manifold_project\\experiments\\pair_coordination\\results\\suite_09_论文比较与消融_10种子",
+  "created_utc": "2026-09-17T18:43:06.783812+00:00",
+  "methods": [
+    "ours",
+    "sampled",
+    "pg",
+    "no_direction_check",
+    "no_return_check",
+    "fit_quarter"
+  ],
+  "seeds": [
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109
+  ],
+  "budget": 262144,
+  "checkpoint": "final",
+  "beta": 0.02,
+  "evaluation": "exact stochastic policy expectation",
+  "targets": {
+    "source": {
+      "n_agents": 4,
+      "type_probs": [
+        0.6,
+        0.4
+      ],
+      "local_bias": [
+        -0.2,
+        0.3
+      ],
+      "pair_payoff": [
+        [
+          1.0,
+          -0.5
+        ],
+        [
+          -0.5,
+          1.0
+        ]
+      ],
+      "interaction_strength": 0.7
+    },
+    "agents_2": {
+      "n_agents": 2,
+      "type_probs": [
+        0.6,
+        0.4
+      ],
+      "local_bias": [
+        -0.2,
+        0.3
+      ],
+      "pair_payoff": [
+        [
+          1.0,
+          -0.5
+        ],
+        [
+          -0.5,
+          1.0
+        ]
+      ],
+      "interaction_strength": 0.7
+    },
+    "agents_6": {
+      "n_agents": 6,
+      "type_probs": [
+        0.6,
+        0.4
+      ],
+      "local_bias": [
+        -0.2,
+        0.3
+      ],
+      "pair_payoff": [
+        [
+          1.0,
+          -0.5
+        ],
+        [
+          -0.5,
+          1.0
+        ]
+      ],
+      "interaction_strength": 0.7
+    },
+    "agents_8": {
+      "n_agents": 8,
+      "type_probs": [
+        0.6,
+        0.4
+      ],
+      "local_bias": [
+        -0.2,
+        0.3
+      ],
+      "pair_payoff": [
+        [
+          1.0,
+          -0.5
+        ],
+        [
+          -0.5,
+          1.0
+        ]
+      ],
+      "interaction_strength": 0.7
+    },
+    "composition_0.3": {
+      "n_agents": 4,
+      "type_probs": [
+        0.3,
+        0.7
+      ],
+      "local_bias": [
+        -0.2,
+        0.3
+      ],
+      "pair_payoff": [
+        [
+          1.0,
+          -0.5
+        ],
+        [
+          -0.5,
+          1.0
+        ]
+      ],
+      "interaction_strength": 0.7
+    },
+    "composition_0.9": {
+      "n_agents": 4,
+      "type_probs": [
+        0.9,
+        0.09999999999999998
+      ],
+      "local_bias": [
+        -0.2,
+        0.3
+      ],
+      "pair_payoff": [
+        [
+          1.0,
+          -0.5
+        ],
+        [
+          -0.5,
+          1.0
+        ]
+      ],
+      "interaction_strength": 0.7
+    },
+    "strength_0.0": {
+      "n_agents": 4,
+      "type_probs": [
+        0.6,
+        0.4
+      ],
+      "local_bias": [
+        -0.2,
+        0.3
+      ],
+      "pair_payoff": [
+        [
+          1.0,
+          -0.5
+        ],
+        [
+          -0.5,
+          1.0
+        ]
+      ],
+      "interaction_strength": 0.0
+    },
+    "strength_0.35": {
+      "n_agents": 4,
+      "type_probs": [
+        0.6,
+        0.4
+      ],
+      "local_bias": [
+        -0.2,
+        0.3
+      ],
+      "pair_payoff": [
+        [
+          1.0,
+          -0.5
+        ],
+        [
+          -0.5,
+          1.0
+        ]
+      ],
+      "interaction_strength": 0.35
+    },
+    "strength_1.4": {
+      "n_agents": 4,
+      "type_probs": [
+        0.6,
+        0.4
+      ],
+      "local_bias": [
+        -0.2,
+        0.3
+      ],
+      "pair_payoff": [
+        [
+          1.0,
+          -0.5
+        ],
+        [
+          -0.5,
+          1.0
+        ]
+      ],
+      "interaction_strength": 1.4
+    }
+  },
+  "input_sha256": {
+    "training_results.csv": "75e5a393263f59c6bf787a13d83948f6fb12220adb81bd231b990af26bfd7041",
+    "training\\ours\\seed_100\\config.json": "0776543f653ae01912a6bf79b3fb201181922f3f0f879f21f3652862d006e065",
+    "training\\ours\\seed_100\\checkpoints\\final.json": "2dd2c91d5b176264150b8e39da9e75a87b408b79ef67b335c183ab2c7262174f",
+    "training\\ours\\seed_101\\config.json": "12f1833e1f8f2cfcb3388920e0bdc2203785a47d4f42c80b49d7a41065837c5d",
+    "training\\ours\\seed_101\\checkpoints\\final.json": "93d78887a88cc8c7c85f9577bdbb4450d0f0a881c0c09f31a44f067b82d6dca1",
+    "training\\ours\\seed_102\\config.json": "27da0b92d14fbe5301933a495ee713bda868c6f9ccbc9959348c3da9d974baa1",
+    "training\\ours\\seed_102\\checkpoints\\final.json": "566c0e0011fe9603b2469a3f84ce278313f2220fff4f0b5fc3bc0f299a8ce7a0",
+    "training\\ours\\seed_103\\config.json": "d8d02ee7f47e94b6d58857eaeb441510a7f4d389f82397f2be1743cda017401c",
+    "training\\ours\\seed_103\\checkpoints\\final.json": "cb1a98a1ec507bf1998df23c28b6ed5e29df38314c4cf2a9ccc92cba86882fe9",
+    "training\\ours\\seed_104\\config.json": "98a18de61457b232d20cd32d04a9dad2424d39bc3bfe66ec277cc8215bda6a7e",
+    "training\\ours\\seed_104\\checkpoints\\final.json": "66c93b8de62ee6826b94a16bbdb5c4fb016cc51e7c4a0aa66333451082875510",
+    "training\\ours\\seed_105\\config.json": "c151c9c123ebf9d967c335fb2cc4a6b01fddd645feb132a3d7c27948e9fa62a9",
+    "training\\ours\\seed_105\\checkpoints\\final.json": "696d913185e6415f3f53ed810a18333bd98c1b5d20c77ebf67956e01e1139f70",
+    "training\\ours\\seed_106\\config.json": "dd71174f42af5f997143adb64efdb58ce7b8d5bb1f09882146e6fc92ba93daca",
+    "training\\ours\\seed_106\\checkpoints\\final.json": "fb3dbc9f94e8921cf1479ddbd38a8cb76c98c27e347303758e97fdb99063dc9a",
+    "training\\ours\\seed_107\\config.json": "03a15d5abd5bdcde52c4ead7c22ddd0037055689f2c5fbc0e0301d5c4287c8e8",
+    "training\\ours\\seed_107\\checkpoints\\final.json": "9f40d2edf8006c2301a21ae865fc3c52be4ff25df637aeb40a50dd0a5d8a52ae",
+    "training\\ours\\seed_108\\config.json": "ec76752d2a95b1879f9f53599eb55cbf9e0c6411c6bbc1cba88b4346c5d6213c",
+    "training\\ours\\seed_108\\checkpoints\\final.json": "2d71318be674a9e03d486816ac4129fce75d045093d233c349c255c6e059b5fd",
+    "training\\ours\\seed_109\\config.json": "82d3460111717298b01467664e625ed9cece445be9e8dd1a6d29ab402711cc67",
+    "training\\ours\\seed_109\\checkpoints\\final.json": "016c64b3d2e252432b9510374b388a7ab308202e9443a03cc55b4b77c37cdf7a",
+    "training\\sampled\\seed_100\\config.json": "812c33bd62bea2a0b9f641cfcc318bfbd9b048ac461bad47f8b6158499904030",
+    "training\\sampled\\seed_100\\checkpoints\\final.json": "24ba376a6882b155ed7924c38d7a4582dcfba6359cd0cd32dfdfdc05acbaaf9c",
+    "training\\sampled\\seed_101\\config.json": "950aa3217d003c9b3d120be46705408014df64a355a6c455dba9ca09c87dbbda",
+    "training\\sampled\\seed_101\\checkpoints\\final.json": "1dad54ae011bddddc16f5a0a507c249c3ded4177322e43966e05a9951840993f",
+    "training\\sampled\\seed_102\\config.json": "4740940396f4e4fe39cc5f21226c637a859a5d7f70a235a939012c9d3efff0c9",
+    "training\\sampled\\seed_102\\checkpoints\\final.json": "038c507088c98aafe8215ec8a0f1d89dcad57e7f48a454630efb5abe07fc3554",
+    "training\\sampled\\seed_103\\config.json": "9218a88daa249e28ed4ad83508c848465f0fa22302a8017a08f18f90aad3a63d",
+    "training\\sampled\\seed_103\\checkpoints\\final.json": "130f428dd7ee0cc03fb34d7614de0ebeeb087e662b55436e5c36ee8c9e7806a9",
+    "training\\sampled\\seed_104\\config.json": "474d893b8f16146122507c314d20832c237aba0f374f152df6410d4d58195134",
+    "training\\sampled\\seed_104\\checkpoints\\final.json": "c07d45757e5ccf863d64b5430890794742e340aee79117471a7590d6d52bb617",
+    "training\\sampled\\seed_105\\config.json": "a9aed541916f74b6022fdfad5f3e9586f4ee164185343d663703cb39b5ca1097",
+    "training\\sampled\\seed_105\\checkpoints\\final.json": "e01010b17323a093d3f7e185a7d74c8b3b4d91723db13be7407baf5dc7504e83",
+    "training\\sampled\\seed_106\\config.json": "a3a76a0449feb5edee4b3972583dc28c3d7044097fe3c5624734b9db3305aa0b",
+    "training\\sampled\\seed_106\\checkpoints\\final.json": "6297d1fa9e6b6e63c98277cc9afef46dd461fc10984093bd01d9120dc5c791de",
+    "training\\sampled\\seed_107\\config.json": "c3be2804918e584acca471aa7220a6ece3d4f25d99f52f7be44398e204f6d5b7",
+    "training\\sampled\\seed_107\\checkpoints\\final.json": "a2aedb9564bf3d4b4495e79d0de8f782d168f2c1255821eff05cd036faaa0826",
+    "training\\sampled\\seed_108\\config.json": "d014e7344d78f14c91b5d0fbc6c85606144b4d9afc937696a4b2afee8b03bbd3",
+    "training\\sampled\\seed_108\\checkpoints\\final.json": "4d9618d9f372280c66eef728bd79c08760dcb6d65460a0a04daf68faa4f96c4e",
+    "training\\sampled\\seed_109\\config.json": "472b08368620d3f05048afb2d5f1649f485d9bd7d0991821d86caa9ebb3113f0",
+    "training\\sampled\\seed_109\\checkpoints\\final.json": "d6485c1cb216bb83477691ca3d77b001b4897102665f9eff4bc71c04fc3c099c",
+    "training\\pg\\seed_100\\config.json": "46a803d6c0d9a619e53221a24bd8a7c25d12d98031436e5aab3a03ea1ea74e21",
+    "training\\pg\\seed_100\\checkpoints\\final.json": "b16dc9e7cadf697893c89c5f6e10a8f357dac69e44847a2e44f86bb329779f6e",
+    "training\\pg\\seed_101\\config.json": "8fab62820b12dccc9bbd2dbc404dfe0c4969179764c70c3439987d346a7f5f63",
+    "training\\pg\\seed_101\\checkpoints\\final.json": "3eab40c2d672b75fc8f84fb453024ecb2c6d28dce331ab1879a8c69e38cea9b9",
+    "training\\pg\\seed_102\\config.json": "74378051b1b63e1680f50a76ea24dcf54ab1242d5e6adb4f79117983d39b4efb",
+    "training\\pg\\seed_102\\checkpoints\\final.json": "31f70a68fc743d7d1d3734ebaccaab3a505dc55455e1f0c29f673901cdb6c841",
+    "training\\pg\\seed_103\\config.json": "230da7d6c15c9e15f5eb1981189b1c69e3ee603f4ff31e59547dbe5ba134a461",
+    "training\\pg\\seed_103\\checkpoints\\final.json": "c36950419534ec4cb9636c1037a0e5aa22a4baf7d64cdd7ac76ebb84e4cbf6da",
+    "training\\pg\\seed_104\\config.json": "987a43f8c74f85d1ffc0952150aadd7528423f6c919c795825488f28d1f99745",
+    "training\\pg\\seed_104\\checkpoints\\final.json": "7b4c8b976afcc5e38d5a0721b0897f37aaa4c7e3736351b1e0214f190711a8a6",
+    "training\\pg\\seed_105\\config.json": "55491b92acdf1cf769a88d7ddb04f7f9b604ce1f0357f9a19bb43d8ac0e8df43",
+    "training\\pg\\seed_105\\checkpoints\\final.json": "b811dbbfd49cc80b0dfc3aa17e81d1efa5dd5fe0c16f38d80f3ad6a44052a100",
+    "training\\pg\\seed_106\\config.json": "bc459a73e508bda21b02f064c0fc21d6f76d970373bb60e779ae76b2d3a85b6d",
+    "training\\pg\\seed_106\\checkpoints\\final.json": "faa75364e1e2d678a465fa7d624c283e28f41508ca03e5350cccc8abf55b42ee",
+    "training\\pg\\seed_107\\config.json": "4713b0de52cc189e5ff9c5079769a39cd4ebc3dd6f5c090109126d67d261c4de",
+    "training\\pg\\seed_107\\checkpoints\\final.json": "d6a7af18886f50be48b842e4d89b397bdac3b8139d9f610c9660f66d7bee8ffe",
+    "training\\pg\\seed_108\\config.json": "a2d608ddc1135b3b08de193c192a5bce4ab074f234f5313b1fe6e69820596577",
+    "training\\pg\\seed_108\\checkpoints\\final.json": "aa7e34c3dadae68c5e268cf3aae5ff6e94415da33a4717ce6a9bf6e3bf1ab64c",
+    "training\\pg\\seed_109\\config.json": "19be224721c4384b3749a6155b13f182394c3202225ca6b698495ee4cbffdb05",
+    "training\\pg\\seed_109\\checkpoints\\final.json": "0e98658201e234aec85a984c81d24ab8b1dfcb335ae869d822e8d9125cfc7c8f",
+    "training\\no_direction_check\\seed_100\\config.json": "61f6f0091c70e63b175fd17b2b66ec0f7570630202430d3592f5656a53e4103f",
+    "training\\no_direction_check\\seed_100\\checkpoints\\final.json": "cc05dc687101b5a43f713fb52c72ac031b9b72cbaca4dd92d4c2e5ae44166ebf",
+    "training\\no_direction_check\\seed_101\\config.json": "6f71d0f8db1559e2f92a65169f47ea00b6aea2dcd8ca0179ae5b1772f7dd06aa",
+    "training\\no_direction_check\\seed_101\\checkpoints\\final.json": "b15b31921ba8f2beafbf50eb36b3e6ebe1fdbb7b92b606366946f8d317ecaf0f",
+    "training\\no_direction_check\\seed_102\\config.json": "905b7373ea1ac039fbb9450193bc707e1fa8becf04686fbeab0b9a8471f86a90",
+    "training\\no_direction_check\\seed_102\\checkpoints\\final.json": "9264d792361c41250a57b15b897d0718b2e84a84f868d2241e91069519f25db3",
+    "training\\no_direction_check\\seed_103\\config.json": "99a68b7296dc45f70ef9b6899e0f7abd196370e9484be928955bfc6f9bcfae0b",
+    "training\\no_direction_check\\seed_103\\checkpoints\\final.json": "d3378b41099d7c0c63f611e6b0cf8945c06b5721639ff54f2d129325407e9176",
+    "training\\no_direction_check\\seed_104\\config.json": "1032357886d59f98510d6552b406b3bdb300678718a1d7365912f8a27483dffb",
+    "training\\no_direction_check\\seed_104\\checkpoints\\final.json": "ce64d5537d462c19a8e06b530a1f0b3f01d911a256cd0e79bc5512df7f2024ab",
+    "training\\no_direction_check\\seed_105\\config.json": "62c7c8de4d5074ba360c77a07bafea04b94a08071df167d7c210ea1f29e4d611",
+    "training\\no_direction_check\\seed_105\\checkpoints\\final.json": "eb66c32b838b2ca0be9d22067912feb881a568662784ec5f1b0133a43bcde79d",
+    "training\\no_direction_check\\seed_106\\config.json": "3158ae8f365276b3e9fa82567508b6888c10513ed94ed60fca4536ff19fb3b6c",
+    "training\\no_direction_check\\seed_106\\checkpoints\\final.json": "a4dbed5b0993b0009549b3d0e3b7661e0a96d54baaf4af7ce6d4d2b5542ef7d5",
+    "training\\no_direction_check\\seed_107\\config.json": "c4da814b8c1f9e504dc3d55d9fc9c0f7b844ff7033ba4d455e2ccc8ee8c32cf9",
+    "training\\no_direction_check\\seed_107\\checkpoints\\final.json": "e8fd3668bba6e22ddd4c121be5f3bc16d899fccb1a2e2c544a1640912cc89428",
+    "training\\no_direction_check\\seed_108\\config.json": "2e0ab1aaf99f446e5a4eb47572b1278c74881014ae7fcfe6e3025eff3ebfcd2b",
+    "training\\no_direction_check\\seed_108\\checkpoints\\final.json": "8cddda5ce86dec62c4023d4a2fea02a8b63c5cb0ecea41c4516e89544b8f1043",
+    "training\\no_direction_check\\seed_109\\config.json": "39c48bd318e9b64b7f28cc784360b757e67f08000ebfaf63af13c8cab4c221f2",
+    "training\\no_direction_check\\seed_109\\checkpoints\\final.json": "f04ad5dbfac395d7822c9c7dcca1ed10e412b0d61255e127d2f4abdd2e523381",
+    "training\\no_return_check\\seed_100\\config.json": "7a30c6ea784b7b673837b5727087dbee7e3f9c95e5c18dcf2851b5c36ea9e1db",
+    "training\\no_return_check\\seed_100\\checkpoints\\final.json": "9f6c2842c0e92745def09192f8003ec9c80649eb6f73b5ad0efa6ec09a336769",
+    "training\\no_return_check\\seed_101\\config.json": "277ab450d1202cab160553f147b536f11b336b300ce861ed363b04ee21843942",
+    "training\\no_return_check\\seed_101\\checkpoints\\final.json": "5e47e7ca655598666df254248654450dbfcbddebd057caa32e519a0b9963ba38",
+    "training\\no_return_check\\seed_102\\config.json": "cef4079cac1aa915246f80fbaf0cdb0597c64550dd3389926f3d92e84372bef5",
+    "training\\no_return_check\\seed_102\\checkpoints\\final.json": "6175b4de995e2b630ffe1de66a87c4dfa76af03baa6ef751de4d848b81785454",
+    "training\\no_return_check\\seed_103\\config.json": "5c432733f87d313f969c45ee9c31aa54d8b5c6f1393db0e308a32cb6df762a23",
+    "training\\no_return_check\\seed_103\\checkpoints\\final.json": "2a0bde25d20606b0fa11340b2776c53b580fd3d4fcc5b771b05c397f5a60ef00",
+    "training\\no_return_check\\seed_104\\config.json": "129043804a26b2fd320c0f07400d70ba01cd49072f11103893b45c299edaa436",
+    "training\\no_return_check\\seed_104\\checkpoints\\final.json": "e52909fecba31cc538d7d6ffeb7cb896ef597577d87d438df6a9897d0f8f46c7",
+    "training\\no_return_check\\seed_105\\config.json": "609b2ee26dbf051bc4d87a0d8b12a0e74e2892645e1ec53c042e8ac05cf49a37",
+    "training\\no_return_check\\seed_105\\checkpoints\\final.json": "d7dedbc2d677c7b1a8d012744caa249243360284b941a1474edaaa62afe74fa9",
+    "training\\no_return_check\\seed_106\\config.json": "f962a74472bd20fb6a9599116901ffa4966da52fedf700c039d813cde2b06016",
+    "training\\no_return_check\\seed_106\\checkpoints\\final.json": "9648b6e7c460ab497e0f42958af6b7b9fa9da297af7297562439c63779e1ecd0",
+    "training\\no_return_check\\seed_107\\config.json": "ae55410437caa55c7c8f4a379f29f05dce61a24381c190a294eeef5336ce9e40",
+    "training\\no_return_check\\seed_107\\checkpoints\\final.json": "59a0e8716ea0f78816156207155d6259fd101187a3fbea217e929efeeffaa51d",
+    "training\\no_return_check\\seed_108\\config.json": "5606b25c1886d91a75f067cc2756fcc2fd26d03f39d17bc69f2f2753c0279e05",
+    "training\\no_return_check\\seed_108\\checkpoints\\final.json": "48762174afd9a67d7f76f0be90c7685e7f89309637c0c27a43663ce90b0af946",
+    "training\\no_return_check\\seed_109\\config.json": "bb1f3aaffbacc4d729d4c14b45039b28143bdfe0bf4c6f71d973678e6f7627d2",
+    "training\\no_return_check\\seed_109\\checkpoints\\final.json": "bfd24275c15e3fbc156d0d53531662835592d46849e7629d41992548253c86c2",
+    "training\\fit_quarter\\seed_100\\config.json": "1536bc809c0e480db316700f6ab2703c7b4c511625edd94adb80a184c23f54a6",
+    "training\\fit_quarter\\seed_100\\checkpoints\\final.json": "057a115a4ae3557a22d0d77d6d2d56f987e99250f520cf8861743c74cd07b3b7",
+    "training\\fit_quarter\\seed_101\\config.json": "1f0d2744433c9222e0aa43437778de01ba63da86843ec27be8788f0b3dca7ec2",
+    "training\\fit_quarter\\seed_101\\checkpoints\\final.json": "a3fefee90feb458d59593ea135d15fa82ac77e8619bb062adcb0f67a1b52dbf2",
+    "training\\fit_quarter\\seed_102\\config.json": "1ff4639c90715cdf5d96b26f63ed9b0b1f07b31870083f60e150aaffa03c3d8b",
+    "training\\fit_quarter\\seed_102\\checkpoints\\final.json": "4752a07fdad9228a9fc7080d71c63321c8e9e3b13c2a4eaa86f9b7c06b52e379",
+    "training\\fit_quarter\\seed_103\\config.json": "3927866a843382f090d91ce01358d71e6284a77e815e490c3a57d5ad409b9f69",
+    "training\\fit_quarter\\seed_103\\checkpoints\\final.json": "e0b48b695ea1f5447a4c5652a78e5713dfebcdbf708f20af54d89b3c4354f0a4",
+    "training\\fit_quarter\\seed_104\\config.json": "db909a920d8894e388e3dd6650e4ba668455811a00e0a3013cdbaaab25e5f733",
+    "training\\fit_quarter\\seed_104\\checkpoints\\final.json": "481ee5aa6d30dca7f70f859b226cc4d2ea6382cac15671d1db8d0e3e2bb8ec65",
+    "training\\fit_quarter\\seed_105\\config.json": "6250c46b7fb072151bc124018cdeb768b12e5be8375e1f744617d6308f25612f",
+    "training\\fit_quarter\\seed_105\\checkpoints\\final.json": "ab36347817f9a3c01afafaab36cf9ffa8a850b6649bd5ac237fdaefeb6719ba6",
+    "training\\fit_quarter\\seed_106\\config.json": "8e744136af9b3c085cc85d1b61c5431539479b8c6ecd0d5155c64d540d4a85ff",
+    "training\\fit_quarter\\seed_106\\checkpoints\\final.json": "1c72495c1a39adfaae1044d0fa4ec3ba03b6fdd0860e764af7ef338711f968ee",
+    "training\\fit_quarter\\seed_107\\config.json": "80d1474cf59dae0cef4879c4df0f4c30003cb3e4a6bdd0667c166552da688413",
+    "training\\fit_quarter\\seed_107\\checkpoints\\final.json": "6f1b6a84e1cd68f9092da07fce557257d802bbae742ffc020aadab2267d5674a",
+    "training\\fit_quarter\\seed_108\\config.json": "fafef93c4fe7a2fbda89c9acfb72111a9b02f0ff1aba023d32e9a57324b0f5ec",
+    "training\\fit_quarter\\seed_108\\checkpoints\\final.json": "cfcff27ad6028c093f71977007a06de9814259fc94e1c511f9c113e16283a1a0",
+    "training\\fit_quarter\\seed_109\\config.json": "7de9e83f96c90f99e1673edd1bfc56328a2c236b77f1cbb56f887e83d508ea19",
+    "training\\fit_quarter\\seed_109\\checkpoints\\final.json": "5bea015e117738c3338d44cf2491788f93e67cfc9cac39c0a854e87d0efa6290"
+  },
+  "bootstrap_repeats": 10000,
+  "bootstrap_seed": 20260916,
+  "intervals": "pointwise 95%, not multiplicity corrected",
+  "interpretation": "Shared target optimum; not evidence of transfer-specific superiority.",
+  "code_sha256": {
+    "evaluate_transfer.py": "975669abfc9c261da5a56626774c729aef4dc91c5cf05a56830cab7c9f1adf68",
+    "evaluation\\exact_pair.py": "74125cc364d4bc4b30a6dce7ed3d7dc887b94c1fdce55be7630d9b9c11e66f8f",
+    "models\\mlp.py": "0406e837fc90c729556f24316681ddce16b6772f4abd24992ecaf91bcd1f89e6",
+    "experiments\\reporting.py": "488f5d03cdad2fe7ced48cbe9d77a4e46fda980c2b11fdd306479837372020b5"
+  },
+  "records": 540
+}
