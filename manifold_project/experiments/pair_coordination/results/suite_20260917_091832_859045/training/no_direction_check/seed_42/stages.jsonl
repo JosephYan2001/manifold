@@ -1,0 +1,236 @@
+{"round": 1, "stage": "冻结策略", "attempt": null, "source_episodes_start": 0, "seconds": 0.005560500081628561, "source_episodes": 0}
+{"round": 1, "stage": "训练采样", "attempt": null, "source_episodes_start": 0, "seconds": 0.06512439996004105, "source_episodes": 1024}
+{"round": 1, "stage": "方向学习", "attempt": null, "source_episodes_start": 1024, "seconds": 1.2031467000488192, "source_episodes": 0}
+{"round": 1, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 1024, "seconds": 0.9167176999617368, "source_episodes": 0}
+{"round": 1, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 1024, "seconds": 0.13333069998770952, "source_episodes": 2048}
+{"round": 1, "stage": "提交结果", "attempt": null, "source_episodes_start": 3072, "seconds": 0.10735490010119975, "source_episodes": 0}
+{"round": 2, "stage": "冻结策略", "attempt": null, "source_episodes_start": 3072, "seconds": 0.005174399819225073, "source_episodes": 0}
+{"round": 2, "stage": "训练采样", "attempt": null, "source_episodes_start": 3072, "seconds": 0.06742440001107752, "source_episodes": 1024}
+{"round": 2, "stage": "方向学习", "attempt": null, "source_episodes_start": 4096, "seconds": 1.2498697000555694, "source_episodes": 0}
+{"round": 2, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 4096, "seconds": 0.9495971000287682, "source_episodes": 0}
+{"round": 2, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 4096, "seconds": 0.13327219989150763, "source_episodes": 2048}
+{"round": 2, "stage": "提交结果", "attempt": null, "source_episodes_start": 6144, "seconds": 0.10156100010499358, "source_episodes": 0}
+{"round": 3, "stage": "冻结策略", "attempt": null, "source_episodes_start": 6144, "seconds": 0.0057649000082165, "source_episodes": 0}
+{"round": 3, "stage": "训练采样", "attempt": null, "source_episodes_start": 6144, "seconds": 0.06625990010797977, "source_episodes": 1024}
+{"round": 3, "stage": "方向学习", "attempt": null, "source_episodes_start": 7168, "seconds": 1.2416103000286967, "source_episodes": 0}
+{"round": 3, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 7168, "seconds": 0.939550100127235, "source_episodes": 0}
+{"round": 3, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 7168, "seconds": 0.14045560010708869, "source_episodes": 2048}
+{"round": 3, "stage": "提交结果", "attempt": null, "source_episodes_start": 9216, "seconds": 0.10472010006196797, "source_episodes": 0}
+{"round": 4, "stage": "冻结策略", "attempt": null, "source_episodes_start": 9216, "seconds": 0.004960200050845742, "source_episodes": 0}
+{"round": 4, "stage": "训练采样", "attempt": null, "source_episodes_start": 9216, "seconds": 0.0675520000513643, "source_episodes": 1024}
+{"round": 4, "stage": "方向学习", "attempt": null, "source_episodes_start": 10240, "seconds": 1.2361554999370128, "source_episodes": 0}
+{"round": 4, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 10240, "seconds": 0.9557787000667304, "source_episodes": 0}
+{"round": 4, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 10240, "seconds": 0.13973610009998083, "source_episodes": 2048}
+{"round": 4, "stage": "提交结果", "attempt": null, "source_episodes_start": 12288, "seconds": 0.10448300000280142, "source_episodes": 0}
+{"round": 5, "stage": "冻结策略", "attempt": null, "source_episodes_start": 12288, "seconds": 0.005088600097224116, "source_episodes": 0}
+{"round": 5, "stage": "训练采样", "attempt": null, "source_episodes_start": 12288, "seconds": 0.06627509999088943, "source_episodes": 1024}
+{"round": 5, "stage": "方向学习", "attempt": null, "source_episodes_start": 13312, "seconds": 1.2071620000060648, "source_episodes": 0}
+{"round": 5, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 13312, "seconds": 0.9433219998609275, "source_episodes": 0}
+{"round": 5, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 13312, "seconds": 0.13129070005379617, "source_episodes": 2048}
+{"round": 5, "stage": "提交结果", "attempt": null, "source_episodes_start": 15360, "seconds": 0.10969870002008975, "source_episodes": 0}
+{"round": 6, "stage": "冻结策略", "attempt": null, "source_episodes_start": 15360, "seconds": 0.005246200133115053, "source_episodes": 0}
+{"round": 6, "stage": "训练采样", "attempt": null, "source_episodes_start": 15360, "seconds": 0.06838079984299839, "source_episodes": 1024}
+{"round": 6, "stage": "方向学习", "attempt": null, "source_episodes_start": 16384, "seconds": 1.192150899907574, "source_episodes": 0}
+{"round": 6, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 16384, "seconds": 0.9255566000938416, "source_episodes": 0}
+{"round": 6, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 16384, "seconds": 0.13357859989628196, "source_episodes": 2048}
+{"round": 6, "stage": "提交结果", "attempt": null, "source_episodes_start": 18432, "seconds": 0.10295199998654425, "source_episodes": 0}
+{"round": 7, "stage": "冻结策略", "attempt": null, "source_episodes_start": 18432, "seconds": 0.0052004000172019005, "source_episodes": 0}
+{"round": 7, "stage": "训练采样", "attempt": null, "source_episodes_start": 18432, "seconds": 0.06615579989738762, "source_episodes": 1024}
+{"round": 7, "stage": "方向学习", "attempt": null, "source_episodes_start": 19456, "seconds": 1.2277887999080122, "source_episodes": 0}
+{"round": 7, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 19456, "seconds": 0.9491825001314282, "source_episodes": 0}
+{"round": 7, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 19456, "seconds": 0.14465029980055988, "source_episodes": 2048}
+{"round": 7, "stage": "提交结果", "attempt": null, "source_episodes_start": 21504, "seconds": 0.1036997998598963, "source_episodes": 0}
+{"round": 8, "stage": "冻结策略", "attempt": null, "source_episodes_start": 21504, "seconds": 0.0049467000644654036, "source_episodes": 0}
+{"round": 8, "stage": "训练采样", "attempt": null, "source_episodes_start": 21504, "seconds": 0.06817959994077682, "source_episodes": 1024}
+{"round": 8, "stage": "方向学习", "attempt": null, "source_episodes_start": 22528, "seconds": 1.2196382000111043, "source_episodes": 0}
+{"round": 8, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 22528, "seconds": 0.9405485999304801, "source_episodes": 0}
+{"round": 8, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 22528, "seconds": 0.1400745001155883, "source_episodes": 2048}
+{"round": 8, "stage": "提交结果", "attempt": null, "source_episodes_start": 24576, "seconds": 0.1063274999614805, "source_episodes": 0}
+{"round": 9, "stage": "冻结策略", "attempt": null, "source_episodes_start": 24576, "seconds": 0.0048408000729978085, "source_episodes": 0}
+{"round": 9, "stage": "训练采样", "attempt": null, "source_episodes_start": 24576, "seconds": 0.06727799982763827, "source_episodes": 1024}
+{"round": 9, "stage": "方向学习", "attempt": null, "source_episodes_start": 25600, "seconds": 1.1968253999948502, "source_episodes": 0}
+{"round": 9, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 25600, "seconds": 0.9145448000635952, "source_episodes": 0}
+{"round": 9, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 25600, "seconds": 0.1378085999749601, "source_episodes": 2048}
+{"round": 9, "stage": "目标构造与 actor 拟合", "attempt": 1, "source_episodes_start": 27648, "seconds": 0.927889300044626, "source_episodes": 0}
+{"round": 9, "stage": "独立回报检查", "attempt": 1, "source_episodes_start": 27648, "seconds": 0.14171139989048243, "source_episodes": 2048}
+{"round": 9, "stage": "提交结果", "attempt": null, "source_episodes_start": 29696, "seconds": 0.08639580011367798, "source_episodes": 0}
+{"round": 10, "stage": "冻结策略", "attempt": null, "source_episodes_start": 29696, "seconds": 0.0050455001182854176, "source_episodes": 0}
+{"round": 10, "stage": "训练采样", "attempt": null, "source_episodes_start": 29696, "seconds": 0.06665439996868372, "source_episodes": 1024}
+{"round": 10, "stage": "方向学习", "attempt": null, "source_episodes_start": 30720, "seconds": 1.215402000118047, "source_episodes": 0}
+{"round": 10, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 30720, "seconds": 0.9324608000461012, "source_episodes": 0}
+{"round": 10, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 30720, "seconds": 0.13388850004412234, "source_episodes": 2048}
+{"round": 10, "stage": "提交结果", "attempt": null, "source_episodes_start": 32768, "seconds": 0.10829630005173385, "source_episodes": 0}
+{"round": 11, "stage": "冻结策略", "attempt": null, "source_episodes_start": 32768, "seconds": 0.005085099954158068, "source_episodes": 0}
+{"round": 11, "stage": "训练采样", "attempt": null, "source_episodes_start": 32768, "seconds": 0.06601720000617206, "source_episodes": 1024}
+{"round": 11, "stage": "方向学习", "attempt": null, "source_episodes_start": 33792, "seconds": 1.1899438998661935, "source_episodes": 0}
+{"round": 11, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 33792, "seconds": 0.9016696999315172, "source_episodes": 0}
+{"round": 11, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 33792, "seconds": 0.1373508998658508, "source_episodes": 2048}
+{"round": 11, "stage": "提交结果", "attempt": null, "source_episodes_start": 35840, "seconds": 0.108008700190112, "source_episodes": 0}
+{"round": 12, "stage": "冻结策略", "attempt": null, "source_episodes_start": 35840, "seconds": 0.005454399855807424, "source_episodes": 0}
+{"round": 12, "stage": "训练采样", "attempt": null, "source_episodes_start": 35840, "seconds": 0.06720399996265769, "source_episodes": 1024}
+{"round": 12, "stage": "方向学习", "attempt": null, "source_episodes_start": 36864, "seconds": 1.2047926001250744, "source_episodes": 0}
+{"round": 12, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 36864, "seconds": 0.9096973000559956, "source_episodes": 0}
+{"round": 12, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 36864, "seconds": 0.14101760019548237, "source_episodes": 2048}
+{"round": 12, "stage": "提交结果", "attempt": null, "source_episodes_start": 38912, "seconds": 0.10476580006070435, "source_episodes": 0}
+{"round": 13, "stage": "冻结策略", "attempt": null, "source_episodes_start": 38912, "seconds": 0.005260800011456013, "source_episodes": 0}
+{"round": 13, "stage": "训练采样", "attempt": null, "source_episodes_start": 38912, "seconds": 0.06655650003813207, "source_episodes": 1024}
+{"round": 13, "stage": "方向学习", "attempt": null, "source_episodes_start": 39936, "seconds": 1.2017802000045776, "source_episodes": 0}
+{"round": 13, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 39936, "seconds": 0.9721550999674946, "source_episodes": 0}
+{"round": 13, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 39936, "seconds": 0.13441629987210035, "source_episodes": 2048}
+{"round": 13, "stage": "提交结果", "attempt": null, "source_episodes_start": 41984, "seconds": 0.10759739996865392, "source_episodes": 0}
+{"round": 14, "stage": "冻结策略", "attempt": null, "source_episodes_start": 41984, "seconds": 0.005290299886837602, "source_episodes": 0}
+{"round": 14, "stage": "训练采样", "attempt": null, "source_episodes_start": 41984, "seconds": 0.06336879986338317, "source_episodes": 1024}
+{"round": 14, "stage": "方向学习", "attempt": null, "source_episodes_start": 43008, "seconds": 1.194405100075528, "source_episodes": 0}
+{"round": 14, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 43008, "seconds": 0.9261537999846041, "source_episodes": 0}
+{"round": 14, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 43008, "seconds": 0.1399999000132084, "source_episodes": 2048}
+{"round": 14, "stage": "目标构造与 actor 拟合", "attempt": 1, "source_episodes_start": 45056, "seconds": 0.9322728000115603, "source_episodes": 0}
+{"round": 14, "stage": "独立回报检查", "attempt": 1, "source_episodes_start": 45056, "seconds": 0.13321550004184246, "source_episodes": 2048}
+{"round": 14, "stage": "提交结果", "attempt": null, "source_episodes_start": 47104, "seconds": 0.1063649000134319, "source_episodes": 0}
+{"round": 15, "stage": "冻结策略", "attempt": null, "source_episodes_start": 47104, "seconds": 0.005615399917587638, "source_episodes": 0}
+{"round": 15, "stage": "训练采样", "attempt": null, "source_episodes_start": 47104, "seconds": 0.06874100002460182, "source_episodes": 1024}
+{"round": 15, "stage": "方向学习", "attempt": null, "source_episodes_start": 48128, "seconds": 1.2027141000144184, "source_episodes": 0}
+{"round": 15, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 48128, "seconds": 0.9498719999101013, "source_episodes": 0}
+{"round": 15, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 48128, "seconds": 0.1366180998738855, "source_episodes": 2048}
+{"round": 15, "stage": "目标构造与 actor 拟合", "attempt": 1, "source_episodes_start": 50176, "seconds": 0.9317447999492288, "source_episodes": 0}
+{"round": 15, "stage": "独立回报检查", "attempt": 1, "source_episodes_start": 50176, "seconds": 0.14195679989643395, "source_episodes": 2048}
+{"round": 15, "stage": "提交结果", "attempt": null, "source_episodes_start": 52224, "seconds": 0.08575490000657737, "source_episodes": 0}
+{"round": 16, "stage": "冻结策略", "attempt": null, "source_episodes_start": 52224, "seconds": 0.004997400101274252, "source_episodes": 0}
+{"round": 16, "stage": "训练采样", "attempt": null, "source_episodes_start": 52224, "seconds": 0.06735850009135902, "source_episodes": 1024}
+{"round": 16, "stage": "方向学习", "attempt": null, "source_episodes_start": 53248, "seconds": 1.220768100116402, "source_episodes": 0}
+{"round": 16, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 53248, "seconds": 0.9264253999572247, "source_episodes": 0}
+{"round": 16, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 53248, "seconds": 0.1347857997752726, "source_episodes": 2048}
+{"round": 16, "stage": "提交结果", "attempt": null, "source_episodes_start": 55296, "seconds": 0.10748729994520545, "source_episodes": 0}
+{"round": 17, "stage": "冻结策略", "attempt": null, "source_episodes_start": 55296, "seconds": 0.004829099867492914, "source_episodes": 0}
+{"round": 17, "stage": "训练采样", "attempt": null, "source_episodes_start": 55296, "seconds": 0.06368289981037378, "source_episodes": 1024}
+{"round": 17, "stage": "方向学习", "attempt": null, "source_episodes_start": 56320, "seconds": 1.5597333000041544, "source_episodes": 0}
+{"round": 17, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 56320, "seconds": 1.259794200072065, "source_episodes": 0}
+{"round": 17, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 56320, "seconds": 0.13634230010211468, "source_episodes": 2048}
+{"round": 17, "stage": "提交结果", "attempt": null, "source_episodes_start": 58368, "seconds": 0.10841539991088212, "source_episodes": 0}
+{"round": 18, "stage": "冻结策略", "attempt": null, "source_episodes_start": 58368, "seconds": 0.005720499902963638, "source_episodes": 0}
+{"round": 18, "stage": "训练采样", "attempt": null, "source_episodes_start": 58368, "seconds": 0.06855550012551248, "source_episodes": 1024}
+{"round": 18, "stage": "方向学习", "attempt": null, "source_episodes_start": 59392, "seconds": 1.5919886999763548, "source_episodes": 0}
+{"round": 18, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 59392, "seconds": 1.2240221998654306, "source_episodes": 0}
+{"round": 18, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 59392, "seconds": 0.1340496998745948, "source_episodes": 2048}
+{"round": 18, "stage": "提交结果", "attempt": null, "source_episodes_start": 61440, "seconds": 0.10622949991375208, "source_episodes": 0}
+{"round": 19, "stage": "冻结策略", "attempt": null, "source_episodes_start": 61440, "seconds": 0.005023499950766563, "source_episodes": 0}
+{"round": 19, "stage": "训练采样", "attempt": null, "source_episodes_start": 61440, "seconds": 0.06583709991537035, "source_episodes": 1024}
+{"round": 19, "stage": "方向学习", "attempt": null, "source_episodes_start": 62464, "seconds": 1.5161894999910146, "source_episodes": 0}
+{"round": 19, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 62464, "seconds": 1.1876993000041693, "source_episodes": 0}
+{"round": 19, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 62464, "seconds": 0.14323329995386302, "source_episodes": 2048}
+{"round": 19, "stage": "目标构造与 actor 拟合", "attempt": 1, "source_episodes_start": 64512, "seconds": 1.2103347999509424, "source_episodes": 0}
+{"round": 19, "stage": "独立回报检查", "attempt": 1, "source_episodes_start": 64512, "seconds": 0.14704909990541637, "source_episodes": 2048}
+{"round": 19, "stage": "提交结果", "attempt": null, "source_episodes_start": 66560, "seconds": 0.08691020007245243, "source_episodes": 0}
+{"round": 20, "stage": "冻结策略", "attempt": null, "source_episodes_start": 66560, "seconds": 0.004835200030356646, "source_episodes": 0}
+{"round": 20, "stage": "训练采样", "attempt": null, "source_episodes_start": 66560, "seconds": 0.06753459991887212, "source_episodes": 1024}
+{"round": 20, "stage": "方向学习", "attempt": null, "source_episodes_start": 67584, "seconds": 1.5527030997909606, "source_episodes": 0}
+{"round": 20, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 67584, "seconds": 1.2123887001071125, "source_episodes": 0}
+{"round": 20, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 67584, "seconds": 0.13626990001648664, "source_episodes": 2048}
+{"round": 20, "stage": "目标构造与 actor 拟合", "attempt": 1, "source_episodes_start": 69632, "seconds": 1.2051895000040531, "source_episodes": 0}
+{"round": 20, "stage": "独立回报检查", "attempt": 1, "source_episodes_start": 69632, "seconds": 0.13538710004650056, "source_episodes": 2048}
+{"round": 20, "stage": "提交结果", "attempt": null, "source_episodes_start": 71680, "seconds": 0.10498609999194741, "source_episodes": 0}
+{"round": 21, "stage": "冻结策略", "attempt": null, "source_episodes_start": 71680, "seconds": 0.005105899879708886, "source_episodes": 0}
+{"round": 21, "stage": "训练采样", "attempt": null, "source_episodes_start": 71680, "seconds": 0.06878289999440312, "source_episodes": 1024}
+{"round": 21, "stage": "方向学习", "attempt": null, "source_episodes_start": 72704, "seconds": 1.650041300104931, "source_episodes": 0}
+{"round": 21, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 72704, "seconds": 1.2655592998489738, "source_episodes": 0}
+{"round": 21, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 72704, "seconds": 0.13656040001660585, "source_episodes": 2048}
+{"round": 21, "stage": "目标构造与 actor 拟合", "attempt": 1, "source_episodes_start": 74752, "seconds": 1.2523297001607716, "source_episodes": 0}
+{"round": 21, "stage": "独立回报检查", "attempt": 1, "source_episodes_start": 74752, "seconds": 0.1350757998879999, "source_episodes": 2048}
+{"round": 21, "stage": "提交结果", "attempt": null, "source_episodes_start": 76800, "seconds": 0.10704929986968637, "source_episodes": 0}
+{"round": 22, "stage": "冻结策略", "attempt": null, "source_episodes_start": 76800, "seconds": 0.005042900098487735, "source_episodes": 0}
+{"round": 22, "stage": "训练采样", "attempt": null, "source_episodes_start": 76800, "seconds": 0.06941549992188811, "source_episodes": 1024}
+{"round": 22, "stage": "方向学习", "attempt": null, "source_episodes_start": 77824, "seconds": 1.6152904001064599, "source_episodes": 0}
+{"round": 22, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 77824, "seconds": 1.242474399972707, "source_episodes": 0}
+{"round": 22, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 77824, "seconds": 0.134669000050053, "source_episodes": 2048}
+{"round": 22, "stage": "目标构造与 actor 拟合", "attempt": 1, "source_episodes_start": 79872, "seconds": 1.236369099933654, "source_episodes": 0}
+{"round": 22, "stage": "独立回报检查", "attempt": 1, "source_episodes_start": 79872, "seconds": 0.13642560015432537, "source_episodes": 2048}
+{"round": 22, "stage": "提交结果", "attempt": null, "source_episodes_start": 81920, "seconds": 0.08642509998753667, "source_episodes": 0}
+{"round": 23, "stage": "冻结策略", "attempt": null, "source_episodes_start": 81920, "seconds": 0.005026399856433272, "source_episodes": 0}
+{"round": 23, "stage": "训练采样", "attempt": null, "source_episodes_start": 81920, "seconds": 0.06990909995511174, "source_episodes": 1024}
+{"round": 23, "stage": "方向学习", "attempt": null, "source_episodes_start": 82944, "seconds": 1.5159914998803288, "source_episodes": 0}
+{"round": 23, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 82944, "seconds": 1.221477699931711, "source_episodes": 0}
+{"round": 23, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 82944, "seconds": 0.13299060007557273, "source_episodes": 2048}
+{"round": 23, "stage": "提交结果", "attempt": null, "source_episodes_start": 84992, "seconds": 0.10629140003584325, "source_episodes": 0}
+{"round": 24, "stage": "冻结策略", "attempt": null, "source_episodes_start": 84992, "seconds": 0.006407199893146753, "source_episodes": 0}
+{"round": 24, "stage": "训练采样", "attempt": null, "source_episodes_start": 84992, "seconds": 0.06869870005175471, "source_episodes": 1024}
+{"round": 24, "stage": "方向学习", "attempt": null, "source_episodes_start": 86016, "seconds": 1.5504819999914616, "source_episodes": 0}
+{"round": 24, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 86016, "seconds": 1.2183714997954667, "source_episodes": 0}
+{"round": 24, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 86016, "seconds": 0.13649900001473725, "source_episodes": 2048}
+{"round": 24, "stage": "提交结果", "attempt": null, "source_episodes_start": 88064, "seconds": 0.10684619983658195, "source_episodes": 0}
+{"round": 25, "stage": "冻结策略", "attempt": null, "source_episodes_start": 88064, "seconds": 0.005144899943843484, "source_episodes": 0}
+{"round": 25, "stage": "训练采样", "attempt": null, "source_episodes_start": 88064, "seconds": 0.06970730004832149, "source_episodes": 1024}
+{"round": 25, "stage": "方向学习", "attempt": null, "source_episodes_start": 89088, "seconds": 1.5718950000591576, "source_episodes": 0}
+{"round": 25, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 89088, "seconds": 1.226742200087756, "source_episodes": 0}
+{"round": 25, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 89088, "seconds": 0.13430360006168485, "source_episodes": 2048}
+{"round": 25, "stage": "提交结果", "attempt": null, "source_episodes_start": 91136, "seconds": 0.10597090004011989, "source_episodes": 0}
+{"round": 26, "stage": "冻结策略", "attempt": null, "source_episodes_start": 91136, "seconds": 0.005903299897909164, "source_episodes": 0}
+{"round": 26, "stage": "训练采样", "attempt": null, "source_episodes_start": 91136, "seconds": 0.06942120008170605, "source_episodes": 1024}
+{"round": 26, "stage": "方向学习", "attempt": null, "source_episodes_start": 92160, "seconds": 1.553937999997288, "source_episodes": 0}
+{"round": 26, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 92160, "seconds": 1.2156320000067353, "source_episodes": 0}
+{"round": 26, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 92160, "seconds": 0.13704389985650778, "source_episodes": 2048}
+{"round": 26, "stage": "目标构造与 actor 拟合", "attempt": 1, "source_episodes_start": 94208, "seconds": 1.1013154999818653, "source_episodes": 0}
+{"round": 26, "stage": "独立回报检查", "attempt": 1, "source_episodes_start": 94208, "seconds": 0.13971159979701042, "source_episodes": 2048}
+{"round": 26, "stage": "提交结果", "attempt": null, "source_episodes_start": 96256, "seconds": 0.10521130007691681, "source_episodes": 0}
+{"round": 27, "stage": "冻结策略", "attempt": null, "source_episodes_start": 96256, "seconds": 0.0051541998982429504, "source_episodes": 0}
+{"round": 27, "stage": "训练采样", "attempt": null, "source_episodes_start": 96256, "seconds": 0.06740249996073544, "source_episodes": 1024}
+{"round": 27, "stage": "方向学习", "attempt": null, "source_episodes_start": 97280, "seconds": 1.3558084000833333, "source_episodes": 0}
+{"round": 27, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 97280, "seconds": 1.2054234000388533, "source_episodes": 0}
+{"round": 27, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 97280, "seconds": 0.1409964000340551, "source_episodes": 2048}
+{"round": 27, "stage": "提交结果", "attempt": null, "source_episodes_start": 99328, "seconds": 0.10797779983840883, "source_episodes": 0}
+{"round": 28, "stage": "冻结策略", "attempt": null, "source_episodes_start": 99328, "seconds": 0.005322700133547187, "source_episodes": 0}
+{"round": 28, "stage": "训练采样", "attempt": null, "source_episodes_start": 99328, "seconds": 0.06743970001116395, "source_episodes": 1024}
+{"round": 28, "stage": "方向学习", "attempt": null, "source_episodes_start": 100352, "seconds": 1.5580881999339908, "source_episodes": 0}
+{"round": 28, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 100352, "seconds": 1.2407646998763084, "source_episodes": 0}
+{"round": 28, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 100352, "seconds": 0.13435849989764392, "source_episodes": 2048}
+{"round": 28, "stage": "目标构造与 actor 拟合", "attempt": 1, "source_episodes_start": 102400, "seconds": 1.2520828999113292, "source_episodes": 0}
+{"round": 28, "stage": "独立回报检查", "attempt": 1, "source_episodes_start": 102400, "seconds": 0.14089010003954172, "source_episodes": 2048}
+{"round": 28, "stage": "提交结果", "attempt": null, "source_episodes_start": 104448, "seconds": 0.10545319993980229, "source_episodes": 0}
+{"round": 29, "stage": "冻结策略", "attempt": null, "source_episodes_start": 104448, "seconds": 0.005183400120586157, "source_episodes": 0}
+{"round": 29, "stage": "训练采样", "attempt": null, "source_episodes_start": 104448, "seconds": 0.06917879986576736, "source_episodes": 1024}
+{"round": 29, "stage": "方向学习", "attempt": null, "source_episodes_start": 105472, "seconds": 1.582450699992478, "source_episodes": 0}
+{"round": 29, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 105472, "seconds": 1.2277510999701917, "source_episodes": 0}
+{"round": 29, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 105472, "seconds": 0.13457899983040988, "source_episodes": 2048}
+{"round": 29, "stage": "目标构造与 actor 拟合", "attempt": 1, "source_episodes_start": 107520, "seconds": 1.2325008001644164, "source_episodes": 0}
+{"round": 29, "stage": "独立回报检查", "attempt": 1, "source_episodes_start": 107520, "seconds": 0.13606309983879328, "source_episodes": 2048}
+{"round": 29, "stage": "提交结果", "attempt": null, "source_episodes_start": 109568, "seconds": 0.10757369990460575, "source_episodes": 0}
+{"round": 30, "stage": "冻结策略", "attempt": null, "source_episodes_start": 109568, "seconds": 0.005195599980652332, "source_episodes": 0}
+{"round": 30, "stage": "训练采样", "attempt": null, "source_episodes_start": 109568, "seconds": 0.06714090006425977, "source_episodes": 1024}
+{"round": 30, "stage": "方向学习", "attempt": null, "source_episodes_start": 110592, "seconds": 1.568991299951449, "source_episodes": 0}
+{"round": 30, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 110592, "seconds": 1.1782492999918759, "source_episodes": 0}
+{"round": 30, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 110592, "seconds": 0.1343757000286132, "source_episodes": 2048}
+{"round": 30, "stage": "提交结果", "attempt": null, "source_episodes_start": 112640, "seconds": 0.10664290003478527, "source_episodes": 0}
+{"round": 31, "stage": "冻结策略", "attempt": null, "source_episodes_start": 112640, "seconds": 0.0056727000046521425, "source_episodes": 0}
+{"round": 31, "stage": "训练采样", "attempt": null, "source_episodes_start": 112640, "seconds": 0.07005780003964901, "source_episodes": 1024}
+{"round": 31, "stage": "方向学习", "attempt": null, "source_episodes_start": 113664, "seconds": 1.4930669001769274, "source_episodes": 0}
+{"round": 31, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 113664, "seconds": 1.19431889988482, "source_episodes": 0}
+{"round": 31, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 113664, "seconds": 0.13782910001464188, "source_episodes": 2048}
+{"round": 31, "stage": "提交结果", "attempt": null, "source_episodes_start": 115712, "seconds": 0.10595700005069375, "source_episodes": 0}
+{"round": 32, "stage": "冻结策略", "attempt": null, "source_episodes_start": 115712, "seconds": 0.004965600091964006, "source_episodes": 0}
+{"round": 32, "stage": "训练采样", "attempt": null, "source_episodes_start": 115712, "seconds": 0.06645100004971027, "source_episodes": 1024}
+{"round": 32, "stage": "方向学习", "attempt": null, "source_episodes_start": 116736, "seconds": 1.4954001000151038, "source_episodes": 0}
+{"round": 32, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 116736, "seconds": 1.1816602000035346, "source_episodes": 0}
+{"round": 32, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 116736, "seconds": 0.13785060006193817, "source_episodes": 2048}
+{"round": 32, "stage": "提交结果", "attempt": null, "source_episodes_start": 118784, "seconds": 0.10539400018751621, "source_episodes": 0}
+{"round": 33, "stage": "冻结策略", "attempt": null, "source_episodes_start": 118784, "seconds": 0.005551500013098121, "source_episodes": 0}
+{"round": 33, "stage": "训练采样", "attempt": null, "source_episodes_start": 118784, "seconds": 0.06827340018935502, "source_episodes": 1024}
+{"round": 33, "stage": "方向学习", "attempt": null, "source_episodes_start": 119808, "seconds": 1.5124662998132408, "source_episodes": 0}
+{"round": 33, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 119808, "seconds": 1.2416782998479903, "source_episodes": 0}
+{"round": 33, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 119808, "seconds": 0.1363602001219988, "source_episodes": 2048}
+{"round": 33, "stage": "提交结果", "attempt": null, "source_episodes_start": 121856, "seconds": 0.10401850007474422, "source_episodes": 0}
+{"round": 34, "stage": "冻结策略", "attempt": null, "source_episodes_start": 121856, "seconds": 0.005192900076508522, "source_episodes": 0}
+{"round": 34, "stage": "训练采样", "attempt": null, "source_episodes_start": 121856, "seconds": 0.06705079996027052, "source_episodes": 1024}
+{"round": 34, "stage": "方向学习", "attempt": null, "source_episodes_start": 122880, "seconds": 1.5479550999589264, "source_episodes": 0}
+{"round": 34, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 122880, "seconds": 1.1622834999579936, "source_episodes": 0}
+{"round": 34, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 122880, "seconds": 0.13410849985666573, "source_episodes": 2048}
+{"round": 34, "stage": "提交结果", "attempt": null, "source_episodes_start": 124928, "seconds": 0.10703189997002482, "source_episodes": 0}
+{"round": 35, "stage": "冻结策略", "attempt": null, "source_episodes_start": 124928, "seconds": 0.005160200176760554, "source_episodes": 0}
+{"round": 35, "stage": "训练采样", "attempt": null, "source_episodes_start": 124928, "seconds": 0.0672166000586003, "source_episodes": 1024}
+{"round": 35, "stage": "方向学习", "attempt": null, "source_episodes_start": 125952, "seconds": 1.5923134998884052, "source_episodes": 0}
+{"round": 35, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 125952, "seconds": 1.2153189999517053, "source_episodes": 0}
+{"round": 35, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 125952, "seconds": 0.13556139986030757, "source_episodes": 2048}
+{"round": 35, "stage": "提交结果", "attempt": null, "source_episodes_start": 128000, "seconds": 0.10747039993293583, "source_episodes": 0}
+{"round": 36, "stage": "冻结策略", "attempt": null, "source_episodes_start": 128000, "seconds": 0.005894999951124191, "source_episodes": 0}
+{"round": 36, "stage": "训练采样", "attempt": null, "source_episodes_start": 128000, "seconds": 0.06673590000718832, "source_episodes": 1024}
+{"round": 36, "stage": "方向学习", "attempt": null, "source_episodes_start": 129024, "seconds": 1.562233299948275, "source_episodes": 0}
+{"round": 36, "stage": "目标构造与 actor 拟合", "attempt": 0, "source_episodes_start": 129024, "seconds": 1.2217113999649882, "source_episodes": 0}
+{"round": 36, "stage": "独立回报检查", "attempt": 0, "source_episodes_start": 129024, "seconds": 0.14156939997337759, "source_episodes": 2048}
+{"round": 36, "stage": "提交结果", "attempt": null, "source_episodes_start": 131072, "seconds": 0.10406809998676181, "source_episodes": 0}

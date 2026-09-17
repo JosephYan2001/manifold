@@ -1,0 +1,63 @@
+{
+  "source": {
+    "n_agents": 4,
+    "type_probs": [
+      0.6,
+      0.4
+    ],
+    "local_bias": [
+      -0.2,
+      0.3
+    ],
+    "pair_payoff": [
+      [
+        1.0,
+        -0.5
+      ],
+      [
+        -0.5,
+        1.0
+      ]
+    ],
+    "interaction_strength": 0.7
+  },
+  "training": {
+    "device": "auto",
+    "algorithm": "direction",
+    "direction_check_enabled": false,
+    "return_check_enabled": true,
+    "save_update_logs": false,
+    "save_batches": false,
+    "save_direction_snapshots": false,
+    "checkpoint_every": 5,
+    "actor_model": "mlp",
+    "direction_model": "mlp",
+    "hidden_width": 128,
+    "hidden_depth": 2,
+    "mode": "policy",
+    "method": "analytic",
+    "baseline": "zero",
+    "acceptance": "empirical",
+    "seed": 41,
+    "episodes": 1024,
+    "batch_size_episodes": 128,
+    "direction_epochs": 64,
+    "actor_epochs": 64,
+    "critic_episodes": 512,
+    "check_episodes": 1024,
+    "direction_steps": 200,
+    "fit_steps": 100,
+    "log_every": 100000,
+    "rounds": 129,
+    "attempts": 2,
+    "budget": 131072,
+    "direction_lr": 0.001,
+    "fit_lr": 0.001,
+    "q_max": 1.0,
+    "beta": 0.02,
+    "eta": 0.4,
+    "alpha": 0.05
+  },
+  "python": "3.11.7",
+  "numpy": "1.26.4"
+}
