@@ -21,7 +21,7 @@
 | 环境 | 当前进度 | 下一步与直接入口 |
 |---|---|---|
 | 成对协作 | 83次开发训练及三组确认补充实验均已完成：60次训练、20数据种子方向/运输、200数据种子检查诊断 | 按[完整实验判断](../experiments/pair_coordination/results/完整实验判断_20260918.md)整理机制与成本结果，转向导航源pilot；[结果索引](../experiments/pair_coordination/results/结果目录索引.md) |
-| 合作导航 | MPE2 1.1.1、七条件训练、冻结迁移和可选审计已实现，接口与 smoke 已验证；尚无 pilot/正式结论 | 按[运行说明](../experiments/cooperative_navigation/实验运行说明.md)执行三种子 pilot，再冻结正式参数；见[验收记录](../experiments/cooperative_navigation/实现验收记录.md) |
+| 合作导航 | 首批21次pilot源训练已完成；ours优于sampled但落后于PPO，覆盖率较低，正式参数未冻结 | 见[首批实验判断](../experiments/cooperative_navigation/results/pilot_01_实验判断.md)，下一批共同50万步预算开发；N-T尚未运行 |
 | 仓库 | 任务方案与目录说明已有，封装和训练未完成 | 按[目录说明](../experiments/rware/README.md)与构建指南推进；尚无独立的完整执行设计 |
 
 成对确认结果支持当前任务中拟合预算存在冗余，以及特定标签/策略下的方向估计收益；未展示完整方法普遍领先或检查的端到端保护收益。固定候选诊断观察到 empirical 回报检查误接，不能声称安全保证。导航/仓库计划仍不能写成已有应用结果。

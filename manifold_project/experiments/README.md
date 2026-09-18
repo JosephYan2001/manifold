@@ -7,7 +7,7 @@
 | 目录 | 环境 | 当前状态 |
 |---|---|---|
 | [pair_coordination](pair_coordination/README.md) | 可枚举成对协作 | 83次开发训练及三组确认补充实验已完成；新增60次训练、640条方向/180条运输/9600条检查记录 |
-| [cooperative_navigation](cooperative_navigation/README.md) | MPE2 合作导航 | 七条件训练、独立评价、冻结迁移、可选审计与标签对齐已实现；接口与 smoke 已验收，pilot/正式尚待运行 |
+| [cooperative_navigation](cooperative_navigation/README.md) | MPE2 合作导航 | 首批21次pilot源训练已完成；[实验判断](cooperative_navigation/results/pilot_01_实验判断.md)建议共同50万步预算开发，正式协议未冻结，N-T尚未运行 |
 | [rware](rware/README.md) | RWARE 仓库 | 目录说明与跨环境任务方案已有；独立详细设计、环境封装和训练尚未完成 |
 
 研究动机见[实验方案](../docs/策略流形研究设计.实验方案.md)，做哪些实验见[实验总览](../docs/实验执行矩阵.md)，方法、计账与统计共识见[共同执行协议](../docs/实验执行矩阵_详细协议.md)，工程验收见[构建指南](../docs/三个实验环境构建指南.md)。具体参数与命令以各环境最新协议及实际配置为准；docs/archive 中的旧稿不作为执行依据。
