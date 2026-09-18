@@ -3,7 +3,6 @@ import argparse
 import hashlib
 import importlib.metadata
 import json
-import os
 from pathlib import Path
 import platform
 import subprocess
@@ -74,8 +73,6 @@ def parser():
 
 def main(argv=None):
     args = parser().parse_args(argv)
-    if os.environ.get('KMP_DUPLICATE_LIB_OK','').lower() in ('true','1','yes'):
-        raise RuntimeError('请移除 KMP_DUPLICATE_LIB_OK；本实验不以忽略重复 OpenMP 作为运行前提。')
     if args.resume_suite:
         if args.output or args.config or args.budget or args.seeds or args.device or args.threads or args.profile:
             raise ValueError('--resume-suite 使用原配置，不接受新的 profile/config/预算/设备参数')
