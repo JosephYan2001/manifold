@@ -2,11 +2,13 @@ import json
 from copy import deepcopy
 from pathlib import Path
 
-CONDITIONS = ['ours', 'sampled', 'mappo', 'ippo', 'no_direction_check', 'no_return_check', 'fit_quarter']
-EXPERIMENTS = {'N-C': CONDITIONS[:4], 'N-A': CONDITIONS[:2]+CONDITIONS[4:],
+STANDARD_CONDITIONS = ['ours', 'sampled', 'mappo', 'ippo', 'no_direction_check', 'no_return_check', 'fit_quarter']
+CONDITIONS = STANDARD_CONDITIONS + ['no_checks']
+EXPERIMENTS = {'N-C': STANDARD_CONDITIONS[:4], 'N-A': STANDARD_CONDITIONS[:2]+STANDARD_CONDITIONS[4:],
                'N-A1': ['ours','sampled'], 'N-A2': ['ours','no_direction_check'],
                'N-A3': ['ours','no_return_check'], 'N-A4': ['ours','fit_quarter'],
-               'N-P': CONDITIONS, 'N-S1': CONDITIONS, 'N-D': ['ours','no_return_check'],
+               'N-A5': ['ours','no_checks'],
+               'N-P': STANDARD_CONDITIONS, 'N-S1': STANDARD_CONDITIONS, 'N-D': ['ours','no_return_check'],
                'N-L': CONDITIONS[:4], 'N-T': []}
 
 

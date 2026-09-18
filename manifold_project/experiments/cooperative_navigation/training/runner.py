@@ -15,11 +15,19 @@ from .ppo import returns, gae, weighted, direction_terms, ppo_loss
 from .storage import seed_for, event, save_json, save_pt, load_pt
 
 
+def direction_check_enabled(condition):
+    return condition not in ('mappo', 'ippo', 'no_direction_check', 'no_checks')
+
+
+def return_check_enabled(condition):
+    return condition not in ('mappo', 'ippo', 'no_return_check', 'no_checks')
+
+
 def minimum_cost(config, condition):
     episodes = config['train_episodes']
     if condition not in ('mappo','ippo'):
-        episodes += 0 if condition == 'no_direction_check' else config['direction_check_episodes']
-        episodes += 0 if condition == 'no_return_check' else 2*config['return_check_episodes']
+        episodes += config['direction_check_episodes'] if direction_check_enabled(condition) else 0
+        episodes += 2*config['return_check_episodes'] if return_check_enabled(condition) else 0
     return episodes*config['horizon']
 
 
@@ -223,7 +231,7 @@ class Runner:
             q = direction(batch['x'])
             self.log('direction_fit',q_abs_mean=float(q.abs().mean()),q_abs_max=float(q.abs().max()),
                      near_bound_fraction=float((q.abs()>.95*self.c['q_max']).float().mean()))
-        if self.condition != 'no_direction_check':
+        if direction_check_enabled(self.condition):
             check = self.sampler.collect(old, self.c['direction_check_episodes'], 'direction_check')
             a, _ = self.labels(check, old_critic)
             with torch.no_grad():
@@ -236,7 +244,7 @@ class Runner:
                 self.capture(None, old, info)
                 return old, info
         for attempt in range(self.c['attempts']):
-            if self.condition != 'no_return_check' and self.sampler.used+2*self.c['return_check_episodes']*self.c['horizon'] > self.c['budget']:
+            if return_check_enabled(self.condition) and self.sampler.used+2*self.c['return_check_episodes']*self.c['horizon'] > self.c['budget']:
                 break
             eta = self.c['eta']/(2**attempt)
             candidate = deepcopy(old)
@@ -262,7 +270,7 @@ class Runner:
                         fit_kl_after=float(weighted(kl, self.c['gamma'])),
                         fit_kl_p95=float(torch.quantile(kl.flatten(), .95)), fit_kl_max=float(kl.max()),
                         target_below_floor=float((batch['target'] < self.c['beta']/5).float().mean()))
-            if self.condition == 'no_return_check':
+            if not return_check_enabled(self.condition):
                 info['accepted'] = True
             else:
                 old_eval = self.sampler.collect(old, self.c['return_check_episodes'], 'return_old', retain=False)
@@ -353,8 +361,8 @@ class Runner:
             accepted_rounds=sum(r['accepted'] for r in self.rounds),
             direction_rejections=sum(not r['direction_pass'] for r in gates), direction_checks=len(gates),
             candidates=sum(r['candidates'] for r in self.rounds),
-            return_checks=sum(r['candidates'] for r in self.rounds) if self.condition not in ('mappo','ippo','no_return_check') else 0,
-            return_rejections=sum(r['candidates']-int(r['accepted']) for r in self.rounds) if self.condition not in ('mappo','ippo','no_return_check') else 0,
+            return_checks=sum(r['candidates'] for r in self.rounds) if return_check_enabled(self.condition) else 0,
+            return_rejections=sum(r['candidates']-int(r['accepted']) for r in self.rounds) if return_check_enabled(self.condition) else 0,
             fit_kl_after=float(np.mean([r['fit_kl_after'] for r in fits])) if fits else None,
             train_seconds=self.train_seconds, evaluation_seconds=self.eval_seconds,
             optimizer_steps=sum(self.optim_steps.values()), optimizer_steps_by_module=dict(self.optim_steps),

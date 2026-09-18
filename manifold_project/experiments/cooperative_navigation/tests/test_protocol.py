@@ -7,7 +7,7 @@ import unittest
 from unittest.mock import patch
 import numpy as np
 import torch
-from manifold_project.experiments.cooperative_navigation.configs import load_config, condition_config, validate, CONDITIONS
+from manifold_project.experiments.cooperative_navigation.configs import load_config, condition_config, validate, CONDITIONS, EXPERIMENTS
 from manifold_project.experiments.cooperative_navigation.envs.navigation import Navigation
 from manifold_project.experiments.cooperative_navigation.observations.history import History
 from manifold_project.experiments.cooperative_navigation.models import Actor, Direction
@@ -90,7 +90,7 @@ class ObjectiveTests(unittest.TestCase):
         c = tiny()
         c['method_overrides'] = {'ours':{'eta':.05},'mappo':{'ppo_epochs':5}}
         validate(c)
-        for method in ('ours','sampled','fit_quarter','no_return_check','no_direction_check'):
+        for method in ('ours','sampled','fit_quarter','no_return_check','no_direction_check','no_checks'):
             self.assertEqual(condition_config(c,method)['eta'],.05)
         self.assertEqual(condition_config(c,'mappo')['ppo_epochs'],5)
         self.assertEqual(condition_config(c,'ippo')['ppo_epochs'],1)
@@ -149,6 +149,33 @@ class ObjectiveTests(unittest.TestCase):
 
 
 class RunnerTests(unittest.TestCase):
+    def test_joint_ablation_only_trains_and_accepts_first_candidate(self):
+        c = tiny()
+        c['budget'] = 20
+        self.assertEqual(minimum_cost(c, 'no_checks'), 10)
+        self.assertEqual(EXPERIMENTS['N-A5'], ['ours', 'no_checks'])
+        for experiment in ('N-A', 'N-P', 'N-S1'):
+            self.assertNotIn('no_checks', EXPERIMENTS[experiment])
+        with tempfile.TemporaryDirectory() as folder:
+            runner = Runner(folder, c, 'no_checks', 40)
+            original = runner.sampler.collect
+            def collect(actor, count, purpose, retain=True):
+                self.assertEqual(purpose, 'train')
+                return original(actor, count, purpose, retain)
+            before = {k:v.clone() for k,v in runner.actor.state_dict().items()}
+            with patch.object(runner.sampler, 'collect', collect):
+                result = runner.run()
+            self.assertEqual(result['rounds'], 2)
+            self.assertEqual(result['accepted_rounds'], 2)
+            self.assertEqual(result['costs'], {'train':20})
+            self.assertEqual(result['direction_checks'], 0)
+            self.assertEqual(result['return_checks'], 0)
+            self.assertEqual(result['return_rejections'], 0)
+            self.assertTrue(all(r['candidates']==1 and r['direction_pass'] is None for r in runner.rounds))
+            for module in ('critic','direction','actor_fit'):
+                self.assertGreater(result['optimizer_steps_by_module'][module], 0)
+            self.assertTrue(any(not torch.equal(before[k], v) for k,v in runner.actor.state_dict().items()))
+
     def test_mc_aligned_ppo_both_critics(self):
         c = tiny()
         c.update(ppo_label='mc',ppo_normalize_advantage=False,budget=10)
@@ -199,7 +226,7 @@ class RunnerTests(unittest.TestCase):
                 for row in runner.curves:
                     self.assertLessEqual(row['actor_source_steps'],row['budget_checkpoint'])
                 self.assertEqual(sum(summary['costs'].values()),summary['source_steps'])
-                if condition in ('mappo','ippo'):
+                if condition in ('mappo','ippo','no_checks'):
                     self.assertEqual(set(summary['costs']),{'train'})
                 elif condition=='no_direction_check':
                     self.assertNotIn('direction_check',summary['costs'])

@@ -4,7 +4,8 @@ import numpy as np
 from .reporting import read_csv, bootstrap
 
 LABELS = {'ours':'完整方法','sampled':'采样平方','mappo':'MAPPO','ippo':'IPPO',
-          'no_direction_check':'去方向检查','no_return_check':'去回报检查','fit_quarter':'1/4 拟合'}
+          'no_direction_check':'去方向检查','no_return_check':'去回报检查','fit_quarter':'1/4 拟合',
+          'no_checks':'去两项检查'}
 
 
 def setup():
