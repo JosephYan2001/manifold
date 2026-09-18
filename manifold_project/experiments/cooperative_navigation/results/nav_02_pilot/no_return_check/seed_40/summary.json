@@ -1,0 +1,39 @@
+{
+  "condition": "no_return_check",
+  "seed": 40,
+  "status": "complete",
+  "rounds": 833,
+  "source_steps": 1999200,
+  "unused_budget": 800,
+  "evaluation_steps": 12000,
+  "AUC": -73.57146767042437,
+  "J": -65.82266711625677,
+  "distance": 0.40849543741859173,
+  "coverage": 0.0125,
+  "all_covered": 0.0,
+  "collision_pairs": 0.1645,
+  "collisions_per_agent": 0.08225,
+  "coverage_cost": null,
+  "accepted_rounds": 311,
+  "direction_rejections": 522,
+  "direction_checks": 833,
+  "candidates": 311,
+  "return_checks": 0,
+  "return_rejections": 0,
+  "fit_kl_after": 4.248331649639706e-06,
+  "train_seconds": 2245.380904509686,
+  "evaluation_seconds": 9.359760300256312,
+  "optimizer_steps": 106536,
+  "optimizer_steps_by_module": {
+    "critic": 33320,
+    "direction": 53312,
+    "actor_fit": 19904
+  },
+  "costs": {
+    "train": 1332800,
+    "direction_check": 666400
+  },
+  "actor_parameters": 39941,
+  "critic_parameters": 25089,
+  "direction_parameters": 39941
+}
