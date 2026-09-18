@@ -24,10 +24,11 @@ def minimum_cost(config, condition):
 
 
 class Runner:
-    def __init__(self, directory, config, condition, seed, audit=False, resume=False):
+    def __init__(self, directory, config, condition, seed, audit=False, resume=False, progress=None):
         self.directory, self.c, self.condition, self.seed = Path(directory), config, condition, seed
         self.directory.mkdir(parents=True, exist_ok=True)
         self.audit = audit and condition in ('ours','no_return_check')
+        self.progress = progress
         self.log_path = self.directory/'events.jsonl'
         self.sampler = Collector(config, condition, seed, self.log)
         self.round, self.curves, self.rounds, self.snapshots = 0, [], [], []
@@ -117,6 +118,8 @@ class Runner:
         started = time.perf_counter()
         final = budget_node == self.c['budget']
         count = self.c['final_episodes'] if final else self.c['eval_episodes']
+        print(f'  [eval] 开始 {self.condition} seed={self.seed} node={budget_node} '
+              f'episodes={count}', flush=True)
         metrics, episodes = evaluate(actor, self.c, self.condition, self.seed,
                               'source-final' if final else 'source-grid', count)
         # Descriptive episode uncertainty; never used to accept training updates.
@@ -129,6 +132,10 @@ class Runner:
                    actor_source_steps=actor_cost, episodes=count, **metrics)
         self.curves.append(row)
         self.log('evaluation', **row)
+        print(f'  [eval] {self.condition} seed={self.seed} node={budget_node} '
+              f'actor_steps={actor_cost} J={metrics["J"]:.4f} '
+              f'coverage={metrics["coverage"]:.1%} distance={metrics["distance"]:.4f} '
+              f'episodes={count}', flush=True)
         if self.best is None or metrics['J'] > self.best['score']:
             self.best = {'actor':deepcopy(actor.state_dict()), 'config':self.c, 'input_dim':self.input_dim,
                          'score':metrics['J'], 'selection':'independent_source_evaluation_diagnostic_only',
@@ -188,8 +195,10 @@ class Runner:
                 variance = mb['value_target'].var(unbiased=False)
                 explained = float(1-(mb['value_target']-value).var(unbiased=False)/variance) if variance > 1e-12 else None
             return self.c['value_coef']*mse, {'value_mse':float(mse.detach()), 'explained_variance':explained}
-        self.optimize(self.critic, self.critic_optimizer, batch, self.c['critic_epochs'], 'critic', critic_loss)
+        critic_info = self.optimize(self.critic, self.critic_optimizer, batch, self.c['critic_epochs'], 'critic', critic_loss)
         info = dict(accepted=False, candidates=0, direction_pass=None, direction_score=None,
+                    train_J=float(episode_returns.mean()), critic_mse=critic_info['value_mse'],
+                    explained_variance=critic_info['explained_variance'],
                     return_difference=None, fit_kl_before=None, fit_kl_after=None,
                     fit_kl_p95=None, fit_kl_max=None, target_below_floor=None)
         if self.condition in ('mappo','ippo'):
@@ -281,21 +290,27 @@ class Runner:
                 candidate.to(self.c['device'])
 
     def run(self, max_rounds=None):
+        from ..evaluation.monitoring import progress_line
         if self.complete:
             summary = self.summary()
             save_json(self.directory/'summary.json', summary)
+            if self.progress:
+                self.progress(self)
             return summary
         try:
             if not self.curves:
                 self.evaluate_node(self.actor, 0, self.sampler.used)
                 self.checkpoint()
+            if self.progress:
+                self.progress(self)
             while self.sampler.used+minimum_cost(self.c, self.condition) <= self.c['budget']:
                 if max_rounds is not None and self.round >= max_rounds:
                     return None  # test/development pause at a committed boundary
                 before_cost = self.rounds[-1]['source_steps'] if self.rounds else 0
                 started = time.perf_counter()
                 old, info = self.update()
-                self.train_seconds += time.perf_counter()-started
+                info['update_seconds'] = time.perf_counter()-started
+                self.train_seconds += info['update_seconds']
                 self.round += 1
                 self.rounds.append(dict(round=self.round, source_steps=self.sampler.used, **info))
                 # A crossed node receives the previous committed policy, never the future one.
@@ -306,7 +321,10 @@ class Runner:
                                        before_cost if crossed else self.sampler.used)
                 self.log('commit', completed_round=self.round, source_steps=self.sampler.used, **info)
                 self.checkpoint()
-                print(f'  {self.condition} seed={self.seed} round={self.round} source={self.sampler.used}/{self.c["budget"]} accepted={info["accepted"]}', flush=True)
+                print('  ' + progress_line(self.condition, self.seed, self.c['budget'],
+                                          self.rounds[-1], self.curves[-1]), flush=True)
+                if self.progress:
+                    self.progress(self)
             while len(self.curves) < len(self.grid):
                 self.evaluate_node(self.actor, self.grid[len(self.curves)],
                                    self.rounds[-1]['source_steps'] if self.rounds else 0)
@@ -314,6 +332,8 @@ class Runner:
             self.checkpoint()
             summary = self.summary()
             save_json(self.directory/'summary.json', summary)
+            if self.progress:
+                self.progress(self)
             return summary
         except BaseException as error:
             save_json(self.directory/'failure.json', {'type':type(error).__name__, 'message':str(error),

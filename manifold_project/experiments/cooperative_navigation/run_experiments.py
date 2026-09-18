@@ -10,6 +10,9 @@ import sys
 import traceback
 import os
 os.environ['KMP_DUPLICATE_LIB_OK']='TRUE'
+# CUDA deterministic matrix products require this before CUDA/cuBLAS initializes.
+# Preserve an explicitly configured workspace (for example, :16:8).
+os.environ.setdefault('CUBLAS_WORKSPACE_CONFIG', ':4096:8')
 
 if __package__ in (None,''):
     sys.path.insert(0,str(Path(__file__).resolve().parents[3]))
@@ -41,7 +44,8 @@ def metadata():
                 git_head=result.stdout.strip() if result.returncode==0 else None,
                 cuda=torch.version.cuda, gpu=torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
                 runtime_environment={key:os.environ.get(key) for key in
-                                     ('KMP_DUPLICATE_LIB_OK','MKL_THREADING_LAYER','OMP_NUM_THREADS')},
+                                     ('KMP_DUPLICATE_LIB_OK','MKL_THREADING_LAYER','OMP_NUM_THREADS',
+                                      'CUBLAS_WORKSPACE_CONFIG')},
                 dtype='float32; episode/statistical aggregation float64')
 
 
@@ -73,12 +77,16 @@ def parser():
     p.add_argument('--resume-suite',type=Path,help='严格按原配置恢复，或只做 N-T/N-D')
     p.add_argument('--dry-run',action='store_true')
     p.add_argument('--plot',action='store_true')
+    p.add_argument('--plot-every',type=int,default=10,metavar='ROUNDS',
+                   help='配合 --plot，每隔若干已提交轮次更新 training_monitor.png；0 仅生成最终图')
     p.add_argument('--audit',action='store_true',help='训练前启用固定轮次候选快照，结束后评价')
     return p
 
 
 def main(argv=None):
     args = parser().parse_args(argv)
+    if args.plot_every < 0:
+        raise ValueError('--plot-every 必须为非负整数')
     if args.resume_suite:
         if args.output or args.config or args.budget or args.seeds or args.device or args.threads or args.profile or args.conditions:
             raise ValueError('--resume-suite 使用原配置，不接受新的 profile/config/预算/设备参数')
@@ -137,6 +145,7 @@ def main(argv=None):
     from manifold_project.experiments.cooperative_navigation.evaluation.reporting import source_tables
     from manifold_project.experiments.cooperative_navigation.evaluation.transfer import transfer_suite,audit_suite
     from manifold_project.experiments.cooperative_navigation.evaluation.plotting import plot_suite,plot_transfer
+    from manifold_project.experiments.cooperative_navigation.evaluation.monitoring import TrainingMonitor
     import torch
     torch.set_num_threads(config['threads'])
     if any(config['budget'] < minimum_cost(config,job['condition']) for job in manifest['jobs']):
@@ -154,6 +163,8 @@ def main(argv=None):
             directory.mkdir(parents=True,exist_ok=True)
         save_json(directory/'manifest.json',manifest)
     print(f'套件: {directory}',flush=True)
+    if args.plot and args.plot_every:
+        print(f'训练监控: {directory / "training_monitor.png"}（每{args.plot_every}轮及新评价后刷新）', flush=True)
     status_path = directory/'status.json'
     status = json.loads(status_path.read_text(encoding='utf-8')) if status_path.exists() else {'jobs':{}}
     evaluate_only = args.resume_suite and set(args.experiments) <= {'N-T','N-D'}
@@ -168,7 +179,9 @@ def main(argv=None):
             save_json(status_path,status)
             try:
                 runner = Runner(path,condition_config(config,job['condition']),job['condition'],job['seed'],audit=manifest['audit'],
-                                resume=(path/'checkpoints/final.pt').exists())
+                                resume=(path/'checkpoints/final.pt').exists(),
+                                progress=TrainingMonitor(directory/'training_monitor.png',args.plot_every)
+                                if args.plot and args.plot_every else None)
                 runner.run()
                 status['jobs'][job['path']] = 'complete'
             except KeyboardInterrupt:
