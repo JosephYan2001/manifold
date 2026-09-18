@@ -8,6 +8,8 @@ import platform
 import subprocess
 import sys
 import traceback
+import os
+os.environ['KMP_DUPLICATE_LIB_OK']='TRUE'
 
 if __package__ in (None,''):
     sys.path.insert(0,str(Path(__file__).resolve().parents[3]))

@@ -1,0 +1,37 @@
+{
+  "condition": "mappo",
+  "seed": 42,
+  "status": "complete",
+  "rounds": 125,
+  "source_steps": 200000,
+  "unused_budget": 0,
+  "evaluation_steps": 12000,
+  "AUC": -69.45123750497089,
+  "J": -49.17790593273291,
+  "distance": 0.3223734960758221,
+  "coverage": 0.075,
+  "all_covered": 0.0,
+  "collision_pairs": 0.08650000000000002,
+  "collisions_per_agent": 0.04325000000000001,
+  "coverage_cost": null,
+  "accepted_rounds": 125,
+  "direction_rejections": 0,
+  "direction_checks": 0,
+  "candidates": 0,
+  "return_checks": 0,
+  "return_rejections": 0,
+  "fit_kl_after": null,
+  "train_seconds": 216.29982260009274,
+  "evaluation_seconds": 9.375443599652499,
+  "optimizer_steps": 10000,
+  "optimizer_steps_by_module": {
+    "critic": 5000,
+    "ppo": 5000
+  },
+  "costs": {
+    "train": 200000
+  },
+  "actor_parameters": 39941,
+  "critic_parameters": 25089,
+  "direction_parameters": 0
+}
