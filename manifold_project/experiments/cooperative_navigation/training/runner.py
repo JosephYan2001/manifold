@@ -117,8 +117,12 @@ class Runner:
         started = time.perf_counter()
         final = budget_node == self.c['budget']
         count = self.c['final_episodes'] if final else self.c['eval_episodes']
-        metrics, _ = evaluate(actor, self.c, self.condition, self.seed,
+        metrics, episodes = evaluate(actor, self.c, self.condition, self.seed,
                               'source-final' if final else 'source-grid', count)
+        # Descriptive episode uncertainty; never used to accept training updates.
+        for key in ('J', 'coverage', 'distance'):
+            values = np.asarray([e[key] for e in episodes], dtype=np.float64)
+            metrics[key+'_se'] = float(values.std(ddof=1)/np.sqrt(count)) if count > 1 else None
         self.eval_seconds += time.perf_counter()-started
         self.eval_steps += count*self.c['horizon']
         row = dict(condition=self.condition, seed=self.seed, budget_checkpoint=budget_node,
@@ -180,7 +184,10 @@ class Runner:
         def critic_loss(mb):
             value = self.critic(mb['x'] if self.condition == 'ippo' else mb['state'])
             mse = weighted((value-mb['value_target']).square(), self.c['gamma'])
-            return self.c['value_coef']*mse, {'value_mse':float(mse.detach())}
+            with torch.no_grad():
+                variance = mb['value_target'].var(unbiased=False)
+                explained = float(1-(mb['value_target']-value).var(unbiased=False)/variance) if variance > 1e-12 else None
+            return self.c['value_coef']*mse, {'value_mse':float(mse.detach()), 'explained_variance':explained}
         self.optimize(self.critic, self.critic_optimizer, batch, self.c['critic_epochs'], 'critic', critic_loss)
         info = dict(accepted=False, candidates=0, direction_pass=None, direction_score=None,
                     return_difference=None, fit_kl_before=None, fit_kl_after=None,
@@ -237,7 +244,12 @@ class Runner:
                 return weighted(kl, self.c['gamma']), {}
             self.optimize(candidate, optimizer, batch, epochs, 'actor_fit', fit_loss)
             kl = kl_values(candidate)
+            with torch.no_grad():
+                actual = candidate(batch['x'])
+                step_kl = weighted((batch['mu']*(batch['mu'].log()-actual.log())).sum(-1), self.c['gamma'])
+                entropy = weighted(-(actual*actual.log()).sum(-1), self.c['gamma'])
             info.update(candidates=attempt+1, fit_kl_before=before,
+                        policy_step_kl=float(step_kl), policy_entropy=float(entropy),
                         fit_kl_after=float(weighted(kl, self.c['gamma'])),
                         fit_kl_p95=float(torch.quantile(kl.flatten(), .95)), fit_kl_max=float(kl.max()),
                         target_below_floor=float((batch['target'] < self.c['beta']/5).float().mean()))

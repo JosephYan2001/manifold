@@ -28,7 +28,7 @@ def validate(c):
     if not isinstance(c['method_overrides'],dict) or set(c['method_overrides'])-{'ours','mappo','ippo'}:
         raise ValueError('method_overrides 只允许 ours/mappo/ippo；sampled 与消融自动继承 ours')
     for method,values in c['method_overrides'].items():
-        allowed = {'actor_lr','critic_lr','ppo_epochs'} if method in ('mappo','ippo') else {'actor_lr','critic_lr','direction_lr','eta'}
+        allowed = {'actor_lr','critic_lr','ppo_epochs','ppo_clip'} if method in ('mappo','ippo') else {'actor_lr','critic_lr','direction_lr','eta'}
         if not isinstance(values,dict) or set(values)-allowed:
             raise ValueError(f'{method} 分方法覆盖只允许 {sorted(allowed)}')
         merged = deepcopy(c)

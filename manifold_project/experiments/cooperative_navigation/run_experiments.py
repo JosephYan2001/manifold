@@ -40,6 +40,8 @@ def metadata():
                 processor=platform.processor(),versions=versions,code_sha256=fingerprint(),
                 git_head=result.stdout.strip() if result.returncode==0 else None,
                 cuda=torch.version.cuda, gpu=torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
+                runtime_environment={key:os.environ.get(key) for key in
+                                     ('KMP_DUPLICATE_LIB_OK','MKL_THREADING_LAYER','OMP_NUM_THREADS')},
                 dtype='float32; episode/statistical aggregation float64')
 
 
@@ -60,6 +62,8 @@ def parser():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--profile',choices=['smoke','pilot','formal'],default=None)
     p.add_argument('--experiments',nargs='+',choices=sorted(EXPERIMENTS),default=['N-C','N-A'])
+    p.add_argument('--conditions', nargs='+', choices=sorted({c for v in EXPERIMENTS.values() for c in v}),
+                   help='仅新建pilot/smoke：从实验计划中选取训练条件，例如 ours')
     p.add_argument('--config',type=Path,help='覆盖 source + profile 的 JSON 配置')
     p.add_argument('--budget',type=int)
     p.add_argument('--seeds',type=int,nargs='+')
@@ -76,7 +80,7 @@ def parser():
 def main(argv=None):
     args = parser().parse_args(argv)
     if args.resume_suite:
-        if args.output or args.config or args.budget or args.seeds or args.device or args.threads or args.profile:
+        if args.output or args.config or args.budget or args.seeds or args.device or args.threads or args.profile or args.conditions:
             raise ValueError('--resume-suite 使用原配置，不接受新的 profile/config/预算/设备参数')
         directory = args.resume_suite.resolve()
         manifest = json.loads((directory/'manifest.json').read_text(encoding='utf-8'))
@@ -86,6 +90,8 @@ def main(argv=None):
         if (args.audit or 'N-D' in args.experiments) and not manifest['audit']:
             raise ValueError('原训练未预先启用审计，无法补回未保存的候选；请新建 --audit 套件')
         requested = set(c for e in args.experiments for c in EXPERIMENTS[e])
+        if args.experiments == manifest['experiments'] and 'selected_conditions' in manifest:
+            requested = set(manifest['selected_conditions'])
         available = {j['condition'] for j in manifest['jobs']}
         if not requested <= available:
             raise ValueError(f'套件未规划条件: {sorted(requested-available)}，请新建完整套件')
@@ -104,12 +110,20 @@ def main(argv=None):
                 raise ValueError('N-L 要求方向/PPO 同为 mc 或 gae，且关闭 PPO 优势标准化')
         validate(config)
         conditions = list(dict.fromkeys(c for e in args.experiments for c in EXPERIMENTS[e]))
+        if args.conditions:
+            if profile == 'formal':
+                raise ValueError('--conditions 仅用于pilot/smoke开发，不改变正式实验计划')
+            if not set(args.conditions) <= set(conditions):
+                raise ValueError('--conditions 必须属于 --experiments 对应的条件')
+            conditions = [c for c in conditions if c in args.conditions]
         if not conditions:
             raise ValueError('N-T 只复用已有 final，请指定 --resume-suite；或者与 N-C 一同规划')
         audit = args.audit or 'N-D' in args.experiments
         jobs = [dict(condition=c,seed=s,path=f'{c}/seed_{s}') for c in conditions for s in config['seeds']]
         manifest = dict(format_version=1,profile=profile,config=config,experiments=args.experiments,
                         audit=audit,jobs=jobs)
+        if args.conditions:
+            manifest['selected_conditions'] = conditions
         directory = args.output
     # Planning works without importing torch or MPE2 and does not create directories.
     if args.dry_run:

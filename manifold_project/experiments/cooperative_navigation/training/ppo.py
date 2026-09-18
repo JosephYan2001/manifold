@@ -49,4 +49,5 @@ def ppo_loss(actor, batch, advantage, config):
     with torch.no_grad():
         kl = weighted((batch['mu']*(batch['mu'].log()-p.log())).sum(-1), config['gamma'])
         clipped = ((ratio-1).abs() > config['ppo_clip']).float().mean()
-    return loss, {'ppo_kl': float(kl), 'clip_fraction': float(clipped)}
+    return loss, {'ppo_kl': float(kl), 'clip_fraction': float(clipped),
+                  'policy_entropy': float(weighted(entropy.detach(), config['gamma']))}

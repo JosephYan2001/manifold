@@ -7,7 +7,7 @@
 | 目录 | 环境 | 当前状态 |
 |---|---|---|
 | [pair_coordination](pair_coordination/README.md) | 可枚举成对协作 | 83次开发训练及三组确认补充实验已完成；新增60次训练、640条方向/180条运输/9600条检查记录 |
-| [cooperative_navigation](cooperative_navigation/README.md) | MPE2 合作导航 | 首批21次pilot源训练已完成；[实验判断](cooperative_navigation/results/pilot_01_实验判断.md)建议共同50万步预算开发，正式协议未冻结，N-T尚未运行 |
+| [cooperative_navigation](cooperative_navigation/README.md) | MPE2 合作导航 | 两批源开发已完成；当前进行ours长预算优化，之后公平PPO比较与单模块消融，正式协议未冻结 |
 | [rware](rware/README.md) | RWARE 仓库 | 目录说明与跨环境任务方案已有；独立详细设计、环境封装和训练尚未完成 |
 
 研究动机见[实验方案](../docs/策略流形研究设计.实验方案.md)，做哪些实验见[实验总览](../docs/实验执行矩阵.md)，方法、计账与统计共识见[共同执行协议](../docs/实验执行矩阵_详细协议.md)，工程验收见[构建指南](../docs/三个实验环境构建指南.md)。具体参数与命令以各环境最新协议及实际配置为准；docs/archive 中的旧稿不作为执行依据。
@@ -19,7 +19,7 @@
 | 环境 | 接下来做什么 | 直接阅读 |
 |---|---|---|
 | 成对协作 | 论文结论稿与统一数值报告已整理，预定三组补充已完成，无需默认重跑 | [论文结论与后续验证](pair_coordination/results/论文结论与后续验证.md)、[完整实验判断](pair_coordination/results/完整实验判断_20260918.md)、[已有结果索引](pair_coordination/results/结果目录索引.md) |
-| 合作导航 | 执行三种子 pilot，根据源开发证据冻结正式参数 | [运行说明](cooperative_navigation/实验运行说明.md)、[详细设计](cooperative_navigation/实验设计.md) |
+| 合作导航 | 先执行单种子长预算候选，再复核并开展公平比较 | [运行说明](cooperative_navigation/实验运行说明.md)、[详细设计](cooperative_navigation/实验设计.md) |
 | 仓库 | 先明确独立执行设计、版本、地图和接口，再实现封装与训练 | [仓库说明](rware/README.md) |
 
 当前可推进导航源pilot。成对开发与确认结果不支持“完整方法普遍领先”或“检查已证明具有保护作用”；相应负结果与成本取舍应在论文中如实保留。
