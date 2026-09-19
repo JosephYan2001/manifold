@@ -241,7 +241,7 @@ def main(argv=None):
         if manifest.get('kind') != KIND:
             raise ValueError('只支持恢复本入口创建的分支套件')
     else:
-        checkpoint = (args.checkpoint or ROOT/'results/nav_04_pilot/no_checks/seed_40/checkpoints/final.pt').resolve()
+        checkpoint = (args.checkpoint or ROOT/'results/reference/nav_04_pilot/no_checks/seed_40/checkpoints/final.pt').resolve()
         parent = load_pt(checkpoint)
         manifest = make_plan(checkpoint, parent, args.direction_epochs or [16, 4],
                              args.additional_budget if args.additional_budget is not None else 1000000,

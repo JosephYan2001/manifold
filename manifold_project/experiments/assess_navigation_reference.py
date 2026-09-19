@@ -36,7 +36,7 @@ def return_se(row):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--suite', type=Path, default=ROOT/'results/nav_03_pilot')
+    parser.add_argument('--suite', type=Path, default=ROOT/'results/reference/nav_03_pilot')
     args = parser.parse_args(argv)
     suite = args.suite.resolve()
     manifest = js(suite/'manifest.json')
@@ -170,14 +170,14 @@ def main(argv=None):
     body.append(f"Critic误差并未归零：第一轮MSE={all_critic[0]['value_mse']:.2f}，最后一轮={all_critic[-1]['value_mse']:.2f}，全程最小={min(r['value_mse'] for r in all_critic):.2f}，精确为0的记录={sum(r['value_mse']==0 for r in all_critic)}。原线性纵轴被初期大误差撑高，导致后期误差看似贴零；监控现改为对数刻度（0附近线性）。这里的MSE是最后训练minibatch上的加权误差，优化loss另乘value_coef，不是独立验证误差。")
     body += [f"末500轮Critic训练MSE均值={mean(critic,'value_mse'):.2f}，方向输出最大绝对值的逐轮均值={mean(direction,'q_abs_max'):.3f}，接近q_max比例均值={mean(direction,'near_bound_fraction'):.2%}。当前没有方向输出贴满上界或拟合残差明显失控的证据；不优先机械增加q_max或拟合epochs。Critic训练误差下降不等于优势标签已准确或泛化无误。",
         '## 5. 与旧批次的比较边界']
-    previous_suite = suite.parent/'nav_02_pilot'
+    previous_suite = ROOT/'results/archive/nav_02_pilot'
     if (previous_suite/'ours/seed_40/summary.json').exists():
         old = js(previous_suite/'ours/seed_40/summary.json')
         same_node = next(r for r in evaluations if r['budget_checkpoint']==2000000)
         body.append(f"旧200万步ours final J={old['J']:.3f}、覆盖={old['coverage']:.2%}；本批200万节点J={same_node['J']:.3f}、覆盖={same_node['coverage']:.2%}，终点进一步改善至J={last['J']:.3f}。新旧同时改变Critic学习率、CPU/CUDA设备、评价数量/网格与源码版本；旧final和本批中间节点的评价随机流也不同，不能把差异全部归因于延长预算或某一个参数。不同预算/网格的AUC不直接排名。")
     body += ['本批只有ours，不能据此宣布优于PPO或消融。旧批次PPO的表现可以作为任务仍有提升空间的开发提示，但不是当前1000万步共同配置下的公平对比。也没有新种子确认、冻结迁移或预存候选审计数据。',
         '## 6. 下一步与可写结论',
-        '1. 优先补齐no_direction_check、no_return_check、no_checks，均使用reference的同预算、同设备、同评价与seed40。已完成且协议一致的条件不重跑。对新增N-A5所需代码与原参考版本作变更记录，无法确认只影响新增分支/监控时应补同版参考。命令统一见[实验运行说明](../实验运行说明.md)。',
+        '1. 该参考的后续双检查消融已完成。本页保留参考分析；当前安排统一见合作导航目录下的实验运行说明和results/当前实验判断.md。',
         '2. 对比J/AUC、覆盖、距离、碰撞、接受轮数和源成本。去检查后更新更多是结构性结果，不单独作为成功证据；联合消融用于判断整套模块交互，不等于证明误拒绝。',
         '3. 随后按预定计划检查eta=0.3、batch64、GAE三个单因素候选，不同时改门槛和步长。选择依据只用源开发结果，再用41/42复核；PPO获得匹配的开发资源。',
         '4. 本批末段仍有改善，延长共同预算有研究价值，但当前先补检查对照更能区分瓶颈。暂不直接启动所有组2000万步或冻结正式预算；不能仅给ours更长正式预算。',

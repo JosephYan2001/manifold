@@ -8,7 +8,7 @@ import statistics as st
 import math
 
 ROOT = Path(__file__).resolve().parent/'cooperative_navigation'
-SUITE = ROOT/'results/nav_01_pilot'
+SUITE = ROOT/'results/archive/nav_01_pilot'
 
 
 def read(path):
@@ -120,7 +120,7 @@ def main():
         '去回报检查的final均值提高5.514，AUC提高5.179，但每步碰撞对从0.102升至0.140，训练秒从205.2升至226.7。它获得更多训练采样和提交机会，不能只用接受率或更高回报声称全面更好；也不能把碰撞增加等同于逐次策略退化。',
         f"16→4 Actor epochs：平均拟合KL从{mean('ours','fit_kl_after'):.3e}升至{mean('fit_quarter','fit_kl_after'):.3e}，约{mean('fit_quarter','fit_kl_after')/mean('ours','fit_kl_after'):.1f}倍；耗时仅减少{(1-mean('fit_quarter','train_seconds')/mean('ours','train_seconds')):.2%}，final均值下降5.126，但三种子配对区间跨零。暂保留16 epochs，不能继承pair中32.7%的节时结论。KL小本身也不保证目标有足够回报增益。",
         '## 4. 历史建议与当前入口',
-        '本批之后已完成第二批200万步开发。原50万/100万步扩展建议不再作为待办，当前命令统一见[实验运行说明](../实验运行说明.md)；本页保留首批实测判断。',
+        '本批之后已完成长预算开发；本页为历史记录，当前安排见[当前实验判断](../当前实验判断.md)及[实验运行说明](../../实验运行说明.md)。',
         '预算扩展保持原源配置、依赖和运行时设置，并保存原运行代码副本；如源码已变，先明确变更内容后作为新实现版本报告，不把差异全部归因于预算。同步可用动画检查覆盖/分工行为；不以挑选的好看回合替代统计。',
         '若仍需解释与PPO的差异，按既定N-L做标签对齐；公平超参数开发应对主算法提供相同候选预算，不能只调ours。正式冻结前决定是否启用N-D审计，当前未保存的拒绝候选不能事后补回。',
         'N-T已实现，但本批无迁移数据。若要先做探索性诊断，可在原训练代码与依赖环境中对本套件补N-T；目标结果不得用于选择源超参数或选模型。正式零样本主张仍以源参数冻结后的独立确认训练评价为依据。当前源码指纹不同，不能保证在本工作区直接resume成功。',
@@ -129,7 +129,7 @@ def main():
         '[总览图](nav_01_pilot/overview.png)；[逐种子表](nav_01_pilot/training_results.csv)；[汇总表](nav_01_pilot/training_summary.csv)。复核命令：`python -m manifold_project.experiments.assess_navigation_pilot`。',
         table(['输入','SHA256'],[[f,hashlib.sha256((SUITE/f).read_bytes()).hexdigest()] for f in ('manifest.json','training_results.csv','training_summary.csv','learning_curves.csv')])]
     # One current assessment, no extra JSON/CSV logs or copied checkpoints.
-    (ROOT/'results/pilot_01_实验判断.md').write_text('\n\n'.join(text)+'\n',encoding='utf-8')
+    (ROOT/'results/archive/pilot_01_实验判断.md').write_text('\n\n'.join(text)+'\n',encoding='utf-8')
     print('Audit passed: 21 runs, 126 evaluation nodes and all summary rows. Assessment written.')
 
 

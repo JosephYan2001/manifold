@@ -207,7 +207,7 @@ def compare_directions(actor, critic, state, config, collector, args):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--checkpoint', type=Path, default=Path(__file__).resolve().parent /
-                        'cooperative_navigation/results/nav_04_pilot/no_checks/seed_40/checkpoints/final.pt')
+                        'cooperative_navigation/results/reference/nav_04_pilot/no_checks/seed_40/checkpoints/final.pt')
     parser.add_argument('--heldout-episodes', type=int, default=128)
     parser.add_argument('--repeats', type=int, default=4)
     parser.add_argument('--diagnostic-seed', type=int, default=90219)
