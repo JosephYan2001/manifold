@@ -1,7 +1,8 @@
 """Frozen-policy direction generalization probe; prints diagnostics, writes no results.
 
 Uses fresh rollouts, so its interaction cost is additional to the original suite.
-Only fresh Direction networks are optimized; saved Actor/Critic remain unchanged.
+Direction networks and optional temporary candidate Actors are optimized;
+the loaded source Actor/Critic and checkpoint files remain unchanged.
 """
 import argparse
 from copy import deepcopy
@@ -18,13 +19,82 @@ if __package__ in (None, ''):
 import numpy as np
 import torch
 from manifold_project.experiments.cooperative_navigation.models import Actor, Critic, Direction
-from manifold_project.experiments.cooperative_navigation.training.collector import Collector
+from manifold_project.experiments.cooperative_navigation.training.collector import Collector, episode
 from manifold_project.experiments.cooperative_navigation.training.ppo import returns, gae, weighted, direction_terms
 from manifold_project.experiments.cooperative_navigation.training.storage import seed_for
 
 
 def emit(**values):
     print(json.dumps(values, allow_nan=False), flush=True)
+
+
+def evaluate_candidates(actor, config, directions, fit_batch, args):
+    """Fit final-round candidates on common data; evaluate on fresh paired scenes."""
+    original = {key: value.clone() for key, value in actor.state_dict().items()}
+    policies = [('unchanged', actor)]
+    for name in args.candidate_variants:
+        direction = directions[name]
+        candidate = deepcopy(actor)
+        with torch.no_grad():
+            target = torch.softmax(fit_batch['mu'].log()+config['eta']*direction(fit_batch['x']), -1)
+            target_kl = float(weighted((target*(target.log()-fit_batch['mu'].log())).sum(-1), config['gamma']))
+        optimizer = torch.optim.Adam(candidate.parameters(), lr=config['actor_lr'])
+        rng = np.random.default_rng(seed_for('diagnostic-candidate-fit', args.diagnostic_seed, args.repeats))
+        updates = 0
+        emit(stage='candidate_fit_start', variant=name, direction_round=args.repeats,
+             fit_episodes=len(target), eta=config['eta'])
+        for _ in range(config['actor_epochs']):
+            order = rng.permutation(len(target))
+            for start in range(0, len(order), config['minibatch_episodes']):
+                idx = order[start:start+config['minibatch_episodes']]
+                probability = candidate(fit_batch['x'][idx])
+                loss = weighted((target[idx]*(target[idx].log()-probability.log())).sum(-1), config['gamma'])
+                optimizer.zero_grad()
+                loss.backward()
+                torch.nn.utils.clip_grad_norm_(candidate.parameters(), config['grad_norm'], error_if_nonfinite=True)
+                optimizer.step()
+                updates += 1
+        with torch.no_grad():
+            probability = candidate(fit_batch['x'])
+            residual = float(weighted((target*(target.log()-probability.log())).sum(-1), config['gamma']))
+            step_kl = float(weighted((fit_batch['mu']*(fit_batch['mu'].log()-probability.log())).sum(-1), config['gamma']))
+        emit(stage='candidate_fit_done', variant=name, target_kl=target_kl, fit_kl=residual,
+             actual_step_kl=step_kl, actor_fit_updates=updates)
+        candidate.eval()
+        policies.append((name, candidate))
+    evaluated, evaluation_steps = {}, 0
+
+    def debit():
+        nonlocal evaluation_steps
+        evaluation_steps += 1
+
+    for name, policy in policies:
+        emit(stage='candidate_evaluation_start', variant=name, episodes=args.candidate_episodes,
+             evaluation_seed=args.candidate_seed)
+        rows = []
+        for i in range(args.candidate_episodes):
+            rows.append(episode(policy, config,
+                seed_for('direction-candidate-reset', args.candidate_seed, i),
+                seed_for('direction-candidate-action', args.candidate_seed, i), on_step=debit))
+            if (i+1) % 128 == 0:
+                emit(stage='candidate_evaluation_progress', variant=name, episodes_done=i+1)
+        evaluated[name] = rows
+        means, differences = {}, {}
+        for key in ('J', 'coverage', 'distance', 'all_covered', 'collision_pairs'):
+            values = np.asarray([r[key] for r in rows], dtype=np.float64)
+            means[key] = float(values.mean())
+            if name != 'unchanged':
+                paired = values-np.asarray([r[key] for r in evaluated['unchanged']], dtype=np.float64)
+                difference, se = float(paired.mean()), float(paired.std(ddof=1)/len(paired)**.5)
+                differences[key] = dict(mean=difference, se=se,
+                                         normal_95=[difference-1.96*se, difference+1.96*se])
+        emit(candidate_result=name, episodes=args.candidate_episodes, means=means,
+             paired_candidate_minus_unchanged=differences,
+             note='Descriptive paired episode uncertainty, not corrected for multiple candidates; '
+                  'one frozen training seed, final direction round only, no best-round selection.')
+    assert evaluation_steps == len(policies)*args.candidate_episodes*config['horizon']
+    assert all(torch.equal(value, original[key]) for key, value in actor.state_dict().items())
+    return evaluation_steps
 
 
 def compare_directions(actor, critic, state, config, collector, args):
@@ -70,7 +140,7 @@ def compare_directions(actor, critic, state, config, collector, args):
                         target_kl=float(weighted((target*(target.log()-data['mu'].log())).sum(-1), config['gamma'])))
 
     heldout = labels(collector.collect(actor, args.heldout_episodes, 'compare-heldout'))
-    warm_models, records = {}, {name: [] for name, *_ in specs}
+    warm_models, records, final_directions = {}, {name: [] for name, *_ in specs}, {}
     emit(mode='compare', variants=[dict(name=name, train_episodes=n, epochs=e, label=label,
                                        initialization=mode, optimizer='fresh Adam each round')
                                    for name, n, e, label, mode in specs], ema_tau=args.ema_tau,
@@ -113,6 +183,8 @@ def compare_directions(actor, critic, state, config, collector, args):
                           train=metrics(direction, batch, label), heldout_mc=metrics(direction, heldout, 'mc'))
             records[name].append(result)
             emit(**result)
+            if args.candidate_episodes and repetition == args.repeats-1 and name in args.candidate_variants:
+                final_directions[name] = deepcopy(direction)
     for name, n, epochs, label, mode in specs:
         tail = records[name][len(records[name])//2:]
         emit(summary=name, tail_rounds=len(tail),
@@ -120,8 +192,16 @@ def compare_directions(actor, critic, state, config, collector, args):
                               for key in ('score', 'linear', 'fisher', 'target_kl')},
              nominal_training_steps=n*args.repeats*config['horizon'],
              optimizer_steps=sum(row['optimizer_steps'] for row in records[name]))
-    emit(complete=True, additional_diagnostic_steps=collector.used, seconds=perf_counter()-started,
-         actor_updated=False, critic_updated=False, note='Shared sampling charged once; nominal variant costs reported separately.')
+    evaluation_steps = 0
+    if args.candidate_episodes:
+        # Common final-round 64-episode pool for all Actor fits; label fields unused.
+        # This isolates direction variants and is not a complete training update.
+        evaluation_steps = evaluate_candidates(actor, config, final_directions, pool, args)
+    emit(complete=True, additional_diagnostic_steps=collector.used+evaluation_steps,
+         direction_probe_steps=collector.used, candidate_evaluation_steps=evaluation_steps,
+         seconds=perf_counter()-started, actor_updated=False, critic_updated=False,
+         candidate_actors_fitted=bool(args.candidate_episodes),
+         note='Source Actor/Critic unchanged. Shared sampling charged once; nominal variant costs reported separately.')
 
 
 def main(argv=None):
@@ -135,11 +215,24 @@ def main(argv=None):
                         help='Compare reset, warm start, warm+EMA, larger batch and GAE on a frozen policy')
     parser.add_argument('--ema-tau', type=float, default=.2,
                         help='EMA new-parameter weight per fitted round; only used by --compare')
+    parser.add_argument('--candidate-episodes', type=int, default=0,
+                        help='With --compare, fit final-round candidate Actors and evaluate on fresh paired episodes; 0 disables')
+    parser.add_argument('--candidate-variants', nargs='+',
+                        choices=['reset_mc', 'warm_mc', 'warm_ema_mc', 'batch4x_mc', 'reset_gae'],
+                        default=['reset_mc', 'warm_mc', 'batch4x_mc'])
+    parser.add_argument('--candidate-seed', type=int, default=90221,
+                        help='Independent reset/action seed for paired candidate return evaluation')
     args = parser.parse_args(argv)
     if args.heldout_episodes < 2 or args.repeats < 1:
         parser.error('heldout-episodes must be >= 2 and repeats >= 1')
     if not 0 < args.ema_tau <= 1:
         parser.error('ema-tau must be in (0, 1]')
+    if args.candidate_episodes < 0 or args.candidate_episodes == 1:
+        parser.error('candidate-episodes must be 0 or >= 2')
+    if args.candidate_episodes and not args.compare:
+        parser.error('candidate-episodes requires --compare')
+    if len(args.candidate_variants) != len(set(args.candidate_variants)):
+        parser.error('candidate-variants must be unique')
     # Checkpoints must come from this project's trusted local training runs.
     state = torch.load(args.checkpoint, map_location='cpu', weights_only=False)
     if state['condition'] in ('mappo', 'ippo'):
@@ -149,6 +242,7 @@ def main(argv=None):
     config = dict(state['config'])
     config['device'] = 'cpu'
     total_steps = (args.heldout_episodes + args.repeats * config['train_episodes'] * (4 if args.compare else 1)) * config['horizon']
+    planned_candidate_steps = (1+len(args.candidate_variants))*args.candidate_episodes*config['horizon']
     config['budget'] = total_steps  # Separate diagnostic ledger, not the completed training budget.
     torch.set_num_threads(1)
     actor = Actor(state['input_dim'], config)
@@ -160,7 +254,8 @@ def main(argv=None):
     collector = Collector(config, 'frozen-plateau-diagnostic', args.diagnostic_seed)
     emit(checkpoint=str(args.checkpoint.resolve()), sha256=hashlib.sha256(args.checkpoint.read_bytes()).hexdigest(),
          torch_version=torch.__version__, numpy_version=np.__version__, device='cpu',
-         diagnostic_seed=args.diagnostic_seed, additional_steps=total_steps,
+         diagnostic_seed=args.diagnostic_seed, additional_steps=total_steps+planned_candidate_steps,
+         direction_probe_steps=total_steps, candidate_evaluation_steps_planned=planned_candidate_steps,
          train_episodes=config['train_episodes'], direction_label=config['direction_label'],
          note='One shared heldout set; repetitions are not independent training seeds or independent test sets.')
     if args.compare:
