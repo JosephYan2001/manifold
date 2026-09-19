@@ -6,6 +6,7 @@ import numpy as np
 from ..training.storage import atomic, seed_for
 
 METRICS = ['J','AUC','coverage','distance','all_covered','collision_pairs','collisions_per_agent',
+           'mean_reward','mean_coverage','tail_coverage','tail_all_covered',
            'source_steps','unused_budget','train_seconds','evaluation_seconds','optimizer_steps',
            'coverage_cost','fit_kl_after']
 

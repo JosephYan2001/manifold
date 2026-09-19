@@ -3,6 +3,7 @@ import json
 import time
 import numpy as np
 from ..models import Actor
+from ..configs import continuing_task
 from ..training.storage import load_pt, seed_for
 from ..training.collector import episode
 from .evaluate import evaluate
@@ -18,12 +19,13 @@ def cached_rows(path, dimensions):
             if key in row and row[key] != '':
                 row[key] = int(row[key])
         for key in ('J','distance','coverage','all_covered','collision_pairs','collisions_per_agent',
+                    'mean_reward','mean_coverage','tail_coverage','tail_all_covered',
                     'evaluation_seconds','mean','std','ci_low','ci_high'):
             if key in row:
                 row[key] = float(row[key]) if row[key] != '' else None
         for key in ('reused_source','candidate_accepted','supported_false_rejection'):
             if key in row:
-                row[key] = row[key] == 'True'
+                row[key] = None if row[key] == '' else row[key] == 'True'
         cached[tuple(row[key] for key in dimensions)] = row
     return cached
 
@@ -50,7 +52,8 @@ def transfer_suite(directory, manifest):
                 continue
             start = time.perf_counter()
             if n == config['n_agents']:
-                metrics = {k:summary[k] for k in ('J','distance','coverage','all_covered','collision_pairs','collisions_per_agent')}
+                metrics = {k:summary[k] for k in ('J','distance','coverage','all_covered','collision_pairs','collisions_per_agent',
+                           'mean_reward','mean_coverage','tail_coverage','tail_all_covered') if k in summary}
                 count,steps = config['final_episodes'],0
             else:
                 count = config['transfer_episodes']
@@ -104,7 +107,9 @@ def audit_suite(directory, manifest):
                 outcome = 'supported_improvement'
             rows.append(dict(**base,status='complete',**stats,outcome=outcome,
                 candidate_accepted=snap['decision']['accepted'],source_steps=snap['source_steps'],
-                supported_false_rejection=not snap['decision']['accepted'] and outcome=='supported_improvement',
+                supported_false_rejection=(None if continuing_task(config) else
+                    not snap['decision']['accepted'] and outcome=='supported_improvement'),
+                score_kind='observed_finite_window_return',
                 evaluation_steps=2*config['audit_episodes']*config['horizon'],
                 interval_scope='paired_reset_within_candidate_uncorrected_not_training_seed_CI'))
             write_csv(directory/'audit_results.csv',rows)

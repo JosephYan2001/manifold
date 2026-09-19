@@ -1,6 +1,7 @@
 """Pinned native MPE2 dynamics; physical diagnostics never enter the actor."""
 import importlib.metadata
 import numpy as np
+from ..configs import continuing_task
 
 
 class Navigation:
@@ -10,6 +11,7 @@ class Navigation:
             raise RuntimeError('本协议锁定 mpe2==1.1.1，请安装 requirements.txt')
         self.n = n or config['n_agents']
         self.horizon = config['horizon']
+        self.include_time = not continuing_task(config)
         self.env = simple_spread_v3.parallel_env(
             N=self.n, local_ratio=config['local_ratio'], max_cycles=self.horizon,
             continuous_actions=False, num_agent_neighbors=config['agent_neighbors'],
@@ -17,7 +19,7 @@ class Navigation:
             terminate_on_success=False, curriculum=False, dynamic_rescaling=False)
         self.names = self.env.possible_agents
         self.obs_dim = self.env.observation_space(self.names[0]).shape[0]
-        self.state_dim = self.obs_dim * self.n + 1
+        self.state_dim = self.obs_dim * self.n + int(self.include_time)
         assert self.env.action_space(self.names[0]).n == 5
         self.t = 0
 
@@ -31,7 +33,10 @@ class Navigation:
         return np.stack([observations[a] for a in self.names])
 
     def state(self):
-        return np.concatenate([self.env.state(), [self.t / self.horizon]]).astype(np.float32)
+        state = self.env.state()
+        if self.include_time:
+            state = np.concatenate([state, [self.t / self.horizon]])
+        return state.astype(np.float32)
 
     def metrics(self):
         agents, landmarks = self.world.agents, self.world.landmarks
@@ -44,15 +49,21 @@ class Navigation:
                 'collisions_per_agent': float(2*pairs/self.n)}
 
     def step(self, actions):
+        if self.t >= self.horizon:
+            raise RuntimeError('采样窗口已结束，请 reset 或在新 rollout 中设置更长 horizon')
         observations, rewards, terminated, truncated, _ = self.env.step(dict(zip(self.names, map(int, actions))))
         self.t += 1
         if set(rewards) != set(self.names):
             raise RuntimeError('原生环境提前移除机器人')
-        done = all(terminated[a] or truncated[a] for a in self.names)
-        if done != (self.t == self.horizon):
-            raise RuntimeError('终点与固定时域不一致')
-        obs = np.stack([observations[a] for a in self.names]) if not done else None
-        return obs, float(np.mean(list(rewards.values()), dtype=np.float64)), done
+        # This scenario ends all agents together and has no success termination.
+        if len(set(terminated.values())) != 1 or len(set(truncated.values())) != 1:
+            raise RuntimeError('当前团队采样器不支持机器人异步结束')
+        terminal, timeout = all(terminated.values()), all(truncated.values())
+        if terminal or timeout != (self.t == self.horizon):
+            raise RuntimeError('原生结束标志与关闭成功终止的固定采样窗口不一致')
+        # MPE2 supplies the pre-reset final observation even after a timeout.
+        obs = np.stack([observations[a] for a in self.names])
+        return obs, float(np.mean(list(rewards.values()), dtype=np.float64)), terminal, timeout
 
     def close(self):
         self.env.close()

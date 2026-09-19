@@ -9,7 +9,7 @@ if __package__ in (None, ''):
 
 import torch
 import numpy as np
-from manifold_project.experiments.cooperative_navigation.configs import load_config
+from manifold_project.experiments.cooperative_navigation.configs import load_config, continuing_task
 from manifold_project.experiments.cooperative_navigation.envs.navigation import Navigation
 from manifold_project.experiments.cooperative_navigation.models import Actor
 from manifold_project.experiments.cooperative_navigation.observations.history import History
@@ -18,7 +18,7 @@ from manifold_project.experiments.cooperative_navigation.training.storage import
 
 def rollout(actor, config, n, reset_seed, action_seed):
     env = Navigation(config, n)
-    history = History(env.n, env.obs_dim, config['history'], env.horizon)
+    history = History(env.n, env.obs_dim, config['history'], env.horizon, include_time=env.include_time)
     rng = np.random.default_rng(action_seed)
     frames, rewards = [], []
     def snapshot():
@@ -40,11 +40,11 @@ def rollout(actor, config, n, reset_seed, action_seed):
             if not np.isfinite(p).all() or (p <= 0).any() or not np.allclose(p.sum(-1), 1, atol=1e-6):
                 raise ValueError('Invalid action probabilities')
             actions = (rng.random(env.n)[:, None] > p.astype(np.float64).cumsum(-1)).sum(-1).clip(max=4)
-            obs, reward, done = env.step(actions)
+            obs, reward, terminated, truncated = env.step(actions)
             rewards.append(reward)
             previous = actions
             snapshot()
-        assert done
+        assert terminated or truncated
         metrics = dict(frames[-1]['metrics'])
         metrics['J'] = float(np.dot(np.power(config['gamma'], np.arange(env.horizon)), rewards))
         metrics['collision_pairs'] = float(np.mean([f['metrics']['collision_pairs'] for f in frames[1:]]))
@@ -105,6 +105,7 @@ def main(argv=None):
     p.add_argument('--reset-seed', type=int, default=20260918)
     p.add_argument('--action-seed', type=int, default=20260919)
     p.add_argument('--fps', type=int, default=10)
+    p.add_argument('--steps', type=int, help='持续任务的回放长度，例如 500；期间不 reset')
     p.add_argument('--output', type=Path, default=Path('navigation_replay.gif'))
     p.add_argument('--show', action='store_true', help='Also open an animated window after saving')
     args = p.parse_args(argv)
@@ -132,6 +133,10 @@ def main(argv=None):
         actor.eval()
         title = f'{args.condition} | final | train seed {args.seed}'
     n = args.agents or config['n_agents']
+    if args.steps is not None:
+        if args.steps < 1 or not continuing_task(config):
+            p.error('--steps 要求正整数且模型来自 continuing 任务，不能改变旧模型的时钟含义')
+        config = dict(config, horizon=args.steps)
     print(f'Replaying {title}, N={n}; reset={args.reset_seed}, action={args.action_seed}', flush=True)
     frames, metrics = rollout(actor, config, n, args.reset_seed, args.action_seed)
     args.output.parent.mkdir(parents=True, exist_ok=True)

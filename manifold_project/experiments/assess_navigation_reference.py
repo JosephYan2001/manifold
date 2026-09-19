@@ -36,13 +36,16 @@ def return_se(row):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--suite', type=Path, default=ROOT/'results/reference/nav_03_pilot')
+    parser.add_argument('--suite', type=Path, required=True, help='旧有限时域参考报告，仅分析显式提供的历史套件')
+    parser.add_argument('--previous-suite', type=Path, help='可选历史比较套件；不自动读取已清理的数据')
     args = parser.parse_args(argv)
     suite = args.suite.resolve()
     manifest = js(suite/'manifest.json')
     assert len(manifest['jobs']) == 1 and manifest['jobs'][0]['condition'] == 'ours', 'Expected one ours job'
     job = manifest['jobs'][0]
     c = manifest['config']
+    if c.get('task_mode', 'finite_horizon') != 'finite_horizon':
+        parser.error('此脚本的判断模板仅适用于旧有限时域结果；新结果使用 analyze.py 和长窗口评价')
     run = suite/job['path']
     summary = js(run/'summary.json')
     assert summary['status'] == 'complete'
@@ -170,8 +173,8 @@ def main(argv=None):
     body.append(f"Critic误差并未归零：第一轮MSE={all_critic[0]['value_mse']:.2f}，最后一轮={all_critic[-1]['value_mse']:.2f}，全程最小={min(r['value_mse'] for r in all_critic):.2f}，精确为0的记录={sum(r['value_mse']==0 for r in all_critic)}。原线性纵轴被初期大误差撑高，导致后期误差看似贴零；监控现改为对数刻度（0附近线性）。这里的MSE是最后训练minibatch上的加权误差，优化loss另乘value_coef，不是独立验证误差。")
     body += [f"末500轮Critic训练MSE均值={mean(critic,'value_mse'):.2f}，方向输出最大绝对值的逐轮均值={mean(direction,'q_abs_max'):.3f}，接近q_max比例均值={mean(direction,'near_bound_fraction'):.2%}。当前没有方向输出贴满上界或拟合残差明显失控的证据；不优先机械增加q_max或拟合epochs。Critic训练误差下降不等于优势标签已准确或泛化无误。",
         '## 5. 与旧批次的比较边界']
-    previous_suite = ROOT/'results/archive/nav_02_pilot'
-    if (previous_suite/'ours/seed_40/summary.json').exists():
+    previous_suite = args.previous_suite
+    if previous_suite is not None and (previous_suite/'ours/seed_40/summary.json').exists():
         old = js(previous_suite/'ours/seed_40/summary.json')
         same_node = next(r for r in evaluations if r['budget_checkpoint']==2000000)
         body.append(f"旧200万步ours final J={old['J']:.3f}、覆盖={old['coverage']:.2%}；本批200万节点J={same_node['J']:.3f}、覆盖={same_node['coverage']:.2%}，终点进一步改善至J={last['J']:.3f}。新旧同时改变Critic学习率、CPU/CUDA设备、评价数量/网格与源码版本；旧final和本批中间节点的评价随机流也不同，不能把差异全部归因于延长预算或某一个参数。不同预算/网格的AUC不直接排名。")

@@ -2,28 +2,64 @@
 import torch
 
 
-def returns(rewards, gamma):
-    out = torch.zeros_like(rewards)
-    tail = torch.zeros_like(rewards[:, 0])
+def _expand_step(value, template):
+    while value.ndim < template.ndim:
+        value = value.unsqueeze(-1)
+    return value
+
+
+def returns(rewards, gamma, *, next_values=None, terminated=None, truncated=None):
+    """Reward-to-go, optionally bootstrapped at cutoffs; E,T[,N].
+
+    A terminal transition has no future value. A timeout uses the value of its
+    final observation and never incorporates rewards from the following reset.
+    Without next_values this remains the observed finite-window return (logging).
+    """
+    out = torch.zeros_like(rewards if next_values is None else next_values)
+    tail = torch.zeros_like(out[:, 0]) if next_values is None else next_values[:, -1]
     for t in reversed(range(rewards.shape[1])):
-        tail = rewards[:, t] + gamma*tail
+        if truncated is not None:
+            final = torch.zeros_like(tail) if next_values is None else next_values[:, t]
+            tail = torch.where(_expand_step(truncated[:, t].bool(), tail), final, tail)
+        if terminated is not None:
+            tail = torch.where(_expand_step(terminated[:, t].bool(), tail), 0., tail)
+        tail = _expand_step(rewards[:, t], tail) + gamma*tail
         out[:, t] = tail
     return out
 
 
-def gae(rewards, values, gamma, lam):
+def gae(rewards, values, gamma, lam, *, next_values=None, terminated=None, truncated=None):
     advantage = torch.zeros_like(values)
     tail = torch.zeros_like(values[:, 0])
-    next_value = torch.zeros_like(tail)
+    if next_values is None:
+        next_values = torch.cat([values[:, 1:], torch.zeros_like(values[:, :1])], dim=1)
     for t in reversed(range(rewards.shape[1])):
-        reward = rewards[:, t]
-        while reward.ndim < tail.ndim:
-            reward = reward.unsqueeze(-1)
-        delta = reward + gamma*next_value-values[:, t]
-        tail = delta + gamma*lam*tail
+        terminal = torch.zeros_like(tail, dtype=torch.bool) if terminated is None else _expand_step(terminated[:, t].bool(), tail)
+        timeout = torch.zeros_like(terminal) if truncated is None else _expand_step(truncated[:, t].bool(), tail)
+        delta = _expand_step(rewards[:, t], tail) + gamma*torch.where(terminal, 0., next_values[:, t])-values[:, t]
+        # Bootstrap at a timeout, but cut the advantage trace across reset.
+        tail = delta + gamma*lam*torch.where(terminal | timeout, 0., tail)
         advantage[:, t] = tail
-        next_value = values[:, t]
     return advantage.detach()
+
+
+def value_targets(batch, critic, config, local=False):
+    """Frozen labels shared by all methods, including local IPPO bootstrap."""
+    from ..configs import continuing_task
+    with torch.no_grad():
+        values = critic(batch['x'] if local else batch['state'])
+        terminal = batch['terminated']
+        if continuing_task(config):
+            final = critic(batch['final_x'] if local else batch['final_state'])
+        else:
+            final = torch.zeros_like(values[:, 0])
+            terminal = terminal | batch['truncated']
+        next_values = torch.cat([values[:, 1:], final.unsqueeze(1)], dim=1)
+        target = returns(batch['reward'], config['gamma'], next_values=next_values,
+                         terminated=terminal, truncated=batch['truncated'])
+        advantage = gae(batch['reward'], values, config['gamma'], config['gae_lambda'],
+                        next_values=next_values, terminated=terminal, truncated=batch['truncated'])
+        return values.detach(), target.detach(), advantage.detach()
 
 
 def weighted(value, gamma):

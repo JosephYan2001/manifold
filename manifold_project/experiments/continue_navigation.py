@@ -217,7 +217,7 @@ def plot_overview(directory, manifest):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--checkpoint', type=Path)
+    parser.add_argument('--checkpoint', type=Path, help='新建分支必须显式指定已完成的 no_checks MC final 模型')
     parser.add_argument('--direction-epochs', type=int, nargs='+')
     parser.add_argument('--additional-budget', type=int)
     parser.add_argument('--device', choices=['cpu', 'cuda'])
@@ -241,7 +241,9 @@ def main(argv=None):
         if manifest.get('kind') != KIND:
             raise ValueError('只支持恢复本入口创建的分支套件')
     else:
-        checkpoint = (args.checkpoint or ROOT/'results/reference/nav_04_pilot/no_checks/seed_40/checkpoints/final.pt').resolve()
+        if args.checkpoint is None:
+            parser.error('新建分支必须提供 --checkpoint；旧导航结果已清理，不再使用默认父模型')
+        checkpoint = args.checkpoint.resolve()
         parent = load_pt(checkpoint)
         manifest = make_plan(checkpoint, parent, args.direction_epochs or [16, 4],
                              args.additional_budget if args.additional_budget is not None else 1000000,

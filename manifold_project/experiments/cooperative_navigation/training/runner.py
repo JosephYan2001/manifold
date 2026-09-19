@@ -8,10 +8,11 @@ import time
 import numpy as np
 import torch
 from ..envs.navigation import Navigation
+from ..configs import continuing_task
 from ..models import Actor, Critic, Direction
 from ..evaluation.evaluate import evaluate
 from .collector import Collector
-from .ppo import returns, gae, weighted, direction_terms, ppo_loss
+from .ppo import returns, value_targets, weighted, direction_terms, ppo_loss
 from .storage import seed_for, event, save_json, save_pt, load_pt
 
 
@@ -47,7 +48,7 @@ class Runner:
         torch.manual_seed(seed_for('initialization', seed))
         torch.use_deterministic_algorithms(True)
         probe = Navigation(config)
-        self.input_dim = config['history']*(probe.obs_dim+6)+1
+        self.input_dim = config['history']*(probe.obs_dim+6)+int(probe.include_time)
         self.state_dim = probe.state_dim
         probe.close()
         self.actor = Actor(self.input_dim, config).to(config['device'])
@@ -71,6 +72,8 @@ class Runner:
         event(self.log_path, stream, round=self.round+1, **record)
 
     def restore(self, state):
+        if continuing_task(state['config']) != continuing_task(self.c):
+            raise ValueError('不能在有限时域与持续任务之间直接恢复；请新建实验')
         self.actor.load_state_dict(state['actor'])
         self.critic.load_state_dict(state['critic'])
         self.actor_optimizer.load_state_dict(state['actor_optimizer'])
@@ -131,7 +134,7 @@ class Runner:
         metrics, episodes = evaluate(actor, self.c, self.condition, self.seed,
                               'source-final' if final else 'source-grid', count)
         # Descriptive episode uncertainty; never used to accept training updates.
-        for key in ('J', 'coverage', 'distance'):
+        for key in ('J', 'coverage', 'distance', 'mean_reward', 'mean_coverage', 'tail_coverage', 'tail_all_covered'):
             values = np.asarray([e[key] for e in episodes], dtype=np.float64)
             metrics[key+'_se'] = float(values.std(ddof=1)/np.sqrt(count)) if count > 1 else None
         self.eval_seconds += time.perf_counter()-started
@@ -151,16 +154,24 @@ class Runner:
 
     def labels(self, batch, critic):
         with torch.no_grad():
-            values = critic(batch['x'] if self.condition == 'ippo' else batch['state'])
-            mc = returns(batch['reward'], self.c['gamma'])
             local = self.condition == 'ippo'
-            target = mc.unsqueeze(-1).expand_as(values) if local else mc
+            values, target, gae_advantage = value_targets(batch, critic, self.c, local=local)
             label = self.c['ppo_label'] if self.condition in ('mappo','ippo') else self.c['direction_label']
-            advantage = gae(batch['reward'], values, self.c['gamma'], self.c['gae_lambda']) if label == 'gae' else target-values
+            advantage = gae_advantage if label == 'gae' else target-values
             if not local:
                 advantage = advantage.unsqueeze(-1).expand_as(batch['actions'])
-            # Critic always regresses MC team return, documented also for GAE PPO.
+            # Continuing: n-step target with frozen V(s_T), also for GAE PPO.
             return advantage.detach(), target.detach()
+
+    def check_returns(self, actor, purpose, critic):
+        if not continuing_task(self.c):
+            rows = self.sampler.collect(actor, self.c['return_check_episodes'], purpose, retain=False)
+            scores = [r['J'] for r in rows]
+            return scores, scores
+        batch = self.sampler.collect(actor, self.c['return_check_episodes'], purpose)
+        _, target, _ = value_targets(batch, critic, self.c)
+        observed = returns(batch['reward'], self.c['gamma'])[:, 0]
+        return target[:, 0].double().tolist(), observed.double().tolist()
 
     def optimize(self, model, optimizer, batch, epochs, module, objective):
         rng = np.random.default_rng(seed_for(self.seed, self.round+1, module, 'minibatches'))
@@ -206,6 +217,7 @@ class Runner:
         critic_info = self.optimize(self.critic, self.critic_optimizer, batch, self.c['critic_epochs'], 'critic', critic_loss)
         info = dict(accepted=False, candidates=0, direction_pass=None, direction_score=None,
                     train_J=float(episode_returns.mean()), critic_mse=critic_info['value_mse'],
+                    train_value_target=float(target[:, 0].mean()),
                     explained_variance=critic_info['explained_variance'],
                     return_difference=None, fit_kl_before=None, fit_kl_after=None,
                     fit_kl_p95=None, fit_kl_max=None, target_below_floor=None)
@@ -273,12 +285,15 @@ class Runner:
             if not return_check_enabled(self.condition):
                 info['accepted'] = True
             else:
-                old_eval = self.sampler.collect(old, self.c['return_check_episodes'], 'return_old', retain=False)
-                new_eval = self.sampler.collect(candidate, self.c['return_check_episodes'], 'return_candidate', retain=False)
-                info['return_difference'] = float(np.mean([r['J'] for r in new_eval], dtype=np.float64)-np.mean([r['J'] for r in old_eval], dtype=np.float64))
+                old_scores, old_observed = self.check_returns(old, 'return_old', old_critic)
+                new_scores, new_observed = self.check_returns(candidate, 'return_candidate', old_critic)
+                info['return_difference'] = float(np.mean(new_scores, dtype=np.float64)-np.mean(old_scores, dtype=np.float64))
                 info['accepted'] = info['return_difference'] > 0
-                self.log('return_check',attempt=attempt+1,old_returns=[r['J'] for r in old_eval],
-                         candidate_returns=[r['J'] for r in new_eval],difference=info['return_difference'],passed=info['accepted'])
+                self.log('return_check',attempt=attempt+1,old_returns=old_scores,
+                         candidate_returns=new_scores,old_observed_returns=old_observed,
+                         candidate_observed_returns=new_observed,
+                         score_kind='bootstrapped_old_critic' if continuing_task(self.c) else 'observed_finite_return',
+                         difference=info['return_difference'],passed=info['accepted'])
             self.log('candidate', attempt=attempt+1, eta=eta, **info)
             if attempt == 0:
                 self.capture(candidate, old, info)
@@ -355,8 +370,10 @@ class Runner:
         fits = [r for r in self.rounds if r['fit_kl_after'] is not None]
         return dict(condition=self.condition, seed=self.seed, status='complete', rounds=self.round,
             source_steps=self.sampler.used, unused_budget=self.c['budget']-self.sampler.used,
-            evaluation_steps=self.eval_steps, AUC=auc, **{k:self.curves[-1][k] for k in
-                ('J','distance','coverage','all_covered','collision_pairs','collisions_per_agent')},
+            evaluation_steps=self.eval_steps, task_mode=self.c.get('task_mode', 'finite_horizon'),
+            AUC=auc, **{k:self.curves[-1][k] for k in
+                ('J','distance','coverage','all_covered','collision_pairs','collisions_per_agent',
+                 'mean_reward','mean_coverage','tail_coverage','tail_all_covered') if k in self.curves[-1]},
             coverage_cost=next((r['budget_checkpoint'] for r in self.curves if r['coverage'] >= .8), None),
             accepted_rounds=sum(r['accepted'] for r in self.rounds),
             direction_rejections=sum(not r['direction_pass'] for r in gates), direction_checks=len(gates),

@@ -12,6 +12,11 @@ EXPERIMENTS = {'N-C': STANDARD_CONDITIONS[:4], 'N-A': STANDARD_CONDITIONS[:2]+ST
                'N-L': CONDITIONS[:4], 'N-T': []}
 
 
+def continuing_task(config):
+    # Saved configurations predating this field describe the finite-horizon task.
+    return config.get('task_mode', 'finite_horizon') == 'continuing'
+
+
 def load_config(profile, overrides=None):
     root = Path(__file__).parent/'configs'
     config = json.loads((root/'source.json').read_text(encoding='utf-8'))
@@ -27,6 +32,10 @@ def load_config(profile, overrides=None):
 
 
 def validate(c):
+    if c.get('task_mode', 'finite_horizon') not in ('continuing', 'finite_horizon'):
+        raise ValueError('task_mode 只支持 continuing / finite_horizon')
+    if continuing_task(c) and not 0 < c['gamma'] < 1:
+        raise ValueError('持续任务要求 0 < gamma < 1')
     if not isinstance(c['method_overrides'],dict) or set(c['method_overrides'])-{'ours','mappo','ippo'}:
         raise ValueError('method_overrides 只允许 ours/mappo/ippo；sampled 与消融自动继承 ours')
     for method,values in c['method_overrides'].items():

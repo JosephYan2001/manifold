@@ -1,5 +1,6 @@
 """Read-only log/CSV audit and Markdown assessment for the first navigation pilot."""
 from collections import Counter, defaultdict
+import argparse
 import csv
 import hashlib
 import json
@@ -8,7 +9,6 @@ import statistics as st
 import math
 
 ROOT = Path(__file__).resolve().parent/'cooperative_navigation'
-SUITE = ROOT/'results/archive/nav_01_pilot'
 
 
 def read(path):
@@ -25,9 +25,16 @@ def table(headers, rows):
                      ['| '+' | '.join(map(str, row))+' |' for row in rows])
 
 
-def main():
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--suite', type=Path, required=True,
+                        help='旧首批 pilot 的历史套件；结果已清理，无默认路径')
+    args = parser.parse_args(argv)
+    SUITE = args.suite.resolve()
     m = js(SUITE/'manifest.json')
     cfg = m['config']
+    if cfg.get('task_mode', 'finite_horizon') != 'finite_horizon':
+        parser.error('此报告模板只适用于旧首批 pilot，不能用于新持续任务结果')
     rows, curves = read(SUITE/'training_results.csv'), read(SUITE/'learning_curves.csv')
     expected = {(j['condition'], j['seed']) for j in m['jobs']}
     assert len(rows) == len(expected) == 21
@@ -129,7 +136,7 @@ def main():
         '[总览图](nav_01_pilot/overview.png)；[逐种子表](nav_01_pilot/training_results.csv)；[汇总表](nav_01_pilot/training_summary.csv)。复核命令：`python -m manifold_project.experiments.assess_navigation_pilot`。',
         table(['输入','SHA256'],[[f,hashlib.sha256((SUITE/f).read_bytes()).hexdigest()] for f in ('manifest.json','training_results.csv','training_summary.csv','learning_curves.csv')])]
     # One current assessment, no extra JSON/CSV logs or copied checkpoints.
-    (ROOT/'results/archive/pilot_01_实验判断.md').write_text('\n\n'.join(text)+'\n',encoding='utf-8')
+    (SUITE/'pilot_01_实验判断.md').write_text('\n\n'.join(text)+'\n',encoding='utf-8')
     print('Audit passed: 21 runs, 126 evaluation nodes and all summary rows. Assessment written.')
 
 

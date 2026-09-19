@@ -40,6 +40,8 @@ def progress_line(condition, seed, budget, row, evaluation=None):
                       f'J={number(evaluation["J"])} '
                       f'coverage={evaluation["coverage"]:.1%} '
                       f'distance={number(evaluation["distance"])}')
+        if 'tail_coverage' in evaluation:
+            fields.append(f'last_eval_tail_coverage={evaluation["tail_coverage"]:.1%}')
     return ' | '.join(fields)
 
 
@@ -73,6 +75,8 @@ def plot_monitor(path, condition, seed, budget, rounds, curves, complete=False):
             if errors:
                 ax.errorbar([r['budget_checkpoint'] for r in errors], [r[key] for r in errors],
                             yerr=[1.96*r[key+'_se'] for r in errors], fmt='none', capsize=2, alpha=.5)
+        series(axes[2], curves, 'mean_coverage', '窗口平均覆盖率', 'budget_checkpoint', linestyle='--')
+        series(axes[2], curves, 'tail_coverage', '后半窗口覆盖率', 'budget_checkpoint', linestyle=':')
         series(axes[4], rounds, 'critic_mse', 'Critic最后训练小批次MSE')
         for key, label in (('fit_kl_after', '目标拟合残差'), ('policy_step_kl', '候选与旧策略KL'),
                            ('ppo_kl', 'PPO最后小批次KL')):

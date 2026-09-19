@@ -62,7 +62,10 @@ def new_directory(profile, tag=''):
     raise RuntimeError('结果编号空间已满')
 
 #  python manifold/manifold_project/experiments/cooperative_navigation/run_experiments.py --profile pilot --conditions ours --config manifold/manifold_project/experiments/cooperative_navigation/configs/study_v3/reference.json --device cuda --plot
-# python manifold/manifold_project/experiments/continue_navigation.py --direction-epochs 16 4 --additional-budget 1000000 --device cuda --plot --plot-every 10
+# $nav = "manifold\manifold_project\experiments\cooperative_navigation"
+
+# python "$nav/run_experiments.py" --profile pilot --experiments N-C N-A5 --conditions mappo ippo no_checks --config "$nav/configs/learning_20m/mc.json" --output "$nav/results/learning_20m_mc_s40" --plot --plot-every 10
+
 def parser():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--profile',choices=['smoke','pilot','formal'],default=None)
@@ -164,6 +167,9 @@ def main(argv=None):
             directory.mkdir(parents=True,exist_ok=True)
         save_json(directory/'manifest.json',manifest)
     print(f'套件: {directory}',flush=True)
+    print(f'任务: {config.get("task_mode", "finite_horizon")} | '
+          f'采样窗口: {config["horizon"]} 联合步 | '
+          '独立评价 J 只统计实际奖励，价值 bootstrap 仅用于训练', flush=True)
     if args.plot and args.plot_every:
         print(f'训练监控: {directory / "training_monitor.png"}（每{args.plot_every}轮及新评价后刷新）', flush=True)
     status_path = directory/'status.json'

@@ -20,7 +20,7 @@ import numpy as np
 import torch
 from manifold_project.experiments.cooperative_navigation.models import Actor, Critic, Direction
 from manifold_project.experiments.cooperative_navigation.training.collector import Collector, episode
-from manifold_project.experiments.cooperative_navigation.training.ppo import returns, gae, weighted, direction_terms
+from manifold_project.experiments.cooperative_navigation.training.ppo import value_targets, weighted, direction_terms
 from manifold_project.experiments.cooperative_navigation.training.storage import seed_for
 
 
@@ -116,9 +116,8 @@ def compare_directions(actor, critic, state, config, collector, args):
 
     def labels(batch):
         with torch.no_grad():
-            prediction = critic(batch['state'])
-            mc = returns(batch['reward'], config['gamma'])-prediction
-            gae_label = gae(batch['reward'], prediction, config['gamma'], config['gae_lambda'])
+            prediction, target, gae_label = value_targets(batch, critic, config)
+            mc = target-prediction
             batch['mc'] = mc.unsqueeze(-1).expand_as(batch['actions'])
             batch['gae'] = gae_label.unsqueeze(-1).expand_as(batch['actions'])
         return batch
@@ -206,8 +205,8 @@ def compare_directions(actor, critic, state, config, collector, args):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--checkpoint', type=Path, default=Path(__file__).resolve().parent /
-                        'cooperative_navigation/results/reference/nav_04_pilot/no_checks/seed_40/checkpoints/final.pt')
+    parser.add_argument('--checkpoint', type=Path, required=True,
+                        help='显式指定待诊断模型；旧导航结果已清理，无默认模型')
     parser.add_argument('--heldout-episodes', type=int, default=128)
     parser.add_argument('--repeats', type=int, default=4)
     parser.add_argument('--diagnostic-seed', type=int, default=90219)
@@ -264,11 +263,9 @@ def main(argv=None):
 
     def labels(batch, name):
         with torch.no_grad():
-            target = returns(batch['reward'], config['gamma'])
-            prediction = critic(batch['state'])
+            prediction, target, gae_advantage = value_targets(batch, critic, config)
             residual = target - prediction
-            advantage = gae(batch['reward'], prediction, config['gamma'], config['gae_lambda']) \
-                if config['direction_label'] == 'gae' else residual
+            advantage = gae_advantage if config['direction_label'] == 'gae' else residual
             batch['advantage'] = advantage.unsqueeze(-1).expand_as(batch['actions'])
             variance = target.var(unbiased=False)
             emit(data=name, critic_fresh_mse=float(weighted(residual.square(), config['gamma'])),

@@ -21,7 +21,7 @@
 | 环境 | 当前进度 | 下一步与直接入口 |
 |---|---|---|
 | 成对协作 | 83次开发训练及三组确认补充实验均已完成：60次训练、20数据种子方向/运输、200数据种子检查诊断 | 按[完整实验判断](../experiments/pair_coordination/results/完整实验判断_20260918.md)整理机制与成本结果，转向导航源pilot；[结果索引](../experiments/pair_coordination/results/结果目录索引.md) |
-| 合作导航 | 四批源开发及epochs续训已完成，任务效果仍弱；早期PPO尚未确认收敛，正式参数未冻结 | MAPPO/IPPO与我们的MC/GAE核心版本各先训练2000万步；见[运行说明](../experiments/cooperative_navigation/实验运行说明.md)和[结果索引](../experiments/cooperative_navigation/results/README.md) |
+| 合作导航 | 已改为持续任务，旧结果按用户要求清理；新协议尚无训练结果，正式参数未冻结 | MAPPO/IPPO与我们的多步回报/GAE核心版本各从头训练2000万步，再做500步连续评价；见[运行说明](../experiments/cooperative_navigation/实验运行说明.md)和[结果索引](../experiments/cooperative_navigation/results/README.md) |
 | 仓库 | 任务方案与目录说明已有，封装和训练未完成 | 按[目录说明](../experiments/rware/README.md)与构建指南推进；尚无独立的完整执行设计 |
 
 成对确认结果支持当前任务中拟合预算存在冗余，以及特定标签/策略下的方向估计收益；未展示完整方法普遍领先或检查的端到端保护收益。固定候选诊断观察到 empirical 回报检查误接，不能声称安全保证。导航/仓库计划仍不能写成已有应用结果。

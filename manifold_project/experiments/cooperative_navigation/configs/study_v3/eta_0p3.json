@@ -1,4 +1,5 @@
 {
+  "task_mode": "finite_horizon",
   "budget": 10000000,
   "seeds": [
     40

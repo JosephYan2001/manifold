@@ -22,6 +22,7 @@ from manifold_project.experiments.cooperative_navigation.evaluation.reporting im
 
 def tiny():
     c = load_config('smoke')
+    c['task_mode'] = 'finite_horizon'  # Preserve coverage of the legacy protocol.
     c.update(horizon=5,history=2,hidden=8,train_episodes=2,direction_check_episodes=1,
              return_check_episodes=1,minibatch_episodes=1,direction_epochs=1,actor_epochs=1,
              critic_epochs=1,ppo_epochs=1,eval_episodes=1,final_episodes=1,
@@ -33,6 +34,7 @@ def tiny():
 class EnvironmentTests(unittest.TestCase):
     def test_sizes_native_reward_terminal_and_reproducibility(self):
         c = load_config('smoke')
+        c['task_mode'] = 'finite_horizon'
         for n in (2,3,4,6,8):
             env = Navigation(c,n)
             try:
@@ -42,10 +44,11 @@ class EnvironmentTests(unittest.TestCase):
                 self.assertEqual(env.state().shape,(16*n+1,))
                 rewards = []
                 for t in range(100):
-                    _,r,done = env.step(np.arange(n)%5)
+                    _,r,terminated,truncated = env.step(np.arange(n)%5)
                     m = env.metrics()
                     self.assertAlmostEqual(r,-.5*n*m['distance']-m['collision_pairs']/n,places=6)
-                    self.assertEqual(done,t==99)
+                    self.assertFalse(terminated)
+                    self.assertEqual(truncated,t==99)
                     rewards.append(r)
                 env.reset(321)
                 for r in rewards:
@@ -55,6 +58,7 @@ class EnvironmentTests(unittest.TestCase):
 
     def test_nearest_slots_padding_and_state(self):
         c = load_config('smoke')
+        c['task_mode'] = 'finite_horizon'
         for n in (2,4):
             env = Navigation(c,n)
             try:
