@@ -86,8 +86,11 @@ def plot_monitor(path, condition, seed, budget, rounds, curves, complete=False):
             ax.axhline(0, color='gray', linewidth=.7, linestyle='--')
         axes[2].set_ylim(-.03, 1.03)
         axes[6].set_ylim(-.03, 1.03)
+        # Large initialization errors otherwise make nonzero late errors look like zero.
+        # Symlog keeps true zeros visible; values above 1 use a logarithmic scale.
+        axes[4].set_yscale('symlog', linthresh=1)
         titles = ('训练批回报（非独立评价）', '独立源回报（已有评价节点）', '终点覆盖率',
-                  '终点距离', 'Critic训练误差（非验证误差）', 'KL诊断（统计口径不同）',
+                  '终点距离', 'Critic训练MSE（对数刻度，0附近线性）', 'KL诊断（统计口径不同）',
                   '策略更新比例', '方向检查（正值通过）', '回报检查（正值通过）')
         for ax, title in zip(axes, titles):
             ax.set(title=title, xlabel='累计源团队步')
