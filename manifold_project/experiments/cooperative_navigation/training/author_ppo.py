@@ -35,6 +35,11 @@ def arguments(c, condition='mappo'):
     args.env_name = 'MPE2_continuing_navigation'
     args.use_recurrent_policy = args.use_naive_recurrent_policy = False
     args.hidden_size = c['hidden']
+    # Saved author checkpoints predating this option used the upstream ReLU default.
+    activation = c.get('ppo_activation', 'relu')
+    if activation not in ('relu', 'tanh'):
+        raise ValueError('ppo_activation 只支持 relu / tanh')
+    args.use_ReLU = activation == 'relu'
     args.episode_length = c['horizon']
     # Buffer lanes represent independent windows, collected sequentially here.
     args.n_rollout_threads = c['train_episodes']

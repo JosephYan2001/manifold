@@ -39,6 +39,8 @@ def load_config(profile, overrides=None):
 
 
 def validate(c):
+    if c.get('ppo_activation', 'relu') not in ('relu', 'tanh'):
+        raise ValueError('ppo_activation 只支持 relu / tanh')
     for key in ('mappo_backend', 'ippo_backend'):
         if c.get(key, 'local') not in ('author', 'local'):
             raise ValueError(f'{key} 只支持 author / local')

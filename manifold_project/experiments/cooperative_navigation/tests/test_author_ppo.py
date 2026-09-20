@@ -10,9 +10,10 @@ import numpy as np
 import torch
 
 from manifold_project.experiments.cooperative_navigation.tests.test_protocol import tiny
-from manifold_project.experiments.cooperative_navigation.configs import condition_config, load_config
+from manifold_project.experiments.cooperative_navigation.configs import condition_config, load_config, validate
 from manifold_project.experiments.cooperative_navigation.models import Actor, load_actor
-from manifold_project.experiments.cooperative_navigation.training.author_ppo import AuthorPPO
+from manifold_project.experiments.cooperative_navigation.training.author_ppo import AuthorPPO, arguments
+from manifold_project.experiments.cooperative_navigation.vendor.mappo.onpolicy.config import get_config
 from manifold_project.experiments.cooperative_navigation.training.collector import Collector, episode
 from manifold_project.experiments.cooperative_navigation.training.runner import Runner
 from manifold_project.experiments.cooperative_navigation.training.storage import load_pt
@@ -37,9 +38,10 @@ class AuthorPPOTests(unittest.TestCase):
             with self.subTest(condition=condition):
                 self.check_author_update(condition)
 
-    def check_author_update(self, condition):
-        model = AuthorPPO(44, 64, self.c, condition)
-        batch = Collector(self.c, condition, 8).collect(model.actor, 2, 'train')
+    def check_author_update(self, condition, config=None):
+        c = self.c if config is None else config
+        model = AuthorPPO(44, 64, c, condition)
+        batch = Collector(c, condition, 8).collect(model.actor, 2, 'train')
         if condition == 'ippo':
             # Even diagnostics must not read centralized inputs in the IPPO path.
             del batch['state'], batch['final_state']
@@ -120,14 +122,15 @@ class AuthorPPOTests(unittest.TestCase):
 
     def test_resume_restores_optimizer_normalizer_and_actor_only_evaluation(self):
         devices = ['cpu'] + (['cuda'] if torch.cuda.is_available() else [])
-        for condition in ('mappo', 'ippo'):
-            with self.subTest(condition=condition):
-                self.check_resume_and_evaluation(condition, devices)
+        for activation in ('relu', 'tanh'):
+            for condition in ('mappo', 'ippo'):
+                with self.subTest(condition=condition, activation=activation):
+                    self.check_resume_and_evaluation(condition, devices, activation)
 
-    def check_resume_and_evaluation(self, condition, devices):
+    def check_resume_and_evaluation(self, condition, devices, activation):
         with tempfile.TemporaryDirectory() as folder:
             for device in devices:
-                c = dict(self.c, device=device)
+                c = dict(self.c, device=device, ppo_activation=activation)
                 full = Runner(Path(folder)/(device+'_full'), c, condition, 40)
                 full.run()
                 paused = Runner(Path(folder)/(device+'_resume'), c, condition, 40)
@@ -145,6 +148,12 @@ class AuthorPPOTests(unittest.TestCase):
                 for name in ('best', 'final'):
                     state = load_pt(full.directory/f'checkpoints/{name}.pt')
                     actor = load_actor(state)
+                    probe = torch.linspace(-1, 1, full.input_dim).repeat(2, 1)
+                    with torch.no_grad():
+                        expected = deepcopy(full.actor).cpu()
+                        expected.load_state_dict(state['actor'])
+                        # Tanh/ReLU have identical state_dict shapes: compare behavior.
+                        torch.testing.assert_close(actor(probe), expected(probe), rtol=0, atol=0)
                     before = deepcopy(actor.state_dict())
                     self.assertEqual(state['actor_kind'], f'author_{condition}_v1')
                     self.assertEqual(next(actor.parameters()).device.type, 'cpu')
@@ -198,11 +207,37 @@ class AuthorPPOTests(unittest.TestCase):
                 load_config('smoke', path)
         legacy = dict(self.c)
         legacy.pop('ippo_backend')
+        legacy.pop('ppo_activation')
         for suffix in ('value_normalization','value_clipping','huber_loss'):
             legacy['mappo_'+suffix] = legacy.pop('ppo_'+suffix)
         model = AuthorPPO(44,64,legacy)
         actor = load_actor(dict(actor_kind='author_mappo_v1',input_dim=44,config=legacy,actor=model.actor.state_dict()))
         torch.testing.assert_close(actor.state_dict(), model.actor.state_dict(), rtol=0, atol=0)
+
+    def test_author_mpe_config_matches_reference_optimizer_and_full_batch_update(self):
+        path = Path(__file__).resolve().parents[1]/'configs/learning_20m/author_mpe.json'
+        config = load_config('pilot', path)
+        # These switches come from the pinned train_mpe_spread.sh, including its
+        # counterintuitive store_false --use_ReLU flag (Tanh in that scenario).
+        upstream = get_config().parse_args(['--lr','7e-4','--critic_lr','7e-4',
+                                          '--ppo_epoch','10','--num_mini_batch','1','--use_ReLU'])
+        for condition in ('mappo', 'ippo'):
+            c = condition_config(config, condition)
+            actual = arguments(c, condition)
+            for key in ('lr','critic_lr','ppo_epoch','num_mini_batch','use_ReLU',
+                        'max_grad_norm','value_loss_coef','clip_param','entropy_coef',
+                        'gamma','gae_lambda','use_gae','use_valuenorm','use_clipped_value_loss',
+                        'use_huber_loss','huber_delta','opti_eps','gain','use_linear_lr_decay'):
+                self.assertEqual(getattr(actual, key), getattr(upstream, key), key)
+            self.assertFalse(actual.use_recurrent_policy)
+            self.assertFalse(actual.use_naive_recurrent_policy)
+            self.assertEqual(c['train_episodes']*c['horizon'], 1600)
+            small = dict(c, horizon=5, history=2, hidden=8, train_episodes=2,
+                         minibatch_episodes=2, device='cpu', budget=20, eval_fractions=[0,1])
+            with self.subTest(condition=condition):
+                self.check_author_update(condition, small)
+        with self.assertRaisesRegex(ValueError, 'ppo_activation'):
+            validate(dict(config, ppo_activation='sigmoid'))
 
 
 if __name__ == '__main__':

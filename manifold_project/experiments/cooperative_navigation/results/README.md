@@ -17,10 +17,11 @@
 | 目录 | 内容 |
 |---|---|
 | learning_20m_author_ppo_s40/ | 作者MAPPO和作者IPPO，各2000万源步 |
+| learning_20m_author_mpe_s40/ | 新增作者MPE参数对照，MAPPO/IPPO各2000万源步；Tanh、7e-4/7e-4、单批次 |
 | learning_20m_no_checks_mc_s40/ | no_checks多步回报，2000万源步 |
 | learning_20m_no_checks_gae_s40/ | no_checks GAE，2000万源步 |
 
-使用configs/learning_20m中的持续任务配置。每组seed40、CUDA、100步采样窗口、41个独立评价节点；完成后另做500步连续评价，每个套件增加long_rollout_h500.csv。两种作者PPO均用GAE/λ-return；no_checks多步回报与GAE仅切换方向标签。
+使用configs/learning_20m中的持续任务配置。每组seed40、CUDA、100步采样窗口、41个独立评价节点；完成后另做500步连续评价，每个套件增加long_rollout_h500.csv。两种作者PPO均用GAE/λ-return；no_checks多步回报与GAE仅切换方向标签。author_mpe.json是共同任务上的作者超参数对照，不是原MPE/RMAPPO复现；原共同参数和作者参考两套PPO同时运行时，加no_checks两组共六次、1.2亿源步。当前仅准备配置，没有新增长训练成绩。
 
 本次复核未发现新的训练数据，因此没有额外删除训练结果。已清除“IPPO仍为本地实现”的过时说明和旧PPO启动安排，移除只会生成早期固定判断的assess_navigation_pilot.py、assess_navigation_reference.py；当前判断由新数据重新建立，不沿用历史排名。保留通用稳定性分析、训练日志和模型读取兼容功能。
 
