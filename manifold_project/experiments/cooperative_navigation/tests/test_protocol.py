@@ -182,7 +182,7 @@ class RunnerTests(unittest.TestCase):
 
     def test_mc_aligned_ppo_both_critics(self):
         c = tiny()
-        c.update(ppo_label='mc',ppo_normalize_advantage=False,budget=10)
+        c.update(mappo_backend='local',ippo_backend='local',ppo_label='mc',ppo_normalize_advantage=False,budget=10)
         with tempfile.TemporaryDirectory() as folder:
             for condition in ('mappo','ippo'):
                 runner = Runner(Path(folder)/condition,c,condition,0)

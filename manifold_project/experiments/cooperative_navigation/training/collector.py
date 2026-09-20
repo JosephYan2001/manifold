@@ -21,9 +21,11 @@ def episode(actor, config, reset_seed, action_seed, n=None, retain=False, on_ste
             x = history.append(obs, previous, t)
             with torch.no_grad():
                 p = actor(torch.as_tensor(x, device=device)).cpu().numpy()
-            if not np.isfinite(p).all() or (p <= 0).any() or not np.allclose(p.sum(-1), 1, atol=1e-6):
+            if not np.isfinite(p).all() or (p < 0).any() or not np.allclose(p.sum(-1), 1, atol=1e-6):
                 raise FloatingPointError('非法 Actor 概率')
-            actions = (rng.random(env.n)[:, None] > p.astype(np.float64).cumsum(-1)).sum(-1).clip(max=4)
+            cumulative = p.astype(np.float64).cumsum(-1)
+            cumulative /= cumulative[:, -1:]
+            actions = (rng.random(env.n)[:, None] >= cumulative).sum(-1)
             state = env.state() if retain else None
             obs, reward, terminated, truncated = env.step(actions)
             if on_step:

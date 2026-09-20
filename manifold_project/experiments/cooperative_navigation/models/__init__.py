@@ -7,6 +7,21 @@ def mlp(input_dim, hidden, output_dim):
                          nn.Linear(hidden, hidden), nn.Tanh(), nn.Linear(hidden, output_dim))
 
 
+def load_actor(state, config=None):
+    """Restore an evaluation actor by checkpoint format, including legacy models."""
+    config = config or state['config']
+    kind = state.get('actor_kind', 'local_mlp_v1')
+    if kind in ('author_mappo_v1', 'author_ippo_v1'):
+        from ..training.author_ppo import AuthorActor
+        actor = AuthorActor(state['input_dim'], config, condition=kind.split('_')[1])
+    elif kind == 'local_mlp_v1':
+        actor = Actor(state['input_dim'], config)
+    else:
+        raise ValueError(f'未知 Actor 实现: {kind}')
+    actor.load_state_dict(state['actor'])
+    return actor.eval()
+
+
 class Actor(nn.Module):
     def __init__(self, input_dim, config):
         super().__init__()

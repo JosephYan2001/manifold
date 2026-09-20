@@ -1,5 +1,7 @@
 {
   "task_mode": "continuing",
+  "mappo_backend": "author", "ippo_backend": "author",
+  "ppo_value_normalization": true, "ppo_value_clipping": true, "ppo_huber_loss": true,
   "n_agents": 4, "horizon": 100, "agent_neighbors": 2, "landmark_neighbors": 2,
   "local_ratio": 0.5, "history": 8, "gamma": 0.99,
   "hidden": 128, "beta": 0.02, "q_max": 1.0,

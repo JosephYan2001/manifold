@@ -19,7 +19,7 @@
 | 环境 | 接下来做什么 | 直接阅读 |
 |---|---|---|
 | 成对协作 | 论文结论稿与统一数值报告已整理，预定三组补充已完成，无需默认重跑 | [论文结论与后续验证](pair_coordination/results/论文结论与后续验证.md)、[完整实验判断](pair_coordination/results/完整实验判断_20260918.md)、[已有结果索引](pair_coordination/results/结果目录索引.md) |
-| 合作导航 | 新持续协议下MAPPO/IPPO与no_checks多步回报/GAE各从头训练2000万步，再做500步连续评价；旧结果已清理 | [运行说明](cooperative_navigation/实验运行说明.md)、[当前判断](cooperative_navigation/results/当前实验判断.md)、[结果索引](cooperative_navigation/results/README.md) |
+| 合作导航 | MAPPO/IPPO均使用作者实现，与no_checks多步回报/GAE共四组持续任务训练，各2000万步；旧结果已清理 | [运行说明](cooperative_navigation/实验运行说明.md)、[当前判断](cooperative_navigation/results/当前实验判断.md)、[结果索引](cooperative_navigation/results/README.md) |
 | 仓库 | 先明确独立执行设计、版本、地图和接口，再实现封装与训练 | [仓库说明](rware/README.md) |
 
 当前可推进导航源pilot。成对开发与确认结果不支持“完整方法普遍领先”或“检查已证明具有保护作用”；相应负结果与成本取舍应在论文中如实保留。

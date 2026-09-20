@@ -11,7 +11,7 @@ import torch
 import numpy as np
 from manifold_project.experiments.cooperative_navigation.configs import load_config, continuing_task
 from manifold_project.experiments.cooperative_navigation.envs.navigation import Navigation
-from manifold_project.experiments.cooperative_navigation.models import Actor
+from manifold_project.experiments.cooperative_navigation.models import load_actor
 from manifold_project.experiments.cooperative_navigation.observations.history import History
 from manifold_project.experiments.cooperative_navigation.training.storage import load_pt
 
@@ -128,8 +128,8 @@ def main(argv=None):
         if not (run/'summary.json').exists():
             p.error('This training job is not complete; wait for its final checkpoint')
         state = load_pt(run/'checkpoints/final.pt')
-        actor = Actor(state['input_dim'], config)
-        actor.load_state_dict(state['actor'])
+        config = state['config']
+        actor = load_actor(state, config)
         actor.eval()
         title = f'{args.condition} | final | train seed {args.seed}'
     n = args.agents or config['n_agents']

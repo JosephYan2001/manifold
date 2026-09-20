@@ -33,7 +33,7 @@ def main(argv=None):
     import json
     import torch
     from ..configs import continuing_task
-    from ..models import Actor
+    from ..models import load_actor
     from ..training.storage import load_pt
     from .reporting import write_csv
 
@@ -68,9 +68,7 @@ def main(argv=None):
         if not continuing_task(state['config']):
             raise ValueError('checkpoint 的任务定义与持续任务套件不一致')
         config = dict(state['config'], horizon=args.steps, device='cpu')
-        actor = Actor(state['input_dim'], config)
-        actor.load_state_dict(state['actor'])
-        actor.eval()
+        actor = load_actor(state, config)
         print(f'长窗口评价 {job["condition"]} seed={job["seed"]}: '
               f'{args.episodes} 段 × {args.steps} 步', flush=True)
         metrics, episodes = evaluate(actor, config, job['condition'], job['seed'],

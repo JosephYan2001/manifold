@@ -2,7 +2,7 @@ from pathlib import Path
 import json
 import time
 import numpy as np
-from ..models import Actor
+from ..models import Actor, load_actor
 from ..configs import continuing_task
 from ..training.storage import load_pt, seed_for
 from ..training.collector import episode
@@ -44,8 +44,7 @@ def transfer_suite(directory, manifest):
                 rows.append(dict(condition=job['condition'],seed=job['seed'],n_agents=n,status='missing_source'))
             continue
         state = load_pt(path/'checkpoints/final.pt')
-        actor = Actor(state['input_dim'],config)
-        actor.load_state_dict(state['actor'])
+        actor = load_actor(state, config)
         summary = json.loads((path/'summary.json').read_text(encoding='utf-8'))
         for n in config['transfer_sizes']:
             if (job['condition'],job['seed'],n) in cache:

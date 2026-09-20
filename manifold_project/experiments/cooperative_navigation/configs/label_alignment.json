@@ -1,1 +1,1 @@
-{"direction_label":"gae","ppo_label":"gae","ppo_normalize_advantage":false}
+{"mappo_backend":"local","ippo_backend":"local","direction_label":"gae","ppo_label":"gae","ppo_normalize_advantage":false}

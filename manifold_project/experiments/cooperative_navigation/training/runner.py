@@ -14,6 +14,7 @@ from ..evaluation.evaluate import evaluate
 from .collector import Collector
 from .ppo import returns, value_targets, weighted, direction_terms, ppo_loss
 from .storage import seed_for, event, save_json, save_pt, load_pt
+from .author_ppo import AuthorPPO, enabled as author_ppo_enabled
 
 
 def direction_check_enabled(condition):
@@ -51,17 +52,26 @@ class Runner:
         self.input_dim = config['history']*(probe.obs_dim+6)+int(probe.include_time)
         self.state_dim = probe.state_dim
         probe.close()
-        self.actor = Actor(self.input_dim, config).to(config['device'])
-        self.critic = Critic(self.input_dim if condition == 'ippo' else self.state_dim, config).to(config['device'])
-        self.actor_optimizer = torch.optim.Adam(self.actor.parameters(), lr=config['actor_lr'])
-        self.critic_optimizer = torch.optim.Adam(self.critic.parameters(), lr=config['critic_lr'])
+        self.author_ppo = AuthorPPO(self.input_dim, self.state_dim, config, condition) if author_ppo_enabled(config, condition) else None
+        self.actor_kind = self.author_ppo.actor_kind if self.author_ppo else 'local_mlp_v1'
+        if self.author_ppo:
+            self.actor, self.critic = self.author_ppo.actor, self.author_ppo.policy.critic
+            self.actor_optimizer = self.author_ppo.policy.actor_optimizer
+            self.critic_optimizer = self.author_ppo.policy.critic_optimizer
+        else:
+            self.actor = Actor(self.input_dim, config).to(config['device'])
+            self.critic = Critic(self.input_dim if condition == 'ippo' else self.state_dim, config).to(config['device'])
+            self.actor_optimizer = torch.optim.Adam(self.actor.parameters(), lr=config['actor_lr'])
+            self.critic_optimizer = torch.optim.Adam(self.critic.parameters(), lr=config['critic_lr'])
         self.grid = [round(f*config['budget']) for f in config['eval_fractions']]
         identity = {'config':config, 'condition':condition, 'seed':seed, 'audit':self.audit}
         self.complete = False
         if resume:
             if json.loads((self.directory/'config.json').read_text(encoding='utf-8')) != identity:
                 raise ValueError('恢复配置与原运行不一致')
-            self.restore(load_pt(self.directory/'checkpoints/final.pt', config['device']))
+            # Let each module/optimizer place its state. Adam's non-capturable
+            # step counters must stay on CPU even when parameters use CUDA.
+            self.restore(load_pt(self.directory/'checkpoints/final.pt'))
             self.reconcile_interruption()
         else:
             if (self.directory/'config.json').exists():
@@ -74,10 +84,14 @@ class Runner:
     def restore(self, state):
         if continuing_task(state['config']) != continuing_task(self.c):
             raise ValueError('不能在有限时域与持续任务之间直接恢复；请新建实验')
+        if state.get('actor_kind', 'local_mlp_v1') != self.actor_kind:
+            raise ValueError('PPO 实现或条件已更换；旧本地模型不能恢复为作者版，MAPPO/IPPO也不能互相续训')
         self.actor.load_state_dict(state['actor'])
         self.critic.load_state_dict(state['critic'])
         self.actor_optimizer.load_state_dict(state['actor_optimizer'])
         self.critic_optimizer.load_state_dict(state['critic_optimizer'])
+        if self.author_ppo:
+            self.author_ppo.restore_normalizer(state['value_normalizer'])
         for name in ('round','curves','rounds','snapshots','train_seconds','eval_seconds','eval_steps','best','complete'):
             setattr(self, name, state[name])
         self.sampler.costs = Counter(state['costs'])
@@ -114,11 +128,14 @@ class Runner:
     def checkpoint(self):
         state = {name: getattr(self, name) for name in ('round','curves','rounds','snapshots',
                  'train_seconds','eval_seconds','eval_steps','best','complete')}
-        state.update(format_version=1, config=self.c, condition=self.condition, seed=self.seed,
+        state.update(format_version=2, config=self.c, condition=self.condition, seed=self.seed,
+            actor_kind=self.actor_kind,
             input_dim=self.input_dim, actor=self.actor.state_dict(), critic=self.critic.state_dict(),
             actor_optimizer=self.actor_optimizer.state_dict(), critic_optimizer=self.critic_optimizer.state_dict(),
             costs=dict(self.sampler.costs), counts=dict(self.sampler.counts), optim_steps=dict(self.optim_steps),
             torch_rng=torch.get_rng_state(), cuda_rng=torch.cuda.get_rng_state_all() if torch.cuda.is_available() else None)
+        if self.author_ppo:
+            state.update(value_normalizer=self.author_ppo.normalizer_state(), implementation=self.author_ppo.description())
         save_pt(self.directory/'checkpoints/final.pt', state)
         if self.best is not None:
             save_pt(self.directory/'checkpoints/best.pt', self.best)
@@ -149,6 +166,7 @@ class Runner:
               f'episodes={count}', flush=True)
         if self.best is None or metrics['J'] > self.best['score']:
             self.best = {'actor':deepcopy(actor.state_dict()), 'config':self.c, 'input_dim':self.input_dim,
+                         'actor_kind':self.actor_kind, 'condition':self.condition, 'seed':self.seed,
                          'score':metrics['J'], 'selection':'independent_source_evaluation_diagnostic_only',
                          'budget_checkpoint':budget_node, 'actor_source_steps':actor_cost}
 
@@ -199,6 +217,8 @@ class Runner:
         return last
 
     def update(self):
+        if self.author_ppo:
+            return self.update_author_ppo()
         old = deepcopy(self.actor)
         old_critic = deepcopy(self.critic).eval()
         batch = self.sampler.collect(old, self.c['train_episodes'], 'train')
@@ -302,6 +322,23 @@ class Runner:
                 break
         return old, info
 
+    def update_author_ppo(self):
+        old = deepcopy(self.actor).eval()
+        batch = self.sampler.collect(old, self.c['train_episodes'], 'train')
+        observed = returns(batch['reward'], self.c['gamma'])[:, 0].double()
+        self.log('train_batch', episodes=len(observed), J_mean=float(observed.mean()),
+                 J_std=float(observed.std(unbiased=False)))
+        info = self.author_ppo.update(batch)
+        steps = info['updates']
+        self.optim_steps['ppo'] += steps
+        self.optim_steps['critic'] += steps
+        self.log('optimization', module=f'author_{self.condition}', **info)
+        info.update(accepted=True, candidates=0, direction_pass=None, direction_score=None,
+                    train_J=float(observed.mean()), return_difference=None,
+                    fit_kl_before=None, fit_kl_after=None, fit_kl_p95=None,
+                    fit_kl_max=None, target_below_floor=None)
+        return old, info
+
     def capture(self, candidate, old, info):
         if self.audit and self.round+1 in self.c['audit_rounds']:
             self.snapshots.append({'round':self.round+1, 'source_steps':self.sampler.used,
@@ -369,6 +406,8 @@ class Runner:
         gates = [r for r in self.rounds if r['direction_pass'] is not None]
         fits = [r for r in self.rounds if r['fit_kl_after'] is not None]
         return dict(condition=self.condition, seed=self.seed, status='complete', rounds=self.round,
+            implementation=({'backend':f'author_{self.condition}', 'commit':self.author_ppo.description()['commit']}
+                            if self.author_ppo else {'backend':'local'}),
             source_steps=self.sampler.used, unused_budget=self.c['budget']-self.sampler.used,
             evaluation_steps=self.eval_steps, task_mode=self.c.get('task_mode', 'finite_horizon'),
             AUC=auc, **{k:self.curves[-1][k] for k in

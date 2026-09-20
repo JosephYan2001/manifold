@@ -44,7 +44,7 @@ def gae(rewards, values, gamma, lam, *, next_values=None, terminated=None, trunc
 
 
 def value_targets(batch, critic, config, local=False):
-    """Frozen labels shared by all methods, including local IPPO bootstrap."""
+    """Frozen labels for direction methods and the legacy local PPO backend."""
     from ..configs import continuing_task
     with torch.no_grad():
         values = critic(batch['x'] if local else batch['state'])

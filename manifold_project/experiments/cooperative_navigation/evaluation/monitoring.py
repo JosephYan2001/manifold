@@ -77,9 +77,11 @@ def plot_monitor(path, condition, seed, budget, rounds, curves, complete=False):
                             yerr=[1.96*r[key+'_se'] for r in errors], fmt='none', capsize=2, alpha=.5)
         series(axes[2], curves, 'mean_coverage', '窗口平均覆盖率', 'budget_checkpoint', linestyle='--')
         series(axes[2], curves, 'tail_coverage', '后半窗口覆盖率', 'budget_checkpoint', linestyle=':')
-        series(axes[4], rounds, 'critic_mse', 'Critic最后训练小批次MSE')
+        author = any('author_stats' in row for row in rounds)
+        series(axes[4], rounds, 'critic_mse',
+               'Critic更新后全训练批原尺度MSE' if author else 'Critic最后训练小批次MSE')
         for key, label in (('fit_kl_after', '目标拟合残差'), ('policy_step_kl', '候选与旧策略KL'),
-                           ('ppo_kl', 'PPO最后小批次KL')):
+                           ('ppo_kl', 'PPO更新后全训练批KL' if author else 'PPO最后小批次KL')):
             series(axes[5], rounds, key, label)
         rates = [dict(source_steps=row['source_steps'], rate=float(np.mean(
             [r['accepted'] for r in rounds[max(0, i-19):i+1]]))) for i, row in enumerate(rounds)]

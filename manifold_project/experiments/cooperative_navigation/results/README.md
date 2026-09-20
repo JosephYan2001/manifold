@@ -16,9 +16,12 @@
 
 | 目录 | 内容 |
 |---|---|
-| learning_20m_continuing_mc_s40/ | MAPPO、IPPO、no_checks多步回报，各2000万源步 |
-| learning_20m_continuing_gae_s40/ | no_checks GAE，2000万源步 |
+| learning_20m_author_ppo_s40/ | 作者MAPPO和作者IPPO，各2000万源步 |
+| learning_20m_no_checks_mc_s40/ | no_checks多步回报，2000万源步 |
+| learning_20m_no_checks_gae_s40/ | no_checks GAE，2000万源步 |
 
-使用configs/learning_20m中的持续任务配置，从头训练。每组seed40、CUDA、100步采样窗口、41个独立评价节点；完成后另做500步连续评价，仅新增long_rollout_h500.csv。
+使用configs/learning_20m中的持续任务配置。每组seed40、CUDA、100步采样窗口、41个独立评价节点；完成后另做500步连续评价，每个套件增加long_rollout_h500.csv。两种作者PPO均用GAE/λ-return；no_checks多步回报与GAE仅切换方向标签。
+
+本次复核未发现新的训练数据，因此没有额外删除训练结果。已清除“IPPO仍为本地实现”的过时说明和旧PPO启动安排，移除只会生成早期固定判断的assess_navigation_pilot.py、assess_navigation_reference.py；当前判断由新数据重新建立，不沿用历史排名。保留通用稳定性分析、训练日志和模型读取兼容功能。
 
 启动、恢复及评价命令统一见[实验运行说明](../实验运行说明.md)。旧study_v3配置仅供历史设置参考，其模型和结果已不在本工作区；诊断与分支续训工具须显式提供新的模型路径。

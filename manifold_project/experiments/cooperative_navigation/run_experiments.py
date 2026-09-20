@@ -37,11 +37,13 @@ def metadata():
     import torch
     versions = {name:importlib.metadata.version(name) for name in
                 ('mpe2','pettingzoo','gymnasium','numpy','torch','matplotlib','pygame-ce','scipy')}
+    upstream = json.loads((ROOT/'vendor/mappo/UPSTREAM.json').read_text(encoding='utf-8'))
     result = subprocess.run(['git','-c',f'safe.directory={ROOT.parents[2].as_posix()}','rev-parse','HEAD'],
                             cwd=ROOT,capture_output=True,text=True)
     return dict(python=sys.version,executable=sys.executable,platform=platform.platform(),
                 processor=platform.processor(),versions=versions,code_sha256=fingerprint(),
                 git_head=result.stdout.strip() if result.returncode==0 else None,
+                mappo_upstream={k:upstream[k] for k in ('repository','commit')},
                 cuda=torch.version.cuda, gpu=torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
                 runtime_environment={key:os.environ.get(key) for key in
                                      ('KMP_DUPLICATE_LIB_OK','MKL_THREADING_LAYER','OMP_NUM_THREADS',
@@ -60,11 +62,6 @@ def new_directory(profile, tag=''):
         except FileExistsError:
             continue
     raise RuntimeError('结果编号空间已满')
-
-#  python manifold/manifold_project/experiments/cooperative_navigation/run_experiments.py --profile pilot --conditions ours --config manifold/manifold_project/experiments/cooperative_navigation/configs/study_v3/reference.json --device cuda --plot
-# $nav = "manifold\manifold_project\experiments\cooperative_navigation"
-
-# python "$nav/run_experiments.py" --profile pilot --experiments N-C N-A5 --conditions mappo ippo no_checks --config "$nav/configs/learning_20m/mc.json" --output "$nav/results/learning_20m_mc_s40" --plot --plot-every 10
 
 def parser():
     p = argparse.ArgumentParser(description=__doc__)
@@ -138,6 +135,8 @@ def main(argv=None):
             manifest['selected_conditions'] = conditions
         directory = args.output
     # Planning works without importing torch or MPE2 and does not create directories.
+    for job in manifest['jobs']:
+        condition_config(config, job['condition'])
     if args.dry_run:
         print(json.dumps(dict(profile=profile,config=config,jobs=manifest['jobs'],audit=manifest['audit'],
                               total_source_budget=len(manifest['jobs'])*config['budget']),ensure_ascii=False,indent=2))
@@ -167,6 +166,10 @@ def main(argv=None):
             directory.mkdir(parents=True,exist_ok=True)
         save_json(directory/'manifest.json',manifest)
     print(f'套件: {directory}',flush=True)
+    for condition in ('mappo','ippo'):
+        if any(job['condition'] == condition for job in manifest['jobs']):
+            backend = config.get(f'{condition}_backend', 'local')
+            print(f'{condition.upper()} 实现: {backend}（author=固定提交的作者代码；local=本地标签控制版本）', flush=True)
     print(f'任务: {config.get("task_mode", "finite_horizon")} | '
           f'采样窗口: {config["horizon"]} 联合步 | '
           '独立评价 J 只统计实际奖励，价值 bootstrap 仅用于训练', flush=True)

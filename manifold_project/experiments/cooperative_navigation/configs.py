@@ -23,6 +23,13 @@ def load_config(profile, overrides=None):
     config.update(json.loads((root/f'{profile}.json').read_text(encoding='utf-8')))
     if overrides:
         values = json.loads(Path(overrides).read_text(encoding='utf-8-sig'))
+        # Canonical shared PPO names; preserve old MAPPO-only override files.
+        for suffix in ('value_normalization', 'value_clipping', 'huber_loss'):
+            old, new = f'mappo_{suffix}', f'ppo_{suffix}'
+            if old in values:
+                if new in values and values[new] != values[old]:
+                    raise ValueError(f'{old} 与 {new} 设置冲突')
+                values[new] = values.pop(old)
         unknown = set(values)-set(config)
         if unknown:
             raise ValueError(f'未知配置键: {sorted(unknown)}')
@@ -32,6 +39,12 @@ def load_config(profile, overrides=None):
 
 
 def validate(c):
+    for key in ('mappo_backend', 'ippo_backend'):
+        if c.get(key, 'local') not in ('author', 'local'):
+            raise ValueError(f'{key} 只支持 author / local')
+    for key in ('ppo_value_normalization', 'ppo_value_clipping', 'ppo_huber_loss'):
+        if key in c and not isinstance(c[key], bool):
+            raise ValueError(f'{key} 必须是布尔值')
     if c.get('task_mode', 'finite_horizon') not in ('continuing', 'finite_horizon'):
         raise ValueError('task_mode 只支持 continuing / finite_horizon')
     if continuing_task(c) and not 0 < c['gamma'] < 1:
@@ -80,4 +93,11 @@ def condition_config(config, condition):
     result = deepcopy(config)
     group = condition if condition in ('mappo','ippo') else 'ours'
     result.update(config['method_overrides'].get(group,{}))
+    if condition in ('mappo','ippo') and result.get(f'{condition}_backend', 'local') == 'author':
+        if result['ppo_label'] != 'gae' or not result['ppo_normalize_advantage']:
+            raise ValueError(f'作者 PPO 保留 GAE 和优势标准化；N-L 必须显式设置 {condition}_backend=local')
+        from math import ceil
+        batches = ceil(result['train_episodes']/result['minibatch_episodes'])
+        if result['train_episodes']*result['horizon']*result['n_agents'] % batches:
+            raise ValueError('作者 PPO 总 agent 样本数必须可被小批次数整除')
     return result
