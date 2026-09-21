@@ -64,9 +64,6 @@ def new_directory(profile, tag=''):
     raise RuntimeError('结果编号空间已满')
 
 
-# $nav="manifold/manifold_project/experiments/cooperative_navigation"
-#
-# python "$nav/run_experiments.py" --profile pilot --experiments N-C --conditions mappo ippo --config "$nav/configs/learning_20m/mc.json" --device cuda --output "$nav/results/learning_20m_author_ppo_s40" --plot --plot-every 10
 def parser():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--profile',choices=['smoke','pilot','formal'],default=None)
@@ -174,9 +171,14 @@ def main(argv=None):
         if any(job['condition'] == condition for job in manifest['jobs']):
             backend = config.get(f'{condition}_backend', 'local')
             print(f'{condition.upper()} 实现: {backend}（author=固定提交的作者代码；local=本地标签控制版本）', flush=True)
-    print(f'任务: {config.get("task_mode", "finite_horizon")} | '
-          f'采样窗口: {config["horizon"]} 联合步 | '
-          '独立评价 J 只统计实际奖励，价值 bootstrap 仅用于训练', flush=True)
+    if config.get('task_mode') == 'first_arrival':
+        print(f'任务: first_arrival | 首次同时全覆盖即终止 | 任务截止 {config["task_horizon"]} 步 | '
+              f'每轮训练 {config["train_episodes"]*config["horizon"]} 个真实联合步 | '
+              '主指标: 成功率、截尾完成步数；超时失败不 bootstrap，采样截断 bootstrap', flush=True)
+    else:
+        print(f'任务: {config.get("task_mode", "finite_horizon")} | '
+              f'采样窗口: {config["horizon"]} 联合步 | '
+              '独立评价 J 只统计实际奖励，价值 bootstrap 仅用于训练', flush=True)
     if args.plot and args.plot_every:
         print(f'训练监控: {directory / "training_monitor.png"}（每{args.plot_every}轮及新评价后刷新）', flush=True)
     status_path = directory/'status.json'

@@ -17,6 +17,14 @@ def continuing_task(config):
     return config.get('task_mode', 'finite_horizon') == 'continuing'
 
 
+def arrival_task(config):
+    return config.get('task_mode') == 'first_arrival'
+
+
+def episode_horizon(config):
+    return config['task_horizon'] if arrival_task(config) else config['horizon']
+
+
 def load_config(profile, overrides=None):
     root = Path(__file__).parent/'configs'
     config = json.loads((root/'source.json').read_text(encoding='utf-8'))
@@ -47,8 +55,11 @@ def validate(c):
     for key in ('ppo_value_normalization', 'ppo_value_clipping', 'ppo_huber_loss'):
         if key in c and not isinstance(c[key], bool):
             raise ValueError(f'{key} 必须是布尔值')
-    if c.get('task_mode', 'finite_horizon') not in ('continuing', 'finite_horizon'):
-        raise ValueError('task_mode 只支持 continuing / finite_horizon')
+    if c.get('task_mode', 'finite_horizon') not in ('continuing', 'finite_horizon', 'first_arrival'):
+        raise ValueError('task_mode 只支持 continuing / finite_horizon / first_arrival')
+    if arrival_task(c) and (not isinstance(c.get('task_horizon'), int) or
+                            isinstance(c['task_horizon'], bool) or c['task_horizon'] <= 0):
+        raise ValueError('first_arrival 要求正整数 task_horizon')
     if continuing_task(c) and not 0 < c['gamma'] < 1:
         raise ValueError('持续任务要求 0 < gamma < 1')
     if not isinstance(c['method_overrides'],dict) or set(c['method_overrides'])-{'ours','mappo','ippo'}:

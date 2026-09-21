@@ -3,10 +3,10 @@ import json
 import time
 import numpy as np
 from ..models import Actor, load_actor
-from ..configs import continuing_task
+from ..configs import continuing_task, arrival_task
 from ..training.storage import load_pt, seed_for
 from ..training.collector import episode
-from .evaluate import evaluate
+from .evaluate import evaluate, ARRIVAL_METRICS
 from .reporting import write_csv, read_csv, summaries, bootstrap
 
 
@@ -20,7 +20,7 @@ def cached_rows(path, dimensions):
                 row[key] = int(row[key])
         for key in ('J','distance','coverage','all_covered','collision_pairs','collisions_per_agent',
                     'mean_reward','mean_coverage','tail_coverage','tail_all_covered',
-                    'evaluation_seconds','mean','std','ci_low','ci_high'):
+                    'evaluation_seconds','mean','std','ci_low','ci_high', *ARRIVAL_METRICS):
             if key in row:
                 row[key] = float(row[key]) if row[key] != '' else None
         for key in ('reused_source','candidate_accepted','supported_false_rejection'):
@@ -52,12 +52,14 @@ def transfer_suite(directory, manifest):
             start = time.perf_counter()
             if n == config['n_agents']:
                 metrics = {k:summary[k] for k in ('J','distance','coverage','all_covered','collision_pairs','collisions_per_agent',
-                           'mean_reward','mean_coverage','tail_coverage','tail_all_covered') if k in summary}
+                           'mean_reward','mean_coverage','tail_coverage','tail_all_covered', *ARRIVAL_METRICS) if k in summary}
+                if not arrival_task(config):
+                    metrics['episode_steps'] = float(config['horizon'])
                 count,steps = config['final_episodes'],0
             else:
                 count = config['transfer_episodes']
-                metrics,_ = evaluate(actor,config,job['condition'],job['seed'],'transfer',count,n=n)
-                steps = count*config['horizon']
+                metrics,episodes = evaluate(actor,config,job['condition'],job['seed'],'transfer',count,n=n)
+                steps = sum(e['episode_steps'] for e in episodes)
             rows.append(dict(condition=job['condition'],seed=job['seed'],n_agents=n,status='complete',
                              episodes=count,evaluation_steps=steps,reused_source=n==config['n_agents'],
                              evaluation_seconds=time.perf_counter()-start,**metrics))
@@ -93,10 +95,13 @@ def audit_suite(directory, manifest):
             old.load_state_dict(snap['old'])
             new.load_state_dict(snap['candidate'])
             differences = []
+            evaluation_steps = 0
             for i in range(config['audit_episodes']):
                 reset = seed_for('audit-reset',job['seed'],round_index,i)
-                values = [episode(actor,config,reset,seed_for('audit-action',job['condition'],job['seed'],round_index,i,side))['J']
+                episodes = [episode(actor,config,reset,seed_for('audit-action',job['condition'],job['seed'],round_index,i,side))
                           for side,actor in enumerate((old,new))]
+                values = [e['J'] for e in episodes]
+                evaluation_steps += sum(e['episode_steps'] for e in episodes)
                 differences.append(values[1]-values[0])
             stats = bootstrap(differences,config['bootstrap_repeats'])
             outcome = 'uncertain'
@@ -108,8 +113,8 @@ def audit_suite(directory, manifest):
                 candidate_accepted=snap['decision']['accepted'],source_steps=snap['source_steps'],
                 supported_false_rejection=(None if continuing_task(config) else
                     not snap['decision']['accepted'] and outcome=='supported_improvement'),
-                score_kind='observed_finite_window_return',
-                evaluation_steps=2*config['audit_episodes']*config['horizon'],
+                score_kind='observed_first_arrival_return' if arrival_task(config) else 'observed_finite_window_return',
+                evaluation_steps=evaluation_steps,
                 interval_scope='paired_reset_within_candidate_uncorrected_not_training_seed_CI'))
             write_csv(directory/'audit_results.csv',rows)
     write_csv(directory/'audit_results.csv',rows)

@@ -1,7 +1,7 @@
 """Pinned native MPE2 dynamics; physical diagnostics never enter the actor."""
 import importlib.metadata
 import numpy as np
-from ..configs import continuing_task
+from ..configs import continuing_task, arrival_task, episode_horizon
 
 
 class Navigation:
@@ -10,7 +10,9 @@ class Navigation:
         if importlib.metadata.version('mpe2') != '1.1.1':
             raise RuntimeError('本协议锁定 mpe2==1.1.1，请安装 requirements.txt')
         self.n = n or config['n_agents']
-        self.horizon = config['horizon']
+        self.horizon = episode_horizon(config)
+        self.first_arrival = arrival_task(config)
+        self.end_reason = None
         self.include_time = not continuing_task(config)
         self.env = simple_spread_v3.parallel_env(
             N=self.n, local_ratio=config['local_ratio'], max_cycles=self.horizon,
@@ -30,6 +32,7 @@ class Navigation:
     def reset(self, seed):
         observations, _ = self.env.reset(seed=int(seed))
         self.t = 0
+        self.end_reason = 'success' if self.first_arrival and self.metrics()['all_covered'] else None
         return np.stack([observations[a] for a in self.names])
 
     def state(self):
@@ -49,7 +52,7 @@ class Navigation:
                 'collisions_per_agent': float(2*pairs/self.n)}
 
     def step(self, actions):
-        if self.t >= self.horizon:
+        if self.t >= self.horizon or self.end_reason is not None:
             raise RuntimeError('采样窗口已结束，请 reset 或在新 rollout 中设置更长 horizon')
         observations, rewards, terminated, truncated, _ = self.env.step(dict(zip(self.names, map(int, actions))))
         self.t += 1
@@ -61,6 +64,12 @@ class Navigation:
         terminal, timeout = all(terminated.values()), all(truncated.values())
         if terminal or timeout != (self.t == self.horizon):
             raise RuntimeError('原生结束标志与关闭成功终止的固定采样窗口不一致')
+        # The task definition belongs to this adapter. MPE supplies dynamics,
+        # native rewards and final observations; its clock remains a truncation.
+        if self.first_arrival:
+            success = bool(self.metrics()['all_covered'])
+            self.end_reason = 'success' if success else 'deadline' if timeout else None
+            terminal, timeout = self.end_reason is not None, False
         # MPE2 supplies the pre-reset final observation even after a timeout.
         obs = np.stack([observations[a] for a in self.names])
         return obs, float(np.mean(list(rewards.values()), dtype=np.float64)), terminal, timeout

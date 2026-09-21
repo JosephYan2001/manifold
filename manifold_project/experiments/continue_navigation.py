@@ -18,7 +18,7 @@ if __package__ in (None, ''):
 
 import numpy as np
 import torch
-from manifold_project.experiments.cooperative_navigation.configs import validate
+from manifold_project.experiments.cooperative_navigation.configs import validate, arrival_task, episode_horizon
 from manifold_project.experiments.cooperative_navigation.run_experiments import ROOT, metadata, new_directory
 from manifold_project.experiments.cooperative_navigation.training.runner import Runner, minimum_cost
 from manifold_project.experiments.cooperative_navigation.training.storage import load_pt, save_pt, save_json
@@ -126,7 +126,11 @@ class ContinuationRunner(Runner):
             values = np.asarray([e[key] for e in episodes], dtype=np.float64)
             metrics[key+'_se'] = float(values.std(ddof=1)/np.sqrt(count)) if count > 1 else None
         self.eval_seconds += time.perf_counter()-started
-        self.eval_steps += count*self.c['horizon']
+        if arrival_task(self.c):
+            for key, source in (('success_rate','success'),('restricted_mean_steps','restricted_steps')):
+                values = np.asarray([e[source] for e in episodes],dtype=np.float64)
+                metrics[key+'_se'] = float(values.std(ddof=1)/np.sqrt(count)) if count > 1 else None
+        self.eval_steps += sum(e['episode_steps'] for e in episodes)
         row = dict(condition=self.variant, algorithm_condition=self.condition, seed=self.seed,
                    budget_checkpoint=budget_node, actor_source_steps=actor_cost,
                    total_actor_source_steps=self.origin['parent_source_steps']+actor_cost,
@@ -134,9 +138,11 @@ class ContinuationRunner(Runner):
         self.curves.append(row)
         self.log('evaluation', **row)
         print(f'  [eval] {self.variant} J={metrics["J"]:.4f} coverage={metrics["coverage"]:.1%}', flush=True)
-        if self.best is None or metrics['J'] > self.best['score']:
+        score = ((metrics['success_rate'],-metrics['restricted_mean_steps'],-metrics['collision_pairs_total'])
+                 if arrival_task(self.c) else metrics['J'])
+        if self.best is None or score > self.best['score']:
             self.best = dict(actor=deepcopy(actor.state_dict()), config=self.c, input_dim=self.input_dim,
-                             score=metrics['J'], selection='branch_evaluation_diagnostic_only',
+                             score=score, selection='branch_evaluation_diagnostic_only',
                              budget_checkpoint=budget_node, actor_source_steps=actor_cost,
                              branch_origin=self.origin)
 
@@ -254,8 +260,8 @@ def main(argv=None):
         print(json.dumps(dict(kind=KIND, source=manifest['source'], jobs=manifest['jobs'],
                               evaluation_seed=manifest['evaluation_seed'],
                               total_additional_source_budget=sum(j['config']['budget'] for j in manifest['jobs']),
-                              evaluation_steps_per_branch=len(manifest['config']['eval_fractions'])*
-                              manifest['config']['eval_episodes']*manifest['config']['horizon']),
+                              evaluation_steps_upper_bound_per_branch=len(manifest['config']['eval_fractions'])*
+                              manifest['config']['eval_episodes']*episode_horizon(manifest['config'])),
                          ensure_ascii=False, indent=2))
         return 0
     if manifest['config']['device'] == 'cuda' and not torch.cuda.is_available():

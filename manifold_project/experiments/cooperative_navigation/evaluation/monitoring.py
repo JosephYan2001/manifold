@@ -36,6 +36,11 @@ def progress_line(condition, seed, budget, row, evaluation=None):
                    f'candidates={row.get("candidates", 0)}']
     fields.append(f'update_s={number(row.get("update_seconds"))}')
     if evaluation:
+        if 'success_rate' in evaluation:
+            fields.append(f'last_eval@{evaluation["budget_checkpoint"]}: '
+                          f'success={evaluation["success_rate"]:.1%} '
+                          f'restricted_steps={number(evaluation["restricted_mean_steps"])}')
+            return ' | '.join(fields)
         fields.append(f'last_eval@{evaluation["budget_checkpoint"]}: '
                       f'J={number(evaluation["J"])} '
                       f'coverage={evaluation["coverage"]:.1%} '
@@ -68,15 +73,18 @@ def plot_monitor(path, condition, seed, budget, rounds, curves, complete=False):
                 values = [r['train_J'] for r in rounds[max(0, i-19):i+1] if r.get('train_J') is not None]
                 smooth.append(dict(source_steps=row['source_steps'], mean=float(np.mean(values)) if values else None))
             series(axes[0], smooth, 'mean', '最近20轮均值')
-        for ax, key, label in zip(axes[1:4], ('J', 'coverage', 'distance'),
-                                 ('独立评价回报', '独立评价覆盖率', '独立评价终点距离')):
+        arrival = bool(curves and 'success_rate' in curves[0])
+        keys = ('J', 'success_rate', 'restricted_mean_steps') if arrival else ('J', 'coverage', 'distance')
+        labels = ('独立任务回报', '首达成功率', '截尾完成步数（失败计上限）') if arrival else ('独立评价回报', '独立评价覆盖率', '独立评价终点距离')
+        for ax, key, label in zip(axes[1:4], keys, labels):
             series(ax, curves, key, label, 'budget_checkpoint', marker='o', drawstyle='steps-post')
             errors = [r for r in curves if r.get(key + '_se') is not None]
             if errors:
                 ax.errorbar([r['budget_checkpoint'] for r in errors], [r[key] for r in errors],
                             yerr=[1.96*r[key+'_se'] for r in errors], fmt='none', capsize=2, alpha=.5)
-        series(axes[2], curves, 'mean_coverage', '窗口平均覆盖率', 'budget_checkpoint', linestyle='--')
-        series(axes[2], curves, 'tail_coverage', '后半窗口覆盖率', 'budget_checkpoint', linestyle=':')
+        if not arrival:
+            series(axes[2], curves, 'mean_coverage', '窗口平均覆盖率', 'budget_checkpoint', linestyle='--')
+            series(axes[2], curves, 'tail_coverage', '后半窗口覆盖率', 'budget_checkpoint', linestyle=':')
         author = any('author_stats' in row for row in rounds)
         series(axes[4], rounds, 'critic_mse',
                'Critic更新后全训练批原尺度MSE' if author else 'Critic最后训练小批次MSE')
@@ -98,6 +106,9 @@ def plot_monitor(path, condition, seed, budget, rounds, curves, complete=False):
         titles = ('训练批回报（非独立评价）', '独立源回报（已有评价节点）', '终点覆盖率',
                   '终点距离', 'Critic训练MSE（对数刻度，0附近线性）', 'KL诊断（统计口径不同）',
                   '策略更新比例', '方向检查（正值通过）', '回报检查（正值通过）')
+        if arrival:
+            titles = (titles[0], '实际终止任务回报（辅助）', '首达成功率（主指标）',
+                      '截尾完成步数（越小越好）', *titles[4:])
         for ax, title in zip(axes, titles):
             ax.set(title=title, xlabel='累计源团队步')
             ax.grid(alpha=.15)

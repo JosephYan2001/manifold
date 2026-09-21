@@ -8,11 +8,11 @@ import time
 import numpy as np
 import torch
 from ..envs.navigation import Navigation
-from ..configs import continuing_task
+from ..configs import continuing_task, arrival_task, episode_horizon
 from ..models import Actor, Critic, Direction
-from ..evaluation.evaluate import evaluate
+from ..evaluation.evaluate import evaluate, ARRIVAL_METRICS
 from .collector import Collector
-from .ppo import returns, value_targets, weighted, direction_terms, ppo_loss
+from .ppo import returns, value_targets, batch_weighted, valid_values, direction_terms, ppo_loss
 from .storage import seed_for, event, save_json, save_pt, load_pt
 from .author_ppo import AuthorPPO, enabled as author_ppo_enabled
 
@@ -26,11 +26,12 @@ def return_check_enabled(condition):
 
 
 def minimum_cost(config, condition):
-    episodes = config['train_episodes']
+    cost = config['train_episodes']*config['horizon']
+    episodes = 0
     if condition not in ('mappo','ippo'):
         episodes += config['direction_check_episodes'] if direction_check_enabled(condition) else 0
         episodes += 2*config['return_check_episodes'] if return_check_enabled(condition) else 0
-    return episodes*config['horizon']
+    return cost+episodes*episode_horizon(config)
 
 
 class Runner:
@@ -82,8 +83,8 @@ class Runner:
         event(self.log_path, stream, round=self.round+1, **record)
 
     def restore(self, state):
-        if continuing_task(state['config']) != continuing_task(self.c):
-            raise ValueError('不能在有限时域与持续任务之间直接恢复；请新建实验')
+        if state['config'].get('task_mode', 'finite_horizon') != self.c.get('task_mode', 'finite_horizon'):
+            raise ValueError('不能在不同任务定义之间直接恢复；请新建实验')
         if state.get('actor_kind', 'local_mlp_v1') != self.actor_kind:
             raise ValueError('PPO 实现或条件已更换；旧本地模型不能恢复为作者版，MAPPO/IPPO也不能互相续训')
         self.actor.load_state_dict(state['actor'])
@@ -155,7 +156,11 @@ class Runner:
             values = np.asarray([e[key] for e in episodes], dtype=np.float64)
             metrics[key+'_se'] = float(values.std(ddof=1)/np.sqrt(count)) if count > 1 else None
         self.eval_seconds += time.perf_counter()-started
-        self.eval_steps += count*self.c['horizon']
+        if arrival_task(self.c):
+            for key, episode_key in (('success_rate', 'success'), ('restricted_mean_steps', 'restricted_steps')):
+                values = np.asarray([e[episode_key] for e in episodes], dtype=np.float64)
+                metrics[key+'_se'] = float(values.std(ddof=1)/np.sqrt(count)) if count > 1 else None
+        self.eval_steps += sum(e['episode_steps'] for e in episodes)
         row = dict(condition=self.condition, seed=self.seed, budget_checkpoint=budget_node,
                    actor_source_steps=actor_cost, episodes=count, **metrics)
         self.curves.append(row)
@@ -164,10 +169,17 @@ class Runner:
               f'actor_steps={actor_cost} J={metrics["J"]:.4f} '
               f'coverage={metrics["coverage"]:.1%} distance={metrics["distance"]:.4f} '
               f'episodes={count}', flush=True)
-        if self.best is None or metrics['J'] > self.best['score']:
+        if arrival_task(self.c):
+            print(f'  [arrival] success={metrics["success_rate"]:.1%} '
+                  f'restricted_steps={metrics["restricted_mean_steps"]:.2f} '
+                  f'success_steps={metrics["success_steps_mean"]}', flush=True)
+        score = ((metrics['success_rate'], -metrics['restricted_mean_steps'], -metrics['collision_pairs_total'])
+                 if arrival_task(self.c) else metrics['J'])
+        if self.best is None or score > self.best['score']:
             self.best = {'actor':deepcopy(actor.state_dict()), 'config':self.c, 'input_dim':self.input_dim,
                          'actor_kind':self.actor_kind, 'condition':self.condition, 'seed':self.seed,
-                         'score':metrics['J'], 'selection':'independent_source_evaluation_diagnostic_only',
+                         'score':score, 'selection':('success_rate_then_restricted_steps_then_collisions_diagnostic_only'
+                             if arrival_task(self.c) else 'independent_source_evaluation_diagnostic_only'),
                          'budget_checkpoint':budget_node, 'actor_source_steps':actor_cost}
 
     def labels(self, batch, critic):
@@ -180,6 +192,9 @@ class Runner:
                 advantage = advantage.unsqueeze(-1).expand_as(batch['actions'])
             # Continuing: n-step target with frozen V(s_T), also for GAE PPO.
             return advantage.detach(), target.detach()
+
+    def weighted(self, value, batch):
+        return batch_weighted(value, batch, self.c)
 
     def check_returns(self, actor, purpose, critic):
         if not continuing_task(self.c):
@@ -229,10 +244,10 @@ class Runner:
         batch.update(advantage=advantage, value_target=target)
         def critic_loss(mb):
             value = self.critic(mb['x'] if self.condition == 'ippo' else mb['state'])
-            mse = weighted((value-mb['value_target']).square(), self.c['gamma'])
+            mse = self.weighted((value-mb['value_target']).square(), mb)
             with torch.no_grad():
-                variance = mb['value_target'].var(unbiased=False)
-                explained = float(1-(mb['value_target']-value).var(unbiased=False)/variance) if variance > 1e-12 else None
+                variance = valid_values(mb['value_target'], mb).var(unbiased=False)
+                explained = float(1-valid_values(mb['value_target']-value, mb).var(unbiased=False)/variance) if variance > 1e-12 else None
             return self.c['value_coef']*mse, {'value_mse':float(mse.detach()), 'explained_variance':explained}
         critic_info = self.optimize(self.critic, self.critic_optimizer, batch, self.c['critic_epochs'], 'critic', critic_loss)
         info = dict(accepted=False, candidates=0, direction_pass=None, direction_score=None,
@@ -244,7 +259,8 @@ class Runner:
         if self.condition in ('mappo','ippo'):
             if self.c['ppo_normalize_advantage']:
                 a = batch['advantage']
-                batch['advantage'] = (a-a.mean())/(a.std(unbiased=False)+1e-8)
+                real = valid_values(a, batch)
+                batch['advantage'] = (a-real.mean())/(real.std(unbiased=False)+1e-8)
             info.update(self.optimize(self.actor, self.actor_optimizer, batch, self.c['ppo_epochs'], 'ppo',
                                       lambda mb: ppo_loss(self.actor, mb, mb['advantage'], self.c)))
             info['accepted'] = True
@@ -257,10 +273,10 @@ class Runner:
         def direction_loss(mb):
             score, fisher = direction_terms(direction(mb['x']), mb['mu'], mb['actions'])
             quadratic = score.square() if self.condition == 'sampled' else fisher
-            return weighted(quadratic-2*mb['advantage']*score, self.c['gamma']), {}
+            return self.weighted(quadratic-2*mb['advantage']*score, mb), {}
         self.optimize(direction, optimizer, batch, self.c['direction_epochs'], 'direction', direction_loss)
         with torch.no_grad():
-            q = direction(batch['x'])
+            q = valid_values(direction(batch['x']), batch)
             self.log('direction_fit',q_abs_mean=float(q.abs().mean()),q_abs_max=float(q.abs().max()),
                      near_bound_fraction=float((q.abs()>.95*self.c['q_max']).float().mean()))
         if direction_check_enabled(self.condition):
@@ -268,7 +284,8 @@ class Runner:
             a, _ = self.labels(check, old_critic)
             with torch.no_grad():
                 score, fisher = direction_terms(direction(check['x']), check['mu'], check['actions'])
-                values = [float(weighted((2*a.double()*score.double()-fisher.double())[i:i+1], self.c['gamma'])) for i in range(len(a))]
+                values = [float(self.weighted((2*a.double()*score.double()-fisher.double())[i:i+1],
+                          {k:v[i:i+1] for k,v in check.items()})) for i in range(len(a))]
             info['direction_score'] = float(np.mean(values, dtype=np.float64))
             info['direction_pass'] = info['direction_score'] > 0
             self.log('direction_check', episode_scores=values, **info)
@@ -276,7 +293,7 @@ class Runner:
                 self.capture(None, old, info)
                 return old, info
         for attempt in range(self.c['attempts']):
-            if return_check_enabled(self.condition) and self.sampler.used+2*self.c['return_check_episodes']*self.c['horizon'] > self.c['budget']:
+            if return_check_enabled(self.condition) and self.sampler.used+2*self.c['return_check_episodes']*episode_horizon(self.c) > self.c['budget']:
                 break
             eta = self.c['eta']/(2**attempt)
             candidate = deepcopy(old)
@@ -285,23 +302,24 @@ class Runner:
             def kl_values(model):
                 with torch.no_grad():
                     return (batch['target']*(batch['target'].log()-model(batch['x']).log())).sum(-1)
-            before = float(weighted(kl_values(candidate), self.c['gamma']))
+            before = float(self.weighted(kl_values(candidate), batch))
             optimizer = torch.optim.Adam(candidate.parameters(), lr=self.c['actor_lr'])
             epochs = math.ceil(self.c['actor_epochs']/4) if self.condition == 'fit_quarter' else self.c['actor_epochs']
             def fit_loss(mb):
                 kl = (mb['target']*(mb['target'].log()-candidate(mb['x']).log())).sum(-1)
-                return weighted(kl, self.c['gamma']), {}
+                return self.weighted(kl, mb), {}
             self.optimize(candidate, optimizer, batch, epochs, 'actor_fit', fit_loss)
             kl = kl_values(candidate)
             with torch.no_grad():
                 actual = candidate(batch['x'])
-                step_kl = weighted((batch['mu']*(batch['mu'].log()-actual.log())).sum(-1), self.c['gamma'])
-                entropy = weighted(-(actual*actual.log()).sum(-1), self.c['gamma'])
+                step_kl = self.weighted((batch['mu']*(batch['mu'].log()-actual.log())).sum(-1), batch)
+                entropy = self.weighted(-(actual*actual.log()).sum(-1), batch)
             info.update(candidates=attempt+1, fit_kl_before=before,
                         policy_step_kl=float(step_kl), policy_entropy=float(entropy),
-                        fit_kl_after=float(weighted(kl, self.c['gamma'])),
-                        fit_kl_p95=float(torch.quantile(kl.flatten(), .95)), fit_kl_max=float(kl.max()),
-                        target_below_floor=float((batch['target'] < self.c['beta']/5).float().mean()))
+                        fit_kl_after=float(self.weighted(kl, batch)),
+                        fit_kl_p95=float(torch.quantile(valid_values(kl, batch).flatten(), .95)),
+                        fit_kl_max=float(valid_values(kl, batch).max()),
+                        target_below_floor=float(valid_values((batch['target'] < self.c['beta']/5).float(), batch).mean()))
             if not return_check_enabled(self.condition):
                 info['accepted'] = True
             else:
@@ -398,14 +416,22 @@ class Runner:
         except BaseException as error:
             save_json(self.directory/'failure.json', {'type':type(error).__name__, 'message':str(error),
                       'completed_round':self.round, 'used':self.sampler.used, 'costs':dict(self.sampler.costs),
-                      'note':'保留失败记录；恢复将最后未完成回合按已预留整回合计费，最多高估 horizon-1 步，不超预算。'})
+                      'note':'保留失败记录；恢复将未提交采样按账本最大预留计费，当前轨迹至多高估预留长度减1步，不超预算。'})
             raise
 
     def summary(self):
         auc = sum((b['budget_checkpoint']-a['budget_checkpoint'])*a['J'] for a,b in zip(self.curves, self.curves[1:]))/self.c['budget']
         gates = [r for r in self.rounds if r['direction_pass'] is not None]
         fits = [r for r in self.rounds if r['fit_kl_after'] is not None]
+        arrival = {}
+        if arrival_task(self.c):
+            arrival = {k:self.curves[-1][k] for k in ARRIVAL_METRICS if k in self.curves[-1]}
+            arrival.update(task_horizon=self.c['task_horizon'],
+                success_AUC=sum((b['budget_checkpoint']-a['budget_checkpoint'])*a['success_rate']
+                                for a,b in zip(self.curves, self.curves[1:]))/self.c['budget'],
+                success_cost=next((r['budget_checkpoint'] for r in self.curves if r['success_rate'] >= .9), None))
         return dict(condition=self.condition, seed=self.seed, status='complete', rounds=self.round,
+            **arrival,
             implementation=({'backend':f'author_{self.condition}', 'commit':self.author_ppo.description()['commit']}
                             if self.author_ppo else {'backend':'local'}),
             source_steps=self.sampler.used, unused_budget=self.c['budget']-self.sampler.used,

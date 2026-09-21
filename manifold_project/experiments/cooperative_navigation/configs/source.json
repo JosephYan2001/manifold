@@ -1,5 +1,6 @@
 {
   "task_mode": "continuing",
+  "task_horizon": 500,
   "mappo_backend": "author", "ippo_backend": "author",
   "ppo_activation": "relu",
   "ppo_value_normalization": true, "ppo_value_clipping": true, "ppo_huber_loss": true,

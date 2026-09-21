@@ -1,16 +1,17 @@
 """Adapt the pinned author implementation to our collection/evaluation protocol.
 
-PPO, models, ValueNorm and GAE return computation live in vendor/mappo. Each
-collected window occupies its own buffer lane: there is no reset observation
-inside a lane, and its final entry is the actual pre-reset observation/state.
+PPO, models, ValueNorm and GAE return computation live in vendor/mappo. Legacy
+windows occupy independent lanes. First-arrival batches pack real transitions,
+with terminal masks at internal resets and the actual final state at a cutoff.
 """
 import math
+from copy import copy
 import numpy as np
 import torch
 from torch import nn
 from gymnasium.spaces import Box, Discrete
 
-from ..configs import continuing_task
+from ..configs import continuing_task, arrival_task
 from ..vendor.mappo.onpolicy.config import get_config
 from ..vendor.mappo.onpolicy.algorithms.r_mappo.algorithm.rMAPPOPolicy import R_MAPPOPolicy
 from ..vendor.mappo.onpolicy.algorithms.r_mappo.algorithm.r_actor_critic import R_Actor
@@ -32,7 +33,7 @@ def arguments(c, condition='mappo'):
     args = get_config().parse_args([])
     args.algorithm_name = condition
     args.use_centralized_V = condition == 'mappo'
-    args.env_name = 'MPE2_continuing_navigation'
+    args.env_name = 'MPE2_' + c.get('task_mode', 'finite_horizon')
     args.use_recurrent_policy = args.use_naive_recurrent_policy = False
     args.hidden_size = c['hidden']
     # Saved author checkpoints predating this option used the upstream ReLU default.
@@ -110,7 +111,9 @@ class AuthorPPO:
         return dict(repository='https://github.com/marlbenchmark/on-policy', commit=COMMIT,
                     adapter=self.actor_kind, arguments={k:getattr(self.args, k) for k in keys},
                     critic_input='local_history' if self.local else 'central_state',
-                    timeout='pre_reset_final_value; independent_window_lanes; terminal_only_mask',
+                    timeout=('packed_real_transitions; success/deadline_terminal; collection_cutoff_bootstrap'
+                             if arrival_task(self.c) else
+                             'pre_reset_final_value; independent_window_lanes; terminal_only_mask'),
                     actor_probability='author_categorical_without_beta_mixture')
 
     def normalizer_state(self):
@@ -149,6 +152,8 @@ class AuthorPPO:
 
     @torch.no_grad()
     def make_buffer(self, batch):
+        if arrival_task(self.c):
+            return self.make_arrival_buffer(batch)
         c = self.c
         terminal, timeout = batch['terminated'], batch['truncated']
         if (terminal[:, :-1] | timeout[:, :-1]).any() or not (terminal[:, -1] | timeout[:, -1]).all():
@@ -179,6 +184,49 @@ class AuthorPPO:
             raise FloatingPointError('作者 PPO 回报标签非有限')
         return buffer
 
+    @torch.no_grad()
+    def make_arrival_buffer(self, batch):
+        """Pack real transitions into one lane; upstream PPO sees no padding.
+
+        Interior resets are true task terminals. Only the last transition may
+        be a collection cutoff and bootstrap from its pre-reset observation.
+        The upstream return, ValueNorm and optimizer implementations are intact.
+        """
+        valid = batch['valid']
+        real = {key: batch[key][valid] for key in
+                ('x', 'actions', 'reward', 'terminated', 'truncated')}
+        total = len(real['reward'])
+        if not total or real['truncated'][:-1].any():
+            raise ValueError('Packed train batch must end each interior episode with a task terminal')
+        if total*self.c['n_agents'] % self.args.num_mini_batch:
+            raise ValueError('Packed real sample count must be divisible by the PPO minibatch count')
+        args = copy(self.args)
+        args.episode_length, args.n_rollout_threads = total, 1
+        buffer = SharedReplayBuffer(args, self.c['n_agents'], self.obs_space,
+                                    self.state_space, self.action_space)
+        to_numpy = lambda x: x.detach().cpu().numpy()
+        inputs, final_inputs = self.critic_inputs(batch)
+        inputs = inputs[valid]
+        last = int(torch.nonzero(batch['lengths'] > 0)[-1, 0])
+        buffer.obs[:-1, 0] = to_numpy(real['x'])
+        buffer.obs[-1, 0] = to_numpy(batch['final_x'][last])
+        buffer.share_obs[:-1, 0] = to_numpy(inputs)
+        buffer.share_obs[-1, 0] = to_numpy(final_inputs[last])
+        buffer.actions[:, 0] = to_numpy(real['actions'])[..., None]
+        buffer.rewards[:, 0] = to_numpy(real['reward'])[:, None, None]
+        buffer.masks[1:, 0] = to_numpy(~real['terminated'])[:, None, None]
+        buffer.value_preds[:-1, 0] = to_numpy(self.values(inputs))
+        final = to_numpy(self.values(final_inputs[last:last+1]))
+        flat_x = real['x'].reshape(-1, real['x'].shape[-1])
+        recurrent = flat_x.new_zeros((len(flat_x), self.args.recurrent_N, self.args.hidden_size))
+        logp, _ = self.policy.actor.evaluate_actions(flat_x, recurrent,
+                    real['actions'].reshape(-1, 1), flat_x.new_ones((len(flat_x), 1)))
+        buffer.action_log_probs[:, 0] = to_numpy(logp.reshape(*real['actions'].shape, 1))
+        buffer.compute_returns(final, self.trainer.value_normalizer)
+        if not np.isfinite(buffer.returns).all():
+            raise FloatingPointError('Nonfinite packed PPO returns')
+        return buffer
+
     def update(self, batch):
         self.trainer.prep_rollout()
         buffer = self.make_buffer(batch)
@@ -192,22 +240,26 @@ class AuthorPPO:
         self.trainer.prep_rollout()
         with torch.no_grad():
             inputs, _ = self.critic_inputs(batch)
-            predicted = self.values(inputs).transpose(0, 1).cpu().numpy()
+            packed = arrival_task(self.c)
+            predicted = (self.values(inputs[batch['valid']]).unsqueeze(1) if packed else
+                         self.values(inputs).transpose(0, 1)).cpu().numpy()
             if self.trainer.value_normalizer is not None:
                 predicted = self.trainer.value_normalizer.denormalize(predicted)
             error = target-predicted
             variance = float(np.var(target))
             mse = float(np.mean(np.square(error)))
-            p = self.actor(batch['x'])
-            old = batch['mu']
+            x = batch['x'][batch['valid']] if packed else batch['x']
+            p = self.actor(x)
+            old = batch['mu'][batch['valid']] if packed else batch['mu']
             tiny = torch.finfo(p.dtype).tiny
             kl = float(torch.sum(old*(old.clamp_min(tiny).log()-p.clamp_min(tiny).log()), -1).mean())
             entropy = float(-torch.sum(p*p.clamp_min(tiny).log(), -1).mean())
-            chosen = batch['actions'].unsqueeze(-1)
+            chosen = (batch['actions'][batch['valid']] if packed else batch['actions']).unsqueeze(-1)
             ratio = p.gather(-1, chosen)/old.gather(-1, chosen)
             clip_fraction = float(((ratio-1).abs() > self.c['ppo_clip']).float().mean())
+        starts = np.r_[0, np.cumsum(batch['lengths'].cpu().numpy())[:-1]] if packed else [0]
         return dict(author_stats=stats, critic_mse=mse,
                     explained_variance=1-float(np.var(error))/variance if variance > 1e-12 else None,
-                    train_value_target=float(target[0].mean()), ppo_kl=kl, policy_entropy=entropy,
+                    train_value_target=float(target[starts].mean()), ppo_kl=kl, policy_entropy=entropy,
                     clip_fraction=clip_fraction,
                     updates=self.args.ppo_epoch*self.args.num_mini_batch)

@@ -30,7 +30,10 @@ def plot_suite(directory):
     axes = axes.ravel()
     curves = read_csv(directory/'learning_curves.csv')
     conditions = list(dict.fromkeys(r['condition'] for r in rows))
-    for ax,metric,title in zip(axes[:3],('J','coverage','collision_pairs'),('独立源评价：折扣回报','终点覆盖率','每步唯一碰撞对数')):
+    arrival = 'success_rate' in rows[0]
+    main_metrics = ('success_rate','restricted_mean_steps','collision_pairs_total') if arrival else ('J','coverage','collision_pairs')
+    main_titles = ('首次全覆盖成功率','截尾完成步数（失败计上限）','结束前累计碰撞对数') if arrival else ('独立源评价：折扣回报','终点覆盖率','每步唯一碰撞对数')
+    for ax,metric,title in zip(axes[:3], main_metrics, main_titles):
         for c in conditions:
             group = [r for r in curves if r['condition']==c]
             xs = sorted({int(r['budget_checkpoint']) for r in group})
@@ -50,7 +53,8 @@ def plot_suite(directory):
                     ax.errorbar(i,s['mean'],yerr=[[s['mean']-s['ci_low']],[s['ci_high']-s['mean']]],color='black',capsize=3)
         ax.set(xticks=range(len(conditions)),xticklabels=[LABELS[c] for c in conditions],title=title)
         ax.tick_params(axis='x',rotation=30,labelsize=8)
-    bars(axes[3],'AUC','源回报 AUC/B（点为训练种子）')
+    bars(axes[3],'success_AUC' if arrival else 'AUC',
+         '成功率 AUC/B（点为训练种子）' if arrival else '源回报 AUC/B（点为训练种子）')
     bars(axes[4],'J','final 回报及种子区间')
     bottom = np.zeros(len(conditions))
     for key,label in [('train','采集训练'),('direction_check','方向检查'),('return_old','旧策略回报检查'),('return_candidate','候选回报检查'),('interrupted_uncommitted','中断未提交')]:
@@ -79,15 +83,18 @@ def plot_transfer(directory):
         return
     plt = setup()
     fig,axes = plt.subplots(2,3,figsize=(16,9),layout='constrained')
-    for ax,metric,title in zip(axes.ravel(),('J','distance','coverage','all_covered','collision_pairs','collisions_per_agent'),
-                               ('折扣团队回报（同规模比较）','平均终点距离','终点覆盖率','全覆盖率','每步唯一碰撞对数','每机器人碰撞数')):
+    arrival = 'success_rate' in rows[0]
+    metrics = ('success_rate','restricted_mean_steps','success_steps_mean','J','collision_pairs_total','path_length') if arrival else ('J','distance','coverage','all_covered','collision_pairs','collisions_per_agent')
+    titles = ('首次全覆盖成功率','截尾完成步数','成功任务平均首达步数','任务回报（同规模比較）','累计碰撞对数','团队累计路径长度') if arrival else ('折扣团队回报（同规模比较）','平均终点距离','终点覆盖率','全覆盖率','每步唯一碰撞对数','每机器人碰撞数')
+    for ax,metric,title in zip(axes.ravel(), metrics, titles):
         for c in dict.fromkeys(r['condition'] for r in rows):
             group = [r for r in rows if r['condition']==c]
             ns = sorted({int(r['n_agents']) for r in group})
             stats = [bootstrap([r[metric] for r in group if int(r['n_agents'])==n]) for n in ns]
-            line, = ax.plot(ns,[s['mean'] for s in stats],marker='o',label=LABELS[c])
-            if stats[0]['count']>1:
-                ax.fill_between(ns,[s['ci_low'] for s in stats],[s['ci_high'] for s in stats],alpha=.1,color=line.get_color())
+            line, = ax.plot(ns,[s['mean'] if s['mean'] is not None else np.nan for s in stats],marker='o',label=LABELS[c])
+            if any(s['count']>1 for s in stats):
+                ax.fill_between(ns,[s['ci_low'] if s['ci_low'] is not None else np.nan for s in stats],
+                                [s['ci_high'] if s['ci_high'] is not None else np.nan for s in stats],alpha=.1,color=line.get_color())
         ax.set(title=title,xlabel='机器人/地标数',xticks=[3,4,6,8])
         ax.grid(alpha=.15)
     axes[0,0].legend()

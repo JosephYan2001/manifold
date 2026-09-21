@@ -3,12 +3,13 @@ import io
 import json
 from pathlib import Path
 import numpy as np
+from .evaluate import ARRIVAL_METRICS
 from ..training.storage import atomic, seed_for
 
 METRICS = ['J','AUC','coverage','distance','all_covered','collision_pairs','collisions_per_agent',
            'mean_reward','mean_coverage','tail_coverage','tail_all_covered',
            'source_steps','unused_budget','train_seconds','evaluation_seconds','optimizer_steps',
-           'coverage_cost','fit_kl_after']
+           'coverage_cost','fit_kl_after', *ARRIVAL_METRICS, 'success_AUC', 'success_cost']
 
 
 def write_csv(path, rows):
@@ -20,7 +21,8 @@ def write_csv(path, rows):
     writer.writeheader()
     for row in rows:
         writer.writerow({k:json.dumps(v, ensure_ascii=False) if isinstance(v,(dict,list)) else v for k,v in row.items()})
-    atomic(path, lambda p: Path(p).write_text(out.getvalue(), encoding='utf-8-sig'))
+    # csv already emits CRLF; disable text-mode newline translation on Windows.
+    atomic(path, lambda p: Path(p).write_text(out.getvalue(), encoding='utf-8-sig', newline=''))
 
 
 def read_csv(path):
@@ -60,8 +62,11 @@ def summaries(rows, config, transfer=False):
         reference = {r['seed']:r for r in rows if r['condition']=='ours' and r.get('n_agents',config['n_agents'])==n and r.get('status','complete')=='complete'}
         for condition in sorted({g[0] for g in groups}-{'ours'}):
             peers = {r['seed']:r for r in rows if r['condition']==condition and r.get('n_agents',config['n_agents'])==n and r.get('status','complete')=='complete'}
-            for metric in (['J','coverage','distance'] if transfer else ['J','AUC']):
-                values = [reference[s][metric]-peers[s][metric] for s in sorted(reference.keys() & peers.keys())]
+            for metric in ((['success_rate','restricted_mean_steps','collision_pairs_total'] +
+                            ([] if transfer else ['success_AUC'])) if config.get('task_mode') == 'first_arrival'
+                           else (['J','coverage','distance'] if transfer else ['J','AUC'])):
+                values = [reference[s][metric]-peers[s][metric] for s in sorted(reference.keys() & peers.keys())
+                          if reference[s].get(metric) is not None and peers[s].get(metric) is not None]
                 if values:
                     result.append(dict(kind='paired_difference',condition='ours - '+condition,n_agents=n,
                                        metric=metric,**bootstrap(values,config['bootstrap_repeats'])))

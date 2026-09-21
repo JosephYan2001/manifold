@@ -1,28 +1,33 @@
 # 协作导航结果索引
 
-更新：2026-09-20。旧有限时域结果已按用户要求清理，当前尚无持续任务训练结果。本目录保留本索引与[当前实验判断](当前实验判断.md)，实际启动训练后再生成套件目录。
+更新：2026-09-22。已按清理要求删除旧持续任务训练套件，仅保留其首达诊断及来源记录；新首达任务长训练尚未启动。
 
-## 清理范围
+## 现有记录
 
-- archive：两批早期 pilot，以及对应判断。
-- reference：完整方法和双检查消融的1000万步结果、模型、日志及配图。
-- diagnostics：方向epochs两组分支续训结果。
+[legacy_ppo_arrival_s40_h500/](legacy_ppo_arrival_s40_h500/)仅含4个文件：
 
-共删除197个文件、162084319字节（约154.6 MiB），并将旧的详细实验判断替换为当前状态说明。五个套件均采用旧有限时域协议，清理时未发现continuing模式的训练结果。成对协作环境的数据另行保留。
-
-原生距离与碰撞奖励公式没有变化；改变的是超时bootstrap、训练目标及网络输入。旧结果不能直接用于新协议公平比较，但不能将这次清理解释为旧计算全部无效。
-
-## 接下来生成的结果
-
-| 目录 | 内容 |
+| 文件 | 用途 |
 |---|---|
-| learning_20m_author_ppo_s40/ | 作者MAPPO和作者IPPO，各2000万源步 |
-| learning_20m_author_mpe_s40/ | 新增作者MPE参数对照，MAPPO/IPPO各2000万源步；Tanh、7e-4/7e-4、单批次 |
-| learning_20m_no_checks_mc_s40/ | no_checks多步回报，2000万源步 |
-| learning_20m_no_checks_gae_s40/ | no_checks GAE，2000万源步 |
+| episodes.csv | 两个旧PPO模型各200场景的首次全覆盖评价 |
+| summary.csv | 成功率、完成步数、碰撞及原模型SHA256 |
+| overview.png | 首达诊断总图 |
+| provenance.json | 原manifest、两组运行配置/训练汇总、文件摘要与清理记录，合并为一份来源文件 |
 
-使用configs/learning_20m中的持续任务配置。每组seed40、CUDA、100步采样窗口、41个独立评价节点；完成后另做500步连续评价，每个套件增加long_rollout_h500.csv。两种作者PPO均用GAE/λ-return；no_checks多步回报与GAE仅切换方向标签。author_mpe.json是共同任务上的作者超参数对照，不是原MPE/RMAPPO复现；原共同参数和作者参考两套PPO同时运行时，加no_checks两组共六次、1.2亿源步。当前仅准备配置，没有新增长训练成绩。
+此目录是历史诊断，不是可恢复的训练套件，也不是新first_arrival协议的训练成绩。原模型权重已删除，不能直接续训、重新回放或重跑该历史评价。结论见[当前实验判断](当前实验判断.md)。
 
-本次复核未发现新的训练数据，因此没有额外删除训练结果。已清除“IPPO仍为本地实现”的过时说明和旧PPO启动安排，移除只会生成早期固定判断的assess_navigation_pilot.py、assess_navigation_reference.py；当前判断由新数据重新建立，不沿用历史排名。保留通用稳定性分析、训练日志和模型读取兼容功能。
+## 本次清理
 
-启动、恢复及评价命令统一见[实验运行说明](../实验运行说明.md)。旧study_v3配置仅供历史设置参考，其模型和结果已不在本工作区；诊断与分支续训工具须显式提供新的模型路径。
+删除learning_20m_author_mpe_s40旧套件的17个文件，共142,370,534字节（135.78 MiB），包括两组best/final检查点、两个events.jsonl、旧训练曲线、表格、监控图和套件状态文件。必要来源信息已合并保存，不再分散保留旧训练JSON。
+
+三份首达诊断从旧套件移出，移动前后SHA256一致；删除前原final摘要与诊断记录一致。本次仅清理协作导航过时训练产物，未修改成对协作结果和新实验配置。
+
+## 待新建实验
+
+| 目录 | 用途 |
+|---|---|
+| arrival_20m_author_mpe_s40/ | first_arrival作者MAPPO/IPPO |
+| arrival_20m_ours_checks_mc_s40/ | first_arrival完整ours与no_checks |
+| arrival_20m_no_checks_gae_s40/ | 需要时仅改变核心方法方向标签 |
+| arrival_20m_single_ablations_mc_s40/ | 后续单模块消融，继承选定ours参数 |
+
+以上目录尚未生成，不代表已有成绩。启动和恢复命令统一见[运行说明](../实验运行说明.md)。
