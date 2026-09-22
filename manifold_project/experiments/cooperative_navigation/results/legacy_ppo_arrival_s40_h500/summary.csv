@@ -1,3 +1,0 @@
-﻿condition,seed,training_task_mode,checkpoint_sha256,episodes,successes,success_rate,success_steps_mean,restricted_mean_steps,evaluation_steps,task_horizon,J,final_coverage,collision_pairs_total,path_length,success_by_100,success_by_200,success_by_500
-mappo,40,continuing,a0496b5aa2d05368e57e5b551d89fb9fcc0556e8407667da6ab374c236a3a3d9,200,197,0.985,66.36040609137056,72.865,14573,500,-23.127659769899974,0.99375,8.495,15.38305502782986,0.82,0.93,0.985
-ippo,40,continuing,f6b411b782705fe8fb0af013a7f5c6c5a6b1876c1f3e7e471c1a4e4770c8faa0,200,195,0.975,64.43589743589743,75.325,15065,500,-24.88618563873885,0.98375,12.65,15.46317440378411,0.815,0.94,0.975
