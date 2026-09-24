@@ -1,0 +1,23 @@
+{
+  "n_agents": 4,
+  "horizon": 200,
+  "target_sizes": [
+    2,
+    6,
+    8
+  ],
+  "gamma": 0.99,
+  "budget": 20000000,
+  "batch_episodes": 16,
+  "minibatch_size": 3200,
+  "direction_steps": 16,
+  "actor_fit_steps": 16,
+  "critic_steps": 10,
+  "q_bound": 1.0,
+  "probability_floor": 0.02,
+  "max_grad_norm": 0.5,
+  "step_sizes": [
+    0.1,
+    0.05
+  ]
+}

@@ -40,11 +40,15 @@ def atomic_json(path, value):
 
 
 def save_checkpoint(directory, source, settings, actor, round_index, sampler, accepted, best=None, optimizer_state=None, *, legacy_alias=True):
+    if settings.checkpoint_selection == 'empirical':
+        batch = sampler.sample(actor.table(), settings.monitor_episodes, 'source_monitor', round_index)
+        metric, score = 'independent_source_empirical_return', float(batch['team_rewards'].mean())
+    else:
+        metric, score = 'source_exact_expected_return', closed_form_expected_return(source, actor.table())
     state = {"format_version": 1, "boundary": "completed_round", "actor": actor.state(),
              "source": asdict(source), "training": asdict(settings), "round": round_index,
              "source_episodes": sampler.used, "sampler_calls": sampler.calls, "accepted": accepted,
-             "selection_metric": "source_exact_expected_return",
-             "selection_score": closed_form_expected_return(source, actor.table())}
+             "selection_metric": metric, "selection_score": score}
     folder = Path(directory)/"checkpoints"
     if optimizer_state is not None:
         state["optimizer_state"] = optimizer_state

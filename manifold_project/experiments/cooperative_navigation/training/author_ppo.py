@@ -46,7 +46,7 @@ def arguments(c, condition='mappo'):
     args.n_rollout_threads = c['train_episodes']
     args.num_mini_batch = math.ceil(c['train_episodes']/c['minibatch_episodes'])
     samples = c['train_episodes']*c['horizon']*c['n_agents']
-    if samples % args.num_mini_batch:
+    if not c.get('complete_episodes', False) and samples % args.num_mini_batch:
         raise ValueError('作者 PPO 要求总 agent 样本数可被小批次数整除，避免丢弃样本')
     if c['ppo_label'] != 'gae' or not c['ppo_normalize_advantage']:
         raise ValueError(f'作者 PPO 保留 GAE 和优势标准化；标签对齐实验请显式使用 {condition}_backend=local')
@@ -77,12 +77,19 @@ instance is optimized through R_MAPPOPolicy. Flattening only adapts batch axes.
     """
     def __init__(self, input_dim, config, network=None, condition='mappo'):
         super().__init__()
+        self.entity = config.get('observation_protocol') == 'entities_v1'
+        if self.entity:
+            from ..models import Actor
+            self.network = network if network is not None else Actor(input_dim, config)
+            return
         self.network = network if network is not None else R_Actor(
             arguments(config, condition), observation_space(input_dim), Discrete(5))
 
     def forward(self, x):
         parameter = next(self.parameters())
         x = x.to(device=parameter.device, dtype=parameter.dtype)
+        if self.entity:
+            return self.network(x)
         shape = x.shape[:-1]
         features = self.network.base(x.reshape(-1, x.shape[-1]))
         return self.network.act.get_probs(features).reshape(*shape, 5)
@@ -97,7 +104,12 @@ class AuthorPPO:
         self.state_space = observation_space(input_dim if self.local else state_dim)
         self.action_space = Discrete(5)
         device = torch.device(config['device'])
-        self.policy = R_MAPPOPolicy(self.args, self.obs_space, self.state_space, self.action_space, device)
+        if config.get('observation_protocol') == 'entities_v1':
+            from .entity_policy import EntityPolicy
+            self.policy = EntityPolicy(self.args, input_dim, state_dim, config, self.local)
+            self.actor_kind = f'entity_{condition}_v1'
+        else:
+            self.policy = R_MAPPOPolicy(self.args, self.obs_space, self.state_space, self.action_space, device)
         self.trainer = R_MAPPO(self.args, self.policy, device)
         self.actor = AuthorActor(input_dim, config, self.policy.actor, condition)
 
@@ -114,7 +126,8 @@ class AuthorPPO:
                     timeout=('packed_real_transitions; success/deadline_terminal; collection_cutoff_bootstrap'
                              if arrival_task(self.c) else
                              'pre_reset_final_value; independent_window_lanes; terminal_only_mask'),
-                    actor_probability='author_categorical_without_beta_mixture')
+                    actor_probability=('shared_entity_beta_mixture' if self.c.get('observation_protocol') == 'entities_v1'
+                                       else 'author_categorical_without_beta_mixture'))
 
     def normalizer_state(self):
         norm = self.trainer.value_normalizer
@@ -198,7 +211,7 @@ class AuthorPPO:
         total = len(real['reward'])
         if not total or real['truncated'][:-1].any():
             raise ValueError('Packed train batch must end each interior episode with a task terminal')
-        if total*self.c['n_agents'] % self.args.num_mini_batch:
+        if not self.c.get('complete_episodes', False) and total*self.c['n_agents'] % self.args.num_mini_batch:
             raise ValueError('Packed real sample count must be divisible by the PPO minibatch count')
         args = copy(self.args)
         args.episode_length, args.n_rollout_threads = total, 1
@@ -223,6 +236,11 @@ class AuthorPPO:
                     real['actions'].reshape(-1, 1), flat_x.new_ones((len(flat_x), 1)))
         buffer.action_log_probs[:, 0] = to_numpy(logp.reshape(*real['actions'].shape, 1))
         buffer.compute_returns(final, self.trainer.value_normalizer)
+        if self.c.get('complete_episodes', False):
+            # Full episodes produce variable batch lengths. Keep every real
+            # transition; only minibatch partitioning changes, never PPO math.
+            from types import MethodType
+            buffer.feed_forward_generator = MethodType(full_batch_generator, buffer)
         if not np.isfinite(buffer.returns).all():
             raise FloatingPointError('Nonfinite packed PPO returns')
         return buffer
@@ -262,4 +280,21 @@ class AuthorPPO:
                     explained_variance=1-float(np.var(error))/variance if variance > 1e-12 else None,
                     train_value_target=float(target[starts].mean()), ppo_kl=kl, policy_entropy=entropy,
                     clip_fraction=clip_fraction,
-                    updates=self.args.ppo_epoch*self.args.num_mini_batch)
+                updates=self.args.ppo_epoch*self.args.num_mini_batch)
+
+
+def full_batch_generator(buffer, advantages, num_mini_batch=None, mini_batch_size=None):
+    """Author feed-forward buffer layout, including the last incomplete batch."""
+    total = int(np.prod(buffer.rewards.shape[:3]))
+    count = min(total, num_mini_batch or math.ceil(total/mini_batch_size))
+    order = torch.randperm(total).cpu().numpy()
+    def flat(array):
+        return array.reshape(total, *array.shape[3:])
+    arrays = [flat(buffer.share_obs[:-1]), flat(buffer.obs[:-1]),
+              flat(buffer.rnn_states[:-1]), flat(buffer.rnn_states_critic[:-1]),
+              flat(buffer.actions), flat(buffer.value_preds[:-1]), flat(buffer.returns[:-1]),
+              flat(buffer.masks[:-1]), flat(buffer.active_masks[:-1]), flat(buffer.action_log_probs),
+              flat(advantages)]
+    available = flat(buffer.available_actions[:-1]) if buffer.available_actions is not None else None
+    for indices in np.array_split(order, count):
+        yield (*[array[indices] for array in arrays], None if available is None else available[indices])

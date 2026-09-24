@@ -3,8 +3,8 @@ from copy import deepcopy
 from pathlib import Path
 
 STANDARD_CONDITIONS = ['ours', 'sampled', 'mappo', 'ippo', 'no_direction_check', 'no_return_check', 'fit_quarter']
-CONDITIONS = STANDARD_CONDITIONS + ['no_checks']
-EXPERIMENTS = {'N-C': STANDARD_CONDITIONS[:4], 'N-A': STANDARD_CONDITIONS[:2]+STANDARD_CONDITIONS[4:],
+CONDITIONS = STANDARD_CONDITIONS + ['no_checks', 'direct']
+EXPERIMENTS = {'N-C': ['ours','sampled','direct','mappo','ippo'], 'N-A': STANDARD_CONDITIONS[:2]+STANDARD_CONDITIONS[4:],
                'N-A1': ['ours','sampled'], 'N-A2': ['ours','no_direction_check'],
                'N-A3': ['ours','no_return_check'], 'N-A4': ['ours','fit_quarter'],
                'N-A5': ['ours','no_checks'],
@@ -98,7 +98,14 @@ def validate(c):
         raise ValueError('protocol_status 必须为 candidate_not_frozen 或 frozen')
     if any(not isinstance(n,int) or n < 2 for n in c['transfer_sizes']):
         raise ValueError('迁移人数必须为不小于 2 的整数')
-    if c['n_agents'] != 4 or c['agent_neighbors'] != 2 or c['landmark_neighbors'] != 2 or c['local_ratio'] != .5:
+    if c.get('observation_protocol') == 'entities_v1':
+        if c['history'] != 1 or c['agent_neighbors'] is not None or c['landmark_neighbors'] is not None:
+            raise ValueError('entities_v1 uses current-frame full native lists (neighbors=null, history=1)')
+        if c['hidden'] % c['heads']:
+            raise ValueError('hidden must be divisible by heads')
+    elif c['agent_neighbors'] != 2 or c['landmark_neighbors'] != 2:
+        raise ValueError('Legacy flat observation requires the original nearest 2/2 fields')
+    if c['n_agents'] != 4 or c['local_ratio'] != .5:
         raise ValueError('当前协议固定 N=4、最近邻 2/2、local_ratio=0.5')
 
 
@@ -111,6 +118,6 @@ def condition_config(config, condition):
             raise ValueError(f'作者 PPO 保留 GAE 和优势标准化；N-L 必须显式设置 {condition}_backend=local')
         from math import ceil
         batches = ceil(result['train_episodes']/result['minibatch_episodes'])
-        if result['train_episodes']*result['horizon']*result['n_agents'] % batches:
+        if not result.get('complete_episodes', False) and result['train_episodes']*result['horizon']*result['n_agents'] % batches:
             raise ValueError('作者 PPO 总 agent 样本数必须可被小批次数整除')
     return result

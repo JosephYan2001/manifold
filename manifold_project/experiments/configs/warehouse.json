@@ -1,0 +1,15 @@
+{
+  "n_agents": 4,
+  "horizon": 1000,
+  "target_sizes": [
+    2,
+    6,
+    8
+  ],
+  "gamma": 0.99,
+  "budget": 20000000,
+  "sensor_range": 1,
+  "request_queue_size": 4,
+  "layout": "..........\n.xx....xx.\n.xx....xx.\n.xx....xx.\n.xx....xx.\n.xx....xx.\n.xx....xx.\n.xx....xx.\n.xx....xx.\n..........\n....gg....",
+  "layout_sha256": "b3b65c5aca4e137c6478ed2ed33115445f552c58b1144fe7ceeead65d3786e58"
+}

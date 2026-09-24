@@ -38,6 +38,14 @@ def _run_training(source, settings, output_dir, resume=None, stop_after_round=No
                              settings.hidden_depth, settings.seed)
              if settings.actor_model == "mlp" else TableActor.initial(source.n_types, settings.beta))
     restored = None
+    if settings.initial_probabilities is not None:
+        if settings.actor_model != 'table':
+            raise ValueError('Explicit initial probabilities require the finite table Actor')
+        p = np.asarray(settings.initial_probabilities, dtype=float)
+        raw = (p-settings.beta/2)/(1-settings.beta)
+        if p.shape != (source.n_types,) or np.any(raw <= 0) or np.any(raw >= 1):
+            raise ValueError('Initial probabilities are not representable')
+        actor.logits[:] = np.log(raw/(1-raw))
     if resume:
         restored = json.loads(Path(resume).read_text(encoding="utf-8"))
         if restored.get("format_version") != 1 or restored.get("boundary") != "completed_round":
@@ -52,7 +60,7 @@ def _run_training(source, settings, output_dir, resume=None, stop_after_round=No
         actor = load_actor(restored["actor"])
     actor = TorchModel(actor, device)
     minimum = training_plan(source, settings)["minimum_to_start_round"]
-    if settings.budget < minimum:
+    if settings.budget < minimum + (settings.monitor_episodes if settings.checkpoint_selection == 'empirical' else 0):
         raise ValueError(f"Budget must allow at least one round ({minimum} episodes)")
     directory.mkdir(parents=True, exist_ok=False)
     if compact_output:
@@ -139,6 +147,37 @@ def _run_training(source, settings, output_dir, resume=None, stop_after_round=No
             if stop_after_round is not None and completed >= stop_after_round:
                 break
             continue
+        if settings.algorithm == 'direct':
+            from .policy_gradient import ratio_fit
+            accepted, candidate_count = False, 0
+            reserve = settings.monitor_episodes if settings.checkpoint_selection == 'empirical' else 0
+            for attempt in range(settings.attempts):
+                if sampler.used+(2*settings.check_episodes if settings.return_check_enabled else 0)+reserve > settings.budget:
+                    break
+                candidate = ratio_fit(old, batch, labels, settings.fit_steps, settings.fit_lr/(2**attempt))
+                gate = {'accepted': True, 'disabled': True}
+                if settings.return_check_enabled:
+                    before = sampler.sample(mu, settings.check_episodes, 'return_old', round_index)
+                    after = sampler.sample(candidate.table(), settings.check_episodes, 'return_candidate', round_index)
+                    gate = return_check(before['team_rewards'], after['team_rewards'], source.reward_bound, alpha, settings.acceptance,
+                                        threshold=-settings.return_tolerance)
+                candidate_count += 1
+                append_json(directory/'checks.jsonl', dict(kind='return', round=round_index, attempt=attempt, **gate))
+                if gate['accepted']:
+                    actor, accepted = candidate, True
+                    break
+            completed = round_index
+            checkpoint = save_checkpoint(directory, source, settings, actor, completed, sampler, accepted, best,
+                                         legacy_alias=not compact_output)
+            best = checkpoint['best_checkpoint']
+            append_json(directory/'policy.jsonl', dict(round=completed, source_episodes=sampler.used,
+                        accepted=accepted, **diagnostics(source, actor.table())))
+            append_json(directory/'rounds.jsonl', dict(round=completed, source_episodes=sampler.used,
+                        direction_passed=None, candidate_count=candidate_count, fit_kl=None, accepted=accepted))
+            progress.finish()
+            if stop_after_round is not None and completed >= stop_after_round:
+                break
+            continue
         model = (MLPDirection(source.n_types, settings.q_max, settings.hidden_width,
                               settings.hidden_depth, settings.seed+round_index)
                  if settings.direction_model == "mlp" else TableDirection(source.n_types, settings.q_max))
@@ -177,14 +216,15 @@ def _run_training(source, settings, output_dir, resume=None, stop_after_round=No
                 check = sampler.sample(mu, settings.check_episodes, "direction_check", round_index)
                 gate = direction_check(episode_scores(q, check, make_labels(check, critic)),
                                        source.reward_bound*(2 if critic else 1), settings.q_max,
-                                       alpha, settings.acceptance)
+                                       alpha, settings.acceptance, threshold=settings.direction_threshold)
                 direction_passed = gate["accepted"]
                 append_json(directory/"checks.jsonl", {"kind": "direction", "round": round_index, "source_episodes": sampler.used, **gate})
             if gate["accepted"]:
                 for attempt in range(settings.attempts):
-                    if settings.return_check_enabled and sampler.used + 2*settings.check_episodes > settings.budget:
+                    reserve = settings.monitor_episodes if settings.checkpoint_selection == 'empirical' else 0
+                    if settings.return_check_enabled and sampler.used + 2*settings.check_episodes + reserve > settings.budget:
                         break
-                    eta = settings.eta/(2**attempt)
+                    eta = settings.step_sizes[attempt] if settings.step_sizes is not None else settings.eta/(2**attempt)
                     progress.start(round_index, "目标构造与 actor 拟合", attempt)
                     target = exponential_target(mu, q, eta)
                     candidate, fit = fit_actor(old, target, batch, settings.fit_steps, settings.fit_lr,
@@ -201,7 +241,7 @@ def _run_training(source, settings, output_dir, resume=None, stop_after_round=No
                         new_data = sampler.sample(candidate.table(), settings.check_episodes,
                                                   "return_candidate", round_index)
                         gate = return_check(old_data["team_rewards"], new_data["team_rewards"],
-                                            source.reward_bound, alpha, settings.acceptance)
+                                            source.reward_bound, alpha, settings.acceptance, threshold=-settings.return_tolerance)
                     append_json(directory/"checks.jsonl", {
                         "kind": "return", "round": round_index, "attempt": attempt,
                         "eta": eta, "source_episodes": sampler.used, **fit, **gate,
@@ -241,7 +281,9 @@ def _run_training(source, settings, output_dir, resume=None, stop_after_round=No
                                            if k in ("expected_return", "exact_skipped")},
                "checkpoint": str((directory/"checkpoints/final.json").resolve()),
                "best_checkpoint": str((directory/"checkpoints/best.json").resolve()),
-               "best_round": best["round"], "best_expected_return": best["selection_score"],
+               "best_round": best["round"], "best_selection_metric": best["selection_metric"],
+               "best_selection_score": best["selection_score"],
+               "best_expected_return": best["selection_score"] if settings.checkpoint_selection == 'exact' else None,
                "last_direction_at_reference_actor": last_direction}
     saved_summary = {k: v for k, v in summary.items() if k != "actor"} if compact_output else summary
     save_json(directory/"summary.json", saved_summary)

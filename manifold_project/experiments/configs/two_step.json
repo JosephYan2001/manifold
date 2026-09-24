@@ -1,0 +1,1 @@
+{"n_agents": 2, "horizon": 2, "target_sizes": [2], "gamma": 0.9, "labels": ["exact", "mc", "mc_zero"]}

@@ -9,7 +9,7 @@ import subprocess
 import sys
 import traceback
 import os
-os.environ['KMP_DUPLICATE_LIB_OK']='TRUE'
+os.environ.setdefault('KMP_DUPLICATE_LIB_OK', 'TRUE')
 # CUDA deterministic matrix products require this before CUDA/cuBLAS initializes.
 # Preserve an explicitly configured workspace (for example, :16:8).
 os.environ.setdefault('CUBLAS_WORKSPACE_CONFIG', ':4096:8')
@@ -35,8 +35,12 @@ def fingerprint():
 
 def metadata():
     import torch
-    versions = {name:importlib.metadata.version(name) for name in
-                ('mpe2','pettingzoo','gymnasium','numpy','torch','matplotlib','pygame-ce','scipy')}
+    versions = {}
+    for name in ('mpe2','pettingzoo','gymnasium','numpy','torch','matplotlib','pygame-ce','scipy'):
+        try:
+            versions[name] = importlib.metadata.version(name)
+        except importlib.metadata.PackageNotFoundError:
+            versions[name] = None
     upstream = json.loads((ROOT/'vendor/mappo/UPSTREAM.json').read_text(encoding='utf-8'))
     result = subprocess.run(['git','-c',f'safe.directory={ROOT.parents[2].as_posix()}','rev-parse','HEAD'],
                             cwd=ROOT,capture_output=True,text=True)

@@ -1,1 +1,27 @@
-{"budget":16000,"seeds":[0],"eval_fractions":[0,0.5,1],"eval_episodes":2,"final_episodes":2,"transfer_episodes":2,"audit_episodes":2}
+{
+  "budget": 96,
+  "seeds": [
+    40
+  ],
+  "horizon": 4,
+  "task_horizon": 4,
+  "hidden": 16,
+  "heads": 2,
+  "relation_layers": 1,
+  "train_episodes": 2,
+  "minibatch_episodes": 2,
+  "direction_check_episodes": 1,
+  "return_check_episodes": 1,
+  "direction_epochs": 1,
+  "actor_epochs": 1,
+  "critic_epochs": 1,
+  "ppo_epochs": 1,
+  "eval_fractions": [
+    0,
+    0.5,
+    1
+  ],
+  "eval_episodes": 1,
+  "final_episodes": 2,
+  "transfer_episodes": 2
+}

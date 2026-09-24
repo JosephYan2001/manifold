@@ -1,1 +1,15 @@
-{"budget":200000,"seeds":[40,41,42],"eval_fractions":[0,0.2,0.4,0.6,0.8,1],"eval_episodes":20,"final_episodes":20}
+{
+  "budget": 2000000,
+  "seeds": [
+    40
+  ],
+  "eval_fractions": [
+    0,
+    0.25,
+    0.5,
+    0.75,
+    1
+  ],
+  "eval_episodes": 100,
+  "final_episodes": 500
+}

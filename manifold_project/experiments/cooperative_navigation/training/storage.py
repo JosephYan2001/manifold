@@ -4,7 +4,6 @@ import os
 from pathlib import Path
 import tempfile
 import time
-import torch
 
 
 def seed_for(*parts):
@@ -37,10 +36,12 @@ def save_json(path, value):
 
 
 def save_pt(path, value):
+    import torch
     atomic(path, lambda p: torch.save(value, p))
 
 
 def load_pt(path, device='cpu'):
+    import torch
     # Only load checkpoints created locally by this runner.
     return torch.load(path, map_location=device, weights_only=False)
 

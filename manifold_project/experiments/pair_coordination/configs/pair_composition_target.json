@@ -1,7 +1,0 @@
-{
-  "n_agents": 6,
-  "type_probs": [0.3, 0.7],
-  "local_bias": [-0.2, 0.3],
-  "pair_payoff": [[1.0, -0.5], [-0.5, 1.0]],
-  "interaction_strength": 0.7
-}

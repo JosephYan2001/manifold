@@ -25,13 +25,13 @@ def check_mean(values, lower, upper, alpha, mode="hoeffding", threshold=0.):
             "alpha": alpha, "episodes": len(x)}
 
 
-def direction_check(scores, advantage_bound, q_max, alpha, mode):
+def direction_check(scores, advantage_bound, q_max, alpha, mode, threshold=0.):
     return check_mean(scores, -4*advantage_bound*q_max-q_max*q_max,
-                      4*advantage_bound*q_max, alpha, mode)
+                      4*advantage_bound*q_max, alpha, mode, threshold)
 
 
-def return_check(old_rewards, candidate_rewards, reward_bound, alpha, mode):
+def return_check(old_rewards, candidate_rewards, reward_bound, alpha, mode, threshold=0.):
     if np.shape(old_rewards) != np.shape(candidate_rewards):
         raise ValueError("Expected equally sized independent return batches")
     differences = np.asarray(candidate_rewards)-np.asarray(old_rewards)
-    return check_mean(differences, -2*reward_bound, 2*reward_bound, alpha, mode)
+    return check_mean(differences, -2*reward_bound, 2*reward_bound, alpha, mode, threshold)

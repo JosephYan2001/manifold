@@ -1,0 +1,1 @@
+{"n_agents": 4, "horizon": 1, "target_sizes": [2, 6], "gamma": 0.99, "learning_labels": ["mc"]}

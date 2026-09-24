@@ -31,7 +31,7 @@ def evaluate(actor, config, condition, seed, purpose, count, n=None):
                 for i in range(count)]
     metrics = {key: float(np.mean([r[key] for r in rows], dtype=np.float64)) for key in rows[0]
                if key not in ('success_steps', 'end_reason')}
-    if arrival_task(config):
+    if arrival_task(config) and config.get('environment', 'navigation') == 'navigation':
         hits = [r['success_steps'] for r in rows if r['success']]
         metrics.update(success_rate=metrics.pop('success'),
                        success_steps_mean=float(np.mean(hits)) if hits else None,

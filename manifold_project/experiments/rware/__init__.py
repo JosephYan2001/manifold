@@ -1,1 +1,0 @@
-"""Warehouse experiment; implementation pending."""

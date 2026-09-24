@@ -43,8 +43,8 @@ def progress_line(condition, seed, budget, row, evaluation=None):
             return ' | '.join(fields)
         fields.append(f'last_eval@{evaluation["budget_checkpoint"]}: '
                       f'J={number(evaluation["J"])} '
-                      f'coverage={evaluation["coverage"]:.1%} '
-                      f'distance={number(evaluation["distance"])}')
+                      f'coverage={number(evaluation.get("coverage"))} '
+                      f'distance={number(evaluation.get("distance"))}')
         if 'tail_coverage' in evaluation:
             fields.append(f'last_eval_tail_coverage={evaluation["tail_coverage"]:.1%}')
     return ' | '.join(fields)

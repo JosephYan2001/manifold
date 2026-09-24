@@ -36,7 +36,7 @@ def transfer_suite(directory, manifest):
     cache = cached_rows(directory/'transfer_results.csv',('condition','seed','n_agents'))
     rows = list(cache.values())
     for job in manifest['jobs']:
-        if job['condition'] not in ('ours','sampled','mappo','ippo'):
+        if job['condition'] not in ('ours','sampled','direct','mappo','ippo'):
             continue
         path = directory/job['path']
         if not (path/'summary.json').exists():

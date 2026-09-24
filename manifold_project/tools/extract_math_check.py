@@ -1,9 +1,13 @@
+import argparse
 import re
 from pathlib import Path
 
 
 project = Path(__file__).resolve().parents[1]
-source = project / "docs/策略流形研究设计.最新版.md"
+parser = argparse.ArgumentParser(description="Extract Markdown formulas for local TeX checking.")
+parser.add_argument("source", nargs="?", type=Path, help="Optional Markdown path; defaults to the CTDE direction manuscript.")
+args = parser.parse_args()
+source = args.source or project / "docs/策略流形研究设计.CTDE本地策略改进版.md"
 markdown = source.read_text(encoding="utf-8")
 display_math = re.findall(r"\$\$(.*?)\$\$", markdown, flags=re.DOTALL)
 without_display = re.sub(r"\$\$.*?\$\$", "", markdown, flags=re.DOTALL)
@@ -15,7 +19,7 @@ inline_math = re.findall(
 
 parts = [
     r"\documentclass{ctexart}",
-    r"\usepackage{amsmath,amssymb,mathtools,bm}",
+    r"\usepackage{amsmath,amssymb,mathtools,bm,mathrsfs}",
     r"\begin{document}",
 ]
 for index, formula in enumerate(display_math, start=1):

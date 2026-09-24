@@ -1,7 +1,7 @@
 from collections import Counter
 import numpy as np
 import torch
-from ..envs.navigation import Navigation
+from ..envs.tasks import Navigation
 from ..observations.history import History
 from ..configs import arrival_task, episode_horizon
 from .storage import seed_for
@@ -33,9 +33,10 @@ def episode(actor, config, reset_seed, action_seed, n=None, retain=False, on_ste
             cumulative /= cumulative[:, -1:]
             actions = (rng.random(env.n)[:, None] >= cumulative).sum(-1)
             state = env.state() if retain else None
-            positions = np.array([a.state.p_pos.copy() for a in env.world.agents])
+            positions = np.array([a.state.p_pos.copy() for a in env.world.agents]) if hasattr(env, 'world') else None
             obs, reward, terminated, truncated = env.step(actions)
-            path_length += float(np.linalg.norm(np.array([a.state.p_pos for a in env.world.agents])-positions, axis=-1).sum())
+            if positions is not None:
+                path_length += float(np.linalg.norm(np.array([a.state.p_pos for a in env.world.agents])-positions, axis=-1).sum())
             # Cutting collection short does not end the task. Retain the actual
             # final observation and its task clock for value bootstrapping.
             if t+1 == limit and not (terminated or truncated):
@@ -45,11 +46,11 @@ def episode(actor, config, reset_seed, action_seed, n=None, retain=False, on_ste
             if not np.isfinite(reward):
                 raise FloatingPointError('非有限环境奖励')
             metrics = env.metrics()
-            collisions.append(metrics['collision_pairs'])
-            robot_collisions.append(metrics['collisions_per_agent'])
+            collisions.append(metrics.get('collision_pairs', 0.))
+            robot_collisions.append(metrics.get('collisions_per_agent', 0.))
             rewards.append(reward)
-            coverages.append(metrics['coverage'])
-            full_coverages.append(metrics['all_covered'])
+            coverages.append(metrics.get('coverage', 0.))
+            full_coverages.append(metrics.get('all_covered', 0.))
             if retain:
                 for key, value in zip(rows, (x, state, actions, p, reward, terminated, truncated)):
                     rows[key].append(value)
@@ -63,7 +64,10 @@ def episode(actor, config, reset_seed, action_seed, n=None, retain=False, on_ste
                        mean_reward=mean(rewards), mean_coverage=mean(coverages),
                        tail_coverage=mean(coverages[length//2:]),
                        tail_all_covered=mean(full_coverages[length//2:]), episode_steps=length)
-        if arrival_task(config):
+        if config.get('environment', 'navigation') != 'navigation':
+            for key in ('collision_pairs', 'collisions_per_agent', 'mean_coverage', 'tail_coverage', 'tail_all_covered'):
+                metrics.pop(key, None)
+        if arrival_task(config) and config.get('environment', 'navigation') == 'navigation':
             success = env.end_reason == 'success'
             metrics.update(success=float(success), success_steps=length if success else None,
                            restricted_steps=length if success else env.horizon,
@@ -77,7 +81,7 @@ def episode(actor, config, reset_seed, action_seed, n=None, retain=False, on_ste
         if not length:
             # An initially solved scene consumes zero transitions.
             shapes = dict(x=batch['final_x'].shape, state=batch['final_state'].shape,
-                          actions=(env.n,), mu=(env.n, 5), reward=(), terminated=(), truncated=())
+                          actions=(env.n,), mu=(env.n, config.get('action_dim', 5)), reward=(), terminated=(), truncated=())
             for key, shape in shapes.items():
                 batch[key] = np.empty((0, *shape))
         return batch
@@ -96,7 +100,7 @@ class Collector:
 
     def collect(self, actor, count, purpose, retain=True):
         arrival = arrival_task(self.config)
-        fixed_steps = arrival and purpose == 'train'
+        fixed_steps = arrival and purpose == 'train' and not self.config.get('complete_episodes', False)
         quota = count*self.config['horizon'] if fixed_steps else count*episode_horizon(self.config)
         if self.used+quota > self.config['budget']:
             raise RuntimeError('源预算不足，禁止超支采样')
@@ -136,7 +140,7 @@ class Collector:
                     packed[key] = np.stack([e[key] for e in episodes])
                 else:
                     array = np.full((len(episodes), width, *episodes[0][key].shape[1:]),
-                                    .2 if key == 'mu' else 0.)
+                                    1/self.config.get('action_dim', 5) if key == 'mu' else 0.)
                     for i, e in enumerate(episodes):
                         array[i, :lengths[i]] = e[key]
                     packed[key] = array

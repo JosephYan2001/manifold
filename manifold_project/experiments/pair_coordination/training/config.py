@@ -7,6 +7,12 @@ import math
 class TrainConfig:
     device: str = "auto"
     algorithm: str = "direction"
+    initial_probabilities: object = None
+    checkpoint_selection: str = "exact"
+    monitor_episodes: int = 1
+    step_sizes: object = None
+    direction_threshold: float = 0.
+    return_tolerance: float = 0.
     direction_check_enabled: bool = True
     return_check_enabled: bool = True
     save_update_logs: bool = True
@@ -42,8 +48,15 @@ class TrainConfig:
     alpha: float = .05
 
     def __post_init__(self):
-        if self.algorithm not in ("direction", "pg"):
-            raise ValueError("algorithm must be direction or pg")
+        if self.algorithm not in ("direction", "pg", "direct"):
+            raise ValueError("algorithm must be direction, pg or direct")
+        if self.checkpoint_selection not in ('exact', 'empirical') or self.monitor_episodes < 1:
+            raise ValueError('Invalid source checkpoint selection protocol')
+        if self.step_sizes is not None and (len(self.step_sizes) != self.attempts or
+                any(not math.isfinite(x) or x <= 0 for x in self.step_sizes)):
+            raise ValueError('step_sizes must contain one finite positive value per attempt')
+        if not math.isfinite(self.direction_threshold) or not math.isfinite(self.return_tolerance) or self.return_tolerance < 0:
+            raise ValueError('Invalid empirical check thresholds')
         for name in ("direction_check_enabled", "return_check_enabled", "save_update_logs"):
             if type(getattr(self, name)) is not bool:
                 raise ValueError(f"{name} must be boolean")

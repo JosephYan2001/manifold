@@ -33,15 +33,17 @@ def training_plan(source, settings):
     batches = math.ceil(n/(settings.batch_size_episodes or n))
     policy = settings.mode == "policy"
     pg = settings.algorithm == "pg"
-    direction_cost = m if policy and not pg and settings.direction_check_enabled else 0
+    direct = settings.algorithm == 'direct'
+    direction_cost = m if policy and not pg and not direct and settings.direction_check_enabled else 0
     return_cost = 2*m if policy and not pg and settings.return_check_enabled else 0
-    one_cost = n+c+direction_cost+return_cost
+    monitor = settings.monitor_episodes if settings.checkpoint_selection == 'empirical' else 0
+    one_cost = n+c+direction_cost+return_cost+monitor
     rounds = settings.rounds if policy else 1
     return {"episode_steps": 1, "n_agents": source.n_agents, "episodes_per_round": n,
             "batch_size_episodes": min(settings.batch_size_episodes or n, n),
             "batches_per_epoch": batches, "direction_epochs": settings.direction_epochs,
             "actor_epochs": settings.actor_epochs,
-            "direction_updates": 0 if pg else (batches*settings.direction_epochs if settings.direction_epochs else settings.direction_steps),
+            "direction_updates": 0 if pg or direct else (batches*settings.direction_epochs if settings.direction_epochs else settings.direction_steps),
             "actor_updates_per_candidate": 1 if pg else ((batches*settings.actor_epochs if settings.actor_epochs else settings.fit_steps) if policy else 0),
             "direction_lr": settings.direction_lr, "actor_lr": settings.fit_lr,
             "learning_rate_schedule": "constant", "baseline": settings.baseline,

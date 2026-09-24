@@ -12,16 +12,19 @@ class Navigation:
         self.n = n or config['n_agents']
         self.horizon = episode_horizon(config)
         self.first_arrival = arrival_task(config)
+        self.config = dict(config)
+        self.entity_protocol = config.get('observation_protocol') == 'entities_v1'
         self.end_reason = None
         self.include_time = not continuing_task(config)
         self.env = simple_spread_v3.parallel_env(
             N=self.n, local_ratio=config['local_ratio'], max_cycles=self.horizon,
             continuous_actions=False, num_agent_neighbors=config['agent_neighbors'],
             num_landmark_neighbors=config['landmark_neighbors'],
-            terminate_on_success=False, curriculum=False, dynamic_rescaling=False)
+            terminate_on_success=False, curriculum=False, dynamic_rescaling=False,
+            render_mode=config.get('render_mode'))
         self.names = self.env.possible_agents
         self.obs_dim = self.env.observation_space(self.names[0]).shape[0]
-        self.state_dim = self.obs_dim * self.n + int(self.include_time)
+        self.state_dim = (6*self.n if self.entity_protocol else self.obs_dim * self.n) + int(self.include_time)
         assert self.env.action_space(self.names[0]).n == 5
         self.t = 0
 
@@ -31,12 +34,20 @@ class Navigation:
 
     def reset(self, seed):
         observations, _ = self.env.reset(seed=int(seed))
+        scale = self.config.get('initial_scale', 1.)
+        if scale != 1:
+            for body in [*self.world.agents, *self.world.landmarks]:
+                body.state.p_pos *= scale
+            observations = {name: self.env.unwrapped.observe(name) for name in self.names}
         self.t = 0
         self.end_reason = 'success' if self.first_arrival and self.metrics()['all_covered'] else None
         return np.stack([observations[a] for a in self.names])
 
     def state(self):
-        state = self.env.state()
+        state = (np.concatenate([*(a.state.p_pos for a in self.world.agents),
+                                 *(a.state.p_vel for a in self.world.agents),
+                                 *(l.state.p_pos for l in self.world.landmarks)])
+                 if self.entity_protocol else self.env.state())
         if self.include_time:
             state = np.concatenate([state, [self.t / self.horizon]])
         return state.astype(np.float32)
@@ -47,8 +58,9 @@ class Navigation:
                                    - np.array([l.state.p_pos for l in landmarks])[None, :, :], axis=-1).min(axis=0)
         pairs = sum(np.linalg.norm(a.state.p_pos-b.state.p_pos) < a.size+b.size
                     for i, a in enumerate(agents) for b in agents[i+1:])
-        return {'distance': float(distances.mean()), 'coverage': float((distances < .1).mean()),
-                'all_covered': float((distances < .1).all()), 'collision_pairs': float(pairs),
+        radius = self.config.get('coverage_radius', .1)
+        return {'distance': float(distances.mean()), 'coverage': float((distances < radius).mean()),
+                'all_covered': float((distances < radius).all()), 'collision_pairs': float(pairs),
                 'collisions_per_agent': float(2*pairs/self.n)}
 
     def step(self, actions):

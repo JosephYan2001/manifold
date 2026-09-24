@@ -1,6 +1,12 @@
 """训练参数及日志指标的中文说明。"""
 
 PARAMETERS = {
+    "step_sizes": "逐次回溯的显式步幅；不指定则沿用 eta 的逐次减半",
+    "direction_threshold": "方向检查分数需要严格超过的阈值",
+    "return_tolerance": "回报检查允许的下降容差；默认零且平局拒绝",
+    "initial_probabilities": "表格 Actor 的初始动作概率；默认沿用旧初始化",
+    "checkpoint_selection": "最优检查点选择依据；当前论文协议使用独立源样本 empirical",
+    "monitor_episodes": "每次独立源监控采样的回合数",
     "algorithm": "direction 为方向学习；pg 为每批新数据一次直接策略梯度更新",
     "direction_check_enabled": "是否执行独立方向检查；关闭时不采样这批数据",
     "return_check_enabled": "是否执行独立回报检查；关闭时采用首个有效拟合候选",

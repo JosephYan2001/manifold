@@ -7,7 +7,7 @@ from pathlib import Path
 import time
 import numpy as np
 import torch
-from ..envs.navigation import Navigation
+from ..envs.tasks import Navigation
 from ..configs import continuing_task, arrival_task, episode_horizon
 from ..models import Actor, Critic, Direction
 from ..evaluation.evaluate import evaluate, ARRIVAL_METRICS
@@ -18,7 +18,7 @@ from .author_ppo import AuthorPPO, enabled as author_ppo_enabled
 
 
 def direction_check_enabled(condition):
-    return condition not in ('mappo', 'ippo', 'no_direction_check', 'no_checks')
+    return condition not in ('mappo', 'ippo', 'direct', 'no_direction_check', 'no_checks')
 
 
 def return_check_enabled(condition):
@@ -26,7 +26,7 @@ def return_check_enabled(condition):
 
 
 def minimum_cost(config, condition):
-    cost = config['train_episodes']*config['horizon']
+    cost = config['train_episodes']*(episode_horizon(config) if config.get('complete_episodes') else config['horizon'])
     episodes = 0
     if condition not in ('mappo','ippo'):
         episodes += config['direction_check_episodes'] if direction_check_enabled(condition) else 0
@@ -54,7 +54,8 @@ class Runner:
         self.state_dim = probe.state_dim
         probe.close()
         self.author_ppo = AuthorPPO(self.input_dim, self.state_dim, config, condition) if author_ppo_enabled(config, condition) else None
-        self.actor_kind = self.author_ppo.actor_kind if self.author_ppo else 'local_mlp_v1'
+        self.actor_kind = self.author_ppo.actor_kind if self.author_ppo else (
+            'entity_v1' if config.get('observation_protocol') == 'entities_v1' else 'local_mlp_v1')
         if self.author_ppo:
             self.actor, self.critic = self.author_ppo.actor, self.author_ppo.policy.critic
             self.actor_optimizer = self.author_ppo.policy.actor_optimizer
@@ -153,28 +154,32 @@ class Runner:
                               'source-final' if final else 'source-grid', count)
         # Descriptive episode uncertainty; never used to accept training updates.
         for key in ('J', 'coverage', 'distance', 'mean_reward', 'mean_coverage', 'tail_coverage', 'tail_all_covered'):
+            if key not in episodes[0]:
+                continue
             values = np.asarray([e[key] for e in episodes], dtype=np.float64)
             metrics[key+'_se'] = float(values.std(ddof=1)/np.sqrt(count)) if count > 1 else None
         self.eval_seconds += time.perf_counter()-started
-        if arrival_task(self.c):
+        if arrival_task(self.c) and self.c.get('environment', 'navigation') == 'navigation':
             for key, episode_key in (('success_rate', 'success'), ('restricted_mean_steps', 'restricted_steps')):
                 values = np.asarray([e[episode_key] for e in episodes], dtype=np.float64)
                 metrics[key+'_se'] = float(values.std(ddof=1)/np.sqrt(count)) if count > 1 else None
         self.eval_steps += sum(e['episode_steps'] for e in episodes)
+        if self.c.get('budget_includes_monitoring', False):
+            self.sampler.costs['source_monitor'] += sum(e['episode_steps'] for e in episodes)
         row = dict(condition=self.condition, seed=self.seed, budget_checkpoint=budget_node,
                    actor_source_steps=actor_cost, episodes=count, **metrics)
         self.curves.append(row)
         self.log('evaluation', **row)
         print(f'  [eval] {self.condition} seed={self.seed} node={budget_node} '
               f'actor_steps={actor_cost} J={metrics["J"]:.4f} '
-              f'coverage={metrics["coverage"]:.1%} distance={metrics["distance"]:.4f} '
+              f'coverage={metrics.get("coverage", float("nan")):.1%} distance={metrics.get("distance", float("nan")):.4f} '
               f'episodes={count}', flush=True)
-        if arrival_task(self.c):
+        if arrival_task(self.c) and self.c.get('environment', 'navigation') == 'navigation':
             print(f'  [arrival] success={metrics["success_rate"]:.1%} '
                   f'restricted_steps={metrics["restricted_mean_steps"]:.2f} '
                   f'success_steps={metrics["success_steps_mean"]}', flush=True)
         score = ((metrics['success_rate'], -metrics['restricted_mean_steps'], -metrics['collision_pairs_total'])
-                 if arrival_task(self.c) else metrics['J'])
+                 if 'success_rate' in metrics else metrics['J'])
         if self.best is None or score > self.best['score']:
             self.best = {'actor':deepcopy(actor.state_dict()), 'config':self.c, 'input_dim':self.input_dim,
                          'actor_kind':self.actor_kind, 'condition':self.condition, 'seed':self.seed,
@@ -265,6 +270,29 @@ class Runner:
                                       lambda mb: ppo_loss(self.actor, mb, mb['advantage'], self.c)))
             info['accepted'] = True
             return old, info
+        if self.condition == 'direct':
+            for attempt in range(self.c['attempts']):
+                if self.sampler.used+2*self.c['return_check_episodes']*episode_horizon(self.c)+self.monitor_reserve() > self.c['budget']:
+                    break
+                candidate = deepcopy(old)
+                optimizer = torch.optim.Adam(candidate.parameters(), lr=self.c['actor_lr']/(2**attempt))
+                def direct_loss(mb):
+                    chosen = mb['actions'].unsqueeze(-1)
+                    ratio = candidate(mb['x']).gather(-1, chosen).squeeze(-1)/mb['mu'].gather(-1, chosen).squeeze(-1)
+                    return -self.weighted(ratio*mb['advantage'], mb), {}
+                self.optimize(candidate, optimizer, batch, self.c['actor_epochs'], 'direct', direct_loss)
+                old_scores, _ = self.check_returns(old, 'return_old', old_critic)
+                new_scores, _ = self.check_returns(candidate, 'return_candidate', old_critic)
+                difference = float(np.mean(new_scores)-np.mean(old_scores))
+                info.update(candidates=attempt+1, return_difference=difference,
+                            accepted=difference > -self.c.get('return_tolerance', 0.))
+                with torch.no_grad():
+                    p = candidate(batch['x'])
+                    info['policy_step_kl'] = float(self.weighted((batch['mu']*(batch['mu'].log()-p.log())).sum(-1), batch))
+                if info['accepted']:
+                    self.actor.load_state_dict(candidate.state_dict())
+                    break
+            return old, info
         # No global training random state is consumed by per-round initialization.
         with torch.random.fork_rng(devices=list(range(torch.cuda.device_count()))):
             torch.manual_seed(seed_for('direction', self.seed, self.round+1))
@@ -275,6 +303,8 @@ class Runner:
             quadratic = score.square() if self.condition == 'sampled' else fisher
             return self.weighted(quadratic-2*mb['advantage']*score, mb), {}
         self.optimize(direction, optimizer, batch, self.c['direction_epochs'], 'direction', direction_loss)
+        if hasattr(self, 'fit_probe'):
+            self.fit_probe(old, direction, batch, old_critic)
         with torch.no_grad():
             q = valid_values(direction(batch['x']), batch)
             self.log('direction_fit',q_abs_mean=float(q.abs().mean()),q_abs_max=float(q.abs().max()),
@@ -287,15 +317,15 @@ class Runner:
                 values = [float(self.weighted((2*a.double()*score.double()-fisher.double())[i:i+1],
                           {k:v[i:i+1] for k,v in check.items()})) for i in range(len(a))]
             info['direction_score'] = float(np.mean(values, dtype=np.float64))
-            info['direction_pass'] = info['direction_score'] > 0
+            info['direction_pass'] = info['direction_score'] > self.c.get('direction_threshold', 0.)
             self.log('direction_check', episode_scores=values, **info)
             if not info['direction_pass']:
                 self.capture(None, old, info)
                 return old, info
         for attempt in range(self.c['attempts']):
-            if return_check_enabled(self.condition) and self.sampler.used+2*self.c['return_check_episodes']*episode_horizon(self.c) > self.c['budget']:
+            if return_check_enabled(self.condition) and self.sampler.used+2*self.c['return_check_episodes']*episode_horizon(self.c)+self.monitor_reserve() > self.c['budget']:
                 break
-            eta = self.c['eta']/(2**attempt)
+            eta = (self.c['step_sizes'][attempt] if 'step_sizes' in self.c else self.c['eta']/(2**attempt))
             candidate = deepcopy(old)
             with torch.no_grad():
                 batch['target'] = torch.softmax(batch['mu'].log()+eta*direction(batch['x']), -1).detach()
@@ -326,7 +356,7 @@ class Runner:
                 old_scores, old_observed = self.check_returns(old, 'return_old', old_critic)
                 new_scores, new_observed = self.check_returns(candidate, 'return_candidate', old_critic)
                 info['return_difference'] = float(np.mean(new_scores, dtype=np.float64)-np.mean(old_scores, dtype=np.float64))
-                info['accepted'] = info['return_difference'] > 0
+                info['accepted'] = info['return_difference'] > -self.c.get('return_tolerance', 0.)
                 self.log('return_check',attempt=attempt+1,old_returns=old_scores,
                          candidate_returns=new_scores,old_observed_returns=old_observed,
                          candidate_observed_returns=new_observed,
@@ -381,7 +411,7 @@ class Runner:
                 self.checkpoint()
             if self.progress:
                 self.progress(self)
-            while self.sampler.used+minimum_cost(self.c, self.condition) <= self.c['budget']:
+            while self.sampler.used+minimum_cost(self.c, self.condition)+self.monitor_reserve() <= self.c['budget']:
                 if max_rounds is not None and self.round >= max_rounds:
                     return None  # test/development pause at a committed boundary
                 before_cost = self.rounds[-1]['source_steps'] if self.rounds else 0
@@ -419,12 +449,18 @@ class Runner:
                       'note':'保留失败记录；恢复将未提交采样按账本最大预留计费，当前轨迹至多高估预留长度减1步，不超预算。'})
             raise
 
+    def monitor_reserve(self):
+        if not self.c.get('budget_includes_monitoring', False):
+            return 0
+        left = len(self.grid)-len(self.curves)
+        return (max(0, left-1)*self.c['eval_episodes'] + (self.c['final_episodes'] if left else 0))*episode_horizon(self.c)
+
     def summary(self):
         auc = sum((b['budget_checkpoint']-a['budget_checkpoint'])*a['J'] for a,b in zip(self.curves, self.curves[1:]))/self.c['budget']
         gates = [r for r in self.rounds if r['direction_pass'] is not None]
         fits = [r for r in self.rounds if r['fit_kl_after'] is not None]
         arrival = {}
-        if arrival_task(self.c):
+        if arrival_task(self.c) and self.c.get('environment', 'navigation') == 'navigation':
             arrival = {k:self.curves[-1][k] for k in ARRIVAL_METRICS if k in self.curves[-1]}
             arrival.update(task_horizon=self.c['task_horizon'],
                 success_AUC=sum((b['budget_checkpoint']-a['budget_checkpoint'])*a['success_rate']
@@ -439,7 +475,7 @@ class Runner:
             AUC=auc, **{k:self.curves[-1][k] for k in
                 ('J','distance','coverage','all_covered','collision_pairs','collisions_per_agent',
                  'mean_reward','mean_coverage','tail_coverage','tail_all_covered') if k in self.curves[-1]},
-            coverage_cost=next((r['budget_checkpoint'] for r in self.curves if r['coverage'] >= .8), None),
+            coverage_cost=next((r['budget_checkpoint'] for r in self.curves if r.get('coverage', 0) >= .8), None),
             accepted_rounds=sum(r['accepted'] for r in self.rounds),
             direction_rejections=sum(not r['direction_pass'] for r in gates), direction_checks=len(gates),
             candidates=sum(r['candidates'] for r in self.rounds),
@@ -450,4 +486,4 @@ class Runner:
             optimizer_steps=sum(self.optim_steps.values()), optimizer_steps_by_module=dict(self.optim_steps),
             costs=dict(self.sampler.costs), actor_parameters=sum(p.numel() for p in self.actor.parameters()),
             critic_parameters=sum(p.numel() for p in self.critic.parameters()),
-            direction_parameters=sum(p.numel() for p in self.actor.parameters()) if self.condition not in ('mappo','ippo') else 0)
+            direction_parameters=sum(p.numel() for p in self.actor.parameters()) if self.condition not in ('mappo','ippo','direct') else 0)

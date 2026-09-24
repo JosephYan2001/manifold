@@ -1,0 +1,8 @@
+# Fixed-base finite diagnostics use NumPy; restored P-L training also imports torch.
+numpy>=1.26,<3
+matplotlib>=3.8,<4
+# Preserve an existing compatible PyTorch/CUDA installation.
+torch>=2.3
+mpe2==1.1.1
+rware==2.0.0
+Pillow>=10

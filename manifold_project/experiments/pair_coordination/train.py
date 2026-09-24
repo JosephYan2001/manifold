@@ -39,12 +39,16 @@ def build_parser():
     parser.add_argument("--sample-sizes", type=int, nargs="+", help="批量比较每轮训练回合数")
     parser.add_argument("--print-config", action="store_true", help="显示生效配置并退出")
     parser.add_argument("--plot", action="store_true", help="训练后生成中文 PNG/SVG 曲线，需要 Matplotlib")
-    choices = {"algorithm": ["direction", "pg"], "actor_model": ["mlp", "table"], "direction_model": ["mlp", "table"],
+    choices = {"algorithm": ["direction", "pg", "direct"], "checkpoint_selection": ["exact", "empirical"], "actor_model": ["mlp", "table"], "direction_model": ["mlp", "table"],
                "mode": ["direction", "policy"], "method": ["analytic", "sampled"],
                "baseline": ["zero", "table"], "acceptance": ["hoeffding", "empirical"]}
     groups = {name: parser.add_argument_group(name) for name in
               ("模型", "数据与优化", "检查与预算", "保存与日志")}
     for field in fields(TrainConfig):
+        if field.name in ('initial_probabilities', 'step_sizes'):
+            parser.add_argument('--'+field.name.replace('_', '-'), nargs='+', type=float, default=None,
+                                help=PARAMETERS[field.name])
+            continue
         default_hint = (f"新运行未指定计数方式时：{128 if field.name == 'batch_size_episodes' else 25}；兼容模式见启动计划"
                         if field.name in ("batch_size_episodes", "direction_epochs", "actor_epochs")
                         else f"默认：{field.default}")
