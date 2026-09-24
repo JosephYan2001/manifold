@@ -1,0 +1,457 @@
+﻿experiment,method,label,sample_episodes,smoke_only,metric,mean,std,independent_units,ci95_low,ci95_high,interval_unit,small_sample
+P-E,AN,exact_advantage,32,False,source_steps_total,532.0,0.0,4,532.0,532.0,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,32,False,source_steps_training,32.0,0.0,4,32.0,32.0,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,32,False,source_steps_validation,500.0,0.0,4,500.0,500.0,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,32,False,direction_error,0.07655015267950263,0.10996890380669708,4,0.003403737733844817,0.17825651394745973,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,32,False,direction_norm,0.19992521114429518,0.1705119438179776,4,0.07886729036168241,0.35479277801855885,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,32,False,exact_score,-0.010022152679502683,0.10996890380669705,4,-0.11172851394745978,0.06312426226615511,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,32,False,validation_score,0.009342964829087244,0.13735296588903517,4,-0.12541744404301314,0.08797757134232143,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,32,False,validation_score_variance,1.4572122083079506,1.4642227566224362,4,0.334493140112334,2.6706223437343093,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,32,False,validation_gradient_trace_variance,3.9943594796804978,0.9327064654963436,4,3.1906831953023254,4.848537879572833,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,32,False,fixed_oracle_q_score_variance,0.33883406163827007,0.08230050243666427,4,0.27086892636352267,0.4067991969130175,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,32,False,fixed_oracle_q_gradient_trace_variance,3.949914529257927,0.8811029095125714,4,3.1984792691048565,4.786487205893671,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,32,False,curvature_min,0.84,0.0,4,0.84,0.84,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,32,False,curvature_max,0.8400000000000001,0.0,4,0.8400000000000001,0.8400000000000001,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,32,False,optimization_seconds,0.0058819749392569065,0.0011022650668886453,4,0.0052744499407708645,0.006970274960622191,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,32,False,direction_loss,-0.19911032622920305,0.16181650413696894,4,-0.3450557752913592,-0.0831665276373647,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,32,False,direction_steps,100.0,0.0,4,100.0,100.0,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,32,False,q_bound,5.0,0.0,4,5.0,5.0,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,32,False,q_coefficient_0,0.35363281925096124,0.3576908406148769,4,0.07396398551746734,0.6355191402637717,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,32,False,q_coefficient_1,0.4840293849002256,0.1416587989704504,4,0.35998275911104316,0.5992067138879631,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,32,False,source_steps_total,532.0,0.0,4,532.0,532.0,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,32,False,source_steps_training,32.0,0.0,4,32.0,32.0,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,32,False,source_steps_validation,500.0,0.0,4,500.0,500.0,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,32,False,direction_error,0.06913687511773918,0.09289417830187288,4,0.00901800647180935,0.15763176353358221,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,32,False,direction_norm,0.2016866214007831,0.15147336967574454,4,0.08867786307637111,0.3482938914723676,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,32,False,exact_score,-0.0026088751177392455,0.09289417830187288,4,-0.09110376353358227,0.0575099935281906,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,32,False,validation_score,0.01939251721530475,0.11865372598375537,4,-0.09891877064776525,0.08665066960706866,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,32,False,validation_score_variance,1.4158480246647784,1.3223861154823486,4,0.4353073245483733,2.566212287433979,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,32,False,validation_gradient_trace_variance,4.2471492359428575,1.0388614664668916,4,3.3546256996561175,5.139672772229598,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,32,False,fixed_oracle_q_score_variance,0.3550382414138693,0.08956200903623099,4,0.28096691899759074,0.42910956383014776,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,32,False,fixed_oracle_q_gradient_trace_variance,4.165263753132878,0.9719555664099913,4,3.3318310973693865,5.0642988558816455,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,32,False,curvature_min,0.36,0.0,4,0.36,0.36,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,32,False,curvature_max,1.9599999999999997,0.0,4,1.9599999999999997,1.9599999999999997,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,32,False,optimization_seconds,0.0055400499841198325,0.0002980685255269415,4,0.00529625010676682,0.005783849861472845,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,32,False,direction_loss,-0.200273401664739,0.15319872789222116,4,-0.34336817909453865,-0.09079811685233936,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,32,False,direction_steps,100.0,0.0,4,100.0,100.0,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,32,False,q_bound,5.0,0.0,4,5.0,5.0,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,32,False,q_coefficient_0,0.32981636184596774,0.3156487972149276,4,0.07937930818706646,0.5802534155048691,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,32,False,q_coefficient_1,0.5119586380440218,0.144839762059019,4,0.38252655077722664,0.6330334835827437,training_seed_or_data_batch,True
+P-E,AN,mc_raw,32,False,source_steps_total,532.0,0.0,4,532.0,532.0,training_seed_or_data_batch,True
+P-E,AN,mc_raw,32,False,source_steps_training,32.0,0.0,4,32.0,32.0,training_seed_or_data_batch,True
+P-E,AN,mc_raw,32,False,source_steps_validation,500.0,0.0,4,500.0,500.0,training_seed_or_data_batch,True
+P-E,AN,mc_raw,32,False,direction_error,0.08095464173973596,0.11569003476202969,4,0.008430369573646257,0.1921192910079892,training_seed_or_data_batch,True
+P-E,AN,mc_raw,32,False,direction_norm,0.20592061950699556,0.17534715757703917,4,0.08068401946453338,0.379343182143053,training_seed_or_data_batch,True
+P-E,AN,mc_raw,32,False,exact_score,-0.014426641739736033,0.11569003476202969,4,-0.12559129100798927,0.05809763042635366,training_seed_or_data_batch,True
+P-E,AN,mc_raw,32,False,validation_score,0.01343116055782461,0.13743752403540765,4,-0.12406344162352467,0.08576790019114239,training_seed_or_data_batch,True
+P-E,AN,mc_raw,32,False,validation_score_variance,1.6736299449761125,1.7206559403524533,4,0.452866760226181,3.2331246045465116,training_seed_or_data_batch,True
+P-E,AN,mc_raw,32,False,validation_gradient_trace_variance,4.557613599913006,1.1425436286213677,4,3.5713971145875725,5.576938223709817,training_seed_or_data_batch,True
+P-E,AN,mc_raw,32,False,fixed_oracle_q_score_variance,0.39907588766819546,0.10578955858975589,4,0.3130937773363355,0.4850579980000554,training_seed_or_data_batch,True
+P-E,AN,mc_raw,32,False,fixed_oracle_q_gradient_trace_variance,4.51975504057639,1.0701875929570204,4,3.6013271670019886,5.498471820007233,training_seed_or_data_batch,True
+P-E,AN,mc_raw,32,False,curvature_min,0.84,0.0,4,0.84,0.84,training_seed_or_data_batch,True
+P-E,AN,mc_raw,32,False,curvature_max,0.8400000000000001,0.0,4,0.8400000000000001,0.8400000000000001,training_seed_or_data_batch,True
+P-E,AN,mc_raw,32,False,optimization_seconds,0.005578750045970082,0.00045364059024466163,4,0.005233600037172437,0.005955150118097663,training_seed_or_data_batch,True
+P-E,AN,mc_raw,32,False,direction_loss,-0.2044538755498266,0.165875547901608,4,-0.36866578482378276,-0.08307241643948973,training_seed_or_data_batch,True
+P-E,AN,mc_raw,32,False,direction_steps,100.0,0.0,4,100.0,100.0,training_seed_or_data_batch,True
+P-E,AN,mc_raw,32,False,q_bound,5.0,0.0,4,5.0,5.0,training_seed_or_data_batch,True
+P-E,AN,mc_raw,32,False,q_coefficient_0,0.3429248753262976,0.3870816924231439,4,0.037380005334798204,0.648469745317797,training_seed_or_data_batch,True
+P-E,AN,mc_raw,32,False,q_coefficient_1,0.489603303555179,0.14397606830555051,4,0.37147988505809537,0.6057682380048856,training_seed_or_data_batch,True
+P-E,SA,mc_raw,32,False,source_steps_total,532.0,0.0,4,532.0,532.0,training_seed_or_data_batch,True
+P-E,SA,mc_raw,32,False,source_steps_training,32.0,0.0,4,32.0,32.0,training_seed_or_data_batch,True
+P-E,SA,mc_raw,32,False,source_steps_validation,500.0,0.0,4,500.0,500.0,training_seed_or_data_batch,True
+P-E,SA,mc_raw,32,False,direction_error,0.07561117120700889,0.09716949713459559,4,0.012561777022619998,0.17233599184829096,training_seed_or_data_batch,True
+P-E,SA,mc_raw,32,False,direction_norm,0.21083685449681092,0.15908067031269435,4,0.09362271510001718,0.3635979927551197,training_seed_or_data_batch,True
+P-E,SA,mc_raw,32,False,exact_score,-0.009083171207008967,0.09716949713459559,4,-0.10580799184829101,0.05396622297737992,training_seed_or_data_batch,True
+P-E,SA,mc_raw,32,False,validation_score,0.02177060094400466,0.1162329296165721,4,-0.09400492947088845,0.0858113963741815,training_seed_or_data_batch,True
+P-E,SA,mc_raw,32,False,validation_score_variance,1.6494668311499798,1.5784955187897716,4,0.5672977047711452,3.140187804331549,training_seed_or_data_batch,True
+P-E,SA,mc_raw,32,False,validation_gradient_trace_variance,4.922672171320947,1.2101391388261715,4,3.898118506966892,5.947225835675003,training_seed_or_data_batch,True
+P-E,SA,mc_raw,32,False,fixed_oracle_q_score_variance,0.42138163732958855,0.11334724820190098,4,0.32915639045830414,0.513606884200873,training_seed_or_data_batch,True
+P-E,SA,mc_raw,32,False,fixed_oracle_q_gradient_trace_variance,4.823527618179595,1.1648549104926136,4,3.821662714897775,5.8596742932417065,training_seed_or_data_batch,True
+P-E,SA,mc_raw,32,False,curvature_min,0.36,0.0,4,0.36,0.36,training_seed_or_data_batch,True
+P-E,SA,mc_raw,32,False,curvature_max,1.9599999999999997,0.0,4,1.9599999999999997,1.9599999999999997,training_seed_or_data_batch,True
+P-E,SA,mc_raw,32,False,optimization_seconds,0.005478200037032366,0.00038720809595811683,4,0.005167399998754263,0.005789000075310469,training_seed_or_data_batch,True
+P-E,SA,mc_raw,32,False,direction_loss,-0.20759030503018286,0.15844751740111365,4,-0.36424867095467206,-0.08812811668854223,training_seed_or_data_batch,True
+P-E,SA,mc_raw,32,False,direction_steps,100.0,0.0,4,100.0,100.0,training_seed_or_data_batch,True
+P-E,SA,mc_raw,32,False,q_bound,5.0,0.0,4,5.0,5.0,training_seed_or_data_batch,True
+P-E,SA,mc_raw,32,False,q_coefficient_0,0.31646261175110946,0.34652466091551665,4,0.03885042955579139,0.5940747939464275,training_seed_or_data_batch,True
+P-E,SA,mc_raw,32,False,q_coefficient_1,0.5208165530864125,0.16440525897739997,4,0.3836770231568301,0.657956083015995,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,128,False,source_steps_total,628.0,0.0,4,628.0,628.0,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,128,False,source_steps_training,128.0,0.0,4,128.0,128.0,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,128,False,source_steps_validation,500.0,0.0,4,500.0,500.0,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,128,False,direction_error,0.04091276778259947,0.043207173281909636,4,0.007696330721919778,0.08210999728271934,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,128,False,direction_norm,0.12750679677869162,0.11712053549336701,4,0.04849227499986247,0.2412204415525356,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,128,False,exact_score,0.02561523221740044,0.04320717328190965,4,-0.015581997282719449,0.058831669278080145,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,128,False,validation_score,0.04693278109887693,0.026668723914704692,4,0.024752403832291395,0.07127582452665397,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,128,False,validation_score_variance,0.7017186166503593,0.5038672811897842,4,0.3321439279845689,1.1986663989657957,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,128,False,validation_gradient_trace_variance,4.017803968033823,0.8985908437972092,4,3.2476978257862825,4.846536146208981,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,128,False,fixed_oracle_q_score_variance,0.33883406163827007,0.08230050243666427,4,0.27086892636352267,0.4067991969130175,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,128,False,fixed_oracle_q_gradient_trace_variance,3.949914529257927,0.8811029095125714,4,3.1984792691048565,4.786487205893671,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,128,False,curvature_min,0.84,0.0,4,0.84,0.84,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,128,False,curvature_max,0.8400000000000001,0.0,4,0.8400000000000001,0.8400000000000001,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,128,False,optimization_seconds,0.008875350002199411,0.000341945879767625,4,0.00863844994455576,0.009183374932035804,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,128,False,direction_loss,-0.12745335347791742,0.11670039730768593,4,-0.24047545523969965,-0.04908554939110514,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,128,False,direction_steps,100.0,0.0,4,100.0,100.0,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,128,False,q_bound,5.0,0.0,4,5.0,5.0,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,128,False,q_coefficient_0,0.2982880455950136,0.1578122151418792,4,0.1375495604151729,0.4182199669595104,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,128,False,q_coefficient_1,0.3888201471497499,0.20013012299686705,4,0.25497358400155995,0.5776029960694649,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,128,False,source_steps_total,628.0,0.0,4,628.0,628.0,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,128,False,source_steps_training,128.0,0.0,4,128.0,128.0,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,128,False,source_steps_validation,500.0,0.0,4,500.0,500.0,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,128,False,direction_error,0.04164590513810133,0.04691601680704948,4,0.006167930845843027,0.08571914928406375,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,128,False,direction_norm,0.13229830901102838,0.12608130223554087,4,0.05146194561635873,0.25662579108763595,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,128,False,exact_score,0.02488209486189861,0.046916016807049474,4,-0.019191149284063805,0.06036006915415691,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,128,False,validation_score,0.04626916637575608,0.02956674626115731,4,0.021145404385805637,0.07285814221963216,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,128,False,validation_score_variance,0.7108373242911562,0.5196953270888218,4,0.3507474283040013,1.23451683316056,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,128,False,validation_gradient_trace_variance,4.171110541950554,0.8896986031263733,4,3.408670896690036,5.008049647598782,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,128,False,fixed_oracle_q_score_variance,0.3550382414138693,0.08956200903623099,4,0.28096691899759074,0.42910956383014776,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,128,False,fixed_oracle_q_gradient_trace_variance,4.165263753132878,0.9719555664099913,4,3.3318310973693865,5.0642988558816455,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,128,False,curvature_min,0.36,0.0,4,0.36,0.36,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,128,False,curvature_max,1.9599999999999997,0.0,4,1.9599999999999997,1.9599999999999997,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,128,False,optimization_seconds,0.009160925168544054,0.0015853373260092125,4,0.008233775151893497,0.010761300101876259,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,128,False,direction_loss,-0.12935738740402877,0.12031559997821803,4,-0.24681779005587073,-0.050474002634271015,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,128,False,direction_steps,100.0,0.0,4,100.0,100.0,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,128,False,q_bound,5.0,0.0,4,5.0,5.0,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,128,False,q_coefficient_0,0.2874140942694816,0.1488797490192432,4,0.13214625319319387,0.3908181566398897,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,128,False,q_coefficient_1,0.40121215716485226,0.21716850267557486,4,0.2615161585754399,0.6103733263039862,training_seed_or_data_batch,True
+P-E,AN,mc_raw,128,False,source_steps_total,628.0,0.0,4,628.0,628.0,training_seed_or_data_batch,True
+P-E,AN,mc_raw,128,False,source_steps_training,128.0,0.0,4,128.0,128.0,training_seed_or_data_batch,True
+P-E,AN,mc_raw,128,False,source_steps_validation,500.0,0.0,4,500.0,500.0,training_seed_or_data_batch,True
+P-E,AN,mc_raw,128,False,direction_error,0.046866679865031124,0.04759446575969617,4,0.007784690141400322,0.09029045470054915,training_seed_or_data_batch,True
+P-E,AN,mc_raw,128,False,direction_norm,0.13035569927487559,0.12932993924129754,4,0.048879085833361466,0.2533205459099279,training_seed_or_data_batch,True
+P-E,AN,mc_raw,128,False,exact_score,0.0196613201349688,0.04759446575969618,4,-0.023762454700549246,0.0587433098585996,training_seed_or_data_batch,True
+P-E,AN,mc_raw,128,False,validation_score,0.04236991223081765,0.03563663880500136,4,0.012931677855847278,0.07742842505100649,training_seed_or_data_batch,True
+P-E,AN,mc_raw,128,False,validation_score_variance,0.7918877949894358,0.6248921388725364,4,0.37990558932403895,1.3802396651177595,training_seed_or_data_batch,True
+P-E,AN,mc_raw,128,False,validation_gradient_trace_variance,4.6018967500846175,1.1009757826498532,4,3.656031655223874,5.569370134775806,training_seed_or_data_batch,True
+P-E,AN,mc_raw,128,False,fixed_oracle_q_score_variance,0.39907588766819546,0.10578955858975589,4,0.3130937773363355,0.4850579980000554,training_seed_or_data_batch,True
+P-E,AN,mc_raw,128,False,fixed_oracle_q_gradient_trace_variance,4.51975504057639,1.0701875929570204,4,3.6013271670019886,5.498471820007233,training_seed_or_data_batch,True
+P-E,AN,mc_raw,128,False,curvature_min,0.84,0.0,4,0.84,0.84,training_seed_or_data_batch,True
+P-E,AN,mc_raw,128,False,curvature_max,0.8400000000000001,0.0,4,0.8400000000000001,0.8400000000000001,training_seed_or_data_batch,True
+P-E,AN,mc_raw,128,False,optimization_seconds,0.009811599971726537,0.0007483936480651361,4,0.009033425012603402,0.01029259990900755,training_seed_or_data_batch,True
+P-E,AN,mc_raw,128,False,direction_loss,-0.12990549196283066,0.1282019113767254,4,-0.25130829568575996,-0.04931642653906487,training_seed_or_data_batch,True
+P-E,AN,mc_raw,128,False,direction_steps,100.0,0.0,4,100.0,100.0,training_seed_or_data_batch,True
+P-E,AN,mc_raw,128,False,q_bound,5.0,0.0,4,5.0,5.0,training_seed_or_data_batch,True
+P-E,AN,mc_raw,128,False,q_coefficient_0,0.30467839326932256,0.14856063349198395,4,0.15526993659096605,0.4204234620773967,training_seed_or_data_batch,True
+P-E,AN,mc_raw,128,False,q_coefficient_1,0.3795535344830947,0.23568423828558635,4,0.2035329157964096,0.6054246716051512,training_seed_or_data_batch,True
+P-E,SA,mc_raw,128,False,source_steps_total,628.0,0.0,4,628.0,628.0,training_seed_or_data_batch,True
+P-E,SA,mc_raw,128,False,source_steps_training,128.0,0.0,4,128.0,128.0,training_seed_or_data_batch,True
+P-E,SA,mc_raw,128,False,source_steps_validation,500.0,0.0,4,500.0,500.0,training_seed_or_data_batch,True
+P-E,SA,mc_raw,128,False,direction_error,0.04793334121711865,0.05189998582155426,4,0.006379799169441854,0.09486783256828604,training_seed_or_data_batch,True
+P-E,SA,mc_raw,128,False,direction_norm,0.13529517826809523,0.13906337150960354,4,0.05168798113089508,0.26954322235927486,training_seed_or_data_batch,True
+P-E,SA,mc_raw,128,False,exact_score,0.018594658782881295,0.05189998582155425,4,-0.028339832568286105,0.06014820083055808,training_seed_or_data_batch,True
+P-E,SA,mc_raw,128,False,validation_score,0.041470504103588525,0.03886019127902118,4,0.008657558040113311,0.07910670050784455,training_seed_or_data_batch,True
+P-E,SA,mc_raw,128,False,validation_score_variance,0.8032174149594751,0.6472211881020494,4,0.39988110596456883,1.4259491155341517,training_seed_or_data_batch,True
+P-E,SA,mc_raw,128,False,validation_gradient_trace_variance,4.813187817007655,1.0217773640165526,4,3.934227381979251,5.760602188034042,training_seed_or_data_batch,True
+P-E,SA,mc_raw,128,False,fixed_oracle_q_score_variance,0.42138163732958855,0.11334724820190098,4,0.32915639045830414,0.513606884200873,training_seed_or_data_batch,True
+P-E,SA,mc_raw,128,False,fixed_oracle_q_gradient_trace_variance,4.823527618179595,1.1648549104926136,4,3.821662714897775,5.8596742932417065,training_seed_or_data_batch,True
+P-E,SA,mc_raw,128,False,curvature_min,0.36,0.0,4,0.36,0.36,training_seed_or_data_batch,True
+P-E,SA,mc_raw,128,False,curvature_max,1.9599999999999997,0.0,4,1.9599999999999997,1.9599999999999997,training_seed_or_data_batch,True
+P-E,SA,mc_raw,128,False,optimization_seconds,0.008675624849274755,0.00041622908415522614,4,0.008262049872428179,0.009014674578793347,training_seed_or_data_batch,True
+P-E,SA,mc_raw,128,False,direction_loss,-0.13203342436235854,0.13243963933736771,4,-0.25851781429407966,-0.050750714607385526,training_seed_or_data_batch,True
+P-E,SA,mc_raw,128,False,direction_steps,100.0,0.0,4,100.0,100.0,training_seed_or_data_batch,True
+P-E,SA,mc_raw,128,False,q_bound,5.0,0.0,4,5.0,5.0,training_seed_or_data_batch,True
+P-E,SA,mc_raw,128,False,q_coefficient_0,0.29393828793898663,0.13888150417967612,4,0.15005408890408284,0.39255767028496735,training_seed_or_data_batch,True
+P-E,SA,mc_raw,128,False,q_coefficient_1,0.39141932672309493,0.2529555354313774,4,0.20384925055285014,0.6378631603696006,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,512,False,source_steps_total,1012.0,0.0,4,1012.0,1012.0,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,512,False,source_steps_training,512.0,0.0,4,512.0,512.0,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,512,False,source_steps_validation,500.0,0.0,4,500.0,500.0,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,512,False,direction_error,0.0023466209311489876,0.0009199897848339931,4,0.0015449281229012015,0.0032180678599209606,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,512,False,direction_norm,0.07906435808951319,0.024584803349993346,4,0.05574439250156757,0.09534984306414125,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,512,False,exact_score,0.06418137906885094,0.0009199897848339849,4,0.06330993214007896,0.0649830718770987,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,512,False,validation_score,0.08172568425310886,0.012623627472510808,4,0.07198849936865356,0.09430956338929683,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,512,False,validation_score_variance,0.39308146734348276,0.15881320413538128,4,0.26445204003543515,0.5279654140328178,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,512,False,validation_gradient_trace_variance,3.93785748613161,0.8626039659928045,4,3.2030609533985324,4.755730144285222,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,512,False,fixed_oracle_q_score_variance,0.33883406163827007,0.08230050243666427,4,0.27086892636352267,0.4067991969130175,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,512,False,fixed_oracle_q_gradient_trace_variance,3.949914529257927,0.8811029095125714,4,3.1984792691048565,4.786487205893671,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,512,False,curvature_min,0.84,0.0,4,0.84,0.84,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,512,False,curvature_max,0.8400000000000001,0.0,4,0.8400000000000001,0.8400000000000001,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,512,False,optimization_seconds,0.020727024995721877,0.00411417210829217,4,0.01844269991852343,0.02481397509109229,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,512,False,direction_loss,-0.08085876179192958,0.02612487398569461,4,-0.09862304187041948,-0.056504324879669464,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,512,False,direction_steps,100.0,0.0,4,100.0,100.0,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,512,False,q_bound,5.0,0.0,4,5.0,5.0,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,512,False,q_coefficient_0,0.04897406624752069,0.030096164643935098,4,0.030328580562983317,0.07787849291115895,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,512,False,q_coefficient_1,0.3893052877184308,0.06596218091067782,4,0.3250229789025483,0.4316550690034262,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,512,False,source_steps_total,1012.0,0.0,4,1012.0,1012.0,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,512,False,source_steps_training,512.0,0.0,4,512.0,512.0,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,512,False,source_steps_validation,500.0,0.0,4,500.0,500.0,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,512,False,direction_error,0.0019018558182284473,0.0005549811511132043,4,0.001391613367693258,0.002324211932521612,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,512,False,direction_norm,0.07630067601211005,0.022025335154427488,4,0.055288852594645055,0.0901118554436117,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,512,False,exact_score,0.06462614418177148,0.0005549811511131972,4,0.06420378806747831,0.06513638663230667,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,512,False,validation_score,0.08205050801522405,0.012212465215240723,4,0.07293367589361273,0.09429417464706015,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,512,False,validation_score_variance,0.37984774639761193,0.1462513821856975,4,0.2637399920163318,0.4961063059601819,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,512,False,validation_gradient_trace_variance,4.184277227538021,0.9959241451247308,4,3.3299088835306883,5.107927475945741,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,512,False,fixed_oracle_q_score_variance,0.3550382414138693,0.08956200903623099,4,0.28096691899759074,0.42910956383014776,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,512,False,fixed_oracle_q_gradient_trace_variance,4.165263753132878,0.9719555664099913,4,3.3318310973693865,5.0642988558816455,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,512,False,curvature_min,0.36,0.0,4,0.36,0.36,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,512,False,curvature_max,1.9599999999999997,0.0,4,1.9599999999999997,1.9599999999999997,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,512,False,optimization_seconds,0.01886704983189702,0.0005339264669313919,4,0.01839444972574711,0.019247449934482574,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,512,False,direction_loss,-0.07929375229737534,0.024633327942711017,4,-0.09565389652337347,-0.056224148525154206,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,512,False,direction_steps,100.0,0.0,4,100.0,100.0,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,512,False,q_bound,5.0,0.0,4,5.0,5.0,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,512,False,q_coefficient_0,0.04910902672045876,0.03072052183484609,4,0.029904837272746874,0.07854542749805521,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,512,False,q_coefficient_1,0.38289997860591024,0.05997959280912948,4,0.3240675574667497,0.4185838966414258,training_seed_or_data_batch,True
+P-E,AN,mc_raw,512,False,source_steps_total,1012.0,0.0,4,1012.0,1012.0,training_seed_or_data_batch,True
+P-E,AN,mc_raw,512,False,source_steps_training,512.0,0.0,4,512.0,512.0,training_seed_or_data_batch,True
+P-E,AN,mc_raw,512,False,source_steps_validation,500.0,0.0,4,500.0,500.0,training_seed_or_data_batch,True
+P-E,AN,mc_raw,512,False,direction_error,0.0021252426345105256,0.0008633835030580933,4,0.0015805530447030058,0.0030291518702928615,training_seed_or_data_batch,True
+P-E,AN,mc_raw,512,False,direction_norm,0.07949409975144311,0.023080647165258695,4,0.056523606607036786,0.09460658938843222,training_seed_or_data_batch,True
+P-E,AN,mc_raw,512,False,exact_score,0.06440275736548941,0.0008633835030581007,4,0.06349884812970706,0.06494744695529693,training_seed_or_data_batch,True
+P-E,AN,mc_raw,512,False,validation_score,0.08693151103930144,0.008950577324683781,4,0.07877369606328186,0.09434525976100669,training_seed_or_data_batch,True
+P-E,AN,mc_raw,512,False,validation_score_variance,0.46832222657679673,0.19282820793703812,4,0.30987479372300086,0.6267696594305925,training_seed_or_data_batch,True
+P-E,AN,mc_raw,512,False,validation_gradient_trace_variance,4.5061519918119615,1.0495677419244436,4,3.606700534471784,5.46420018484915,training_seed_or_data_batch,True
+P-E,AN,mc_raw,512,False,fixed_oracle_q_score_variance,0.39907588766819546,0.10578955858975589,4,0.3130937773363355,0.4850579980000554,training_seed_or_data_batch,True
+P-E,AN,mc_raw,512,False,fixed_oracle_q_gradient_trace_variance,4.51975504057639,1.0701875929570204,4,3.6013271670019886,5.498471820007233,training_seed_or_data_batch,True
+P-E,AN,mc_raw,512,False,curvature_min,0.84,0.0,4,0.84,0.84,training_seed_or_data_batch,True
+P-E,AN,mc_raw,512,False,curvature_max,0.8400000000000001,0.0,4,0.8400000000000001,0.8400000000000001,training_seed_or_data_batch,True
+P-E,AN,mc_raw,512,False,optimization_seconds,0.01885469991248101,0.0009820444506938534,4,0.018164799897931516,0.019850874901749194,training_seed_or_data_batch,True
+P-E,AN,mc_raw,512,False,direction_loss,-0.08129759722867674,0.02451335323211892,4,-0.09715998221051383,-0.057207194248107406,training_seed_or_data_batch,True
+P-E,AN,mc_raw,512,False,direction_steps,100.0,0.0,4,100.0,100.0,training_seed_or_data_batch,True
+P-E,AN,mc_raw,512,False,q_bound,5.0,0.0,4,5.0,5.0,training_seed_or_data_batch,True
+P-E,AN,mc_raw,512,False,q_coefficient_0,0.05015963875139622,0.021500871963497765,4,0.034739648026741766,0.07028032736086133,training_seed_or_data_batch,True
+P-E,AN,mc_raw,512,False,q_coefficient_1,0.3909678694953601,0.06284418223515198,4,0.32765543216590864,0.4321557492997685,training_seed_or_data_batch,True
+P-E,SA,mc_raw,512,False,source_steps_total,1012.0,0.0,4,1012.0,1012.0,training_seed_or_data_batch,True
+P-E,SA,mc_raw,512,False,source_steps_training,512.0,0.0,4,512.0,512.0,training_seed_or_data_batch,True
+P-E,SA,mc_raw,512,False,source_steps_validation,500.0,0.0,4,500.0,500.0,training_seed_or_data_batch,True
+P-E,SA,mc_raw,512,False,direction_error,0.0016973216414577059,0.0003596087446939948,4,0.0013926634514913306,0.0020469329988955258,training_seed_or_data_batch,True
+P-E,SA,mc_raw,512,False,direction_norm,0.07676511247281625,0.020676475762671957,4,0.05607065368748802,0.08847325478449647,training_seed_or_data_batch,True
+P-E,SA,mc_raw,512,False,exact_score,0.06483067835854221,0.0003596087446939778,4,0.06448106700110441,0.06513533654850857,training_seed_or_data_batch,True
+P-E,SA,mc_raw,512,False,validation_score,0.0871455865956864,0.008651363522402533,4,0.0794011070404798,0.09432837407479208,training_seed_or_data_batch,True
+P-E,SA,mc_raw,512,False,validation_score_variance,0.45292564575766303,0.18107725399460667,4,0.30575164873504634,0.6000996427802798,training_seed_or_data_batch,True
+P-E,SA,mc_raw,512,False,validation_gradient_trace_variance,4.85146136484005,1.199150742689933,4,3.8184234227559046,5.9223060960542115,training_seed_or_data_batch,True
+P-E,SA,mc_raw,512,False,fixed_oracle_q_score_variance,0.42138163732958855,0.11334724820190098,4,0.32915639045830414,0.513606884200873,training_seed_or_data_batch,True
+P-E,SA,mc_raw,512,False,fixed_oracle_q_gradient_trace_variance,4.823527618179595,1.1648549104926136,4,3.821662714897775,5.8596742932417065,training_seed_or_data_batch,True
+P-E,SA,mc_raw,512,False,curvature_min,0.36,0.0,4,0.36,0.36,training_seed_or_data_batch,True
+P-E,SA,mc_raw,512,False,curvature_max,1.9599999999999997,0.0,4,1.9599999999999997,1.9599999999999997,training_seed_or_data_batch,True
+P-E,SA,mc_raw,512,False,optimization_seconds,0.019247099990025163,0.0008306328157488946,4,0.01869564992375672,0.02011827507521957,training_seed_or_data_batch,True
+P-E,SA,mc_raw,512,False,direction_loss,-0.07974644106473441,0.023094941653011226,4,-0.09369069821620529,-0.05693547387676236,training_seed_or_data_batch,True
+P-E,SA,mc_raw,512,False,direction_steps,100.0,0.0,4,100.0,100.0,training_seed_or_data_batch,True
+P-E,SA,mc_raw,512,False,q_bound,5.0,0.0,4,5.0,5.0,training_seed_or_data_batch,True
+P-E,SA,mc_raw,512,False,q_coefficient_0,0.0501148632882992,0.021996248179253327,4,0.03478312332546231,0.0705997759081585,training_seed_or_data_batch,True
+P-E,SA,mc_raw,512,False,q_coefficient_1,0.38463172272810386,0.05720044855477291,4,0.32675214885252557,0.4179830180083521,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,2048,False,source_steps_total,2548.0,0.0,4,2548.0,2548.0,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,2048,False,source_steps_training,2048.0,0.0,4,2048.0,2048.0,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,2048,False,source_steps_validation,500.0,0.0,4,500.0,500.0,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,2048,False,direction_error,0.0004448209573412872,0.00024833659348861984,4,0.000223875952351663,0.0006632212349642307,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,2048,False,direction_norm,0.07285818284636988,0.00568188930939183,4,0.06810565853351375,0.07811718234232272,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,2048,False,exact_score,0.06608317904265865,0.0002483365934886107,4,0.06586477876503571,0.06630412404764827,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,2048,False,validation_score,0.08403213361160268,0.008091799122228493,4,0.07800487361782428,0.09109600875423034,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,2048,False,validation_score_variance,0.3761725360339868,0.12129722049031894,4,0.27387359310720544,0.4820531697656586,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,2048,False,validation_gradient_trace_variance,3.943853986855019,0.8766466887995017,4,3.1973652669591965,4.778230823924114,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,2048,False,fixed_oracle_q_score_variance,0.33883406163827007,0.08230050243666427,4,0.27086892636352267,0.4067991969130175,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,2048,False,fixed_oracle_q_gradient_trace_variance,3.949914529257927,0.8811029095125714,4,3.1984792691048565,4.786487205893671,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,2048,False,curvature_min,0.84,0.0,4,0.84,0.84,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,2048,False,curvature_max,0.8400000000000001,0.0,4,0.8400000000000001,0.8400000000000001,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,2048,False,optimization_seconds,0.08481785003095865,0.000832224855069564,4,0.08409905014559627,0.08553664991632104,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,2048,False,direction_loss,-0.07277596268818495,0.005646780812971259,4,-0.07781130390384658,-0.068049440761512,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,2048,False,direction_steps,100.0,0.0,4,100.0,100.0,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,2048,False,q_bound,5.0,0.0,4,5.0,5.0,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,2048,False,q_coefficient_0,0.059007307101080944,0.030050315400981693,4,0.03368955380354771,0.08725816088392334,training_seed_or_data_batch,True
+P-E,AN,exact_advantage,2048,False,q_coefficient_1,0.37632877884345517,0.014777665974358731,4,0.3643944920803519,0.38826306560655843,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,2048,False,source_steps_total,2548.0,0.0,4,2548.0,2548.0,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,2048,False,source_steps_training,2048.0,0.0,4,2048.0,2048.0,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,2048,False,source_steps_validation,500.0,0.0,4,500.0,500.0,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,2048,False,direction_error,0.0005070994041309907,0.0003492818637708506,4,0.00023525298956426362,0.000846710519288587,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,2048,False,direction_norm,0.07363230616524916,0.0074989912314269765,4,0.06727218982084687,0.08091030963235178,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,2048,False,exact_score,0.06602090059586894,0.0003492818637708439,4,0.06568128948071136,0.06629274701043567,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,2048,False,validation_score,0.08380836320169084,0.008105786247593562,4,0.0775555381712249,0.09083704268729596,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,2048,False,validation_score_variance,0.3807146035472599,0.13030434526699297,4,0.27110033313306303,0.4947438881810113,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,2048,False,validation_gradient_trace_variance,4.174406367339725,0.9780153349205274,4,3.3347898491682786,5.074828717400441,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,2048,False,fixed_oracle_q_score_variance,0.3550382414138693,0.08956200903623099,4,0.28096691899759074,0.42910956383014776,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,2048,False,fixed_oracle_q_gradient_trace_variance,4.165263753132878,0.9719555664099913,4,3.3318310973693865,5.0642988558816455,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,2048,False,curvature_min,0.36,0.0,4,0.36,0.36,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,2048,False,curvature_max,1.9599999999999997,0.0,4,1.9599999999999997,1.9599999999999997,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,2048,False,optimization_seconds,0.08262400003150105,0.0022581709417801433,4,0.08071745012421161,0.0844962999690324,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,2048,False,direction_loss,-0.07317710796432313,0.00648812108881517,4,-0.07920847936640683,-0.06766123324914541,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,2048,False,direction_steps,100.0,0.0,4,100.0,100.0,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,2048,False,q_bound,5.0,0.0,4,5.0,5.0,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,2048,False,q_coefficient_0,0.058317987603147214,0.028231081701213315,4,0.034555063217594245,0.08428070471765786,training_seed_or_data_batch,True
+P-E,SA,exact_advantage,2048,False,q_coefficient_1,0.3783670235365941,0.018918032325381567,4,0.3622137883322324,0.3956105866540498,training_seed_or_data_batch,True
+P-E,AN,mc_raw,2048,False,source_steps_total,2548.0,0.0,4,2548.0,2548.0,training_seed_or_data_batch,True
+P-E,AN,mc_raw,2048,False,source_steps_training,2048.0,0.0,4,2048.0,2048.0,training_seed_or_data_batch,True
+P-E,AN,mc_raw,2048,False,source_steps_validation,500.0,0.0,4,500.0,500.0,training_seed_or_data_batch,True
+P-E,AN,mc_raw,2048,False,direction_error,0.0008387743638595334,0.000596500478736729,4,0.0003620257635258465,0.0014235363589301074,training_seed_or_data_batch,True
+P-E,AN,mc_raw,2048,False,direction_norm,0.07721140193423999,0.0068650236097673005,4,0.07168104002544598,0.08397268457833361,training_seed_or_data_batch,True
+P-E,AN,mc_raw,2048,False,exact_score,0.0656892256361404,0.0005965004787367443,4,0.06510446364106981,0.06616597423647409,training_seed_or_data_batch,True
+P-E,AN,mc_raw,2048,False,validation_score,0.08990493287068944,0.0034775958614540374,4,0.08705070791071429,0.09275915783066462,training_seed_or_data_batch,True
+P-E,AN,mc_raw,2048,False,validation_score_variance,0.4708182139842392,0.16432141483766133,4,0.33172871703920737,0.6157993609859597,training_seed_or_data_batch,True
+P-E,AN,mc_raw,2048,False,validation_gradient_trace_variance,4.509177748420447,1.0637682337831422,4,3.5973789419184605,5.484902339724444,training_seed_or_data_batch,True
+P-E,AN,mc_raw,2048,False,fixed_oracle_q_score_variance,0.39907588766819546,0.10578955858975589,4,0.3130937773363355,0.4850579980000554,training_seed_or_data_batch,True
+P-E,AN,mc_raw,2048,False,fixed_oracle_q_gradient_trace_variance,4.51975504057639,1.0701875929570204,4,3.6013271670019886,5.498471820007233,training_seed_or_data_batch,True
+P-E,AN,mc_raw,2048,False,curvature_min,0.84,0.0,4,0.84,0.84,training_seed_or_data_batch,True
+P-E,AN,mc_raw,2048,False,curvature_max,0.8400000000000001,0.0,4,0.8400000000000001,0.8400000000000001,training_seed_or_data_batch,True
+P-E,AN,mc_raw,2048,False,optimization_seconds,0.08572505018673837,0.0035263616795049627,4,0.08297365019097924,0.08847952517680824,training_seed_or_data_batch,True
+P-E,AN,mc_raw,2048,False,direction_loss,-0.07705654098853618,0.007017001761841448,4,-0.08381611574987394,-0.07134265402916437,training_seed_or_data_batch,True
+P-E,AN,mc_raw,2048,False,direction_steps,100.0,0.0,4,100.0,100.0,training_seed_or_data_batch,True
+P-E,AN,mc_raw,2048,False,q_bound,5.0,0.0,4,5.0,5.0,training_seed_or_data_batch,True
+P-E,AN,mc_raw,2048,False,q_coefficient_0,0.06030205328913289,0.03815042649573087,4,0.02856464682175127,0.09829725595628568,training_seed_or_data_batch,True
+P-E,AN,mc_raw,2048,False,q_coefficient_1,0.3870955929832523,0.016422559475070216,4,0.3739658253722228,0.40121398136212305,training_seed_or_data_batch,True
+P-E,SA,mc_raw,2048,False,source_steps_total,2548.0,0.0,4,2548.0,2548.0,training_seed_or_data_batch,True
+P-E,SA,mc_raw,2048,False,source_steps_training,2048.0,0.0,4,2048.0,2048.0,training_seed_or_data_batch,True
+P-E,SA,mc_raw,2048,False,source_steps_validation,500.0,0.0,4,500.0,500.0,training_seed_or_data_batch,True
+P-E,SA,mc_raw,2048,False,direction_error,0.0009153835308853052,0.000744001867131706,4,0.00034030088453772234,0.0016719269311346139,training_seed_or_data_batch,True
+P-E,SA,mc_raw,2048,False,direction_norm,0.07796828897320163,0.00868139179638643,4,0.07083084149550445,0.08674761680450924,training_seed_or_data_batch,True
+P-E,SA,mc_raw,2048,False,exact_score,0.06561261646911462,0.0007440018671317012,4,0.06485607306886532,0.06618769911546221,training_seed_or_data_batch,True
+P-E,SA,mc_raw,2048,False,validation_score,0.08975161657201092,0.0034849908858908597,4,0.08684455465791457,0.09265867848610726,training_seed_or_data_batch,True
+P-E,SA,mc_raw,2048,False,validation_score_variance,0.47627142864756594,0.17500287918014706,4,0.3284957763713734,0.6309628479790862,training_seed_or_data_batch,True
+P-E,SA,mc_raw,2048,False,validation_gradient_trace_variance,4.842158449450603,1.174877042016313,4,3.8305820794869065,5.879293326295843,training_seed_or_data_batch,True
+P-E,SA,mc_raw,2048,False,fixed_oracle_q_score_variance,0.42138163732958855,0.11334724820190098,4,0.32915639045830414,0.513606884200873,training_seed_or_data_batch,True
+P-E,SA,mc_raw,2048,False,fixed_oracle_q_gradient_trace_variance,4.823527618179595,1.1648549104926136,4,3.821662714897775,5.8596742932417065,training_seed_or_data_batch,True
+P-E,SA,mc_raw,2048,False,curvature_min,0.36,0.0,4,0.36,0.36,training_seed_or_data_batch,True
+P-E,SA,mc_raw,2048,False,curvature_max,1.9599999999999997,0.0,4,1.9599999999999997,1.9599999999999997,training_seed_or_data_batch,True
+P-E,SA,mc_raw,2048,False,optimization_seconds,0.08208592492155731,0.0019506884645958543,4,0.08066329988650978,0.08376882481388748,training_seed_or_data_batch,True
+P-E,SA,mc_raw,2048,False,direction_loss,-0.07747899870277614,0.007927768487259568,4,-0.08529293032301438,-0.07093273637383764,training_seed_or_data_batch,True
+P-E,SA,mc_raw,2048,False,direction_steps,100.0,0.0,4,100.0,100.0,training_seed_or_data_batch,True
+P-E,SA,mc_raw,2048,False,q_bound,5.0,0.0,4,5.0,5.0,training_seed_or_data_batch,True
+P-E,SA,mc_raw,2048,False,q_coefficient_0,0.059583046794521734,0.03625270319862691,4,0.029320933920315158,0.09540194248491682,training_seed_or_data_batch,True
+P-E,SA,mc_raw,2048,False,q_coefficient_1,0.38905014604155974,0.020496537425670588,4,0.371807643794508,0.4084393323962662,training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,32,False,q_coefficient_1,-0.027929253143796018,0.046394911207522954,4,-0.06881789348121999,0.01347144226700002,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,32,False,direction_norm,-0.001761410256487926,0.030591057240061507,4,-0.02666888946424658,0.02177348152229841,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,32,False,fixed_oracle_q_gradient_trace_variance,-0.2153492238749516,0.10184854148144092,4,-0.29734661948537333,-0.13335182826452985,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,32,False,source_steps_validation,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,32,False,exact_score,-0.007413277561763437,0.018335361424638902,4,-0.02386130712705583,0.006727323344147766,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,32,False,q_coefficient_0,0.023816457404993472,0.04390449749710789,4,-0.005415322669599119,0.06551003660302923,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,32,False,validation_score,-0.010049552386217507,0.01953806525680056,4,-0.029171861496991518,0.003997516247211027,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,32,False,direction_loss,0.001163075435535935,0.014093817089558818,4,-0.009759535996351237,0.01259266949423957,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,32,False,optimization_seconds,0.000341924955137074,0.001345464542127166,4,-0.00046534999273717403,0.0016849749954417348,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,32,False,validation_gradient_trace_variance,-0.2527897562623599,0.19606591322904862,4,-0.43574461413122845,-0.11852580225537634,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,32,False,source_steps_training,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,32,False,direction_steps,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,32,False,validation_score_variance,0.041364183643172306,0.17311201382531782,4,-0.10081418443603928,0.18354255172238387,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,32,False,q_bound,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,32,False,curvature_min,0.48,0.0,4,0.48,0.48,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,32,False,fixed_oracle_q_score_variance,-0.01620417977559918,0.007280568704896301,4,-0.02231036691713026,-0.010097992634068104,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,32,False,source_steps_total,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,32,False,curvature_max,-1.1199999999999997,0.0,4,-1.1199999999999997,-1.1199999999999997,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,32,False,direction_error,0.00741327756176346,0.01833536142463894,4,-0.00672732334414777,0.023861307127055868,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,32,False,q_coefficient_1,-0.031213249531233514,0.04526910606085847,4,-0.07220477733315192,0.00839930624600059,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,32,False,direction_norm,-0.004916234989815346,0.03383198783259372,4,-0.03439232014770203,0.02003666829891214,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,32,False,fixed_oracle_q_gradient_trace_variance,-0.3037725776032052,0.10712130917689322,4,-0.390540742028056,-0.22033554789578647,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,32,False,source_steps_validation,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,32,False,exact_score,-0.005343470532727067,0.021548382775530204,4,-0.024856914084970726,0.012798531942851826,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,32,False,q_coefficient_0,0.026462263575188175,0.042476514453733655,4,-0.001470424220993187,0.06646205591485663,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,32,False,validation_score,-0.00833944038618005,0.02304408252592714,4,-0.03115214382911322,0.009517513903271515,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,32,False,direction_loss,0.0031364294803562526,0.01670119509793338,4,-0.009118199678415734,0.017509360879644206,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,32,False,optimization_seconds,0.00010055000893771648,0.0007761329196097288,4,-0.000555400038138032,0.0007565000560134649,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,32,False,validation_gradient_trace_variance,-0.36505857140794173,0.2562850868400639,4,-0.5724005304831952,-0.1577166123326883,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,32,False,source_steps_training,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,32,False,direction_steps,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,32,False,validation_score_variance,0.024163113826132745,0.19795173629476512,4,-0.13220842970323962,0.1805346573555051,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,32,False,q_bound,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,32,False,curvature_min,0.48,0.0,4,0.48,0.48,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,32,False,fixed_oracle_q_score_variance,-0.02230574966139312,0.0075749016802568485,4,-0.02854888620081758,-0.01606261312196866,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,32,False,source_steps_total,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,32,False,curvature_max,-1.1199999999999997,0.0,4,-1.1199999999999997,-1.1199999999999997,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,32,False,direction_error,0.005343470532727065,0.021548382775530187,4,-0.012798531942851814,0.024856914084970705,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,128,False,q_coefficient_1,-0.0123920100151024,0.019471632505200048,4,-0.030981943495326597,0.0004359828102325214,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,128,False,direction_norm,-0.004791512232336752,0.010773685513038388,4,-0.01540534953510038,0.003987111034554569,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,128,False,fixed_oracle_q_gradient_trace_variance,-0.2153492238749516,0.10184854148144092,4,-0.29734661948537333,-0.13335182826452985,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,128,False,source_steps_validation,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,128,False,exact_score,0.0007331373555018311,0.004226192257352695,4,-0.0025868926975116877,0.004412908381614261,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,128,False,q_coefficient_0,0.010873951325531976,0.018987738182899637,4,-0.00517689366795511,0.026924796319019062,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,128,False,validation_score,0.0006636147231208556,0.0038332559523062914,4,-0.0022797700002440482,0.0037318291917194067,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,128,False,direction_loss,0.0019040339261113502,0.004593733058888855,4,-0.001994965717191245,0.006342334816171077,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,128,False,optimization_seconds,-0.00028557516634464264,0.0012613696934960226,4,-0.0015234251040965319,0.00044764974154531956,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,128,False,validation_gradient_trace_variance,-0.15330657391673164,0.053474351078742044,4,-0.1973040386558882,-0.10930910917757508,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,128,False,source_steps_training,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,128,False,direction_steps,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,128,False,validation_score_variance,-0.009118707640796808,0.0363867780867981,4,-0.03482982569225776,0.02709781159180638,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,128,False,q_bound,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,128,False,curvature_min,0.48,0.0,4,0.48,0.48,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,128,False,fixed_oracle_q_score_variance,-0.01620417977559918,0.007280568704896301,4,-0.02231036691713026,-0.010097992634068104,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,128,False,source_steps_total,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,128,False,curvature_max,-1.1199999999999997,0.0,4,-1.1199999999999997,-1.1199999999999997,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,128,False,direction_error,-0.0007331373555018619,0.004226192257352706,4,-0.004412908381614306,0.002586892697511659,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,128,False,q_coefficient_1,-0.011865792240000242,0.019589198620420845,4,-0.030496412717065047,0.001041598895657636,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,128,False,direction_norm,-0.004939478993219646,0.011432607617416312,4,-0.01622267644934696,0.004067534102555568,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,128,False,fixed_oracle_q_gradient_trace_variance,-0.3037725776032052,0.10712130917689322,4,-0.390540742028056,-0.22033554789578647,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,128,False,source_steps_validation,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,128,False,exact_score,0.0010666613520875067,0.004832944972971904,4,-0.002713931698458202,0.0054706295863938235,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,128,False,q_coefficient_0,0.010740105330335904,0.018643380511244888,4,-0.005033949213802971,0.02651415987447478,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,128,False,validation_score,0.00089940812722913,0.004554675953423999,4,-0.002585529968011739,0.004791398306696285,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,128,False,direction_loss,0.0021279323995278977,0.005224692344015832,4,-0.002138955351447626,0.0071841898822820275,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,128,False,optimization_seconds,0.0011359751224517822,0.0004483806301107716,4,0.0007574249757453799,0.0015269002178683877,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,128,False,validation_gradient_trace_variance,-0.21129106692303745,0.14525440144406582,4,-0.3371824549964224,-0.09754076092315955,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,128,False,source_steps_training,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,128,False,direction_steps,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,128,False,validation_score_variance,-0.011329619970039367,0.04312752214451686,4,-0.04570945041639239,0.03094970044596325,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,128,False,q_bound,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,128,False,curvature_min,0.48,0.0,4,0.48,0.48,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,128,False,fixed_oracle_q_score_variance,-0.02230574966139312,0.0075749016802568485,4,-0.02854888620081758,-0.01606261312196866,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,128,False,source_steps_total,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,128,False,curvature_max,-1.1199999999999997,0.0,4,-1.1199999999999997,-1.1199999999999997,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,128,False,direction_error,-0.0010666613520875193,0.004832944972971916,4,-0.0054706295863938565,0.002713931698458195,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,512,False,q_coefficient_1,0.006405309112520574,0.008511163989708574,4,0.0006006526733486339,0.014351152450749013,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,512,False,direction_norm,0.002763682077403136,0.00368624000909955,4,0.00028937653427672794,0.006231250014482458,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,512,False,fixed_oracle_q_gradient_trace_variance,-0.2153492238749516,0.10184854148144092,4,-0.29734661948537333,-0.13335182826452985,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,512,False,source_steps_validation,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,512,False,exact_score,-0.0004447651129205407,0.0006171381677839323,4,-0.001030023158879935,-5.432636270966129e-05,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,512,False,q_coefficient_0,-0.00013496047293807493,0.0006997996133228259,4,-0.0006936642361125948,0.000423743290236445,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,512,False,validation_score,-0.0003248237621151784,0.0006087967245939964,4,-0.0009346915417446401,1.5388742236683434e-05,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,512,False,direction_loss,-0.0015650094945542422,0.0020703085644912123,4,-0.003498254982859699,-0.00016087364206247498,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,512,False,optimization_seconds,0.0018599751638248563,0.003836704515625164,4,-0.0001528498250991106,0.005687350174412131,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,512,False,validation_gradient_trace_variance,-0.24641974140641187,0.13989519294982172,4,-0.3659915526806681,-0.12684793013215567,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,512,False,source_steps_training,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,512,False,direction_steps,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,512,False,validation_score_variance,0.01323372094587081,0.01873332602009093,4,0.0014330600977693272,0.03185910807263598,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,512,False,q_bound,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,512,False,curvature_min,0.48,0.0,4,0.48,0.48,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,512,False,fixed_oracle_q_score_variance,-0.01620417977559918,0.007280568704896301,4,-0.02231036691713026,-0.010097992634068104,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,512,False,source_steps_total,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,512,False,curvature_max,-1.1199999999999997,0.0,4,-1.1199999999999997,-1.1199999999999997,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,512,False,direction_error,0.00044476511292054,0.0006171381677839406,4,5.4326362709642426e-05,0.001030023158879935,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,512,False,q_coefficient_1,0.006336146767256301,0.008401029003559579,4,0.0005996187269397824,0.014172731291416468,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,512,False,direction_norm,0.002728987278626853,0.003615069585346742,4,0.0003044673180403329,0.00613333460393576,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,512,False,fixed_oracle_q_gradient_trace_variance,-0.3037725776032052,0.10712130917689322,4,-0.390540742028056,-0.22033554789578647,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,512,False,source_steps_validation,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,512,False,exact_score,-0.0004279209930528119,0.000590008184733864,4,-0.0009920867969509806,-5.915528699447503e-05,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,512,False,q_coefficient_0,4.47754630970177e-05,0.0008185602637296739,4,-0.0005980082854612767,0.0006976263433254321,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,512,False,validation_score,-0.00021407555638495654,0.00040087791455511827,4,-0.0006122247871141566,1.9914180349342447e-05,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,512,False,direction_loss,-0.0015511561639423334,0.002044627140235743,4,-0.0034692839943085453,-0.0001726901454252444,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,512,False,optimization_seconds,-0.00039240007754415274,0.0002071389187948625,4,-0.0005642001051455736,-0.00022060004994273186,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,512,False,validation_gradient_trace_variance,-0.34530937302808873,0.1583375012829133,4,-0.47889585777205745,-0.21172288828412,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,512,False,source_steps_training,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,512,False,direction_steps,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,512,False,validation_score_variance,0.015396580819133664,0.02129989410410986,4,0.0016726181512728491,0.03669906440272708,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,512,False,q_bound,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,512,False,curvature_min,0.48,0.0,4,0.48,0.48,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,512,False,fixed_oracle_q_score_variance,-0.02230574966139312,0.0075749016802568485,4,-0.02854888620081758,-0.01606261312196866,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,512,False,source_steps_total,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,512,False,curvature_max,-1.1199999999999997,0.0,4,-1.1199999999999997,-1.1199999999999997,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,512,False,direction_error,0.00042792099305281954,0.0005900081847338447,4,5.915528699448522e-05,0.000992086796950968,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,2048,False,q_coefficient_1,-0.0020382446931389575,0.005915078971079852,4,-0.006782669047811496,0.003171995306941705,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,2048,False,direction_norm,-0.0007741233188792752,0.002207266046693636,4,-0.0024973503769757863,0.0011423180654495067,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,2048,False,fixed_oracle_q_gradient_trace_variance,-0.2153492238749516,0.10184854148144092,4,-0.29734661948537333,-0.13335182826452985,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,2048,False,source_steps_validation,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,2048,False,exact_score,6.227844678970487e-05,0.00011782669244132939,4,-3.0527802625572587e-05,0.00015610646552978447,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,2048,False,q_coefficient_0,0.0006893194979337314,0.0022250813856469283,4,-0.0009525442418528707,0.0027326273903246715,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,2048,False,validation_score,0.00022377040991182484,0.00029060457832083596,4,-7.672313840120792e-06,0.0004552131336637705,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,2048,False,direction_loss,0.0004011452761381665,0.0010721153778508817,4,-0.000512514132120969,0.0012443858722825697,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,2048,False,optimization_seconds,0.0021938499994575977,0.00230833612611012,4,0.0002711999695748091,0.004116500029340386,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,2048,False,validation_gradient_trace_variance,-0.23055238048470628,0.11687200867819347,4,-0.3236801787603305,-0.13742458220908205,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,2048,False,source_steps_training,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,2048,False,direction_steps,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,2048,False,validation_score_variance,-0.004542067513273081,0.009128228471932827,4,-0.011857395000688581,0.0027732599741424196,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,2048,False,q_bound,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,2048,False,curvature_min,0.48,0.0,4,0.48,0.48,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,2048,False,fixed_oracle_q_score_variance,-0.01620417977559918,0.007280568704896301,4,-0.02231036691713026,-0.010097992634068104,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,2048,False,source_steps_total,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,2048,False,curvature_max,-1.1199999999999997,0.0,4,-1.1199999999999997,-1.1199999999999997,paired_training_seed_or_data_batch,True
+P-E,AN - SA,exact_advantage,2048,False,direction_error,-6.227844678970352e-05,0.00011782669244133216,4,-0.00015610646552978357,3.0527802625576984e-05,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,2048,False,q_coefficient_1,-0.001954553058307454,0.0057921468911126825,4,-0.0065820505038388655,0.003182951283011201,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,2048,False,direction_norm,-0.0007568870389616442,0.002219365590459108,4,-0.002487853188676937,0.0011850873680378203,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,2048,False,fixed_oracle_q_gradient_trace_variance,-0.3037725776032052,0.10712130917689322,4,-0.390540742028056,-0.22033554789578647,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,2048,False,source_steps_validation,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,2048,False,exact_score,7.660916702578041e-05,0.00017103694603339545,4,-5.484047510064677e-05,0.0002160977410094779,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,2048,False,q_coefficient_0,0.0007190064946111597,0.0021043536446957614,4,-0.0007959193778083896,0.0026504308279195607,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,2048,False,validation_score,0.00015331629867851998,0.0002656160567982701,4,-5.996171978574216e-05,0.0003665943171427821,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,2048,False,direction_loss,0.00042245771423997033,0.0011323385391175677,4,-0.0005423540458548669,0.0013174954099055142,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,2048,False,optimization_seconds,0.0036391252651810646,0.0040995855827623984,4,0.0005359750939533114,0.007514750235714018,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,2048,False,validation_gradient_trace_variance,-0.3329807010301564,0.13143840578345461,4,-0.44309861466677236,-0.23320313756844602,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,2048,False,source_steps_training,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,2048,False,direction_steps,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,2048,False,validation_score_variance,-0.0054532146633267525,0.010850570957099214,4,-0.014139369994487505,0.003232940667834,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,2048,False,q_bound,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,2048,False,curvature_min,0.48,0.0,4,0.48,0.48,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,2048,False,fixed_oracle_q_score_variance,-0.02230574966139312,0.0075749016802568485,4,-0.02854888620081758,-0.01606261312196866,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,2048,False,source_steps_total,0.0,0.0,4,0.0,0.0,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,2048,False,curvature_max,-1.1199999999999997,0.0,4,-1.1199999999999997,-1.1199999999999997,paired_training_seed_or_data_batch,True
+P-E,AN - SA,mc_raw,2048,False,direction_error,-7.660916702577172e-05,0.00017103694603341592,4,-0.00021609774100949644,5.484047510066653e-05,paired_training_seed_or_data_batch,True
