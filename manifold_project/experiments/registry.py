@@ -17,6 +17,7 @@ APPLICATION = CORE + ("MAPPO-E", "IPPO-E")
 EXPERIMENTS = {item.id: item for item in (
     Experiment("P-E", "direction_estimation", "pair", "finite", ("AN", "SA")),
     Experiment("P-A", "actor_realization", "pair", "finite", CORE),
+    Experiment("P-EA", "estimated_direction_realization", "pair", "finite", ("AN", "SA"), "P-E"),
     Experiment("P-T", "conditional_transfer", "pair", "finite", CORE),
     Experiment("P-I", "information_loss", "pair", "finite", ()),
     Experiment("P-L", "source_learning", "pair", "finite", CORE),

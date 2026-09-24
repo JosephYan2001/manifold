@@ -36,6 +36,18 @@ python -m manifold_project.experiments --experiments P-E P-A P-T --profile pilot
 
 然后是成对多轮、输入边界和两步模型：
 
+补充机制链实验 `P-EA` 直接读取已完成 P-E 的方向系数，分别交给完整和受限 Actor 拟合，不重新学习方向。推荐先用 MC 标签、2048 回合、AN/SA 和 20 个 P-E 数据种子：
+
+```powershell
+python -m manifold_project.experiments --experiments P-EA --profile formal --source manifold_project/experiments/results/pair_estimation_20seeds_v1 --config manifold_project/experiments/configs/pair_ea_mc.json --sample-sizes 2048 --output manifold_project/experiments/results/pair_ea_mc2048_20seeds_v1 --plot
+```
+
+这里 `formal` 提供默认数据种子 1000–1019；不执行长期训练，也不重新运行 P-E。使用 `--data-seeds` 筛选源方向，不能使用 `--seeds`。默认拟合步数为 1、10、100、1000，共 320 条记录。去掉 `--sample-sizes 2048` 可覆盖默认全部四档样本量；去掉 MC 配置参数可同时覆盖精确与 MC 标签。请求的每条方向必须已经存在，否则报错，不会悄悄补训。
+
+P-EA 核对源 manifest 完成状态、协议与环境参数，并重建源采样批次核对包含基础策略的哈希，再核对方向误差定义。输出保存源 manifest/CSV/代码指纹以及每条方向的数据种子、方法、标签、样本量。旧源码指纹可以与新实现不同，但重建哈希或方向语义核对不通过时停止。
+
+重点对照 `source_direction_error → ideal_return_gain → direction_realization_residual → actual_return_gain`，并记录实际 `old_new_kl`。不同方法沿用共同 eta，并非实际 KL 匹配实验。拟合使用重建的同一源经验，不增加训练环境样本；`additional_training_environment_steps=0`。`source_steps_total` 沿用 P-A 的“源批次加验证批次”规模口径，不是新增交互成本；重放和报告验证另有显式字段。各拟合步数不是独立重复。
+
 ```powershell
 python -m manifold_project.experiments --experiments P-I P-B P-L T-V T-L --profile pilot --output manifold_project/experiments/results/finite_learning_pilot_v1 --plot
 python -m manifold_project.experiments --experiments P-TB --profile pilot --device cuda --output manifold_project/experiments/results/pair_entities_pilot_v1 --plot
@@ -79,6 +91,8 @@ python -m manifold_project.experiments --experiments W-T W-L W-F --profile pilot
 原训练器保留完整轮次 checkpoint 和恢复逻辑。单次成对入口和导航原套件入口保留相应恢复参数；当前统一矩阵入口尚不提供自动续训开关。更换观测结构后，旧展平网络 checkpoint 不能直接当作实体网络继续训练。停用重写框架的 `entity_experiments_v1` checkpoint 已不再由当前评价入口加载。
 
 ## 5. 文件、监控与回放
+
+现有数据的职责、归档位置与最新分析统一见 [results/README.md](results/README.md)。首批 pilot 已归档至 `results/archive/`，四组检查敏感性结果集中于 `results/pair_checks/`；原始运行清单保留当时路径。
 
 - `manifest.json`：套件配置、代码与依赖信息、实验完成状态。
 - `summary.csv`、`analysis.md`：跨种子指标、配对差值和解释边界；单种子不生成虚假的种子置信区间。

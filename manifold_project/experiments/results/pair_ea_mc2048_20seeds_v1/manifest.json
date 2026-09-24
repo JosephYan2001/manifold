@@ -1,0 +1,191 @@
+{
+  "protocol_version": "direction-v1",
+  "status": "completed",
+  "created_utc": "2026-09-24T16:55:14.785638+00:00",
+  "metadata": {
+    "python": "3.12.3 | packaged by conda-forge | (main, Apr 15 2024, 18:20:11) [MSC v.1938 64 bit (AMD64)]",
+    "executable": "C:\\ProgramData\\anaconda3\\python.exe",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "versions": {
+      "numpy": "1.26.4",
+      "torch": "2.7.1+cu118",
+      "matplotlib": "3.8.4",
+      "mpe2": null,
+      "rware": null,
+      "gymnasium": "1.2.0"
+    },
+    "experiment_code_sha256": "0c6b17a750381086051a1ef3792072dd857aa5704d466eb3f97a9ec3d23f71de",
+    "cublas_workspace_config": ":4096:8",
+    "duplicate_openmp_allowed": true
+  },
+  "command_arguments": {
+    "experiments": [
+      "P-EA"
+    ],
+    "profile": "formal",
+    "methods": null,
+    "seeds": null,
+    "data_seeds": null,
+    "sample_sizes": [
+      2048
+    ],
+    "fit_steps": null,
+    "budget": null,
+    "evaluation_episodes": null,
+    "device": null,
+    "threads": null,
+    "config": "manifold_project\\experiments\\configs\\pair_ea_mc.json",
+    "output": "manifold_project\\experiments\\results\\pair_ea_mc2048_20seeds_v1",
+    "source": "manifold_project\\experiments\\results\\pair_estimation_20seeds_v1",
+    "checkpoints": null,
+    "plot": true,
+    "plot_every": null,
+    "allow_duplicate_openmp": false,
+    "dry_run": false,
+    "list": false
+  },
+  "experiments": {
+    "P-EA": {
+      "status": "completed",
+      "config": {
+        "environment": "pair",
+        "profile": "formal",
+        "protocol_version": "direction-v1",
+        "smoke_only": false,
+        "seed": 40,
+        "seeds": [
+          100,
+          101,
+          102,
+          103,
+          104
+        ],
+        "data_seeds": [
+          1000,
+          1001,
+          1002,
+          1003,
+          1004,
+          1005,
+          1006,
+          1007,
+          1008,
+          1009,
+          1010,
+          1011,
+          1012,
+          1013,
+          1014,
+          1015,
+          1016,
+          1017,
+          1018,
+          1019
+        ],
+        "sample_sizes": [
+          2048
+        ],
+        "fit_steps": [
+          1,
+          10,
+          100,
+          1000
+        ],
+        "budget": 65536,
+        "n_agents": 4,
+        "horizon": 1,
+        "gamma": 0.99,
+        "target_sizes": [
+          2,
+          6
+        ],
+        "device": "cpu",
+        "torch_threads": 1,
+        "deterministic": true,
+        "actor_lr": 0.03,
+        "critic_lr": 0.001,
+        "direction_lr": 0.03,
+        "hidden": 128,
+        "heads": 4,
+        "relation_layers": 2,
+        "observation_mode": "full",
+        "direction_steps": 100,
+        "actor_fit_steps": 100,
+        "critic_steps": 20,
+        "rollout_steps": 4096,
+        "minibatch_size": 512,
+        "step_sizes": [
+          0.1,
+          0.05,
+          0.01
+        ],
+        "batch_episodes": 128,
+        "critic_episodes": 128,
+        "direction_check": true,
+        "return_check": true,
+        "check_episodes": 8,
+        "direction_threshold": 0.0,
+        "return_tolerance": 0.0,
+        "q_bound": 5.0,
+        "probability_floor": 1e-05,
+        "max_grad_norm": 10.0,
+        "label_mode": "mc",
+        "gae_lambda": 0.95,
+        "entropy_coef": 0.01,
+        "ppo_clip": 0.2,
+        "ppo_epochs": 10,
+        "value_normalization": true,
+        "eval_every_steps": 500000,
+        "source_eval_episodes": 100,
+        "evaluation_episodes": 500,
+        "plot_every": 10,
+        "plot": true,
+        "deterministic_evaluation": false,
+        "save_fit_diagnostics": true,
+        "fit_snapshot_fractions": [
+          0.25,
+          0.5,
+          1.0
+        ],
+        "local_ratio": 0.5,
+        "coverage_radius": 0.1,
+        "initial_scale": 1.0,
+        "sensor_range": 1,
+        "request_queue_size": 4,
+        "type_probability": 0.6,
+        "interaction_strength": 2.0,
+        "source_agents": 4,
+        "pair_variant": "normalized",
+        "methods": [
+          "AN",
+          "SA"
+        ],
+        "labels": [
+          "mc_zero"
+        ],
+        "learning_labels": [
+          "mc"
+        ],
+        "allow_duplicate_openmp": false,
+        "render_mode": null,
+        "evaluation_seed": 1000000,
+        "experiment_id": "P-EA",
+        "direction_source": "D:\\manifold\\manifold_project\\experiments\\results\\pair_estimation_20seeds_v1"
+      },
+      "directory": "P-EA_estimated_direction_realization",
+      "runs": [
+        {
+          "status": "completed",
+          "diagnostics_rows": 320,
+          "execution_backend": "numpy_cpu",
+          "implementation_scope": "finite_protocol_v1"
+        }
+      ],
+      "elapsed_seconds": 20.50363070005551,
+      "records": 320,
+      "checkpoints": []
+    }
+  },
+  "archive_sha256": "3872988f36a6a94a9dc4527ccd4b0ec894be217e0fa01b3f733709824efe09c6",
+  "completed_utc": "2026-09-24T16:55:38.394197+00:00"
+}

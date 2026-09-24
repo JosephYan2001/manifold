@@ -1,0 +1,1261 @@
+﻿experiment,method,variant,source_n,target_n,smoke_only,metric,mean,std,independent_units,ci95_low,ci95_high,interval_unit,small_sample
+P-T,AN,normalized,4,2,False,target_plus_type_probability,0.5999999999999999,1.1702778228589004e-16,10,0.5999999999999999,0.5999999999999999,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,density_ratio,1.0,0.0,10,1.0,1.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,neighbor_weight,2.0,0.0,10,2.0,2.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,semantic_drift,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,target_local_energy,0.06652799999999993,0.0,10,0.06652799999999993,0.06652799999999993,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,target_path_derivative,0.10978307503593925,0.05961660381067148,10,0.07029812127540531,0.1414550885127629,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,target_normalized_path_derivative,0.05489153751796962,0.02980830190533574,10,0.03514906063770266,0.07072754425638145,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,old_return,0.14079999999999998,0.0,10,0.14079999999999998,0.14079999999999998,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,return,0.15000731814005971,0.005903901089745747,10,0.14635248108234217,0.1533255236074789,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,return_gain,0.009207318140059734,0.005903901089745747,10,0.005552481082342147,0.012525523607478899,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,source_steps_total,2150.4,47.2233463918478,10,2124.8,2176.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,source_steps_return_check,70.4,47.2233463918478,10,44.8,96.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,eta,0.06500000000000002,0.04116363011742823,10,0.04,0.085,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,attempts,1.1,0.7378647873726218,10,0.7,1.5,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,forward_kl_training,2.6726123977718102e-09,2.381942097074276e-09,8,1.2930575630434468e-09,4.444806679679908e-09,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,direction_loss,-0.06956381576423196,0.017826978136562255,10,-0.08078784601714657,-0.059661588488773606,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,direction_steps,100.0,0.0,10,100.0,100.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,q_bound,5.0,0.0,10,5.0,5.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,direction_check_score,0.07609128368592072,0.08976276455780433,10,0.025613388521893644,0.13088751556745445,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,return_check_gain,0.05052083333333333,0.04977317100192936,8,0.01979166666666667,0.08541666666666665,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,return_check_standard_error,0.05573461117528389,0.04371268437123511,8,0.029127414855155468,0.08440038179349935,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,target_true_coefficient_0,0.05999999999999981,7.314236392868128e-18,10,0.05999999999999981,0.05999999999999981,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,target_true_coefficient_1,0.3599999999999998,0.0,10,0.3599999999999998,0.3599999999999998,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,frozen_actor_p_0,0.300831156279891,0.001396013719126465,10,0.30000118719692764,0.30164174141203814,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,frozen_actor_p_1,0.7100569097063559,0.006417666737521844,10,0.7060680570466227,0.7136780861064307,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,source_direction_error,0.0017881488528157948,0.0015516113406845243,10,0.0009955464128000083,0.0027581877109285158,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,source_realization_residual,0.011787299127391843,0.02591849148767338,10,7.96367843599656e-07,0.02982921303043657,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,target_direction_error,0.01478631751048107,0.027313492020871202,10,0.001503809536844568,0.034038360794421886,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,transport_error_upper_bound,0.017363807995302523,0.03324278912366773,10,0.0015333190656974555,0.03933447600841997,training_seed_or_data_batch,False
+P-T,AN,normalized,4,2,False,normalized_derivative_lower_bound,0.043828270465781374,0.02666461861686986,10,0.025885770315314686,0.057102794730337525,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,target_plus_type_probability,0.5999999999999999,1.1702778228589004e-16,10,0.5999999999999999,0.5999999999999999,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,density_ratio,1.0,0.0,10,1.0,1.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,neighbor_weight,2.0,0.0,10,2.0,2.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,semantic_drift,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,target_local_energy,0.06652799999999993,0.0,10,0.06652799999999993,0.06652799999999993,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,target_path_derivative,0.2195661500718785,0.11923320762134296,10,0.14059624255081063,0.2829101770255258,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,target_normalized_path_derivative,0.05489153751796962,0.02980830190533574,10,0.03514906063770266,0.07072754425638145,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,old_return,0.28159999999999996,0.0,10,0.28159999999999996,0.28159999999999996,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,return,0.30001463628011943,0.011807802179491494,10,0.29270496216468433,0.3066510472149578,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,return_gain,0.018414636280119467,0.011807802179491494,10,0.011104962164684293,0.025051047214957798,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,source_steps_total,2150.4,47.2233463918478,10,2124.8,2176.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,source_steps_return_check,70.4,47.2233463918478,10,44.8,96.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,eta,0.06500000000000002,0.04116363011742823,10,0.04,0.085,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,attempts,1.1,0.7378647873726218,10,0.7,1.5,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,forward_kl_training,2.6726123977718102e-09,2.381942097074276e-09,8,1.2930575630434468e-09,4.444806679679908e-09,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,direction_loss,-0.06956381576423196,0.017826978136562255,10,-0.08078784601714657,-0.059661588488773606,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,direction_steps,100.0,0.0,10,100.0,100.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,q_bound,5.0,0.0,10,5.0,5.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,direction_check_score,0.07609128368592072,0.08976276455780433,10,0.025613388521893644,0.13088751556745445,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,return_check_gain,0.05052083333333333,0.04977317100192936,8,0.01979166666666667,0.08541666666666665,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,return_check_standard_error,0.05573461117528389,0.04371268437123511,8,0.029127414855155468,0.08440038179349935,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,target_true_coefficient_0,0.05999999999999981,7.314236392868128e-18,10,0.05999999999999981,0.05999999999999981,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,target_true_coefficient_1,0.3599999999999998,0.0,10,0.3599999999999998,0.3599999999999998,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,frozen_actor_p_0,0.300831156279891,0.001396013719126465,10,0.30000118719692764,0.30164174141203814,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,frozen_actor_p_1,0.7100569097063559,0.006417666737521844,10,0.7060680570466227,0.7136780861064307,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,source_direction_error,0.0017881488528157948,0.0015516113406845243,10,0.0009955464128000083,0.0027581877109285158,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,source_realization_residual,0.011787299127391843,0.02591849148767338,10,7.96367843599656e-07,0.02982921303043657,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,target_direction_error,0.01478631751048107,0.027313492020871202,10,0.001503809536844568,0.034038360794421886,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,transport_error_upper_bound,0.017363807995302523,0.03324278912366773,10,0.0015333190656974555,0.03933447600841997,training_seed_or_data_batch,False
+P-T,AN,normalized,4,4,False,normalized_derivative_lower_bound,0.043828270465781374,0.02666461861686986,10,0.025885770315314686,0.057102794730337525,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,target_plus_type_probability,0.5999999999999999,1.1702778228589004e-16,10,0.5999999999999999,0.5999999999999999,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,density_ratio,1.0,0.0,10,1.0,1.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,neighbor_weight,2.0,0.0,10,2.0,2.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,semantic_drift,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,target_local_energy,0.06652799999999993,0.0,10,0.06652799999999993,0.06652799999999993,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,target_path_derivative,0.3293492251078177,0.17884981143201445,10,0.21089436382621593,0.4243652655382887,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,target_normalized_path_derivative,0.05489153751796962,0.02980830190533574,10,0.03514906063770266,0.07072754425638145,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,old_return,0.42239999999999994,0.0,10,0.42239999999999994,0.42239999999999994,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,return,0.45002195442017917,0.017711703269237242,10,0.4390574432470264,0.4599765708224367,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,return_gain,0.02762195442017921,0.017711703269237242,10,0.01665744324702645,0.037576570822436706,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,source_steps_total,2150.4,47.2233463918478,10,2124.8,2176.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,source_steps_return_check,70.4,47.2233463918478,10,44.8,96.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,eta,0.06500000000000002,0.04116363011742823,10,0.04,0.085,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,attempts,1.1,0.7378647873726218,10,0.7,1.5,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,forward_kl_training,2.6726123977718102e-09,2.381942097074276e-09,8,1.2930575630434468e-09,4.444806679679908e-09,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,direction_loss,-0.06956381576423196,0.017826978136562255,10,-0.08078784601714657,-0.059661588488773606,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,direction_steps,100.0,0.0,10,100.0,100.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,q_bound,5.0,0.0,10,5.0,5.0,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,direction_check_score,0.07609128368592072,0.08976276455780433,10,0.025613388521893644,0.13088751556745445,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,return_check_gain,0.05052083333333333,0.04977317100192936,8,0.01979166666666667,0.08541666666666665,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,return_check_standard_error,0.05573461117528389,0.04371268437123511,8,0.029127414855155468,0.08440038179349935,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,target_true_coefficient_0,0.05999999999999981,7.314236392868128e-18,10,0.05999999999999981,0.05999999999999981,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,target_true_coefficient_1,0.3599999999999998,0.0,10,0.3599999999999998,0.3599999999999998,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,frozen_actor_p_0,0.300831156279891,0.001396013719126465,10,0.30000118719692764,0.30164174141203814,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,frozen_actor_p_1,0.7100569097063559,0.006417666737521844,10,0.7060680570466227,0.7136780861064307,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,source_direction_error,0.0017881488528157948,0.0015516113406845243,10,0.0009955464128000083,0.0027581877109285158,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,source_realization_residual,0.011787299127391843,0.02591849148767338,10,7.96367843599656e-07,0.02982921303043657,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,target_direction_error,0.01478631751048107,0.027313492020871202,10,0.001503809536844568,0.034038360794421886,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,transport_error_upper_bound,0.017363807995302523,0.03324278912366773,10,0.0015333190656974555,0.03933447600841997,training_seed_or_data_batch,False
+P-T,AN,normalized,4,6,False,normalized_derivative_lower_bound,0.043828270465781374,0.02666461861686986,10,0.025885770315314686,0.057102794730337525,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,target_plus_type_probability,0.5999999999999999,1.1702778228589004e-16,10,0.5999999999999999,0.5999999999999999,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,density_ratio,1.0,0.0,10,1.0,1.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,neighbor_weight,0.6666666666666667,1.1702778228589004e-16,10,0.6666666666666667,0.6666666666666667,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,semantic_drift,0.00955733333333331,0.0,10,0.00955733333333331,0.00955733333333331,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,target_local_energy,0.033077333333333334,0.0,10,0.033077333333333334,0.033077333333333334,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,target_path_derivative,0.07535296762996889,0.040659924101415966,10,0.048293221240842725,0.09671638534102038,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,target_normalized_path_derivative,0.037676483814984445,0.020329962050707983,10,0.024146610620421362,0.04835819267051019,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,old_return,0.1322666666666667,2.925694557147251e-17,10,0.1322666666666667,0.1322666666666667,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,return,0.13846532714953208,0.003996955155366679,10,0.13599080132093846,0.14071297067646713,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,return_gain,0.006198660482865398,0.003996955155366679,10,0.003724134654271778,0.008446304009800459,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,source_steps_total,2150.4,47.2233463918478,10,2124.8,2176.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,source_steps_return_check,70.4,47.2233463918478,10,44.8,96.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,eta,0.06500000000000002,0.04116363011742823,10,0.04,0.085,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,attempts,1.1,0.7378647873726218,10,0.7,1.5,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,forward_kl_training,2.6726123977718102e-09,2.381942097074276e-09,8,1.2930575630434468e-09,4.444806679679908e-09,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,direction_loss,-0.06956381576423196,0.017826978136562255,10,-0.08078784601714657,-0.059661588488773606,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,direction_steps,100.0,0.0,10,100.0,100.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,q_bound,5.0,0.0,10,5.0,5.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,direction_check_score,0.07609128368592072,0.08976276455780433,10,0.025613388521893644,0.13088751556745445,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,return_check_gain,0.05052083333333333,0.04977317100192936,8,0.01979166666666667,0.08541666666666665,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,return_check_standard_error,0.05573461117528389,0.04371268437123511,8,0.029127414855155468,0.08440038179349935,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,target_true_coefficient_0,-0.04666666666666674,0.0,10,-0.04666666666666674,-0.04666666666666674,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,target_true_coefficient_1,0.2533333333333333,0.0,10,0.2533333333333333,0.2533333333333333,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,frozen_actor_p_0,0.300831156279891,0.001396013719126465,10,0.30000118719692764,0.30164174141203814,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,frozen_actor_p_1,0.7100569097063559,0.006417666737521844,10,0.7060680570466227,0.7136780861064307,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,source_direction_error,0.0017881488528157948,0.0015516113406845243,10,0.0009955464128000083,0.0027581877109285158,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,source_realization_residual,0.011787299127391843,0.02591849148767338,10,7.96367843599656e-07,0.02982921303043657,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,target_direction_error,0.015765758249784833,0.011725093968345365,10,0.009280470385087518,0.022861905120983475,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,transport_error_upper_bound,0.044128603009610065,0.05334248068196783,10,0.018256033588657492,0.07976975655286675,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,2,False,normalized_derivative_lower_bound,-0.0007087750826834701,0.01880175492353979,10,-0.013360390145770075,0.008651356991017487,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,target_plus_type_probability,0.5999999999999999,1.1702778228589004e-16,10,0.5999999999999999,0.5999999999999999,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,density_ratio,1.0,0.0,10,1.0,1.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,neighbor_weight,2.0,0.0,10,2.0,2.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,semantic_drift,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,target_local_energy,0.06652799999999993,0.0,10,0.06652799999999993,0.06652799999999993,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,target_path_derivative,0.2195661500718785,0.11923320762134296,10,0.14059624255081063,0.2829101770255258,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,target_normalized_path_derivative,0.05489153751796962,0.02980830190533574,10,0.03514906063770266,0.07072754425638145,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,old_return,0.28159999999999996,0.0,10,0.28159999999999996,0.28159999999999996,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,return,0.30001463628011943,0.011807802179491494,10,0.29270496216468433,0.3066510472149578,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,return_gain,0.018414636280119467,0.011807802179491494,10,0.011104962164684293,0.025051047214957798,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,source_steps_total,2150.4,47.2233463918478,10,2124.8,2176.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,source_steps_return_check,70.4,47.2233463918478,10,44.8,96.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,eta,0.06500000000000002,0.04116363011742823,10,0.04,0.085,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,attempts,1.1,0.7378647873726218,10,0.7,1.5,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,forward_kl_training,2.6726123977718102e-09,2.381942097074276e-09,8,1.2930575630434468e-09,4.444806679679908e-09,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,direction_loss,-0.06956381576423196,0.017826978136562255,10,-0.08078784601714657,-0.059661588488773606,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,direction_steps,100.0,0.0,10,100.0,100.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,q_bound,5.0,0.0,10,5.0,5.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,direction_check_score,0.07609128368592072,0.08976276455780433,10,0.025613388521893644,0.13088751556745445,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,return_check_gain,0.05052083333333333,0.04977317100192936,8,0.01979166666666667,0.08541666666666665,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,return_check_standard_error,0.05573461117528389,0.04371268437123511,8,0.029127414855155468,0.08440038179349935,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,target_true_coefficient_0,0.05999999999999981,7.314236392868128e-18,10,0.05999999999999981,0.05999999999999981,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,target_true_coefficient_1,0.3599999999999998,0.0,10,0.3599999999999998,0.3599999999999998,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,frozen_actor_p_0,0.300831156279891,0.001396013719126465,10,0.30000118719692764,0.30164174141203814,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,frozen_actor_p_1,0.7100569097063559,0.006417666737521844,10,0.7060680570466227,0.7136780861064307,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,source_direction_error,0.0017881488528157948,0.0015516113406845243,10,0.0009955464128000083,0.0027581877109285158,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,source_realization_residual,0.011787299127391843,0.02591849148767338,10,7.96367843599656e-07,0.02982921303043657,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,target_direction_error,0.01478631751048107,0.027313492020871202,10,0.001503809536844568,0.034038360794421886,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,transport_error_upper_bound,0.017363807995302523,0.03324278912366773,10,0.0015333190656974555,0.03933447600841997,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,4,False,normalized_derivative_lower_bound,0.043828270465781374,0.02666461861686986,10,0.025885770315314686,0.057102794730337525,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,target_plus_type_probability,0.5999999999999999,1.1702778228589004e-16,10,0.5999999999999999,0.5999999999999999,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,density_ratio,1.0,0.0,10,1.0,1.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,neighbor_weight,3.333333333333333,0.0,10,3.333333333333333,3.333333333333333,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,semantic_drift,0.009557333333333307,0.0,10,0.009557333333333307,0.009557333333333307,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,target_local_energy,0.11909333333333313,1.4628472785736255e-17,10,0.11909333333333313,0.11909333333333313,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,target_path_derivative,0.4326395473257289,0.23612175023470094,10,0.2784651296439336,0.5584872273186198,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,target_normalized_path_derivative,0.07210659122095481,0.039353625039116824,10,0.04641085494065561,0.0930812045531033,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,old_return,0.4479999999999998,5.851389114294502e-17,10,0.4479999999999998,0.4479999999999998,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,return,0.484647927391762,0.02345832016526312,10,0.47021198836651235,0.49777746379349197,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,return_gain,0.03664792739176223,0.02345832016526312,10,0.02221198836651254,0.0497774637934921,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,source_steps_total,2150.4,47.2233463918478,10,2124.8,2176.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,source_steps_return_check,70.4,47.2233463918478,10,44.8,96.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,eta,0.06500000000000002,0.04116363011742823,10,0.04,0.085,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,attempts,1.1,0.7378647873726218,10,0.7,1.5,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,forward_kl_training,2.6726123977718102e-09,2.381942097074276e-09,8,1.2930575630434468e-09,4.444806679679908e-09,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,direction_loss,-0.06956381576423196,0.017826978136562255,10,-0.08078784601714657,-0.059661588488773606,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,direction_steps,100.0,0.0,10,100.0,100.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,q_bound,5.0,0.0,10,5.0,5.0,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,direction_check_score,0.07609128368592072,0.08976276455780433,10,0.025613388521893644,0.13088751556745445,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,return_check_gain,0.05052083333333333,0.04977317100192936,8,0.01979166666666667,0.08541666666666665,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,return_check_standard_error,0.05573461117528389,0.04371268437123511,8,0.029127414855155468,0.08440038179349935,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,target_true_coefficient_0,0.16666666666666632,0.0,10,0.16666666666666632,0.16666666666666632,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,target_true_coefficient_1,0.46666666666666645,1.1702778228589004e-16,10,0.46666666666666645,0.46666666666666645,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,frozen_actor_p_0,0.300831156279891,0.001396013719126465,10,0.30000118719692764,0.30164174141203814,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,frozen_actor_p_1,0.7100569097063559,0.006417666737521844,10,0.7060680570466227,0.7136780861064307,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,source_direction_error,0.0017881488528157948,0.0015516113406845243,10,0.0009955464128000083,0.0027581877109285158,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,source_realization_residual,0.011787299127391843,0.02591849148767338,10,7.96367843599656e-07,0.02982921303043657,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,target_direction_error,0.032921543437843925,0.04576415198772112,10,0.009848574281061482,0.06453527875436244,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,transport_error_upper_bound,0.04412860300961006,0.053342480681967806,10,0.018256033588657485,0.07976975655286672,training_seed_or_data_batch,False
+P-T,AN,fixed-edge,4,6,False,normalized_derivative_lower_bound,0.054984680335243605,0.03567605855360713,10,0.030978423386150342,0.07274539582636874,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,target_plus_type_probability,0.4,0.0,10,0.4,0.4,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,density_ratio,1.4999999999999998,0.0,10,1.4999999999999998,1.4999999999999998,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,neighbor_weight,2.0,0.0,10,2.0,2.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,semantic_drift,0.08601599999999991,1.4628472785736255e-17,10,0.08601599999999991,0.08601599999999991,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,target_local_energy,0.03460799999999999,7.314236392868128e-18,10,0.03460799999999999,0.03460799999999999,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,target_path_derivative,-0.00030710850852242827,0.012010946868602924,10,-0.007379435477758533,0.006662558225943988,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,target_normalized_path_derivative,-0.00015355425426121413,0.006005473434301462,10,-0.0036897177388792667,0.003331279112971994,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,old_return,0.1248,0.0,10,0.1248,0.1248,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,return,0.12514613474157338,0.0009046581844070865,10,0.12465158160937703,0.12571236444148684,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,return_gain,0.0003461347415734048,0.0009046581844070865,10,-0.0001484183906229557,0.0009123644414868256,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,source_steps_total,2150.4,47.2233463918478,10,2124.8,2176.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,source_steps_return_check,70.4,47.2233463918478,10,44.8,96.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,eta,0.06500000000000002,0.04116363011742823,10,0.04,0.085,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,attempts,1.1,0.7378647873726218,10,0.7,1.5,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,forward_kl_training,2.6726123977718102e-09,2.381942097074276e-09,8,1.2930575630434468e-09,4.444806679679908e-09,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,direction_loss,-0.06956381576423196,0.017826978136562255,10,-0.08078784601714657,-0.059661588488773606,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,direction_steps,100.0,0.0,10,100.0,100.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,q_bound,5.0,0.0,10,5.0,5.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,direction_check_score,0.07609128368592072,0.08976276455780433,10,0.025613388521893644,0.13088751556745445,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,return_check_gain,0.05052083333333333,0.04977317100192936,8,0.01979166666666667,0.08541666666666665,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,return_check_standard_error,0.05573461117528389,0.04371268437123511,8,0.029127414855155468,0.08440038179349935,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,target_true_coefficient_0,-0.25999999999999995,5.851389114294502e-17,10,-0.25999999999999995,-0.25999999999999995,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,target_true_coefficient_1,0.03999999999999998,0.0,10,0.03999999999999998,0.03999999999999998,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,frozen_actor_p_0,0.300831156279891,0.001396013719126465,10,0.30000118719692764,0.30164174141203814,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,frozen_actor_p_1,0.7100569097063559,0.006417666737521844,10,0.7060680570466227,0.7136780861064307,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,source_direction_error,0.0017881488528157948,0.0015516113406845243,10,0.0009955464128000083,0.0027581877109285158,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,source_realization_residual,0.011787299127391843,0.02591849148767338,10,7.96367843599656e-07,0.02982921303043657,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,target_direction_error,0.07453477806372671,0.029665309010406562,10,0.057729053606280445,0.09267351313276798,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,transport_error_upper_bound,0.1752859633232752,0.12386259960929107,10,0.11462016802007396,0.2586064757961688,training_seed_or_data_batch,False
+P-T,AN,composition,4,2,False,normalized_derivative_lower_bound,-0.040004193273797325,0.023554127582735913,10,-0.055853658205951735,-0.028278173763821544,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,target_plus_type_probability,0.5999999999999999,1.1702778228589004e-16,10,0.5999999999999999,0.5999999999999999,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,density_ratio,1.0,0.0,10,1.0,1.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,neighbor_weight,2.0,0.0,10,2.0,2.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,semantic_drift,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,target_local_energy,0.06652799999999993,0.0,10,0.06652799999999993,0.06652799999999993,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,target_path_derivative,0.2195661500718785,0.11923320762134296,10,0.14059624255081063,0.2829101770255258,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,target_normalized_path_derivative,0.05489153751796962,0.02980830190533574,10,0.03514906063770266,0.07072754425638145,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,old_return,0.28159999999999996,0.0,10,0.28159999999999996,0.28159999999999996,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,return,0.30001463628011943,0.011807802179491494,10,0.29270496216468433,0.3066510472149578,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,return_gain,0.018414636280119467,0.011807802179491494,10,0.011104962164684293,0.025051047214957798,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,source_steps_total,2150.4,47.2233463918478,10,2124.8,2176.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,source_steps_return_check,70.4,47.2233463918478,10,44.8,96.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,eta,0.06500000000000002,0.04116363011742823,10,0.04,0.085,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,attempts,1.1,0.7378647873726218,10,0.7,1.5,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,forward_kl_training,2.6726123977718102e-09,2.381942097074276e-09,8,1.2930575630434468e-09,4.444806679679908e-09,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,direction_loss,-0.06956381576423196,0.017826978136562255,10,-0.08078784601714657,-0.059661588488773606,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,direction_steps,100.0,0.0,10,100.0,100.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,q_bound,5.0,0.0,10,5.0,5.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,direction_check_score,0.07609128368592072,0.08976276455780433,10,0.025613388521893644,0.13088751556745445,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,return_check_gain,0.05052083333333333,0.04977317100192936,8,0.01979166666666667,0.08541666666666665,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,return_check_standard_error,0.05573461117528389,0.04371268437123511,8,0.029127414855155468,0.08440038179349935,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,target_true_coefficient_0,0.05999999999999981,7.314236392868128e-18,10,0.05999999999999981,0.05999999999999981,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,target_true_coefficient_1,0.3599999999999998,0.0,10,0.3599999999999998,0.3599999999999998,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,frozen_actor_p_0,0.300831156279891,0.001396013719126465,10,0.30000118719692764,0.30164174141203814,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,frozen_actor_p_1,0.7100569097063559,0.006417666737521844,10,0.7060680570466227,0.7136780861064307,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,source_direction_error,0.0017881488528157948,0.0015516113406845243,10,0.0009955464128000083,0.0027581877109285158,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,source_realization_residual,0.011787299127391843,0.02591849148767338,10,7.96367843599656e-07,0.02982921303043657,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,target_direction_error,0.01478631751048107,0.027313492020871202,10,0.001503809536844568,0.034038360794421886,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,transport_error_upper_bound,0.017363807995302523,0.03324278912366773,10,0.0015333190656974555,0.03933447600841997,training_seed_or_data_batch,False
+P-T,AN,composition,4,4,False,normalized_derivative_lower_bound,0.043828270465781374,0.02666461861686986,10,0.025885770315314686,0.057102794730337525,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,target_plus_type_probability,0.4,0.0,10,0.4,0.4,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,density_ratio,1.4999999999999998,0.0,10,1.4999999999999998,1.4999999999999998,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,neighbor_weight,2.0,0.0,10,2.0,2.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,semantic_drift,0.08601599999999991,1.4628472785736255e-17,10,0.08601599999999991,0.08601599999999991,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,target_local_energy,0.03460799999999999,7.314236392868128e-18,10,0.03460799999999999,0.03460799999999999,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,target_path_derivative,-0.0009213255255672837,0.03603284060580877,10,-0.0221383064332756,0.019987674677831965,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,target_normalized_path_derivative,-0.00015355425426121413,0.006005473434301462,10,-0.0036897177388792667,0.003331279112971994,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,old_return,0.3744,0.0,10,0.3744,0.3744,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,return,0.3754384042247202,0.0027139745532212666,10,0.3739547448281312,0.37713709332446044,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,return_gain,0.0010384042247202018,0.002713974553221266,10,-0.00044525517186886726,0.002737093324460474,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,source_steps_total,2150.4,47.2233463918478,10,2124.8,2176.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,source_steps_return_check,70.4,47.2233463918478,10,44.8,96.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,eta,0.06500000000000002,0.04116363011742823,10,0.04,0.085,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,attempts,1.1,0.7378647873726218,10,0.7,1.5,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,forward_kl_training,2.6726123977718102e-09,2.381942097074276e-09,8,1.2930575630434468e-09,4.444806679679908e-09,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,direction_loss,-0.06956381576423196,0.017826978136562255,10,-0.08078784601714657,-0.059661588488773606,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,direction_steps,100.0,0.0,10,100.0,100.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,q_bound,5.0,0.0,10,5.0,5.0,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,direction_check_score,0.07609128368592072,0.08976276455780433,10,0.025613388521893644,0.13088751556745445,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,return_check_gain,0.05052083333333333,0.04977317100192936,8,0.01979166666666667,0.08541666666666665,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,return_check_standard_error,0.05573461117528389,0.04371268437123511,8,0.029127414855155468,0.08440038179349935,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,target_true_coefficient_0,-0.25999999999999995,5.851389114294502e-17,10,-0.25999999999999995,-0.25999999999999995,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,target_true_coefficient_1,0.03999999999999998,0.0,10,0.03999999999999998,0.03999999999999998,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,frozen_actor_p_0,0.300831156279891,0.001396013719126465,10,0.30000118719692764,0.30164174141203814,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,frozen_actor_p_1,0.7100569097063559,0.006417666737521844,10,0.7060680570466227,0.7136780861064307,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,source_direction_error,0.0017881488528157948,0.0015516113406845243,10,0.0009955464128000083,0.0027581877109285158,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,source_realization_residual,0.011787299127391843,0.02591849148767338,10,7.96367843599656e-07,0.02982921303043657,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,target_direction_error,0.07453477806372671,0.029665309010406562,10,0.057729053606280445,0.09267351313276798,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,transport_error_upper_bound,0.1752859633232752,0.12386259960929107,10,0.11462016802007396,0.2586064757961688,training_seed_or_data_batch,False
+P-T,AN,composition,4,6,False,normalized_derivative_lower_bound,-0.040004193273797325,0.023554127582735913,10,-0.055853658205951735,-0.028278173763821544,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,target_plus_type_probability,0.5999999999999999,1.1702778228589004e-16,10,0.5999999999999999,0.5999999999999999,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,density_ratio,1.0,0.0,10,1.0,1.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,neighbor_weight,2.0,0.0,10,2.0,2.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,semantic_drift,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,target_local_energy,0.06652799999999993,0.0,10,0.06652799999999993,0.06652799999999993,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,target_path_derivative,0.11064219229317647,0.06021046033397593,10,0.07105413036971021,0.14265993198452334,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,target_normalized_path_derivative,0.055321096146588235,0.030105230166987965,10,0.03552706518485511,0.07132996599226167,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,old_return,0.14079999999999998,0.0,10,0.14079999999999998,0.14079999999999998,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,return,0.15007269621883107,0.005942927706994592,10,0.14640920399366877,0.1533905757028919,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,return_gain,0.009272696218831084,0.005942927706994592,10,0.005609203993668802,0.012590575702891932,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,source_steps_total,2150.4,47.2233463918478,10,2124.8,2176.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,source_steps_return_check,70.4,47.2233463918478,10,44.8,96.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,eta,0.06500000000000002,0.04116363011742823,10,0.04,0.085,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,attempts,1.1,0.7378647873726218,10,0.7,1.5,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,forward_kl_training,2.7765279615016374e-09,2.229055624363164e-09,8,1.510323210143672e-09,4.449693413658222e-09,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,direction_loss,-0.07003622274930033,0.01841879467338596,10,-0.08163010054922056,-0.05990840058080577,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,direction_steps,100.0,0.0,10,100.0,100.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,q_bound,5.0,0.0,10,5.0,5.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,direction_check_score,0.07657486592355511,0.09032841806926917,10,0.026168086985064787,0.13184503294053768,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,return_check_gain,0.05052083333333333,0.04977317100192936,8,0.01979166666666667,0.08541666666666665,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,return_check_standard_error,0.05573461117528389,0.04371268437123511,8,0.029127414855155468,0.08440038179349935,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,target_true_coefficient_0,0.05999999999999981,7.314236392868128e-18,10,0.05999999999999981,0.05999999999999981,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,target_true_coefficient_1,0.3599999999999998,0.0,10,0.3599999999999998,0.3599999999999998,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,frozen_actor_p_0,0.30082871814696394,0.00139189256571544,10,0.29999847537583996,0.3016229458452272,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,frozen_actor_p_1,0.7101261884061396,0.006454729228623117,10,0.7061158090943265,0.7137573253376919,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,source_direction_error,0.0019148010300353365,0.0017014138818062623,10,0.0010338651549950308,0.002984098369884584,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,source_realization_residual,0.011743603329071494,0.026070720789377676,10,9.042462493254152e-07,0.03042388139310322,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,target_direction_error,0.014866077044030307,0.027279897195834374,10,0.0015541783547893982,0.03405104965056818,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,transport_error_upper_bound,0.01763707365223758,0.03368554165524591,10,0.0015786520195753548,0.03971698851697103,training_seed_or_data_batch,False
+P-T,SA,normalized,4,2,False,normalized_derivative_lower_bound,0.04354402288136541,0.026772623491298497,10,0.025533121756722458,0.05701161321334615,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,target_plus_type_probability,0.5999999999999999,1.1702778228589004e-16,10,0.5999999999999999,0.5999999999999999,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,density_ratio,1.0,0.0,10,1.0,1.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,neighbor_weight,2.0,0.0,10,2.0,2.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,semantic_drift,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,target_local_energy,0.06652799999999993,0.0,10,0.06652799999999993,0.06652799999999993,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,target_path_derivative,0.22128438458635294,0.12042092066795186,10,0.14210826073942043,0.2853198639690467,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,target_normalized_path_derivative,0.055321096146588235,0.030105230166987965,10,0.03552706518485511,0.07132996599226167,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,old_return,0.28159999999999996,0.0,10,0.28159999999999996,0.28159999999999996,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,return,0.30014539243766214,0.011885855413989184,10,0.29281840798733755,0.3067811514057838,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,return_gain,0.018545392437662168,0.011885855413989184,10,0.011218407987337604,0.025181151405783864,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,source_steps_total,2150.4,47.2233463918478,10,2124.8,2176.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,source_steps_return_check,70.4,47.2233463918478,10,44.8,96.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,eta,0.06500000000000002,0.04116363011742823,10,0.04,0.085,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,attempts,1.1,0.7378647873726218,10,0.7,1.5,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,forward_kl_training,2.7765279615016374e-09,2.229055624363164e-09,8,1.510323210143672e-09,4.449693413658222e-09,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,direction_loss,-0.07003622274930033,0.01841879467338596,10,-0.08163010054922056,-0.05990840058080577,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,direction_steps,100.0,0.0,10,100.0,100.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,q_bound,5.0,0.0,10,5.0,5.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,direction_check_score,0.07657486592355511,0.09032841806926917,10,0.026168086985064787,0.13184503294053768,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,return_check_gain,0.05052083333333333,0.04977317100192936,8,0.01979166666666667,0.08541666666666665,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,return_check_standard_error,0.05573461117528389,0.04371268437123511,8,0.029127414855155468,0.08440038179349935,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,target_true_coefficient_0,0.05999999999999981,7.314236392868128e-18,10,0.05999999999999981,0.05999999999999981,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,target_true_coefficient_1,0.3599999999999998,0.0,10,0.3599999999999998,0.3599999999999998,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,frozen_actor_p_0,0.30082871814696394,0.00139189256571544,10,0.29999847537583996,0.3016229458452272,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,frozen_actor_p_1,0.7101261884061396,0.006454729228623117,10,0.7061158090943265,0.7137573253376919,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,source_direction_error,0.0019148010300353365,0.0017014138818062623,10,0.0010338651549950308,0.002984098369884584,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,source_realization_residual,0.011743603329071494,0.026070720789377676,10,9.042462493254152e-07,0.03042388139310322,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,target_direction_error,0.014866077044030307,0.027279897195834374,10,0.0015541783547893982,0.03405104965056818,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,transport_error_upper_bound,0.01763707365223758,0.03368554165524591,10,0.0015786520195753548,0.03971698851697103,training_seed_or_data_batch,False
+P-T,SA,normalized,4,4,False,normalized_derivative_lower_bound,0.04354402288136541,0.026772623491298497,10,0.025533121756722458,0.05701161321334615,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,target_plus_type_probability,0.5999999999999999,1.1702778228589004e-16,10,0.5999999999999999,0.5999999999999999,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,density_ratio,1.0,0.0,10,1.0,1.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,neighbor_weight,2.0,0.0,10,2.0,2.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,semantic_drift,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,target_local_energy,0.06652799999999993,0.0,10,0.06652799999999993,0.06652799999999993,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,target_path_derivative,0.33192657687952937,0.1806313810019278,10,0.21316239110913057,0.42797979595356994,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,target_normalized_path_derivative,0.055321096146588235,0.030105230166987965,10,0.03552706518485511,0.07132996599226167,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,old_return,0.42239999999999994,0.0,10,0.42239999999999994,0.42239999999999994,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,return,0.45021808865649315,0.017828783120983786,10,0.4392276119810064,0.4601717271086757,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,return_gain,0.02781808865649325,0.017828783120983786,10,0.016827611981006404,0.03777172710867579,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,source_steps_total,2150.4,47.2233463918478,10,2124.8,2176.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,source_steps_return_check,70.4,47.2233463918478,10,44.8,96.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,eta,0.06500000000000002,0.04116363011742823,10,0.04,0.085,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,attempts,1.1,0.7378647873726218,10,0.7,1.5,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,forward_kl_training,2.7765279615016374e-09,2.229055624363164e-09,8,1.510323210143672e-09,4.449693413658222e-09,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,direction_loss,-0.07003622274930033,0.01841879467338596,10,-0.08163010054922056,-0.05990840058080577,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,direction_steps,100.0,0.0,10,100.0,100.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,q_bound,5.0,0.0,10,5.0,5.0,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,direction_check_score,0.07657486592355511,0.09032841806926917,10,0.026168086985064787,0.13184503294053768,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,return_check_gain,0.05052083333333333,0.04977317100192936,8,0.01979166666666667,0.08541666666666665,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,return_check_standard_error,0.05573461117528389,0.04371268437123511,8,0.029127414855155468,0.08440038179349935,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,target_true_coefficient_0,0.05999999999999981,7.314236392868128e-18,10,0.05999999999999981,0.05999999999999981,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,target_true_coefficient_1,0.3599999999999998,0.0,10,0.3599999999999998,0.3599999999999998,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,frozen_actor_p_0,0.30082871814696394,0.00139189256571544,10,0.29999847537583996,0.3016229458452272,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,frozen_actor_p_1,0.7101261884061396,0.006454729228623117,10,0.7061158090943265,0.7137573253376919,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,source_direction_error,0.0019148010300353365,0.0017014138818062623,10,0.0010338651549950308,0.002984098369884584,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,source_realization_residual,0.011743603329071494,0.026070720789377676,10,9.042462493254152e-07,0.03042388139310322,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,target_direction_error,0.014866077044030307,0.027279897195834374,10,0.0015541783547893982,0.03405104965056818,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,transport_error_upper_bound,0.01763707365223758,0.03368554165524591,10,0.0015786520195753548,0.03971698851697103,training_seed_or_data_batch,False
+P-T,SA,normalized,4,6,False,normalized_derivative_lower_bound,0.04354402288136541,0.026772623491298497,10,0.025533121756722458,0.05701161321334615,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,target_plus_type_probability,0.5999999999999999,1.1702778228589004e-16,10,0.5999999999999999,0.5999999999999999,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,density_ratio,1.0,0.0,10,1.0,1.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,neighbor_weight,0.6666666666666667,1.1702778228589004e-16,10,0.6666666666666667,0.6666666666666667,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,semantic_drift,0.00955733333333331,0.0,10,0.00955733333333331,0.00955733333333331,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,target_local_energy,0.033077333333333334,0.0,10,0.033077333333333334,0.033077333333333334,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,target_path_derivative,0.07596463434933369,0.04105402561706621,10,0.0486303761207025,0.09769403871609367,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,target_normalized_path_derivative,0.037982317174666845,0.020527012808533106,10,0.02431518806035125,0.048847019358046834,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,old_return,0.1322666666666667,2.925694557147251e-17,10,0.1322666666666667,0.1322666666666667,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,return,0.1385095490938989,0.0040200717459789445,10,0.13602431145913346,0.14077316098405476,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,return_gain,0.006242882427232204,0.0040200717459789445,10,0.0037576447924668015,0.008506494317388109,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,source_steps_total,2150.4,47.2233463918478,10,2124.8,2176.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,source_steps_return_check,70.4,47.2233463918478,10,44.8,96.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,eta,0.06500000000000002,0.04116363011742823,10,0.04,0.085,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,attempts,1.1,0.7378647873726218,10,0.7,1.5,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,forward_kl_training,2.7765279615016374e-09,2.229055624363164e-09,8,1.510323210143672e-09,4.449693413658222e-09,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,direction_loss,-0.07003622274930033,0.01841879467338596,10,-0.08163010054922056,-0.05990840058080577,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,direction_steps,100.0,0.0,10,100.0,100.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,q_bound,5.0,0.0,10,5.0,5.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,direction_check_score,0.07657486592355511,0.09032841806926917,10,0.026168086985064787,0.13184503294053768,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,return_check_gain,0.05052083333333333,0.04977317100192936,8,0.01979166666666667,0.08541666666666665,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,return_check_standard_error,0.05573461117528389,0.04371268437123511,8,0.029127414855155468,0.08440038179349935,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,target_true_coefficient_0,-0.04666666666666674,0.0,10,-0.04666666666666674,-0.04666666666666674,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,target_true_coefficient_1,0.2533333333333333,0.0,10,0.2533333333333333,0.2533333333333333,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,frozen_actor_p_0,0.30082871814696394,0.00139189256571544,10,0.29999847537583996,0.3016229458452272,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,frozen_actor_p_1,0.7101261884061396,0.006454729228623117,10,0.7061158090943265,0.7137573253376919,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,source_direction_error,0.0019148010300353365,0.0017014138818062623,10,0.0010338651549950308,0.002984098369884584,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,source_realization_residual,0.011743603329071494,0.026070720789377676,10,9.042462493254152e-07,0.03042388139310322,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,target_direction_error,0.016092968321206484,0.011829077131215334,10,0.009516071324535899,0.0232295781296592,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,transport_error_upper_bound,0.04461734169274898,0.05385926343738145,10,0.018382874051807257,0.08041055774166479,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,2,False,normalized_derivative_lower_bound,-0.0009092037292201857,0.018877911316726306,10,-0.013609049684766662,0.00858706308302422,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,target_plus_type_probability,0.5999999999999999,1.1702778228589004e-16,10,0.5999999999999999,0.5999999999999999,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,density_ratio,1.0,0.0,10,1.0,1.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,neighbor_weight,2.0,0.0,10,2.0,2.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,semantic_drift,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,target_local_energy,0.06652799999999993,0.0,10,0.06652799999999993,0.06652799999999993,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,target_path_derivative,0.22128438458635294,0.12042092066795186,10,0.14210826073942043,0.2853198639690467,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,target_normalized_path_derivative,0.055321096146588235,0.030105230166987965,10,0.03552706518485511,0.07132996599226167,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,old_return,0.28159999999999996,0.0,10,0.28159999999999996,0.28159999999999996,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,return,0.30014539243766214,0.011885855413989184,10,0.29281840798733755,0.3067811514057838,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,return_gain,0.018545392437662168,0.011885855413989184,10,0.011218407987337604,0.025181151405783864,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,source_steps_total,2150.4,47.2233463918478,10,2124.8,2176.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,source_steps_return_check,70.4,47.2233463918478,10,44.8,96.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,eta,0.06500000000000002,0.04116363011742823,10,0.04,0.085,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,attempts,1.1,0.7378647873726218,10,0.7,1.5,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,forward_kl_training,2.7765279615016374e-09,2.229055624363164e-09,8,1.510323210143672e-09,4.449693413658222e-09,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,direction_loss,-0.07003622274930033,0.01841879467338596,10,-0.08163010054922056,-0.05990840058080577,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,direction_steps,100.0,0.0,10,100.0,100.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,q_bound,5.0,0.0,10,5.0,5.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,direction_check_score,0.07657486592355511,0.09032841806926917,10,0.026168086985064787,0.13184503294053768,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,return_check_gain,0.05052083333333333,0.04977317100192936,8,0.01979166666666667,0.08541666666666665,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,return_check_standard_error,0.05573461117528389,0.04371268437123511,8,0.029127414855155468,0.08440038179349935,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,target_true_coefficient_0,0.05999999999999981,7.314236392868128e-18,10,0.05999999999999981,0.05999999999999981,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,target_true_coefficient_1,0.3599999999999998,0.0,10,0.3599999999999998,0.3599999999999998,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,frozen_actor_p_0,0.30082871814696394,0.00139189256571544,10,0.29999847537583996,0.3016229458452272,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,frozen_actor_p_1,0.7101261884061396,0.006454729228623117,10,0.7061158090943265,0.7137573253376919,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,source_direction_error,0.0019148010300353365,0.0017014138818062623,10,0.0010338651549950308,0.002984098369884584,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,source_realization_residual,0.011743603329071494,0.026070720789377676,10,9.042462493254152e-07,0.03042388139310322,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,target_direction_error,0.014866077044030307,0.027279897195834374,10,0.0015541783547893982,0.03405104965056818,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,transport_error_upper_bound,0.01763707365223758,0.03368554165524591,10,0.0015786520195753548,0.03971698851697103,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,4,False,normalized_derivative_lower_bound,0.04354402288136541,0.026772623491298497,10,0.025533121756722458,0.05701161321334615,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,target_plus_type_probability,0.5999999999999999,1.1702778228589004e-16,10,0.5999999999999999,0.5999999999999999,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,density_ratio,1.0,0.0,10,1.0,1.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,neighbor_weight,3.333333333333333,0.0,10,3.333333333333333,3.333333333333333,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,semantic_drift,0.009557333333333307,0.0,10,0.009557333333333307,0.009557333333333307,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,target_local_energy,0.11909333333333313,1.4628472785736255e-17,10,0.11909333333333313,0.11909333333333313,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,target_path_derivative,0.4359592507110578,0.23848616731149286,10,0.2807586467700173,0.5626988111621366,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,target_normalized_path_derivative,0.07265987511850962,0.03974769455191548,10,0.04679310779500288,0.09378313519368946,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,old_return,0.4479999999999998,5.851389114294502e-17,10,0.4479999999999998,0.4479999999999998,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,return,0.4849075300312896,0.023622974214721863,10,0.4704087078995886,0.49811964438819983,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,return_gain,0.036907530031289895,0.023622974214721863,10,0.022408707899588768,0.05011964438819995,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,source_steps_total,2150.4,47.2233463918478,10,2124.8,2176.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,source_steps_return_check,70.4,47.2233463918478,10,44.8,96.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,eta,0.06500000000000002,0.04116363011742823,10,0.04,0.085,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,attempts,1.1,0.7378647873726218,10,0.7,1.5,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,forward_kl_training,2.7765279615016374e-09,2.229055624363164e-09,8,1.510323210143672e-09,4.449693413658222e-09,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,direction_loss,-0.07003622274930033,0.01841879467338596,10,-0.08163010054922056,-0.05990840058080577,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,direction_steps,100.0,0.0,10,100.0,100.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,q_bound,5.0,0.0,10,5.0,5.0,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,direction_check_score,0.07657486592355511,0.09032841806926917,10,0.026168086985064787,0.13184503294053768,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,return_check_gain,0.05052083333333333,0.04977317100192936,8,0.01979166666666667,0.08541666666666665,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,return_check_standard_error,0.05573461117528389,0.04371268437123511,8,0.029127414855155468,0.08440038179349935,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,target_true_coefficient_0,0.16666666666666632,0.0,10,0.16666666666666632,0.16666666666666632,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,target_true_coefficient_1,0.46666666666666645,1.1702778228589004e-16,10,0.46666666666666645,0.46666666666666645,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,frozen_actor_p_0,0.30082871814696394,0.00139189256571544,10,0.29999847537583996,0.3016229458452272,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,frozen_actor_p_1,0.7101261884061396,0.006454729228623117,10,0.7061158090943265,0.7137573253376919,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,source_direction_error,0.0019148010300353365,0.0017014138818062623,10,0.0010338651549950308,0.002984098369884584,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,source_realization_residual,0.011743603329071494,0.026070720789377676,10,9.042462493254152e-07,0.03042388139310322,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,target_direction_error,0.03275385243352075,0.045856399304044566,10,0.009642674441637371,0.06442823488332942,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,transport_error_upper_bound,0.04461734169274896,0.05385926343738144,10,0.01838287405180725,0.08041055774166476,training_seed_or_data_batch,False
+P-T,SA,fixed-edge,4,6,False,normalized_derivative_lower_bound,0.0546043698717394,0.03582056421031857,10,0.03050659550044333,0.07262339906406992,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,target_plus_type_probability,0.4,0.0,10,0.4,0.4,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,density_ratio,1.4999999999999998,0.0,10,1.4999999999999998,1.4999999999999998,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,neighbor_weight,2.0,0.0,10,2.0,2.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,semantic_drift,0.08601599999999991,1.4628472785736255e-17,10,0.08601599999999991,0.08601599999999991,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,target_local_energy,0.03460799999999999,7.314236392868128e-18,10,0.03460799999999999,0.03460799999999999,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,target_path_derivative,-0.00021195185750179168,0.011831399284710208,10,-0.007240398618490018,0.006713051601183741,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,target_normalized_path_derivative,-0.00010597592875089584,0.005915699642355104,10,-0.003620199309245009,0.0033565258005918705,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,old_return,0.1248,0.0,10,0.1248,0.1248,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,return,0.12515489808263355,0.000897826831520841,10,0.12466360319662784,0.125720581678496,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,return_gain,0.00035489808263356457,0.000897826831520841,10,-0.0001363968033721385,0.0009205816784960132,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,source_steps_total,2150.4,47.2233463918478,10,2124.8,2176.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,source_steps_return_check,70.4,47.2233463918478,10,44.8,96.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,eta,0.06500000000000002,0.04116363011742823,10,0.04,0.085,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,attempts,1.1,0.7378647873726218,10,0.7,1.5,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,forward_kl_training,2.7765279615016374e-09,2.229055624363164e-09,8,1.510323210143672e-09,4.449693413658222e-09,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,direction_loss,-0.07003622274930033,0.01841879467338596,10,-0.08163010054922056,-0.05990840058080577,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,direction_steps,100.0,0.0,10,100.0,100.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,q_bound,5.0,0.0,10,5.0,5.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,direction_check_score,0.07657486592355511,0.09032841806926917,10,0.026168086985064787,0.13184503294053768,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,return_check_gain,0.05052083333333333,0.04977317100192936,8,0.01979166666666667,0.08541666666666665,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,return_check_standard_error,0.05573461117528389,0.04371268437123511,8,0.029127414855155468,0.08440038179349935,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,target_true_coefficient_0,-0.25999999999999995,5.851389114294502e-17,10,-0.25999999999999995,-0.25999999999999995,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,target_true_coefficient_1,0.03999999999999998,0.0,10,0.03999999999999998,0.03999999999999998,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,frozen_actor_p_0,0.30082871814696394,0.00139189256571544,10,0.29999847537583996,0.3016229458452272,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,frozen_actor_p_1,0.7101261884061396,0.006454729228623117,10,0.7061158090943265,0.7137573253376919,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,source_direction_error,0.0019148010300353365,0.0017014138818062623,10,0.0010338651549950308,0.002984098369884584,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,source_realization_residual,0.011743603329071494,0.026070720789377676,10,9.042462493254152e-07,0.03042388139310322,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,target_direction_error,0.07505146967522607,0.030113666701456758,10,0.05796113605469546,0.09336111484285373,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,transport_error_upper_bound,0.17648756025997697,0.12480835010029796,10,0.11499012812657652,0.2599822752115127,training_seed_or_data_batch,False
+P-T,SA,composition,4,2,False,normalized_derivative_lower_bound,-0.040255282703000037,0.023649533432277676,10,-0.05616516947338438,-0.028358718740491257,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,target_plus_type_probability,0.5999999999999999,1.1702778228589004e-16,10,0.5999999999999999,0.5999999999999999,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,density_ratio,1.0,0.0,10,1.0,1.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,neighbor_weight,2.0,0.0,10,2.0,2.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,semantic_drift,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,target_local_energy,0.06652799999999993,0.0,10,0.06652799999999993,0.06652799999999993,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,target_path_derivative,0.22128438458635294,0.12042092066795186,10,0.14210826073942043,0.2853198639690467,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,target_normalized_path_derivative,0.055321096146588235,0.030105230166987965,10,0.03552706518485511,0.07132996599226167,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,old_return,0.28159999999999996,0.0,10,0.28159999999999996,0.28159999999999996,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,return,0.30014539243766214,0.011885855413989184,10,0.29281840798733755,0.3067811514057838,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,return_gain,0.018545392437662168,0.011885855413989184,10,0.011218407987337604,0.025181151405783864,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,source_steps_total,2150.4,47.2233463918478,10,2124.8,2176.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,source_steps_return_check,70.4,47.2233463918478,10,44.8,96.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,eta,0.06500000000000002,0.04116363011742823,10,0.04,0.085,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,attempts,1.1,0.7378647873726218,10,0.7,1.5,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,forward_kl_training,2.7765279615016374e-09,2.229055624363164e-09,8,1.510323210143672e-09,4.449693413658222e-09,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,direction_loss,-0.07003622274930033,0.01841879467338596,10,-0.08163010054922056,-0.05990840058080577,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,direction_steps,100.0,0.0,10,100.0,100.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,q_bound,5.0,0.0,10,5.0,5.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,direction_check_score,0.07657486592355511,0.09032841806926917,10,0.026168086985064787,0.13184503294053768,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,return_check_gain,0.05052083333333333,0.04977317100192936,8,0.01979166666666667,0.08541666666666665,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,return_check_standard_error,0.05573461117528389,0.04371268437123511,8,0.029127414855155468,0.08440038179349935,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,target_true_coefficient_0,0.05999999999999981,7.314236392868128e-18,10,0.05999999999999981,0.05999999999999981,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,target_true_coefficient_1,0.3599999999999998,0.0,10,0.3599999999999998,0.3599999999999998,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,frozen_actor_p_0,0.30082871814696394,0.00139189256571544,10,0.29999847537583996,0.3016229458452272,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,frozen_actor_p_1,0.7101261884061396,0.006454729228623117,10,0.7061158090943265,0.7137573253376919,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,source_direction_error,0.0019148010300353365,0.0017014138818062623,10,0.0010338651549950308,0.002984098369884584,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,source_realization_residual,0.011743603329071494,0.026070720789377676,10,9.042462493254152e-07,0.03042388139310322,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,target_direction_error,0.014866077044030307,0.027279897195834374,10,0.0015541783547893982,0.03405104965056818,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,transport_error_upper_bound,0.01763707365223758,0.03368554165524591,10,0.0015786520195753548,0.03971698851697103,training_seed_or_data_batch,False
+P-T,SA,composition,4,4,False,normalized_derivative_lower_bound,0.04354402288136541,0.026772623491298497,10,0.025533121756722458,0.05701161321334615,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,target_plus_type_probability,0.4,0.0,10,0.4,0.4,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,density_ratio,1.4999999999999998,0.0,10,1.4999999999999998,1.4999999999999998,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,neighbor_weight,2.0,0.0,10,2.0,2.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,semantic_drift,0.08601599999999991,1.4628472785736255e-17,10,0.08601599999999991,0.08601599999999991,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,target_local_energy,0.03460799999999999,7.314236392868128e-18,10,0.03460799999999999,0.03460799999999999,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,target_path_derivative,-0.0006358555725053738,0.03549419785413062,10,-0.02172119585547005,0.020139154803551225,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,target_normalized_path_derivative,-0.00010597592875089584,0.005915699642355104,10,-0.003620199309245009,0.0033565258005918705,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,old_return,0.3744,0.0,10,0.3744,0.3744,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,return,0.3754646942479007,0.002693480494562518,10,0.37399080958988357,0.377161745035488,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,return_gain,0.0010646942479006771,0.002693480494562518,10,-0.00040919041011643217,0.0027617450354880256,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,source_steps_total,2150.4,47.2233463918478,10,2124.8,2176.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,source_steps_return_check,70.4,47.2233463918478,10,44.8,96.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,eta,0.06500000000000002,0.04116363011742823,10,0.04,0.085,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,attempts,1.1,0.7378647873726218,10,0.7,1.5,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,forward_kl_training,2.7765279615016374e-09,2.229055624363164e-09,8,1.510323210143672e-09,4.449693413658222e-09,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,direction_loss,-0.07003622274930033,0.01841879467338596,10,-0.08163010054922056,-0.05990840058080577,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,direction_steps,100.0,0.0,10,100.0,100.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,q_bound,5.0,0.0,10,5.0,5.0,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,direction_check_score,0.07657486592355511,0.09032841806926917,10,0.026168086985064787,0.13184503294053768,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,return_check_gain,0.05052083333333333,0.04977317100192936,8,0.01979166666666667,0.08541666666666665,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,return_check_standard_error,0.05573461117528389,0.04371268437123511,8,0.029127414855155468,0.08440038179349935,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,target_true_coefficient_0,-0.25999999999999995,5.851389114294502e-17,10,-0.25999999999999995,-0.25999999999999995,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,target_true_coefficient_1,0.03999999999999998,0.0,10,0.03999999999999998,0.03999999999999998,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,frozen_actor_p_0,0.30082871814696394,0.00139189256571544,10,0.29999847537583996,0.3016229458452272,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,frozen_actor_p_1,0.7101261884061396,0.006454729228623117,10,0.7061158090943265,0.7137573253376919,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,source_direction_error,0.0019148010300353365,0.0017014138818062623,10,0.0010338651549950308,0.002984098369884584,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,source_realization_residual,0.011743603329071494,0.026070720789377676,10,9.042462493254152e-07,0.03042388139310322,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,target_direction_error,0.07505146967522607,0.030113666701456758,10,0.05796113605469546,0.09336111484285373,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,transport_error_upper_bound,0.17648756025997697,0.12480835010029796,10,0.11499012812657652,0.2599822752115127,training_seed_or_data_batch,False
+P-T,SA,composition,4,6,False,normalized_derivative_lower_bound,-0.040255282703000037,0.023649533432277676,10,-0.05616516947338438,-0.028358718740491257,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,target_plus_type_probability,0.5999999999999999,1.1702778228589004e-16,10,0.5999999999999999,0.5999999999999999,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,density_ratio,1.0,0.0,10,1.0,1.0,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,neighbor_weight,2.0,0.0,10,2.0,2.0,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,semantic_drift,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,target_local_energy,0.06652799999999993,0.0,10,0.06652799999999993,0.06652799999999993,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,target_path_derivative,0.44247999409181943,0.0315351890386393,10,0.42253525729506625,0.45245250380069935,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,target_normalized_path_derivative,0.22123999704590971,0.01576759451931965,10,0.21126762864753312,0.22622625190034967,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,old_return,0.14079999999999998,0.0,10,0.14079999999999998,0.14079999999999998,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,return,0.1893200402495,0.020530548476208388,10,0.17726136957669963,0.201378714818813,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,return_gain,0.04852004024950002,0.020530548476208388,10,0.03646136957669967,0.060578714818812995,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,source_steps_total,2137.6,33.04945788763662,10,2118.4,2156.8,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,source_steps_direction_check,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,source_steps_return_check,89.6,33.04945788763663,10,70.4,108.8,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,eta,0.08,0.025819888974716113,10,0.065,0.095,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,attempts,1.4,0.5163977794943223,10,1.1,1.7,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,return_check_gain,0.13354166666666667,0.14145016817650127,10,0.064375,0.22749999999999998,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,return_check_standard_error,0.14823234319253178,0.05835729844571933,10,0.11748296391028647,0.18312736139761115,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,target_true_coefficient_0,0.05999999999999981,7.314236392868128e-18,10,0.05999999999999981,0.05999999999999981,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,target_true_coefficient_1,0.3599999999999998,0.0,10,0.3599999999999998,0.3599999999999998,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,frozen_actor_p_0,0.3432354192233862,0.027362237739033752,10,0.32554424633301293,0.35780875989926314,training_seed_or_data_batch,False
+P-T,DA,normalized,4,2,False,frozen_actor_p_1,0.7352820481693121,0.011043412916427558,10,0.7288664050281402,0.7416976913317469,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,target_plus_type_probability,0.5999999999999999,1.1702778228589004e-16,10,0.5999999999999999,0.5999999999999999,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,density_ratio,1.0,0.0,10,1.0,1.0,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,neighbor_weight,2.0,0.0,10,2.0,2.0,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,semantic_drift,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,target_local_energy,0.06652799999999993,0.0,10,0.06652799999999993,0.06652799999999993,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,target_path_derivative,0.8849599881836389,0.0630703780772786,10,0.8450705145901325,0.9049050076013987,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,target_normalized_path_derivative,0.22123999704590971,0.01576759451931965,10,0.21126762864753312,0.22622625190034967,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,old_return,0.28159999999999996,0.0,10,0.28159999999999996,0.28159999999999996,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,return,0.378640080499,0.041061096952416776,10,0.35452273915339927,0.402757429637626,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,return_gain,0.09704008049900004,0.041061096952416776,10,0.07292273915339934,0.12115742963762599,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,source_steps_total,2137.6,33.04945788763662,10,2118.4,2156.8,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,source_steps_direction_check,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,source_steps_return_check,89.6,33.04945788763663,10,70.4,108.8,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,eta,0.08,0.025819888974716113,10,0.065,0.095,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,attempts,1.4,0.5163977794943223,10,1.1,1.7,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,return_check_gain,0.13354166666666667,0.14145016817650127,10,0.064375,0.22749999999999998,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,return_check_standard_error,0.14823234319253178,0.05835729844571933,10,0.11748296391028647,0.18312736139761115,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,target_true_coefficient_0,0.05999999999999981,7.314236392868128e-18,10,0.05999999999999981,0.05999999999999981,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,target_true_coefficient_1,0.3599999999999998,0.0,10,0.3599999999999998,0.3599999999999998,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,frozen_actor_p_0,0.3432354192233862,0.027362237739033752,10,0.32554424633301293,0.35780875989926314,training_seed_or_data_batch,False
+P-T,DA,normalized,4,4,False,frozen_actor_p_1,0.7352820481693121,0.011043412916427558,10,0.7288664050281402,0.7416976913317469,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,target_plus_type_probability,0.5999999999999999,1.1702778228589004e-16,10,0.5999999999999999,0.5999999999999999,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,density_ratio,1.0,0.0,10,1.0,1.0,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,neighbor_weight,2.0,0.0,10,2.0,2.0,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,semantic_drift,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,target_local_energy,0.06652799999999993,0.0,10,0.06652799999999993,0.06652799999999993,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,target_path_derivative,1.3274399822754581,0.09460556711591792,10,1.2676057718851985,1.3573575114020977,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,target_normalized_path_derivative,0.22123999704590971,0.01576759451931965,10,0.21126762864753312,0.22622625190034967,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,old_return,0.42239999999999994,0.0,10,0.42239999999999994,0.42239999999999994,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,return,0.5679601207485001,0.06159164542862518,10,0.531784108730099,0.6041361444564389,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,return_gain,0.14556012074850008,0.06159164542862518,10,0.10938410873009899,0.181736144456439,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,source_steps_total,2137.6,33.04945788763662,10,2118.4,2156.8,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,source_steps_direction_check,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,source_steps_return_check,89.6,33.04945788763663,10,70.4,108.8,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,eta,0.08,0.025819888974716113,10,0.065,0.095,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,attempts,1.4,0.5163977794943223,10,1.1,1.7,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,return_check_gain,0.13354166666666667,0.14145016817650127,10,0.064375,0.22749999999999998,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,return_check_standard_error,0.14823234319253178,0.05835729844571933,10,0.11748296391028647,0.18312736139761115,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,target_true_coefficient_0,0.05999999999999981,7.314236392868128e-18,10,0.05999999999999981,0.05999999999999981,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,target_true_coefficient_1,0.3599999999999998,0.0,10,0.3599999999999998,0.3599999999999998,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,frozen_actor_p_0,0.3432354192233862,0.027362237739033752,10,0.32554424633301293,0.35780875989926314,training_seed_or_data_batch,False
+P-T,DA,normalized,4,6,False,frozen_actor_p_1,0.7352820481693121,0.011043412916427558,10,0.7288664050281402,0.7416976913317469,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,target_plus_type_probability,0.5999999999999999,1.1702778228589004e-16,10,0.5999999999999999,0.5999999999999999,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,density_ratio,1.0,0.0,10,1.0,1.0,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,neighbor_weight,0.6666666666666667,1.1702778228589004e-16,10,0.6666666666666667,0.6666666666666667,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,semantic_drift,0.00955733333333331,0.0,10,0.00955733333333331,0.00955733333333331,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,target_local_energy,0.033077333333333334,0.0,10,0.033077333333333334,0.033077333333333334,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,target_path_derivative,0.24373091846225106,0.024527369279472997,10,0.23597452191783885,0.25924349394110796,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,target_normalized_path_derivative,0.12186545923112553,0.012263684639736499,10,0.11798726095891943,0.12962174697055398,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,old_return,0.1322666666666667,2.925694557147251e-17,10,0.1322666666666667,0.1322666666666667,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,return,0.1551184907801853,0.007899645510718067,10,0.15037692314005902,0.15963656509463234,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,return_gain,0.022851824113518632,0.007899645510718067,10,0.018110256473392317,0.02736989842796566,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,source_steps_total,2137.6,33.04945788763662,10,2118.4,2156.8,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,source_steps_direction_check,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,source_steps_return_check,89.6,33.04945788763663,10,70.4,108.8,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,eta,0.08,0.025819888974716113,10,0.065,0.095,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,attempts,1.4,0.5163977794943223,10,1.1,1.7,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,return_check_gain,0.13354166666666667,0.14145016817650127,10,0.064375,0.22749999999999998,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,return_check_standard_error,0.14823234319253178,0.05835729844571933,10,0.11748296391028647,0.18312736139761115,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,target_true_coefficient_0,-0.04666666666666674,0.0,10,-0.04666666666666674,-0.04666666666666674,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,target_true_coefficient_1,0.2533333333333333,0.0,10,0.2533333333333333,0.2533333333333333,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,frozen_actor_p_0,0.3432354192233862,0.027362237739033752,10,0.32554424633301293,0.35780875989926314,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,2,False,frozen_actor_p_1,0.7352820481693121,0.011043412916427558,10,0.7288664050281402,0.7416976913317469,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,target_plus_type_probability,0.5999999999999999,1.1702778228589004e-16,10,0.5999999999999999,0.5999999999999999,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,density_ratio,1.0,0.0,10,1.0,1.0,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,neighbor_weight,2.0,0.0,10,2.0,2.0,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,semantic_drift,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,target_local_energy,0.06652799999999993,0.0,10,0.06652799999999993,0.06652799999999993,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,target_path_derivative,0.8849599881836389,0.0630703780772786,10,0.8450705145901325,0.9049050076013987,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,target_normalized_path_derivative,0.22123999704590971,0.01576759451931965,10,0.21126762864753312,0.22622625190034967,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,old_return,0.28159999999999996,0.0,10,0.28159999999999996,0.28159999999999996,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,return,0.378640080499,0.041061096952416776,10,0.35452273915339927,0.402757429637626,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,return_gain,0.09704008049900004,0.041061096952416776,10,0.07292273915339934,0.12115742963762599,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,source_steps_total,2137.6,33.04945788763662,10,2118.4,2156.8,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,source_steps_direction_check,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,source_steps_return_check,89.6,33.04945788763663,10,70.4,108.8,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,eta,0.08,0.025819888974716113,10,0.065,0.095,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,attempts,1.4,0.5163977794943223,10,1.1,1.7,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,return_check_gain,0.13354166666666667,0.14145016817650127,10,0.064375,0.22749999999999998,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,return_check_standard_error,0.14823234319253178,0.05835729844571933,10,0.11748296391028647,0.18312736139761115,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,target_true_coefficient_0,0.05999999999999981,7.314236392868128e-18,10,0.05999999999999981,0.05999999999999981,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,target_true_coefficient_1,0.3599999999999998,0.0,10,0.3599999999999998,0.3599999999999998,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,frozen_actor_p_0,0.3432354192233862,0.027362237739033752,10,0.32554424633301293,0.35780875989926314,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,4,False,frozen_actor_p_1,0.7352820481693121,0.011043412916427558,10,0.7288664050281402,0.7416976913317469,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,target_plus_type_probability,0.5999999999999999,1.1702778228589004e-16,10,0.5999999999999999,0.5999999999999999,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,density_ratio,1.0,0.0,10,1.0,1.0,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,neighbor_weight,3.333333333333333,0.0,10,3.333333333333333,3.333333333333333,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,semantic_drift,0.009557333333333307,0.0,10,0.009557333333333307,0.009557333333333307,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,target_local_energy,0.11909333333333313,1.4628472785736255e-17,10,0.11909333333333313,0.11909333333333313,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,target_path_derivative,1.9236872091641632,0.2627932420702522,10,1.757481061947074,2.006791458149629,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,target_normalized_path_derivative,0.3206145348606938,0.043798873678375365,10,0.2929135103245123,0.3344652430249382,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,old_return,0.4479999999999998,5.851389114294502e-17,10,0.4479999999999998,0.4479999999999998,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,return,0.6705647691564441,0.10020718808023743,10,0.6117669624901727,0.7293625934872703,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,return_gain,0.22256476915644424,0.10020718808023743,10,0.1637669624901727,0.28136259348727033,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,source_steps_total,2137.6,33.04945788763662,10,2118.4,2156.8,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,source_steps_direction_check,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,source_steps_return_check,89.6,33.04945788763663,10,70.4,108.8,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,eta,0.08,0.025819888974716113,10,0.065,0.095,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,attempts,1.4,0.5163977794943223,10,1.1,1.7,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,return_check_gain,0.13354166666666667,0.14145016817650127,10,0.064375,0.22749999999999998,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,return_check_standard_error,0.14823234319253178,0.05835729844571933,10,0.11748296391028647,0.18312736139761115,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,target_true_coefficient_0,0.16666666666666632,0.0,10,0.16666666666666632,0.16666666666666632,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,target_true_coefficient_1,0.46666666666666645,1.1702778228589004e-16,10,0.46666666666666645,0.46666666666666645,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,frozen_actor_p_0,0.3432354192233862,0.027362237739033752,10,0.32554424633301293,0.35780875989926314,training_seed_or_data_batch,False
+P-T,DA,fixed-edge,4,6,False,frozen_actor_p_1,0.7352820481693121,0.011043412916427558,10,0.7288664050281402,0.7416976913317469,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,target_plus_type_probability,0.4,0.0,10,0.4,0.4,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,density_ratio,1.4999999999999998,0.0,10,1.4999999999999998,1.4999999999999998,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,neighbor_weight,2.0,0.0,10,2.0,2.0,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,semantic_drift,0.08601599999999991,1.4628472785736255e-17,10,0.08601599999999991,0.08601599999999991,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,target_local_energy,0.03460799999999999,7.314236392868128e-18,10,0.03460799999999999,0.03460799999999999,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,target_path_derivative,-0.2673934757564611,0.20497872887184423,10,-0.33221479275495364,-0.13775267586226522,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,target_normalized_path_derivative,-0.13369673787823055,0.10248936443592212,10,-0.16610739637747682,-0.06887633793113261,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,old_return,0.1248,0.0,10,0.1248,0.1248,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,return,0.11586656407980525,0.008625250294016298,10,0.11303742680285082,0.12139320071265125,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,return_gain,-0.008933435920194759,0.008625250294016298,10,-0.011762573197149151,-0.0034067992873487427,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,source_steps_total,2137.6,33.04945788763662,10,2118.4,2156.8,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,source_steps_direction_check,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,source_steps_return_check,89.6,33.04945788763663,10,70.4,108.8,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,eta,0.08,0.025819888974716113,10,0.065,0.095,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,attempts,1.4,0.5163977794943223,10,1.1,1.7,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,return_check_gain,0.13354166666666667,0.14145016817650127,10,0.064375,0.22749999999999998,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,return_check_standard_error,0.14823234319253178,0.05835729844571933,10,0.11748296391028647,0.18312736139761115,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,target_true_coefficient_0,-0.25999999999999995,5.851389114294502e-17,10,-0.25999999999999995,-0.25999999999999995,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,target_true_coefficient_1,0.03999999999999998,0.0,10,0.03999999999999998,0.03999999999999998,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,frozen_actor_p_0,0.3432354192233862,0.027362237739033752,10,0.32554424633301293,0.35780875989926314,training_seed_or_data_batch,False
+P-T,DA,composition,4,2,False,frozen_actor_p_1,0.7352820481693121,0.011043412916427558,10,0.7288664050281402,0.7416976913317469,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,target_plus_type_probability,0.5999999999999999,1.1702778228589004e-16,10,0.5999999999999999,0.5999999999999999,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,density_ratio,1.0,0.0,10,1.0,1.0,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,neighbor_weight,2.0,0.0,10,2.0,2.0,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,semantic_drift,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,target_local_energy,0.06652799999999993,0.0,10,0.06652799999999993,0.06652799999999993,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,target_path_derivative,0.8849599881836389,0.0630703780772786,10,0.8450705145901325,0.9049050076013987,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,target_normalized_path_derivative,0.22123999704590971,0.01576759451931965,10,0.21126762864753312,0.22622625190034967,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,old_return,0.28159999999999996,0.0,10,0.28159999999999996,0.28159999999999996,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,return,0.378640080499,0.041061096952416776,10,0.35452273915339927,0.402757429637626,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,return_gain,0.09704008049900004,0.041061096952416776,10,0.07292273915339934,0.12115742963762599,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,source_steps_total,2137.6,33.04945788763662,10,2118.4,2156.8,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,source_steps_direction_check,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,source_steps_return_check,89.6,33.04945788763663,10,70.4,108.8,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,eta,0.08,0.025819888974716113,10,0.065,0.095,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,attempts,1.4,0.5163977794943223,10,1.1,1.7,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,return_check_gain,0.13354166666666667,0.14145016817650127,10,0.064375,0.22749999999999998,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,return_check_standard_error,0.14823234319253178,0.05835729844571933,10,0.11748296391028647,0.18312736139761115,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,target_true_coefficient_0,0.05999999999999981,7.314236392868128e-18,10,0.05999999999999981,0.05999999999999981,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,target_true_coefficient_1,0.3599999999999998,0.0,10,0.3599999999999998,0.3599999999999998,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,frozen_actor_p_0,0.3432354192233862,0.027362237739033752,10,0.32554424633301293,0.35780875989926314,training_seed_or_data_batch,False
+P-T,DA,composition,4,4,False,frozen_actor_p_1,0.7352820481693121,0.011043412916427558,10,0.7288664050281402,0.7416976913317469,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,target_plus_type_probability,0.4,0.0,10,0.4,0.4,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,density_ratio,1.4999999999999998,0.0,10,1.4999999999999998,1.4999999999999998,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,neighbor_weight,2.0,0.0,10,2.0,2.0,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,semantic_drift,0.08601599999999991,1.4628472785736255e-17,10,0.08601599999999991,0.08601599999999991,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,target_local_energy,0.03460799999999999,7.314236392868128e-18,10,0.03460799999999999,0.03460799999999999,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,target_path_derivative,-0.8021804272693835,0.6149361866155327,10,-0.9966443782648607,-0.4132580275867957,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,target_normalized_path_derivative,-0.13369673787823055,0.10248936443592212,10,-0.16610739637747682,-0.06887633793113261,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,old_return,0.3744,0.0,10,0.3744,0.3744,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,return,0.3475996922394157,0.0258757508820489,10,0.33911228040855257,0.3641796021379538,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,return_gain,-0.026800307760584296,0.025875750882048895,10,-0.03528771959144746,-0.01022039786204625,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,source_steps_total,2137.6,33.04945788763662,10,2118.4,2156.8,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,source_steps_training,2048.0,0.0,10,2048.0,2048.0,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,source_steps_direction_check,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,source_steps_return_check,89.6,33.04945788763663,10,70.4,108.8,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,eta,0.08,0.025819888974716113,10,0.065,0.095,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,attempts,1.4,0.5163977794943223,10,1.1,1.7,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,return_check_gain,0.13354166666666667,0.14145016817650127,10,0.064375,0.22749999999999998,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,return_check_standard_error,0.14823234319253178,0.05835729844571933,10,0.11748296391028647,0.18312736139761115,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,target_true_coefficient_0,-0.25999999999999995,5.851389114294502e-17,10,-0.25999999999999995,-0.25999999999999995,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,target_true_coefficient_1,0.03999999999999998,0.0,10,0.03999999999999998,0.03999999999999998,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,frozen_actor_p_0,0.3432354192233862,0.027362237739033752,10,0.32554424633301293,0.35780875989926314,training_seed_or_data_batch,False
+P-T,DA,composition,4,6,False,frozen_actor_p_1,0.7352820481693121,0.011043412916427558,10,0.7288664050281402,0.7416976913317469,training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,source_steps_return_check,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,attempts,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,source_steps_training,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,normalized_derivative_lower_bound,0.0002842475844159545,0.0005954678797703075,10,-7.100123106385039e-05,0.0006346011071600447,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,source_steps_total,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,target_true_coefficient_1,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,neighbor_weight,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,target_local_energy,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,target_direction_error,-7.975953354923865e-05,0.0002091584381792372,10,-0.00021451020676757247,2.8683988947725353e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,old_return,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,forward_kl_training,-1.0391556372982651e-10,5.277320798568622e-10,8,-4.818219981750284e-10,2.1717566053127926e-10,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,return_check_gain,0.0,0.0,8,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,return_check_standard_error,0.0,0.0,8,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,direction_loss,0.000472406985068375,0.000770238022903967,10,-2.2946514679175714e-06,0.0009190855138575367,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,eta,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,source_direction_error,-0.00012665217721954158,0.00023417614868195748,10,-0.00026634580417202864,4.788210662748199e-06,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,q_bound,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,source_realization_residual,4.369579832034817e-05,0.0008092141585212192,10,-0.0004022023949382721,0.0005771973773658856,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,target_true_coefficient_0,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,return_gain,-6.537807877134982e-05,9.073685027055322e-05,10,-0.00012038395279672862,-1.3271234423771706e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,transport_error_upper_bound,-0.00027326565693505493,0.0006108268169616528,10,-0.0006686404732675624,6.136369387323827e-06,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,return,-6.537807877134982e-05,9.073685027055322e-05,10,-0.00012038395279672862,-1.3271234423771706e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,target_normalized_path_derivative,-0.0004295586286186086,0.0005762738348964651,10,-0.0007825227462812108,-0.00010132800507628071,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,semantic_drift,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,target_plus_type_probability,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,direction_steps,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,frozen_actor_p_1,-6.927869978378132e-05,9.507912332972386e-05,10,-0.00012619528078996106,-1.4596684306822416e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,target_path_derivative,-0.0008591172572372172,0.0011525476697929302,10,-0.0015650454925624216,-0.00020265601015256141,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,direction_check_score,-0.00048358223763440497,0.0012210190139630922,10,-0.001208445129154461,0.00021577417739431293,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,source_steps_direction_check,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,frozen_actor_p_0,2.4381329269795858e-06,2.9935111303192666e-05,10,-1.4498663826823938e-05,2.143177848940622e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,2,False,density_ratio,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,source_steps_return_check,-19.2,60.71573107523289,10,-51.2,19.2,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,attempts,-0.3,0.9486832980505139,10,-0.8,0.3,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,source_steps_training,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,source_steps_total,12.8,60.71573107523289,10,-19.2,51.2,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,target_true_coefficient_1,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,neighbor_weight,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,target_local_energy,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,old_return,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,return_check_gain,-0.09895833333333334,0.1319167681917607,8,-0.18515625000000002,-0.018750000000000006,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,return_check_standard_error,-0.08936196871468426,0.08595650654603558,8,-0.14990051472814306,-0.03817068211640736,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,eta,-0.015000000000000003,0.06258327785172864,10,-0.05,0.02,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,target_true_coefficient_0,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,return_gain,-0.039312722109440285,0.024892271385369473,10,-0.05325798234386518,-0.02476231149476994,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,return,-0.039312722109440285,0.024892271385369473,10,-0.05325798234386518,-0.02476231149476994,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,target_normalized_path_derivative,-0.1663484595279401,0.0354614289699979,10,-0.18770704173364852,-0.1467802349804054,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,semantic_drift,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,target_plus_type_probability,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,frozen_actor_p_1,-0.025225138462956143,0.016185164036618738,10,-0.0342668663867242,-0.015793775386934668,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,target_path_derivative,-0.3326969190558802,0.0709228579399958,10,-0.37541408346729704,-0.2935604699608108,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,frozen_actor_p_0,-0.04240426294349521,0.026562868405587574,10,-0.056498001361672164,-0.025678942794879346,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,2,False,density_ratio,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,source_steps_return_check,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,attempts,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,source_steps_training,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,normalized_derivative_lower_bound,0.0002842475844159545,0.0005954678797703075,10,-7.100123106385039e-05,0.0006346011071600447,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,source_steps_total,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,target_true_coefficient_1,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,neighbor_weight,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,target_local_energy,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,target_direction_error,-7.975953354923865e-05,0.0002091584381792372,10,-0.00021451020676757247,2.8683988947725353e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,old_return,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,forward_kl_training,-1.0391556372982651e-10,5.277320798568622e-10,8,-4.818219981750284e-10,2.1717566053127926e-10,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,return_check_gain,0.0,0.0,8,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,return_check_standard_error,0.0,0.0,8,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,direction_loss,0.000472406985068375,0.000770238022903967,10,-2.2946514679175714e-06,0.0009190855138575367,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,eta,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,source_direction_error,-0.00012665217721954158,0.00023417614868195748,10,-0.00026634580417202864,4.788210662748199e-06,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,q_bound,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,source_realization_residual,4.369579832034817e-05,0.0008092141585212192,10,-0.0004022023949382721,0.0005771973773658856,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,target_true_coefficient_0,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,return_gain,-0.00013075615754269964,0.00018147370054110644,10,-0.00024076790559345723,-2.654246884754341e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,transport_error_upper_bound,-0.00027326565693505493,0.0006108268169616528,10,-0.0006686404732675624,6.136369387323827e-06,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,return,-0.00013075615754269964,0.00018147370054110644,10,-0.00024076790559345723,-2.654246884754341e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,target_normalized_path_derivative,-0.0004295586286186086,0.0005762738348964651,10,-0.0007825227462812108,-0.00010132800507628071,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,semantic_drift,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,target_plus_type_probability,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,direction_steps,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,frozen_actor_p_1,-6.927869978378132e-05,9.507912332972386e-05,10,-0.00012619528078996106,-1.4596684306822416e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,target_path_derivative,-0.0017182345144744343,0.0023050953395858604,10,-0.003130090985124843,-0.00040531202030512283,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,direction_check_score,-0.00048358223763440497,0.0012210190139630922,10,-0.001208445129154461,0.00021577417739431293,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,source_steps_direction_check,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,frozen_actor_p_0,2.4381329269795858e-06,2.9935111303192666e-05,10,-1.4498663826823938e-05,2.143177848940622e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,4,False,density_ratio,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,source_steps_return_check,-19.2,60.71573107523289,10,-51.2,19.2,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,attempts,-0.3,0.9486832980505139,10,-0.8,0.3,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,source_steps_training,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,source_steps_total,12.8,60.71573107523289,10,-19.2,51.2,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,target_true_coefficient_1,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,neighbor_weight,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,target_local_energy,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,old_return,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,return_check_gain,-0.09895833333333334,0.1319167681917607,8,-0.18515625000000002,-0.018750000000000006,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,return_check_standard_error,-0.08936196871468426,0.08595650654603558,8,-0.14990051472814306,-0.03817068211640736,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,eta,-0.015000000000000003,0.06258327785172864,10,-0.05,0.02,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,target_true_coefficient_0,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,return_gain,-0.07862544421888057,0.049784542770738946,10,-0.10651596468773036,-0.04952462298953988,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,return,-0.07862544421888057,0.049784542770738946,10,-0.10651596468773036,-0.04952462298953988,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,target_normalized_path_derivative,-0.1663484595279401,0.0354614289699979,10,-0.18770704173364852,-0.1467802349804054,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,semantic_drift,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,target_plus_type_probability,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,frozen_actor_p_1,-0.025225138462956143,0.016185164036618738,10,-0.0342668663867242,-0.015793775386934668,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,target_path_derivative,-0.6653938381117604,0.1418457158799916,10,-0.7508281669345941,-0.5871209399216216,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,frozen_actor_p_0,-0.04240426294349521,0.026562868405587574,10,-0.056498001361672164,-0.025678942794879346,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,4,False,density_ratio,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,source_steps_return_check,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,attempts,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,source_steps_training,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,normalized_derivative_lower_bound,0.0002842475844159545,0.0005954678797703075,10,-7.100123106385039e-05,0.0006346011071600447,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,source_steps_total,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,target_true_coefficient_1,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,neighbor_weight,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,target_local_energy,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,target_direction_error,-7.975953354923865e-05,0.0002091584381792372,10,-0.00021451020676757247,2.8683988947725353e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,old_return,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,forward_kl_training,-1.0391556372982651e-10,5.277320798568622e-10,8,-4.818219981750284e-10,2.1717566053127926e-10,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,return_check_gain,0.0,0.0,8,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,return_check_standard_error,0.0,0.0,8,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,direction_loss,0.000472406985068375,0.000770238022903967,10,-2.2946514679175714e-06,0.0009190855138575367,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,eta,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,source_direction_error,-0.00012665217721954158,0.00023417614868195748,10,-0.00026634580417202864,4.788210662748199e-06,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,q_bound,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,source_realization_residual,4.369579832034817e-05,0.0008092141585212192,10,-0.0004022023949382721,0.0005771973773658856,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,target_true_coefficient_0,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,return_gain,-0.00019613423631403837,0.0002722105508116492,10,-0.0003611518583901667,-3.981370327127953e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,transport_error_upper_bound,-0.00027326565693505493,0.0006108268169616528,10,-0.0006686404732675624,6.136369387323827e-06,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,return,-0.00019613423631403837,0.0002722105508116492,10,-0.0003611518583901667,-3.981370327127953e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,target_normalized_path_derivative,-0.0004295586286186086,0.0005762738348964651,10,-0.0007825227462812108,-0.00010132800507628071,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,semantic_drift,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,target_plus_type_probability,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,direction_steps,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,frozen_actor_p_1,-6.927869978378132e-05,9.507912332972386e-05,10,-0.00012619528078996106,-1.4596684306822416e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,target_path_derivative,-0.00257735177171165,0.0034576430093787936,10,-0.004695136477687263,-0.0006079680304576789,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,direction_check_score,-0.00048358223763440497,0.0012210190139630922,10,-0.001208445129154461,0.00021577417739431293,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,source_steps_direction_check,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,frozen_actor_p_0,2.4381329269795858e-06,2.9935111303192666e-05,10,-1.4498663826823938e-05,2.143177848940622e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,normalized,4,6,False,density_ratio,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,source_steps_return_check,-19.2,60.71573107523289,10,-51.2,19.2,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,attempts,-0.3,0.9486832980505139,10,-0.8,0.3,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,source_steps_training,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,source_steps_total,12.8,60.71573107523289,10,-19.2,51.2,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,target_true_coefficient_1,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,neighbor_weight,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,target_local_energy,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,old_return,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,return_check_gain,-0.09895833333333334,0.1319167681917607,8,-0.18515625000000002,-0.018750000000000006,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,return_check_standard_error,-0.08936196871468426,0.08595650654603558,8,-0.14990051472814306,-0.03817068211640736,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,eta,-0.015000000000000003,0.06258327785172864,10,-0.05,0.02,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,target_true_coefficient_0,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,return_gain,-0.11793816632832085,0.07467681415610843,10,-0.15977394703159553,-0.07428693448430981,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,return,-0.11793816632832085,0.07467681415610843,10,-0.15977394703159553,-0.07428693448430981,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,target_normalized_path_derivative,-0.1663484595279401,0.0354614289699979,10,-0.18770704173364852,-0.1467802349804054,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,semantic_drift,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,target_plus_type_probability,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,frozen_actor_p_1,-0.025225138462956143,0.016185164036618738,10,-0.0342668663867242,-0.015793775386934668,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,target_path_derivative,-0.9980907571676404,0.21276857381998737,10,-1.126242250401891,-0.8806814098824325,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,frozen_actor_p_0,-0.04240426294349521,0.026562868405587574,10,-0.056498001361672164,-0.025678942794879346,paired_training_seed_or_data_batch,False
+P-T,AN - DA,normalized,4,6,False,density_ratio,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,source_steps_return_check,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,attempts,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,source_steps_training,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,normalized_derivative_lower_bound,0.00020042864653671693,0.00041987629004368716,10,-5.006438550325051e-05,0.0004474699099383103,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,source_steps_total,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,target_true_coefficient_1,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,neighbor_weight,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,target_local_energy,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,target_direction_error,-0.00032721007142165107,0.0004541885591294349,10,-0.0006200846814420365,-6.464558335072179e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,old_return,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,forward_kl_training,-1.0391556372982651e-10,5.277320798568622e-10,8,-4.818219981750284e-10,2.1717566053127926e-10,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,return_check_gain,0.0,0.0,8,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,return_check_standard_error,0.0,0.0,8,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,direction_loss,0.000472406985068375,0.000770238022903967,10,-2.2946514679175714e-06,0.0009190855138575367,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,eta,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,source_direction_error,-0.00012665217721954158,0.00023417614868195748,10,-0.00026634580417202864,4.788210662748199e-06,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,q_bound,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,source_realization_residual,4.369579832034817e-05,0.0008092141585212192,10,-0.0004022023949382721,0.0005771973773658856,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,target_true_coefficient_0,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,return_gain,-4.422194436680682e-05,6.08879405999352e-05,10,-8.086359502255564e-05,-9.295859761935504e-06,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,transport_error_upper_bound,-0.0004887386831389044,0.0009480440665454606,10,-0.0010711408847416221,4.4384993462118046e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,return,-4.422194436680682e-05,6.08879405999352e-05,10,-8.086359502255564e-05,-9.295859761935504e-06,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,target_normalized_path_derivative,-0.0003058333596824031,0.00041672496488041715,10,-0.0005641641070872594,-7.333792077567865e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,semantic_drift,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,target_plus_type_probability,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,direction_steps,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,frozen_actor_p_1,-6.927869978378132e-05,9.507912332972386e-05,10,-0.00012619528078996106,-1.4596684306822416e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,target_path_derivative,-0.0006116667193648062,0.0008334499297608343,10,-0.0011283282141745189,-0.0001466758415513573,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,direction_check_score,-0.00048358223763440497,0.0012210190139630922,10,-0.001208445129154461,0.00021577417739431293,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,source_steps_direction_check,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,frozen_actor_p_0,2.4381329269795858e-06,2.9935111303192666e-05,10,-1.4498663826823938e-05,2.143177848940622e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,2,False,density_ratio,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,source_steps_return_check,-19.2,60.71573107523289,10,-51.2,19.2,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,attempts,-0.3,0.9486832980505139,10,-0.8,0.3,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,source_steps_training,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,source_steps_total,12.8,60.71573107523289,10,-19.2,51.2,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,target_true_coefficient_1,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,neighbor_weight,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,target_local_energy,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,old_return,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,return_check_gain,-0.09895833333333334,0.1319167681917607,8,-0.18515625000000002,-0.018750000000000006,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,return_check_standard_error,-0.08936196871468426,0.08595650654603558,8,-0.14990051472814306,-0.03817068211640736,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,eta,-0.015000000000000003,0.06258327785172864,10,-0.05,0.02,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,target_true_coefficient_0,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,return_gain,-0.016653163630653233,0.011088194933079073,10,-0.02277436390689841,-0.01009151340434299,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,return,-0.016653163630653233,0.011088194933079073,10,-0.02277436390689841,-0.01009151340434299,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,target_normalized_path_derivative,-0.08418897541614109,0.021900544602721637,10,-0.09791880899228812,-0.07159228054189741,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,semantic_drift,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,target_plus_type_probability,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,frozen_actor_p_1,-0.025225138462956143,0.016185164036618738,10,-0.0342668663867242,-0.015793775386934668,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,target_path_derivative,-0.16837795083228219,0.043801089205443275,10,-0.19583761798457625,-0.14318456108379482,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,frozen_actor_p_0,-0.04240426294349521,0.026562868405587574,10,-0.056498001361672164,-0.025678942794879346,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,2,False,density_ratio,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,source_steps_return_check,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,attempts,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,source_steps_training,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,normalized_derivative_lower_bound,0.0002842475844159545,0.0005954678797703075,10,-7.100123106385039e-05,0.0006346011071600447,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,source_steps_total,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,target_true_coefficient_1,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,neighbor_weight,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,target_local_energy,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,target_direction_error,-7.975953354923865e-05,0.0002091584381792372,10,-0.00021451020676757247,2.8683988947725353e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,old_return,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,forward_kl_training,-1.0391556372982651e-10,5.277320798568622e-10,8,-4.818219981750284e-10,2.1717566053127926e-10,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,return_check_gain,0.0,0.0,8,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,return_check_standard_error,0.0,0.0,8,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,direction_loss,0.000472406985068375,0.000770238022903967,10,-2.2946514679175714e-06,0.0009190855138575367,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,eta,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,source_direction_error,-0.00012665217721954158,0.00023417614868195748,10,-0.00026634580417202864,4.788210662748199e-06,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,q_bound,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,source_realization_residual,4.369579832034817e-05,0.0008092141585212192,10,-0.0004022023949382721,0.0005771973773658856,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,target_true_coefficient_0,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,return_gain,-0.00013075615754269964,0.00018147370054110644,10,-0.00024076790559345723,-2.654246884754341e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,transport_error_upper_bound,-0.00027326565693505493,0.0006108268169616528,10,-0.0006686404732675624,6.136369387323827e-06,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,return,-0.00013075615754269964,0.00018147370054110644,10,-0.00024076790559345723,-2.654246884754341e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,target_normalized_path_derivative,-0.0004295586286186086,0.0005762738348964651,10,-0.0007825227462812108,-0.00010132800507628071,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,semantic_drift,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,target_plus_type_probability,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,direction_steps,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,frozen_actor_p_1,-6.927869978378132e-05,9.507912332972386e-05,10,-0.00012619528078996106,-1.4596684306822416e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,target_path_derivative,-0.0017182345144744343,0.0023050953395858604,10,-0.003130090985124843,-0.00040531202030512283,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,direction_check_score,-0.00048358223763440497,0.0012210190139630922,10,-0.001208445129154461,0.00021577417739431293,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,source_steps_direction_check,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,frozen_actor_p_0,2.4381329269795858e-06,2.9935111303192666e-05,10,-1.4498663826823938e-05,2.143177848940622e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,4,False,density_ratio,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,source_steps_return_check,-19.2,60.71573107523289,10,-51.2,19.2,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,attempts,-0.3,0.9486832980505139,10,-0.8,0.3,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,source_steps_training,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,source_steps_total,12.8,60.71573107523289,10,-19.2,51.2,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,target_true_coefficient_1,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,neighbor_weight,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,target_local_energy,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,old_return,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,return_check_gain,-0.09895833333333334,0.1319167681917607,8,-0.18515625000000002,-0.018750000000000006,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,return_check_standard_error,-0.08936196871468426,0.08595650654603558,8,-0.14990051472814306,-0.03817068211640736,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,eta,-0.015000000000000003,0.06258327785172864,10,-0.05,0.02,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,target_true_coefficient_0,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,return_gain,-0.07862544421888057,0.049784542770738946,10,-0.10651596468773036,-0.04952462298953988,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,return,-0.07862544421888057,0.049784542770738946,10,-0.10651596468773036,-0.04952462298953988,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,target_normalized_path_derivative,-0.1663484595279401,0.0354614289699979,10,-0.18770704173364852,-0.1467802349804054,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,semantic_drift,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,target_plus_type_probability,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,frozen_actor_p_1,-0.025225138462956143,0.016185164036618738,10,-0.0342668663867242,-0.015793775386934668,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,target_path_derivative,-0.6653938381117604,0.1418457158799916,10,-0.7508281669345941,-0.5871209399216216,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,frozen_actor_p_0,-0.04240426294349521,0.026562868405587574,10,-0.056498001361672164,-0.025678942794879346,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,4,False,density_ratio,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,source_steps_return_check,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,attempts,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,source_steps_training,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,normalized_derivative_lower_bound,0.0003803104635042187,0.0007967091992096733,10,-9.499644878510765e-05,0.0008490676946304451,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,source_steps_total,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,target_true_coefficient_1,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,neighbor_weight,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,target_local_energy,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,target_direction_error,0.00016769100432317474,0.00032138298592341885,10,6.422900442145122e-06,0.00038041091911612975,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,old_return,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,forward_kl_training,-1.0391556372982651e-10,5.277320798568622e-10,8,-4.818219981750284e-10,2.1717566053127926e-10,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,return_check_gain,0.0,0.0,8,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,return_check_standard_error,0.0,0.0,8,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,direction_loss,0.000472406985068375,0.000770238022903967,10,-2.2946514679175714e-06,0.0009190855138575367,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,eta,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,source_direction_error,-0.00012665217721954158,0.00023417614868195748,10,-0.00026634580417202864,4.788210662748199e-06,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,q_bound,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,source_realization_residual,4.369579832034817e-05,0.0008092141585212192,10,-0.0004022023949382721,0.0005771973773658856,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,target_true_coefficient_0,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,return_gain,-0.00025960263952766184,0.00036259450367512065,10,-0.0004827116620245912,-5.2997627700307545e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,transport_error_upper_bound,-0.0004887386831389093,0.0009480440665454655,10,-0.001071140884741633,4.438499346211365e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,return,-0.00025960263952766184,0.00036259450367512065,10,-0.0004827116620245912,-5.2997627700307545e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,target_normalized_path_derivative,-0.0005532838975548127,0.0007389474344014421,10,-0.0010002303015311576,-0.0001322722367897993,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,semantic_drift,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,target_plus_type_probability,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,direction_steps,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,frozen_actor_p_1,-6.927869978378132e-05,9.507912332972386e-05,10,-0.00012619528078996106,-1.4596684306822416e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,target_path_derivative,-0.003319703385328876,0.0044336846064086605,10,-0.006001381809186954,-0.0007936334207387933,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,direction_check_score,-0.00048358223763440497,0.0012210190139630922,10,-0.001208445129154461,0.00021577417739431293,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,source_steps_direction_check,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,frozen_actor_p_0,2.4381329269795858e-06,2.9935111303192666e-05,10,-1.4498663826823938e-05,2.143177848940622e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,fixed-edge,4,6,False,density_ratio,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,source_steps_return_check,-19.2,60.71573107523289,10,-51.2,19.2,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,attempts,-0.3,0.9486832980505139,10,-0.8,0.3,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,source_steps_training,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,source_steps_total,12.8,60.71573107523289,10,-19.2,51.2,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,target_true_coefficient_1,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,neighbor_weight,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,target_local_energy,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,old_return,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,return_check_gain,-0.09895833333333334,0.1319167681917607,8,-0.18515625000000002,-0.018750000000000006,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,return_check_standard_error,-0.08936196871468426,0.08595650654603558,8,-0.14990051472814306,-0.03817068211640736,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,eta,-0.015000000000000003,0.06258327785172864,10,-0.05,0.02,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,target_true_coefficient_0,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,return_gain,-0.185916841764682,0.11682839738900933,10,-0.2519692231950089,-0.11765902656178634,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,return,-0.185916841764682,0.11682839738900933,10,-0.2519692231950089,-0.11765902656178634,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,target_normalized_path_derivative,-0.2485079436397391,0.061931146330014626,10,-0.2825619265466033,-0.2101387258716482,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,semantic_drift,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,target_plus_type_probability,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,frozen_actor_p_1,-0.025225138462956143,0.016185164036618738,10,-0.0342668663867242,-0.015793775386934668,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,target_path_derivative,-1.4910476618384343,0.37158687798008777,10,-1.6953715592796195,-1.260832355229889,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,frozen_actor_p_0,-0.04240426294349521,0.026562868405587574,10,-0.056498001361672164,-0.025678942794879346,paired_training_seed_or_data_batch,False
+P-T,AN - DA,fixed-edge,4,6,False,density_ratio,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,source_steps_return_check,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,attempts,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,source_steps_training,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,normalized_derivative_lower_bound,0.000251089429202709,0.0005260051386093087,10,-6.271876898142695e-05,0.0005605733821647884,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,source_steps_total,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,target_true_coefficient_1,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,neighbor_weight,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,target_local_energy,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,target_direction_error,-0.000516691611499348,0.0007309488066476841,10,-0.0009461934251784027,-9.549813102453093e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,old_return,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,forward_kl_training,-1.0391556372982651e-10,5.277320798568622e-10,8,-4.818219981750284e-10,2.1717566053127926e-10,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,return_check_gain,0.0,0.0,8,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,return_check_standard_error,0.0,0.0,8,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,direction_loss,0.000472406985068375,0.000770238022903967,10,-2.2946514679175714e-06,0.0009190855138575367,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,eta,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,source_direction_error,-0.00012665217721954158,0.00023417614868195748,10,-0.00026634580417202864,4.788210662748199e-06,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,q_bound,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,source_realization_residual,4.369579832034817e-05,0.0008092141585212192,10,-0.0004022023949382721,0.0005771973773658856,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,target_true_coefficient_0,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,return_gain,-8.763341060159802e-06,2.0807643659885542e-05,10,-2.241241044134201e-05,2.0431248306336523e-06,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,transport_error_upper_bound,-0.001201596936701771,0.002316122387578035,10,-0.002558755130704126,0.00017844619389776673,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,return,-8.763341060159802e-06,2.0807643659885542e-05,10,-2.241241044134201e-05,2.0431248306336523e-06,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,target_normalized_path_derivative,-4.7578325510318296e-05,0.00019926168009777402,10,-0.00018257481141451738,5.555120300226592e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,semantic_drift,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,target_plus_type_probability,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,direction_steps,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,frozen_actor_p_1,-6.927869978378132e-05,9.507912332972386e-05,10,-0.00012619528078996106,-1.4596684306822416e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,target_path_derivative,-9.515665102063659e-05,0.00039852336019554805,10,-0.00036514962282903476,0.00011110240600453184,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,direction_check_score,-0.00048358223763440497,0.0012210190139630922,10,-0.001208445129154461,0.00021577417739431293,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,source_steps_direction_check,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,frozen_actor_p_0,2.4381329269795858e-06,2.9935111303192666e-05,10,-1.4498663826823938e-05,2.143177848940622e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,2,False,density_ratio,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,source_steps_return_check,-19.2,60.71573107523289,10,-51.2,19.2,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,attempts,-0.3,0.9486832980505139,10,-0.8,0.3,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,source_steps_training,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,source_steps_total,12.8,60.71573107523289,10,-19.2,51.2,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,target_true_coefficient_1,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,neighbor_weight,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,target_local_energy,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,old_return,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,return_check_gain,-0.09895833333333334,0.1319167681917607,8,-0.18515625000000002,-0.018750000000000006,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,return_check_standard_error,-0.08936196871468426,0.08595650654603558,8,-0.14990051472814306,-0.03817068211640736,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,eta,-0.015000000000000003,0.06258327785172864,10,-0.05,0.02,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,target_true_coefficient_0,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,return_gain,0.009279570661768164,0.007988464647499157,10,0.004094752723238956,0.012021293033091525,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,return,0.009279570661768164,0.007988464647499157,10,0.004094752723238956,0.012021293033091525,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,target_normalized_path_derivative,0.13354318362396939,0.09903249378941238,10,0.06952926896089809,0.16697762000415908,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,semantic_drift,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,target_plus_type_probability,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,frozen_actor_p_1,-0.025225138462956143,0.016185164036618738,10,-0.0342668663867242,-0.015793775386934668,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,target_path_derivative,0.26708636724793877,0.19806498757882476,10,0.13905853792179618,0.33395524000831817,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,frozen_actor_p_0,-0.04240426294349521,0.026562868405587574,10,-0.056498001361672164,-0.025678942794879346,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,2,False,density_ratio,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,source_steps_return_check,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,attempts,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,source_steps_training,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,normalized_derivative_lower_bound,0.0002842475844159545,0.0005954678797703075,10,-7.100123106385039e-05,0.0006346011071600447,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,source_steps_total,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,target_true_coefficient_1,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,neighbor_weight,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,target_local_energy,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,target_direction_error,-7.975953354923865e-05,0.0002091584381792372,10,-0.00021451020676757247,2.8683988947725353e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,old_return,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,forward_kl_training,-1.0391556372982651e-10,5.277320798568622e-10,8,-4.818219981750284e-10,2.1717566053127926e-10,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,return_check_gain,0.0,0.0,8,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,return_check_standard_error,0.0,0.0,8,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,direction_loss,0.000472406985068375,0.000770238022903967,10,-2.2946514679175714e-06,0.0009190855138575367,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,eta,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,source_direction_error,-0.00012665217721954158,0.00023417614868195748,10,-0.00026634580417202864,4.788210662748199e-06,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,q_bound,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,source_realization_residual,4.369579832034817e-05,0.0008092141585212192,10,-0.0004022023949382721,0.0005771973773658856,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,target_true_coefficient_0,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,return_gain,-0.00013075615754269964,0.00018147370054110644,10,-0.00024076790559345723,-2.654246884754341e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,transport_error_upper_bound,-0.00027326565693505493,0.0006108268169616528,10,-0.0006686404732675624,6.136369387323827e-06,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,return,-0.00013075615754269964,0.00018147370054110644,10,-0.00024076790559345723,-2.654246884754341e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,target_normalized_path_derivative,-0.0004295586286186086,0.0005762738348964651,10,-0.0007825227462812108,-0.00010132800507628071,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,semantic_drift,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,target_plus_type_probability,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,direction_steps,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,frozen_actor_p_1,-6.927869978378132e-05,9.507912332972386e-05,10,-0.00012619528078996106,-1.4596684306822416e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,target_path_derivative,-0.0017182345144744343,0.0023050953395858604,10,-0.003130090985124843,-0.00040531202030512283,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,direction_check_score,-0.00048358223763440497,0.0012210190139630922,10,-0.001208445129154461,0.00021577417739431293,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,source_steps_direction_check,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,frozen_actor_p_0,2.4381329269795858e-06,2.9935111303192666e-05,10,-1.4498663826823938e-05,2.143177848940622e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,4,False,density_ratio,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,source_steps_return_check,-19.2,60.71573107523289,10,-51.2,19.2,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,attempts,-0.3,0.9486832980505139,10,-0.8,0.3,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,source_steps_training,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,source_steps_total,12.8,60.71573107523289,10,-19.2,51.2,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,target_true_coefficient_1,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,neighbor_weight,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,target_local_energy,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,old_return,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,return_check_gain,-0.09895833333333334,0.1319167681917607,8,-0.18515625000000002,-0.018750000000000006,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,return_check_standard_error,-0.08936196871468426,0.08595650654603558,8,-0.14990051472814306,-0.03817068211640736,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,eta,-0.015000000000000003,0.06258327785172864,10,-0.05,0.02,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,target_true_coefficient_0,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,return_gain,-0.07862544421888057,0.049784542770738946,10,-0.10651596468773036,-0.04952462298953988,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,return,-0.07862544421888057,0.049784542770738946,10,-0.10651596468773036,-0.04952462298953988,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,target_normalized_path_derivative,-0.1663484595279401,0.0354614289699979,10,-0.18770704173364852,-0.1467802349804054,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,semantic_drift,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,target_plus_type_probability,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,frozen_actor_p_1,-0.025225138462956143,0.016185164036618738,10,-0.0342668663867242,-0.015793775386934668,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,target_path_derivative,-0.6653938381117604,0.1418457158799916,10,-0.7508281669345941,-0.5871209399216216,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,frozen_actor_p_0,-0.04240426294349521,0.026562868405587574,10,-0.056498001361672164,-0.025678942794879346,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,4,False,density_ratio,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,source_steps_return_check,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,attempts,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,source_steps_training,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,normalized_derivative_lower_bound,0.000251089429202709,0.0005260051386093087,10,-6.271876898142695e-05,0.0005605733821647884,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,source_steps_total,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,target_true_coefficient_1,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,neighbor_weight,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,target_local_energy,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,target_direction_error,-0.000516691611499348,0.0007309488066476841,10,-0.0009461934251784027,-9.549813102453093e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,old_return,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,forward_kl_training,-1.0391556372982651e-10,5.277320798568622e-10,8,-4.818219981750284e-10,2.1717566053127926e-10,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,return_check_gain,0.0,0.0,8,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,return_check_standard_error,0.0,0.0,8,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,direction_loss,0.000472406985068375,0.000770238022903967,10,-2.2946514679175714e-06,0.0009190855138575367,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,eta,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,source_direction_error,-0.00012665217721954158,0.00023417614868195748,10,-0.00026634580417202864,4.788210662748199e-06,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,q_bound,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,source_realization_residual,4.369579832034817e-05,0.0008092141585212192,10,-0.0004022023949382721,0.0005771973773658856,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,target_true_coefficient_0,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,return_gain,-2.629002318047524e-05,6.242293097966975e-05,10,-6.723723132402617e-05,6.129374491925382e-06,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,transport_error_upper_bound,-0.001201596936701771,0.002316122387578035,10,-0.002558755130704126,0.00017844619389776673,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,return,-2.629002318047524e-05,6.242293097966975e-05,10,-6.723723132402617e-05,6.129374491925382e-06,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,target_normalized_path_derivative,-4.7578325510318296e-05,0.00019926168009777402,10,-0.00018257481141451738,5.555120300226592e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,semantic_drift,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,target_plus_type_probability,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,direction_steps,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,frozen_actor_p_1,-6.927869978378132e-05,9.507912332972386e-05,10,-0.00012619528078996106,-1.4596684306822416e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,target_path_derivative,-0.0002854699530619096,0.0011955700805866445,10,-0.0010954488684871042,0.000333307218013596,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,direction_check_score,-0.00048358223763440497,0.0012210190139630922,10,-0.001208445129154461,0.00021577417739431293,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,source_steps_direction_check,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,frozen_actor_p_0,2.4381329269795858e-06,2.9935111303192666e-05,10,-1.4498663826823938e-05,2.143177848940622e-05,paired_training_seed_or_data_batch,False
+P-T,AN - SA,composition,4,6,False,density_ratio,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,source_steps_return_check,-19.2,60.71573107523289,10,-51.2,19.2,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,attempts,-0.3,0.9486832980505139,10,-0.8,0.3,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,source_steps_training,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,source_steps_total,12.8,60.71573107523289,10,-19.2,51.2,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,target_true_coefficient_1,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,neighbor_weight,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,target_local_energy,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,old_return,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,return_check_gain,-0.09895833333333334,0.1319167681917607,8,-0.18515625000000002,-0.018750000000000006,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,return_check_standard_error,-0.08936196871468426,0.08595650654603558,8,-0.14990051472814306,-0.03817068211640736,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,eta,-0.015000000000000003,0.06258327785172864,10,-0.05,0.02,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,target_true_coefficient_0,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,return_gain,0.0278387119853045,0.02396539394249745,10,0.012284258169716865,0.03606387909927456,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,return,0.0278387119853045,0.02396539394249745,10,0.012284258169716865,0.03606387909927456,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,target_normalized_path_derivative,0.13354318362396939,0.09903249378941238,10,0.06952926896089809,0.16697762000415908,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,semantic_drift,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,target_plus_type_probability,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,frozen_actor_p_1,-0.025225138462956143,0.016185164036618738,10,-0.0342668663867242,-0.015793775386934668,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,target_path_derivative,0.8012591017438162,0.5941949627364743,10,0.41717561376538853,1.0018657200249543,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,source_steps_direction_check,32.0,0.0,10,32.0,32.0,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,frozen_actor_p_0,-0.04240426294349521,0.026562868405587574,10,-0.056498001361672164,-0.025678942794879346,paired_training_seed_or_data_batch,False
+P-T,AN - DA,composition,4,6,False,density_ratio,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False

@@ -134,19 +134,20 @@ def estimation(config):
     return rows
 
 
-def actor_realization(config):
+def actor_realization(config, *, saved_direction=None, saved_label="mc_raw"):
     cfg, env = settings(config), pair_source(config)
     old, seed = env.initial_policy.copy(), cfg["seed"]
     n = int(config.get("sample_episodes", max(cfg["sample_sizes"])))
     batch = env.sample(old, n, np.random.default_rng(seed))
     validation = env.sample(old, cfg["evaluation_episodes"], np.random.default_rng(seed + 1_000_000))
     weights, validation_weights = occupancy(batch, env.n_states), occupancy(validation, env.n_states)
-    label = "mc_raw"
+    label = saved_label
     labels = labels_for(batch, label, env, old)
     direction_method = next((method for method in ("AN", "SA") if method in cfg["methods"]), None)
     # ONE learned direction, shared by every fit. AN is the default reference;
     # a SA-only request uses one SA direction, never a separate q per fit count.
-    c = _fit(batch, labels, env, direction_method, cfg)[0] if direction_method else np.zeros(env.n_states)
+    c = (np.asarray(saved_direction, dtype=float).copy() if saved_direction is not None
+         else _fit(batch, labels, env, direction_method, cfg)[0] if direction_method else np.zeros(env.n_states))
     eta = float(config.get("eta", cfg["step_sizes"][0]))
     target, rows = tilted(old, c, eta), []
     old_value = env.oracle(old)["expected_return"]

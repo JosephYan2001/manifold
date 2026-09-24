@@ -65,6 +65,12 @@ def resolve(args):
         if name == "P-A" and not set(c["methods"]) & {"AN", "SA"}:
             raise ValueError("P-A needs AN or SA to learn the fixed reference direction; DA can be added as a comparator.")
         c["experiment_id"] = name
+        if name == "P-EA":
+            if not args.source:
+                raise ValueError("P-EA requires --source pointing to a completed P-E suite")
+            if args.seeds is not None:
+                raise ValueError("P-EA selects P-E data seeds with --data-seeds, not --seeds")
+            c["direction_source"] = str(args.source.resolve())
         if name == "N-R":
             c["relation_layers"] = 0
         elif name == "N-Gd":

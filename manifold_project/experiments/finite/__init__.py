@@ -9,8 +9,9 @@ from .diagnostics import (actor_realization, boundaries, estimation, information
                           temporal_variance, transfer)
 from .numerics import write_csv
 from .training import train
+from .linked_realization import linked_realization
 
-EXPERIMENTS = ("P-E", "P-A", "P-T", "P-I", "P-L", "P-B", "T-V", "T-L")
+EXPERIMENTS = ("P-E", "P-A", "P-EA", "P-T", "P-I", "P-L", "P-B", "T-V", "T-L")
 
 
 def run_experiment(experiment: str, config: dict, output: Path) -> dict:
@@ -22,7 +23,7 @@ def run_experiment(experiment: str, config: dict, output: Path) -> dict:
                 "evaluation_episodes": len(evaluation_rows), "checkpoint_format": "legacy_json_resumable" if experiment == 'P-L' else "npz_actor_only",
                 "execution_backend": "restored_pair_runner" if experiment == 'P-L' else "numpy_cpu",
                 "evaluation_role": "report_only_never_checkpoint_selection"}
-    runners = {"P-E": estimation, "P-A": actor_realization, "P-T": transfer,
+    runners = {"P-E": estimation, "P-A": actor_realization, "P-EA": linked_realization, "P-T": transfer,
                "P-I": information, "P-B": boundaries, "T-V": temporal_variance}
     if experiment not in runners:
         raise ValueError(f"Finite experiment {experiment!r} is not implemented; available: {', '.join(EXPERIMENTS)}")
