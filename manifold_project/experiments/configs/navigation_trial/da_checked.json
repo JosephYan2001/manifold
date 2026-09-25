@@ -1,0 +1,32 @@
+{
+  "budget": 262144,
+  "seeds": [
+    40
+  ],
+  "n_agents": 4,
+  "horizon": 200,
+  "target_sizes": [
+    2,
+    6,
+    8
+  ],
+  "observation_mode": "full",
+  "hidden": 128,
+  "heads": 4,
+  "relation_layers": 2,
+  "batch_episodes": 16,
+  "minibatch_size": 3200,
+  "actor_lr": 0.0003,
+  "critic_lr": 0.001,
+  "direction_lr": 0.0003,
+  "label_mode": "gae",
+  "gae_lambda": 0.95,
+  "check_episodes": 16,
+  "source_eval_episodes": 8,
+  "evaluation_episodes": 20,
+  "eval_every_steps": 65536,
+  "plot_every": 5,
+  "save_fit_diagnostics": false,
+  "direction_check": false,
+  "return_check": true
+}
