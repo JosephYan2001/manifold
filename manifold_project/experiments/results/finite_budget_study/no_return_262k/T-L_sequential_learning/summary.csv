@@ -1,0 +1,86 @@
+﻿experiment,method,label,smoke_only,metric,mean,std,independent_units,ci95_low,ci95_high,interval_unit,small_sample
+T-L,AN,mc_learned_baseline,False,source_steps_total,262136.0,0.0,10,262136.0,262136.0,training_seed_or_data_batch,False
+T-L,AN,mc_learned_baseline,False,source_steps_training,38656.0,0.0,10,38656.0,38656.0,training_seed_or_data_batch,False
+T-L,AN,mc_learned_baseline,False,source_steps_critic,38656.0,0.0,10,38656.0,38656.0,training_seed_or_data_batch,False
+T-L,AN,mc_learned_baseline,False,source_steps_direction_check,154624.0,0.0,10,154624.0,154624.0,training_seed_or_data_batch,False
+T-L,AN,mc_learned_baseline,False,source_steps_return_check,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+T-L,AN,mc_learned_baseline,False,source_steps_monitor,30200.0,0.0,10,30200.0,30200.0,training_seed_or_data_batch,False
+T-L,AN,mc_learned_baseline,False,budget,262144.0,0.0,10,262144.0,262144.0,training_seed_or_data_batch,False
+T-L,AN,mc_learned_baseline,False,unused_budget,8.0,0.0,10,8.0,8.0,training_seed_or_data_batch,False
+T-L,AN,mc_learned_baseline,False,updates,151.0,0.0,10,151.0,151.0,training_seed_or_data_batch,False
+T-L,AN,mc_learned_baseline,False,accepted_updates,126.9,4.794672969962486,10,124.2,129.7,training_seed_or_data_batch,False
+T-L,AN,mc_learned_baseline,False,direction_rejections,24.1,4.794672969962486,10,21.3,26.8,training_seed_or_data_batch,False
+T-L,AN,mc_learned_baseline,False,return_rejections,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+T-L,AN,mc_learned_baseline,False,final_source_return_diagnostic,1.0258912431995884,0.005637605481852463,10,1.0226512367217433,1.0287602497180812,training_seed_or_data_batch,False
+T-L,AN,mc_learned_baseline,False,best_source_empirical_monitor_return,1.0380000000000003,0.004000000000000022,10,1.0356,1.0404000000000002,training_seed_or_data_batch,False
+T-L,AN,mc_learned_baseline,False,seconds,6.150782830012031,0.09987653885553191,10,6.092918085785931,6.209957169516128,training_seed_or_data_batch,False
+T-L,AN,mc_learned_baseline,False,source_report_only_steps,1000.0,0.0,10,1000.0,1000.0,training_seed_or_data_batch,False
+T-L,AN,mc_learned_baseline,False,target_report_only_steps,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+T-L,SA,mc_learned_baseline,False,source_steps_total,262136.0,0.0,10,262136.0,262136.0,training_seed_or_data_batch,False
+T-L,SA,mc_learned_baseline,False,source_steps_training,38656.0,0.0,10,38656.0,38656.0,training_seed_or_data_batch,False
+T-L,SA,mc_learned_baseline,False,source_steps_critic,38656.0,0.0,10,38656.0,38656.0,training_seed_or_data_batch,False
+T-L,SA,mc_learned_baseline,False,source_steps_direction_check,154624.0,0.0,10,154624.0,154624.0,training_seed_or_data_batch,False
+T-L,SA,mc_learned_baseline,False,source_steps_return_check,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+T-L,SA,mc_learned_baseline,False,source_steps_monitor,30200.0,0.0,10,30200.0,30200.0,training_seed_or_data_batch,False
+T-L,SA,mc_learned_baseline,False,budget,262144.0,0.0,10,262144.0,262144.0,training_seed_or_data_batch,False
+T-L,SA,mc_learned_baseline,False,unused_budget,8.0,0.0,10,8.0,8.0,training_seed_or_data_batch,False
+T-L,SA,mc_learned_baseline,False,updates,151.0,0.0,10,151.0,151.0,training_seed_or_data_batch,False
+T-L,SA,mc_learned_baseline,False,accepted_updates,130.3,5.5387523665332585,10,127.3,133.7025,training_seed_or_data_batch,False
+T-L,SA,mc_learned_baseline,False,direction_rejections,20.7,5.538752366533259,10,17.2975,23.7,training_seed_or_data_batch,False
+T-L,SA,mc_learned_baseline,False,return_rejections,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+T-L,SA,mc_learned_baseline,False,final_source_return_diagnostic,1.0294510043114227,0.00506994448466139,10,1.0264100464006183,1.0322832606908465,training_seed_or_data_batch,False
+T-L,SA,mc_learned_baseline,False,best_source_empirical_monitor_return,1.0395,0.0040620192023179975,10,1.0371000000000001,1.0419,training_seed_or_data_batch,False
+T-L,SA,mc_learned_baseline,False,seconds,6.108327810023911,0.15978948117408343,10,6.0131427810053,6.201364631297183,training_seed_or_data_batch,False
+T-L,SA,mc_learned_baseline,False,source_report_only_steps,1000.0,0.0,10,1000.0,1000.0,training_seed_or_data_batch,False
+T-L,SA,mc_learned_baseline,False,target_report_only_steps,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+T-L,DA,mc_learned_baseline,False,source_steps_total,262016.0,0.0,10,262016.0,262016.0,training_seed_or_data_batch,False
+T-L,DA,mc_learned_baseline,False,source_steps_training,94208.0,0.0,10,94208.0,94208.0,training_seed_or_data_batch,False
+T-L,DA,mc_learned_baseline,False,source_steps_critic,94208.0,0.0,10,94208.0,94208.0,training_seed_or_data_batch,False
+T-L,DA,mc_learned_baseline,False,source_steps_direction_check,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+T-L,DA,mc_learned_baseline,False,source_steps_return_check,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+T-L,DA,mc_learned_baseline,False,source_steps_monitor,73600.0,0.0,10,73600.0,73600.0,training_seed_or_data_batch,False
+T-L,DA,mc_learned_baseline,False,budget,262144.0,0.0,10,262144.0,262144.0,training_seed_or_data_batch,False
+T-L,DA,mc_learned_baseline,False,unused_budget,128.0,0.0,10,128.0,128.0,training_seed_or_data_batch,False
+T-L,DA,mc_learned_baseline,False,updates,368.0,0.0,10,368.0,368.0,training_seed_or_data_batch,False
+T-L,DA,mc_learned_baseline,False,accepted_updates,368.0,0.0,10,368.0,368.0,training_seed_or_data_batch,False
+T-L,DA,mc_learned_baseline,False,direction_rejections,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+T-L,DA,mc_learned_baseline,False,return_rejections,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+T-L,DA,mc_learned_baseline,False,final_source_return_diagnostic,1.0498620573790476,3.565618813761686e-05,10,1.049841382244976,1.049881946767685,training_seed_or_data_batch,False
+T-L,DA,mc_learned_baseline,False,best_source_empirical_monitor_return,1.0500000000000003,2.340555645717801e-16,10,1.0500000000000003,1.0500000000000003,training_seed_or_data_batch,False
+T-L,DA,mc_learned_baseline,False,seconds,4.239376209978945,0.08814687274947623,10,4.187674683975347,4.289296768990753,training_seed_or_data_batch,False
+T-L,DA,mc_learned_baseline,False,source_report_only_steps,1000.0,0.0,10,1000.0,1000.0,training_seed_or_data_batch,False
+T-L,DA,mc_learned_baseline,False,target_report_only_steps,0.0,0.0,10,0.0,0.0,training_seed_or_data_batch,False
+T-L,AN - SA,mc_learned_baseline,False,return_rejections,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+T-L,AN - SA,mc_learned_baseline,False,source_steps_total,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+T-L,AN - SA,mc_learned_baseline,False,source_report_only_steps,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+T-L,AN - SA,mc_learned_baseline,False,source_steps_critic,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+T-L,AN - SA,mc_learned_baseline,False,source_steps_direction_check,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+T-L,AN - SA,mc_learned_baseline,False,source_steps_training,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+T-L,AN - SA,mc_learned_baseline,False,direction_rejections,3.4,6.8507907086214015,10,-0.6,7.4,paired_training_seed_or_data_batch,False
+T-L,AN - SA,mc_learned_baseline,False,seconds,0.042455019988119604,0.16793527011130777,10,-0.05599528828664916,0.13208143000956624,paired_training_seed_or_data_batch,False
+T-L,AN - SA,mc_learned_baseline,False,source_steps_monitor,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+T-L,AN - SA,mc_learned_baseline,False,target_report_only_steps,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+T-L,AN - SA,mc_learned_baseline,False,final_source_return_diagnostic,-0.0035597611118343363,0.004440763526960695,10,-0.006150051824633365,-0.000941240458387805,paired_training_seed_or_data_batch,False
+T-L,AN - SA,mc_learned_baseline,False,accepted_updates,-3.4,6.8507907086214015,10,-7.4,0.6,paired_training_seed_or_data_batch,False
+T-L,AN - SA,mc_learned_baseline,False,updates,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+T-L,AN - SA,mc_learned_baseline,False,best_source_empirical_monitor_return,-0.0014999999999999903,0.0032403703492038818,10,-0.0035999999999999587,0.0002999999999999892,paired_training_seed_or_data_batch,False
+T-L,AN - SA,mc_learned_baseline,False,budget,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+T-L,AN - SA,mc_learned_baseline,False,source_steps_return_check,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+T-L,AN - SA,mc_learned_baseline,False,unused_budget,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+T-L,AN - DA,mc_learned_baseline,False,return_rejections,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+T-L,AN - DA,mc_learned_baseline,False,source_steps_total,120.0,0.0,10,120.0,120.0,paired_training_seed_or_data_batch,False
+T-L,AN - DA,mc_learned_baseline,False,source_report_only_steps,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+T-L,AN - DA,mc_learned_baseline,False,source_steps_critic,-55552.0,0.0,10,-55552.0,-55552.0,paired_training_seed_or_data_batch,False
+T-L,AN - DA,mc_learned_baseline,False,source_steps_direction_check,154624.0,0.0,10,154624.0,154624.0,paired_training_seed_or_data_batch,False
+T-L,AN - DA,mc_learned_baseline,False,source_steps_training,-55552.0,0.0,10,-55552.0,-55552.0,paired_training_seed_or_data_batch,False
+T-L,AN - DA,mc_learned_baseline,False,direction_rejections,24.1,4.794672969962486,10,21.3,26.8,paired_training_seed_or_data_batch,False
+T-L,AN - DA,mc_learned_baseline,False,seconds,1.9114066200330853,0.10861072158349627,10,1.8491416075150482,1.9792047190372248,paired_training_seed_or_data_batch,False
+T-L,AN - DA,mc_learned_baseline,False,source_steps_monitor,-43400.0,0.0,10,-43400.0,-43400.0,paired_training_seed_or_data_batch,False
+T-L,AN - DA,mc_learned_baseline,False,target_report_only_steps,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+T-L,AN - DA,mc_learned_baseline,False,final_source_return_diagnostic,-0.023970814179459076,0.005624526641018519,10,-0.02742536175616463,-0.02083768859894207,paired_training_seed_or_data_batch,False
+T-L,AN - DA,mc_learned_baseline,False,accepted_updates,-241.1,4.794672969962486,10,-243.8,-238.3,paired_training_seed_or_data_batch,False
+T-L,AN - DA,mc_learned_baseline,False,updates,-217.0,0.0,10,-217.0,-217.0,paired_training_seed_or_data_batch,False
+T-L,AN - DA,mc_learned_baseline,False,best_source_empirical_monitor_return,-0.011999999999999966,0.004000000000000023,10,-0.014399999999999946,-0.009599999999999942,paired_training_seed_or_data_batch,False
+T-L,AN - DA,mc_learned_baseline,False,budget,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+T-L,AN - DA,mc_learned_baseline,False,source_steps_return_check,0.0,0.0,10,0.0,0.0,paired_training_seed_or_data_batch,False
+T-L,AN - DA,mc_learned_baseline,False,unused_budget,-120.0,0.0,10,-120.0,-120.0,paired_training_seed_or_data_batch,False

@@ -1,0 +1,238 @@
+{
+  "source": {
+    "n_agents": 4,
+    "type_probs": [
+      0.4,
+      0.6
+    ],
+    "local_bias": [
+      -0.1,
+      0.2
+    ],
+    "pair_payoff": [
+      [
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0
+      ]
+    ],
+    "interaction_strength": 2.0
+  },
+  "training": {
+    "device": "cpu",
+    "algorithm": "direct",
+    "initial_probabilities": [
+      0.3,
+      0.7
+    ],
+    "checkpoint_selection": "empirical",
+    "monitor_episodes": 100,
+    "step_sizes": [
+      0.1,
+      0.05,
+      0.01
+    ],
+    "direction_threshold": 0.0,
+    "return_tolerance": 0.0,
+    "direction_check_enabled": true,
+    "return_check_enabled": true,
+    "save_update_logs": false,
+    "save_batches": false,
+    "save_direction_snapshots": false,
+    "checkpoint_every": 5,
+    "actor_model": "table",
+    "direction_model": "table",
+    "hidden_width": 32,
+    "hidden_depth": 2,
+    "mode": "policy",
+    "method": "analytic",
+    "baseline": "table",
+    "acceptance": "empirical",
+    "seed": 48,
+    "episodes": 128,
+    "batch_size_episodes": 0,
+    "direction_epochs": 0,
+    "actor_epochs": 0,
+    "critic_episodes": 128,
+    "check_episodes": 512,
+    "direction_steps": 100,
+    "fit_steps": 100,
+    "log_every": 100,
+    "rounds": 65536,
+    "attempts": 3,
+    "budget": 65536,
+    "direction_lr": 0.03,
+    "fit_lr": 0.03,
+    "q_max": 5.0,
+    "beta": 1e-12,
+    "eta": 0.1,
+    "alpha": 0.05
+  },
+  "python": "3.12.3",
+  "numpy": "1.26.4",
+  "runtime": {
+    "backend": "pytorch",
+    "torch": "2.7.1+cu118",
+    "cuda_build": "11.8",
+    "requested_device": "cpu",
+    "device": "cpu",
+    "dtype": "float64",
+    "gpu": null
+  },
+  "requested_config": {
+    "programmatic": {
+      "device": "cpu",
+      "algorithm": "direct",
+      "initial_probabilities": [
+        0.3,
+        0.7
+      ],
+      "checkpoint_selection": "empirical",
+      "monitor_episodes": 100,
+      "step_sizes": [
+        0.1,
+        0.05,
+        0.01
+      ],
+      "direction_threshold": 0.0,
+      "return_tolerance": 0.0,
+      "direction_check_enabled": true,
+      "return_check_enabled": true,
+      "save_update_logs": false,
+      "save_batches": false,
+      "save_direction_snapshots": false,
+      "checkpoint_every": 5,
+      "actor_model": "table",
+      "direction_model": "table",
+      "hidden_width": 32,
+      "hidden_depth": 2,
+      "mode": "policy",
+      "method": "analytic",
+      "baseline": "table",
+      "acceptance": "empirical",
+      "seed": 48,
+      "episodes": 128,
+      "batch_size_episodes": 0,
+      "direction_epochs": 0,
+      "actor_epochs": 0,
+      "critic_episodes": 128,
+      "check_episodes": 512,
+      "direction_steps": 100,
+      "fit_steps": 100,
+      "log_every": 100,
+      "rounds": 65536,
+      "attempts": 3,
+      "budget": 65536,
+      "direction_lr": 0.03,
+      "fit_lr": 0.03,
+      "q_max": 5.0,
+      "beta": 1e-12,
+      "eta": 0.1,
+      "alpha": 0.05
+    }
+  },
+  "resolved_config": {
+    "source": {
+      "n_agents": 4,
+      "type_probs": [
+        0.4,
+        0.6
+      ],
+      "local_bias": [
+        -0.1,
+        0.2
+      ],
+      "pair_payoff": [
+        [
+          1.0,
+          1.0
+        ],
+        [
+          1.0,
+          1.0
+        ]
+      ],
+      "interaction_strength": 2.0
+    },
+    "training": {
+      "device": "cpu",
+      "algorithm": "direct",
+      "initial_probabilities": [
+        0.3,
+        0.7
+      ],
+      "checkpoint_selection": "empirical",
+      "monitor_episodes": 100,
+      "step_sizes": [
+        0.1,
+        0.05,
+        0.01
+      ],
+      "direction_threshold": 0.0,
+      "return_tolerance": 0.0,
+      "direction_check_enabled": true,
+      "return_check_enabled": true,
+      "save_update_logs": false,
+      "save_batches": false,
+      "save_direction_snapshots": false,
+      "checkpoint_every": 5,
+      "actor_model": "table",
+      "direction_model": "table",
+      "hidden_width": 32,
+      "hidden_depth": 2,
+      "mode": "policy",
+      "method": "analytic",
+      "baseline": "table",
+      "acceptance": "empirical",
+      "seed": 48,
+      "batch_size_episodes": 0,
+      "direction_epochs": 0,
+      "actor_epochs": 0,
+      "critic_episodes": 128,
+      "check_episodes": 512,
+      "direction_steps": 100,
+      "fit_steps": 100,
+      "log_every": 100,
+      "attempts": 3,
+      "direction_lr": 0.03,
+      "q_max": 5.0,
+      "beta": 1e-12,
+      "eta": 0.1,
+      "alpha": 0.05,
+      "episodes_per_round": 128,
+      "max_rounds": 65536,
+      "max_source_episodes": 65536,
+      "actor_lr": 0.03
+    }
+  },
+  "training_plan": {
+    "episode_steps": 1,
+    "n_agents": 4,
+    "episodes_per_round": 128,
+    "batch_size_episodes": 128,
+    "batches_per_epoch": 1,
+    "direction_epochs": 0,
+    "actor_epochs": 0,
+    "direction_updates": 0,
+    "actor_updates_per_candidate": 100,
+    "direction_lr": 0.03,
+    "actor_lr": 0.03,
+    "learning_rate_schedule": "constant",
+    "baseline": "table",
+    "actor_model": "table",
+    "direction_model": "table",
+    "hidden_width": 32,
+    "hidden_depth": 2,
+    "algorithm": "direct",
+    "direction_rejected_cost": 256,
+    "one_candidate_cost": 1380,
+    "maximum_round_cost": 3328,
+    "minimum_to_start_round": 1380,
+    "max_rounds": 65536,
+    "max_source_episodes": 65536,
+    "one_candidate_total_cost": 90439680
+  }
+}

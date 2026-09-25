@@ -1,0 +1,19 @@
+{
+  "rounds": 32,
+  "source_episodes": 64740,
+  "stop_reason": "source_budget",
+  "mode": "policy",
+  "method": "analytic",
+  "algorithm": "direct",
+  "acceptance": "empirical",
+  "final_actor_diagnostics": {
+    "expected_return": 4.319982802081201
+  },
+  "checkpoint": "D:\\manifold\\manifold_project\\experiments\\results\\finite_learning_mc65k_checks512_10seeds_v1\\P-L_source_learning\\seed_47\\mc_learned_baseline\\DA_s47\\checkpoints\\final.json",
+  "best_checkpoint": "D:\\manifold\\manifold_project\\experiments\\results\\finite_learning_mc65k_checks512_10seeds_v1\\P-L_source_learning\\seed_47\\mc_learned_baseline\\DA_s47\\checkpoints\\best.json",
+  "best_round": 28,
+  "best_selection_metric": "independent_source_empirical_return",
+  "best_selection_score": 4.398,
+  "best_expected_return": null,
+  "last_direction_at_reference_actor": {}
+}

@@ -1,0 +1,4 @@
+{
+  "check_episodes": 512,
+  "learning_labels": ["mc"]
+}

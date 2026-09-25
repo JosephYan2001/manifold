@@ -27,6 +27,10 @@ MPE2 固定 1.1.1，RWARE 固定 2.0.0。导航和仓库 Actor 输出保持原�
 
 ## 3. 当前方案的命令
 
+研究解释分两条：AN–SA比较同一总体方向目标的有限样本估计方式与成本；方向方法–DA及后续PPO比较方向学习路线的实际价值。AN/SA接近不视为方法失败，也不作为方向路线无价值的证据。最新262k结果及DA检查设置的区分见[四组报告](results/finite_budget_study/四组预算与检查消融报告.md)和[迁移报告](results/finite_budget_study/冻结跨规模迁移分析.md)。完整DA保留回报检查，表现良好；P-L中两个源失败仅属于无检查DA。旧65k阶段结论保留作预算对照，不能代替最新判断。
+
+P-EA 完成后新增的实际 KL 匹配、固定候选检查及后续 P-L/T-L 命令见 [后续对照执行说明](finite/后续对照执行说明.md)。前两项是源有限环境诊断，不经过目标成绩筛选。
+
 统一入口与环境入口最终调用上述旧训练器。先用 `--dry-run` 检查解析后的配置：
 
 ```powershell
@@ -39,7 +43,7 @@ python -m manifold_project.experiments --experiments P-E P-A P-T --profile pilot
 补充机制链实验 `P-EA` 直接读取已完成 P-E 的方向系数，分别交给完整和受限 Actor 拟合，不重新学习方向。推荐先用 MC 标签、2048 回合、AN/SA 和 20 个 P-E 数据种子：
 
 ```powershell
-python -m manifold_project.experiments --experiments P-EA --profile formal --source manifold_project/experiments/results/pair_estimation_20seeds_v1 --config manifold_project/experiments/configs/pair_ea_mc.json --sample-sizes 2048 --output manifold_project/experiments/results/pair_ea_mc2048_20seeds_v1 --plot
+python -m manifold_project.experiments --experiments P-EA --profile formal --source manifold_project/experiments/results/pair_estimation_20seeds_v1 --config manifold_project/experiments/configs/pair_ea_mc.json --sample-sizes 2048 --output manifold_project/experiments/results/mechanisms/pair_ea_mc2048_20seeds_v1 --plot
 ```
 
 这里 `formal` 提供默认数据种子 1000–1019；不执行长期训练，也不重新运行 P-E。使用 `--data-seeds` 筛选源方向，不能使用 `--seeds`。默认拟合步数为 1、10、100、1000，共 320 条记录。去掉 `--sample-sizes 2048` 可覆盖默认全部四档样本量；去掉 MC 配置参数可同时覆盖精确与 MC 标签。请求的每条方向必须已经存在，否则报错，不会悄悄补训。
