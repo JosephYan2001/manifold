@@ -1,0 +1,170 @@
+{
+  "protocol_version": "navigation-success-v2",
+  "protocol_versions": [
+    "navigation-success-v2"
+  ],
+  "status": "running",
+  "created_utc": "2026-10-01T14:12:00.310369+00:00",
+  "metadata": {
+    "python": "3.11.7 | packaged by Anaconda, Inc. | (main, Dec 15 2023, 18:05:47) [MSC v.1916 64 bit (AMD64)]",
+    "executable": "D:\\anaconda3\\python.exe",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "versions": {
+      "numpy": "1.26.4",
+      "torch": "2.7.1+cu128",
+      "matplotlib": "3.10.3",
+      "mpe2": "1.1.1",
+      "rware": null,
+      "gymnasium": "1.2.0"
+    },
+    "experiment_code_sha256": "0d4c4034a46143e6588e86ef353af7b97348d4ce679e2a0548f269cbcbe82aa2",
+    "cublas_workspace_config": ":4096:8",
+    "duplicate_openmp_allowed": true
+  },
+  "command_arguments": {
+    "experiments": [
+      "N-C"
+    ],
+    "profile": "pilot",
+    "methods": [
+      "MAPPO-E"
+    ],
+    "seeds": [
+      40
+    ],
+    "data_seeds": null,
+    "sample_sizes": null,
+    "fit_steps": null,
+    "budget": 2000000,
+    "evaluation_episodes": null,
+    "evaluation_horizon": null,
+    "device": "cuda",
+    "threads": null,
+    "config": "manifold_project\\experiments\\configs\\navigation\\no_checks.json",
+    "output": "manifold_project\\experiments\\results\\navigation_success_v2_2m_s40\\mappo",
+    "source": null,
+    "checkpoints": null,
+    "plot": true,
+    "plot_every": 5,
+    "allow_duplicate_openmp": false,
+    "dry_run": false,
+    "list": false
+  },
+  "experiments": {
+    "N-C": {
+      "status": "running",
+      "config": {
+        "environment": "navigation",
+        "profile": "pilot",
+        "protocol_version": "navigation-success-v2",
+        "smoke_only": false,
+        "seed": 40,
+        "seeds": [
+          40
+        ],
+        "data_seeds": [
+          1000,
+          1001,
+          1002,
+          1003
+        ],
+        "sample_sizes": [
+          32,
+          128,
+          512,
+          2048
+        ],
+        "fit_steps": [
+          1,
+          10,
+          100,
+          1000
+        ],
+        "budget": 2000000,
+        "n_agents": 4,
+        "horizon": 200,
+        "gamma": 0.99,
+        "target_sizes": [
+          2,
+          6,
+          8
+        ],
+        "device": "cuda",
+        "torch_threads": 1,
+        "deterministic": true,
+        "actor_lr": 0.0003,
+        "critic_lr": 0.001,
+        "direction_lr": 0.0003,
+        "hidden": 128,
+        "heads": 4,
+        "relation_layers": 2,
+        "observation_mode": "full",
+        "direction_steps": 16,
+        "actor_fit_steps": 16,
+        "critic_steps": 10,
+        "rollout_steps": 4096,
+        "minibatch_size": 3200,
+        "step_sizes": [
+          0.1,
+          0.05
+        ],
+        "batch_episodes": 16,
+        "critic_episodes": 128,
+        "direction_check": false,
+        "return_check": false,
+        "check_episodes": 16,
+        "direction_threshold": 0.0,
+        "return_tolerance": 0.0,
+        "q_bound": 1.0,
+        "probability_floor": 0.02,
+        "max_grad_norm": 0.5,
+        "label_mode": "gae",
+        "gae_lambda": 0.95,
+        "entropy_coef": 0.01,
+        "ppo_clip": 0.2,
+        "ppo_epochs": 10,
+        "value_normalization": true,
+        "eval_every_steps": 65536,
+        "source_eval_episodes": 8,
+        "evaluation_episodes": 20,
+        "plot_every": 5,
+        "plot": true,
+        "deterministic_evaluation": false,
+        "save_fit_diagnostics": false,
+        "fit_snapshot_fractions": [
+          0.25,
+          0.5,
+          1.0
+        ],
+        "local_ratio": 0.5,
+        "coverage_radius": 0.1,
+        "initial_scale": 1.0,
+        "sensor_range": 1,
+        "request_queue_size": 4,
+        "type_probability": 0.6,
+        "interaction_strength": 2.0,
+        "source_agents": 4,
+        "pair_variant": "normalized",
+        "methods": [
+          "MAPPO-E"
+        ],
+        "labels": [
+          "exact",
+          "mc_zero"
+        ],
+        "learning_labels": [
+          "exact",
+          "mc"
+        ],
+        "allow_duplicate_openmp": false,
+        "render_mode": null,
+        "evaluation_seed": 1000000,
+        "navigation_task": "success_only",
+        "evaluation_horizon": 1000,
+        "experiment_id": "N-C"
+      },
+      "directory": "N-C_source_learning"
+    }
+  },
+  "archive_sha256": "3872988f36a6a94a9dc4527ccd4b0ec894be217e0fa01b3f733709824efe09c6"
+}
