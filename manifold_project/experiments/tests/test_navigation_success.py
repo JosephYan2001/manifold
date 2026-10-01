@@ -84,17 +84,60 @@ class SuccessNavigationTests(unittest.TestCase):
         torch.testing.assert_close(target,expected)
         torch.testing.assert_close(advantage,expected-values)
 
+    def test_training_reset_keeps_pre_reset_bootstrap_and_restore(self):
+        c = dict(self.c, train_reset_horizon=5)
+        events = []
+        original = Collector(c, 'no_checks', 40, lambda stream, **row: events.append((stream,row)))
+        restored = Collector(c, 'no_checks', 40)
+        try:
+            original.collect(self.actor, 2, 'train')  # each lane has age 3
+            batch = original.collect(self.actor, 2, 'train')
+            self.assertEqual(batch['lengths'].tolist(), [2,1,2,1])
+            self.assertEqual([s['env'].t for s in original.sessions], [1,1])
+            self.assertFalse(batch['terminated'].any())
+            self.assertTrue(batch['truncated'][torch.arange(4),batch['lengths']-1].all())
+            self.assertEqual(original.costs['train'], 12)
+            self.assertEqual(original.last_training_metrics['train_reset_count'], 2)
+            self.assertEqual(original.last_training_metrics['train_task_age_max'], 5)
+            self.assertEqual(len([row for stream,row in events if stream == 'training_reset']), 2)
+            # The bootstrapped state belongs to the scene BEFORE reset.
+            self.assertFalse(torch.equal(batch['final_state'][0],batch['state'][1,0]))
+            class PositionValue(torch.nn.Module):
+                def forward(self, x): return 5+x[...,0]
+            _, target, _ = value_targets(batch, PositionValue(), c)
+            for i, length in enumerate(batch['lengths'].tolist()):
+                expected = batch['reward'][i,length-1]+c['gamma']*(5+batch['final_state'][i,0])
+                torch.testing.assert_close(target[i,length-1],expected)
+            # Reach a reset exactly at a round boundary and restore that flag.
+            original.collect(self.actor,2,'train')
+            original.collect(self.actor,2,'train')
+            original.collect(self.actor,2,'train')
+            self.assertEqual([s['env'].t for s in original.sessions], [5,5])
+            self.assertTrue(all(s['reset_pending'] for s in original.sessions))
+            restored.costs.update(original.costs)
+            restored.counts.update(original.counts)
+            restored.load_state_dict(original.state_dict())
+            left, right = original.collect(self.actor,2,'train'), restored.collect(self.actor,2,'train')
+            for key in left:
+                torch.testing.assert_close(left[key],right[key],rtol=0,atol=0)
+            self.assertEqual([s['env'].t for s in original.sessions], [3,3])
+        finally:
+            original.close(); restored.close()
+
     def test_author_gae_uses_each_segment_final_state(self):
-        for normalize in (False,True):
-            c=dict(self.c,ppo_value_normalization=normalize)
+        for normalize, reset_horizon in ((False,None),(True,None),(False,2),(True,2)):
+            c=dict(self.c,ppo_value_normalization=normalize,train_reset_horizon=reset_horizon)
             ppo=AuthorPPO(30,24,c)
+            if normalize:
+                ppo.trainer.value_normalizer.update(torch.tensor([[-1000.],[-2000.],[-3000.]]))
             sampler=Collector(c,'mappo',40)
             try:
                 batch=sampler.collect(ppo.actor,2,'train')
-                batch['reward'][0]=torch.tensor([1.,2.,3.])
-                batch['reward'][1]=torch.tensor([10.,20.,30.])
-                batch['terminated'][0,-1]=True
-                batch['truncated'][0,-1]=False
+                for i, length in enumerate(batch['lengths'].tolist()):
+                    batch['reward'][i,:length]=torch.arange(1,length+1)*(10.**i)
+                boundary=int(batch['lengths'][0])-1
+                batch['terminated'][0,boundary]=True
+                batch['truncated'][0,boundary]=False
                 inputs,final_inputs=ppo.critic_inputs(batch)
                 # Compute an independent masked GAE reference before packing.
                 with torch.no_grad():
@@ -105,6 +148,8 @@ class SuccessNavigationTests(unittest.TestCase):
                         v=torch.as_tensor(norm.denormalize(v.unsqueeze(-1))).squeeze(-1)
                         f=torch.as_tensor(norm.denormalize(f.unsqueeze(-1))).squeeze(-1)
                     nxt=torch.cat([v[:,1:],f.unsqueeze(1)],dim=1)
+                    for i, length in enumerate(batch['lengths'].tolist()):
+                        nxt[i,length-1]=f[i]
                     expected=gae(batch['reward'],v,c['gamma'],c['gae_lambda'],next_values=nxt,
                                  terminated=batch['terminated'],truncated=batch['truncated'])+v
                 buffer=ppo.make_buffer(batch)
@@ -122,6 +167,7 @@ class SuccessNavigationTests(unittest.TestCase):
             self.assertEqual(row['end_reason'],'evaluation_cutoff')
             self.assertEqual(row['censored'],1)
             self.assertFalse(row['terminated'])
+            self.assertEqual(row['protocol_version'], 'navigation-success-v3')
             self.assertEqual(summarize([row])['censored_count'],1)
             self.assertIsNone(summarize([row])['success_completion_time'])
         finally:

@@ -424,7 +424,8 @@ class Runner:
                 started = time.perf_counter()
                 old, info = self.update()
                 if success_task(self.c):
-                    info.update(train_segment_return=info['train_J'],
+                    info.update(self.sampler.last_training_metrics,
+                                train_segment_return=info['train_J'],
                                 train_return_scope='segment_observed_discounted_return',
                                 task_mode='success_only')
                 info['update_seconds'] = time.perf_counter()-started

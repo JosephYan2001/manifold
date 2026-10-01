@@ -1,6 +1,6 @@
 # 协作导航实验手册
 
-本环境研究方向学习能否转化为实际协作能力，并在源规模学好后检验冻结 Actor 的跨规模表现。当前协议为 `navigation-success-v2`：成功才结束任务，采样段结束保留后续价值，Actor 与 Critic 均不接收任务时钟。本文件统一维护导航的任务定义、训练流程、配置、命令和数据解释。
+本环境研究方向学习能否转化为实际协作能力，并在源规模学好后检验冻结 Actor 的跨规模表现。当前采样协议为 `navigation-success-v3`：成功才真正终止，200 步切分训练段，连续采样到 1000 步未成功时按外部截断重置场景，使用重置前末状态自举。Actor 与 Critic 均不接收任务时钟。本文件统一维护导航的任务定义、训练流程、配置、命令和数据解释。
 
 跨环境研究安排见[总体实验方案](../../docs/总体实验方案.md)，公共安装与入口见[实验运行说明](../README.md)。当前阶段先做单种子源训练，不能把工程测试通过解释为收敛或迁移优势。
 
@@ -13,8 +13,8 @@
 | 奖励 | 原生 agent 奖励的平均值，local_ratio=0.5；距离和碰撞成本，不额外加成功奖励或截止罚分 |
 | 成功 | 同一时刻所有目标到最近机器人的距离均小于 0.1，首次满足即终止 |
 | 成功的边界 | 不要求停稳、持续驻留或严格一一匹配；不是各目标曾经分别被访问 |
-| 采样 | 每条轨迹每轮最多采 200 步；未成功则截断采样并 bootstrap，下一轮继续原状态 |
-| 重置 | 成功后重置；训练预算用完仅停止实验，不把未完成任务写成真正终止 |
+| 采样 | 每条轨迹每轮最多采 200 步；段末自举，未到训练重置上限则下一轮继续原状态 |
+| 重置 | 成功后立即重置；未成功但累计采到 train_reset_horizon=1000 时外部截断并重置，terminated=false，保留末状态自举。预算用完仅停止实验 |
 | Actor 自身输入 | 二维速度和二维绝对位置，共 4 维，无时间字段 |
 | 实体输入 | 所有目标和同伴，每条 6 维：两种类型标记、二维相对位置、两维原生通信；当前静默机器人通信为零 |
 | 信息限制 | 不含同伴速度，不使用历史帧或上一动作；全位置感知不等于完整全局状态 |
@@ -24,16 +24,18 @@
 
 同一网络能读取可变实体数，只说明维度兼容。全名单的聚合是否保留决策信息、源经验是否约束目标行为，仍需独立证据；导航按 B 类经验外推环境解释。
 
+任务终止、采样段结束、训练重置是三件事。1000 步训练重置用于更新初始场景、限制无边界空间中的长期漂移，不是任务完成期限，也不添加失败奖励。它与评估观察上限分别配置。[Gymnasium 的时间限制说明](https://gymnasium.farama.org/v0.26.3/tutorials/handling_time_limits/)同样区分真终止与需保留自举的外部截断。1000 是当前采样设计起点，不是已验证的最优值或收敛保证。
+
 ## 2. 一轮训练如何组织
 
 1. 冻结本轮旧 Actor 和 Critic。
-2. 从 16 条保留的环境轨迹分别采集 200 步，共 3200 联合环境步。某条提前成功后重置，补齐该轨迹本轮剩余额度。
+2. 从 16 条环境轨迹分别采集 200 步，共 3200 联合环境步。轨迹可跨轮延续；成功或累计采到 1000 步时重置，补齐该轨迹本轮剩余额度。重置前后的记录分成不同段。
 3. 用冻结 Critic 计算标签，再训练 Critic。成功边界后续值为零，截断边界使用真实末状态价值。
 4. AN/SA 学习方向，再拟合 Actor；DA 直接优化策略代理；MAPPO-E 使用作者 PPO 更新。
 5. 开启的检查使用独立环境，检查和监控都不推进那 16 条训练轨迹。接受候选后提交 Actor。
-6. 记录成本、监控和训练指标，保存 final 及 best；final 同时保存未完成轨迹状态，支持底层精确恢复。
+6. 记录成本、监控和训练指标，保存 final 及 best；final 同时保存未完成轨迹状态及待重置标记，支持相同协议下的底层精确恢复。
 
-`batch_episodes=16` 是沿用字段名，在本协议下表示 16 条持续轨迹，不表示每轮完成 16 个任务。完整任务可能跨多个策略版本；训练中成功任务的累计回报只能作过程描述，不能当作冻结 Actor 的独立性能。
+`batch_episodes=16` 是沿用字段名，在本协议下表示 16 条采样通道，不表示每轮完成 16 个任务。一次场景采样可跨最多 5 个常规轮次；训练中成功任务的累计回报可能跨策略版本，只能作过程描述，不能当作冻结 Actor 的独立性能。外部重置不计为成功或任务失败。
 
 AN/DA 的 Critic 标签是截断处自举的 n-step reward-to-go；策略标签默认 GAE。MAPPO-E 保留作者 GAE、优势标准化、ValueNorm、价值损失与 PPO 优化。适配层逐段计算目标后打包，GAE 不跨其他轨迹的重置或截断边界。这些训练流程并非完全相同。
 
@@ -68,11 +70,11 @@ AN/DA 的 Critic 标签是截断处自举的 n-step reward-to-go；策略标签�
 
 ## 4. 当前训练命令
 
-在包含 `manifold_project` 的目录运行，激活已经安装依赖的 Python 环境。以下均从头训练，旧版带时间网络不能续训到新版。四组相互独立，单张 GPU 建议依次执行。
+在包含 `manifold_project` 的目录运行，激活已经安装依赖的 Python 环境。以下均从头训练；v2 的无限延续异常运行保留作诊断，不混入本版方法比较。四组相互独立，单张 GPU 建议依次执行。
 
 ```powershell
 $cfg = "manifold_project/experiments/configs/navigation"
-$out = "manifold_project/experiments/results/navigation_success_v2_2m_s40"
+$out = "manifold_project/experiments/results/navigation_success_v3_2m_s40"
 
 # 先运行：AN 无检查
 python -m manifold_project.experiments --experiments N-C --profile pilot --methods AN --config "$cfg/no_checks.json" --budget 2000000 --seeds 40 --device cuda --output "$out/an_core" --plot --plot-every 5
@@ -107,9 +109,13 @@ python -m manifold_project.experiments.visualize --checkpoint "$out/an_core/N-C_
 | 内容 | 解释 |
 |---|---|
 | train_segment_return；兼容 train_J/train_discounted_return | 本轮采样段折扣回报均值，不是完整任务回报 |
+| train_mean_reward、train_end_goal_distance、train_agent_radius_max | 真实步均奖励、各段末目标最近距离均值、段末机器人距原点最大值；用于发现漂移，不进入 Actor 输入 |
+| train_task_age_max、train_reset_count、train_success_count | 本批轨迹的最大累计年龄、外部重置次数及成功次数。常规配置下年龄不得超过 1000 |
+| critic_mse、explained_variance | 原奖励尺度的价值误差及解释方差；MAPPO 优化用的 ValueNorm 损失另见 author_stats，不能仅凭原尺度 MSE 判断归一化失效 |
 | monitor_return、eval_success、monitor_budget_checkpoint | 最近一次独立源监控的回报、成功率和对应节点；不是每轮重新评价 |
 | events.jsonl 的 train_segment | 每条轨迹的段起止步、长度、奖励和结束原因 |
 | events.jsonl 的 completed_task | 成功训练任务累计步数与回报，可能跨策略版本 |
+| events.jsonl 的 training_reset | 外部采样上限引起的重置，单列于真正完成任务；末状态用于 bootstrap |
 | evaluation_episodes.csv | 冻结策略的逐场景观测回报、成功或截尾、观察上限、覆盖及碰撞 |
 | summary.csv | 按训练种子汇总，再计算种子间统计；按协议、任务、观察上限和回报定义分组 |
 | final.pt 与 best.pt | final 是主结果及恢复状态，best 是源监控选出的辅助 Actor |
@@ -127,14 +133,14 @@ python -m manifold_project.experiments.visualize --checkpoint "$out/an_core/N-C_
 |---|---|
 | current_protocol.py | 统一配置映射、监控预留、训练记录汇总 |
 | envs/navigation.py | 原生动力学与奖励、成功判定、全局状态 |
-| training/collector.py | 保留轨迹、成功重置、分段采样、成本及采样状态恢复 |
+| training/collector.py | 保留轨迹、成功或采样上限重置、分段采样、成本及采样状态恢复 |
 | training/ppo.py | 截断自举、GAE、标签、样本权重及方向损失项 |
 | training/runner.py | 各方法更新、检查、监控、模型与采样状态保存 |
 | training/author_ppo.py | 保留作者更新，适配逐段价值目标与批次 |
 | models/__init__.py、models/entities.py、models/deployment.py | 训练输入解码、可变实体网络与冻结部署 |
 | ../applications/evaluation.py | 独立场景观察、截尾记录、冻结目标评价 |
 
-归档 `legacy_experiments_20260923.zip` 的默认配置是 continuing、最近 2 个同伴/目标、8 帧历史，代码另支持限时首达；其 episode 调用会重新建环境。此前 `results/navigation_trial/` 四组采用全实体、时间输入和 200 步硬期限。新版采用无时钟全实体、持续轨迹和成功终止，三者不是同一实验协议。
+归档 `legacy_experiments_20260923.zip` 的默认配置是 continuing、最近 2 个同伴/目标、8 帧历史，代码另支持限时首达；其 episode 调用会重新建环境。`results/navigation_trial/` 四组采用全实体、时间输入和 200 步硬期限。v2 改为无时钟、成功终止，但只在成功后重置，已在 AN/MAPPO 数据中出现严重漂移；详见[异常诊断](../results/navigation_success_v2_2m_s40/异常诊断.md)。v3 保留无时钟和成功终止，增加有自举的外部训练重置，不能将 v2 结果改名冒充 v3。
 
 统一字段含义、成本和分组规则，不重写历史 manifest、CSV 或 checkpoint，也不把旧 deadline 改名为新 cutoff。旧价值标签已经不同，改名不能修复。旧数据和报告保留为历史证据，索引见[结果目录](../results/README.md)。
 

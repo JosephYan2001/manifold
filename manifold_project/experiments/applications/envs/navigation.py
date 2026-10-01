@@ -82,6 +82,8 @@ class Navigation(LegacyNavigation):
                 "actions": ["noop", "left", "right", "down", "up"],
                 "task_mode": self.config['task_mode'],
                 "sampling_horizon": self.config['horizon'],
+                "train_reset_horizon": self.config.get('train_reset_horizon'),
+                "training_reset_is_terminal": False,
                 "evaluation_horizon": self.horizon,
                 "self_fields": ["self_velocity_x", "self_velocity_y", "self_position_x", "self_position_y"] + ([] if self.success_only else ["remaining_time_fraction"]),
                 "entity_fields": ["is_landmark", "is_peer", "relative_x", "relative_y", "communication_0", "communication_1"],

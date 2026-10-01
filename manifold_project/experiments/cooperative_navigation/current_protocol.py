@@ -43,7 +43,8 @@ def runner_config(config, environment='navigation'):
     c.update(entity_self_dim=dims[0], entity_record_dim=dims[1], action_dim=dims[2])
     if environment == 'navigation' and config.get('navigation_task') == 'success_only':
         c.update(task_mode='success_only', complete_episodes=False, entity_self_dim=4,
-                 evaluation_horizon=config['evaluation_horizon'])
+                 evaluation_horizon=config['evaluation_horizon'],
+                 train_reset_horizon=config.get('train_reset_horizon'))
     return c
 
 
@@ -87,6 +88,7 @@ def train(environment, method, config, output):
                                eval_restricted_mean_steps=node['restricted_mean_steps'])
             if c['task_mode'] == 'success_only':
                 row['evaluation_horizon'] = c['evaluation_horizon']
+                row['train_reset_horizon'] = c.get('train_reset_horizon')
         write_csv(directory/'training.csv', rows)
         if config.get('plot') and runner.round and runner.round % config.get('plot_every', 10) == 0:
             plot_overview(directory, rows)

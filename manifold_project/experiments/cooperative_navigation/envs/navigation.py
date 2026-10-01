@@ -62,7 +62,8 @@ class Navigation:
         radius = self.config.get('coverage_radius', .1)
         return {'distance': float(distances.mean()), 'coverage': float((distances < radius).mean()),
                 'all_covered': float((distances < radius).all()), 'collision_pairs': float(pairs),
-                'collisions_per_agent': float(2*pairs/self.n)}
+                'collisions_per_agent': float(2*pairs/self.n),
+                'agent_radius_max': float(np.linalg.norm([a.state.p_pos for a in agents], axis=-1).max())}
 
     def step(self, actions):
         if (not self.success_only and self.t >= self.horizon) or self.end_reason is not None:

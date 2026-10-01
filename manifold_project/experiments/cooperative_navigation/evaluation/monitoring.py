@@ -26,6 +26,13 @@ def progress_line(condition, seed, budget, row, evaluation=None):
               f'steps={used}/{budget} ({used / budget:.1%})',
               f'{"segment_J" if row.get("task_mode") == "success_only" else "train_J"}={number(row.get("train_J"))}',
               f'critic_mse={number(row.get("critic_mse"))}', decision]
+    if row.get('task_mode') == 'success_only':
+        fields += [f'critic_ev={number(row.get("explained_variance"))}',
+                   f'mean_r={number(row.get("train_mean_reward"))}',
+                   f'distance={number(row.get("train_end_goal_distance"))}',
+                   f'pos_max={number(row.get("train_agent_radius_max"))}',
+                   f'age_max={number(row.get("train_task_age_max"), 6)}',
+                   f'resets={row.get("train_reset_count", 0)}']
     if condition in ('mappo', 'ippo'):
         fields += [f'ppo_KL={number(row.get("ppo_kl"))}',
                    f'clip={number(row.get("clip_fraction"))}']

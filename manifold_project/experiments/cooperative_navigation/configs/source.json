@@ -1,6 +1,7 @@
 {
   "task_mode": "first_arrival",
   "task_horizon": 200,
+  "train_reset_horizon": null,
   "mappo_backend": "author",
   "ippo_backend": "author",
   "ppo_activation": "relu",

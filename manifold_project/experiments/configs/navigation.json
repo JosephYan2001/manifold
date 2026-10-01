@@ -1,6 +1,7 @@
 {
   "navigation_task": "success_only",
   "evaluation_horizon": 1000,
+  "train_reset_horizon": 1000,
   "n_agents": 4,
   "horizon": 200,
   "target_sizes": [

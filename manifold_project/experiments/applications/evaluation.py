@@ -102,7 +102,8 @@ def rollout_episode(env, actor, seed, gamma=.99, collect=False, deterministic=Fa
                    evaluation_horizon=env.horizon, censored=int(not success),
                    terminated=bool(success), truncated=not success,
                    return_scope='observed_until_success_or_evaluation_cutoff',
-                   protocol_version='navigation-success-v2')
+                   train_reset_horizon=env.config.get('train_reset_horizon'),
+                   protocol_version=env.config.get('protocol_version', 'navigation-success-v2'))
     if success_defined:
         row.update(success=float(success), initial_success=int(initial_success),
             completion_time=steps if success else env.horizon,
@@ -146,7 +147,8 @@ def summarize(rows):
     if any('censored' in row for row in rows):
         out.update(evaluation_horizon=rows[0]['evaluation_horizon'],
                    censored_count=sum(row['censored'] for row in rows),
-                   protocol_version='navigation-success-v2',
+                   protocol_version=rows[0].get('protocol_version', 'navigation-success-v2'),
+                   train_reset_horizon=rows[0].get('train_reset_horizon'),
                    return_scope='observed_until_success_or_evaluation_cutoff')
         hits = [row['success_completion_time'] for row in rows if row['success']]
         out['success_completion_time'] = float(np.mean(hits)) if hits else None

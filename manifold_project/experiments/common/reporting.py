@@ -75,7 +75,7 @@ GROUP_KEYS = (
     "input_mode", "projection", "case", "direction_method", "training_label", "policy_mode",
     "kind", "normalization", "budget_fraction", "relation_layers", "direction_check", "return_check",
     "source_horizon", "source_budget", "source_profile", "source_smoke_only", "smoke_only", "source_experiment",
-    "protocol_version", "task_mode", "evaluation_horizon", "return_scope",
+    "protocol_version", "task_mode", "evaluation_horizon", "train_reset_horizon", "return_scope",
 )
 NON_METRICS = set(GROUP_KEYS) | {"seed", "data_seed", "run_seed", "batch_seed", "iteration", "round", "update", "success", "completed"}
 

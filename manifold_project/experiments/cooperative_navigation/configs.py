@@ -64,7 +64,11 @@ def validate(c):
         if key in c and not isinstance(c[key], bool):
             raise ValueError(f'{key} 必须是布尔值')
     if c.get('task_mode', 'finite_horizon') not in ('continuing', 'finite_horizon', 'first_arrival', 'success_only'):
-        raise ValueError('task_mode 只支持 continuing / finite_horizon / first_arrival')
+        raise ValueError('task_mode 只支持 continuing / finite_horizon / first_arrival / success_only')
+    reset_horizon = c.get('train_reset_horizon')
+    if reset_horizon is not None and (not isinstance(reset_horizon, int)
+                                      or isinstance(reset_horizon, bool) or reset_horizon <= 0):
+        raise ValueError('train_reset_horizon 必须是正整数或 null（旧版无限延续采样）')
     if arrival_task(c) and (not isinstance(c.get('task_horizon'), int) or
                             isinstance(c['task_horizon'], bool) or c['task_horizon'] <= 0):
         raise ValueError('first_arrival 要求正整数 task_horizon')

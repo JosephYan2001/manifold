@@ -28,14 +28,15 @@ P-E 与 KL 源目录保留原位，因为其他实验直接引用。其余已按
 | 数据 | 协议与使用边界 |
 |---|---|
 | navigation_trial/ | 旧 200 步硬期限、含时间输入的四组初训；[初始分析](navigation_trial/初始训练分析.md)只对该协议有效 |
-| navigation_success_v2_2m_s40/ | 新实验预定输出；成功终止、跨段采样、无时间输入。只有实际运行生成的记录才是已完成证据 |
+| navigation_success_v2_2m_s40/ | AN 已完成、MAPPO 记录到第 71 轮；无限延续导致状态漂移，见[异常诊断](navigation_success_v2_2m_s40/异常诊断.md)。保留作采样问题证据，不据此排名算法 |
+| navigation_success_v3_2m_s40/ | 修正后预定输出；成功终止、200 步分段、1000 步外部采样重置及末状态自举、无时间输入。待实际运行 |
 
 旧四组最终均为 0/20 次成功；MAPPO-E 回报改善，无检查 AN 改善较慢，检查版实际更新少。这些观察不能直接判断新版性能。新版数据应单独分析，源任务尚未学好时的目标低分不能直接归因于迁移失败。
 
-任务定义、配置和四组命令统一见[导航实验手册](../cooperative_navigation/README.md)。活动配置已经精简，历史数据内的 JSON 仍用于重现当时设置，不能作为当前启动模板。
+任务定义、配置和四组命令统一见[导航实验手册](../cooperative_navigation/README.md)。本次 v2 记录证实未成功场景不重置会使训练长期偏离初始状态分布；v3 只修正采样流程，不能预先声称性能问题全部解决。活动配置已经精简，历史数据内的 JSON 仍用于重现当时设置，不能作为当前启动模板。
 
 ## 数据使用规则
 
-优先读取运行 manifest 和协议字段，再读 summary 与逐场景结果。不同任务终止语义、观测、观察上限或回报定义不能直接混合均值。新版导航汇总按 protocol_version、task_mode、evaluation_horizon 和 return_scope 分组。
+优先读取运行 manifest 和协议字段，再读 summary 与逐场景结果。不同任务终止语义、观测、采样重置、观察上限或回报定义不能直接混合均值。新版导航汇总按 protocol_version、task_mode、train_reset_horizon、evaluation_horizon 和 return_scope 分组。
 
 清理活动模板不删除原始结果。失败运行、未完成场景和检查成本都属于实验记录；最终报告与训练使用的采样分别计费。
