@@ -9,8 +9,9 @@ def entity_input(x, config=None):
     Current-frame models deliberately ignore previous actions; their only clock
     is remaining task time. List length varies; learned parameter shapes do not.
     """
-    raw = x[..., :-7]
     config = config or {}
+    no_clock = config.get('task_mode') == 'success_only'
+    raw = x[..., :-(6 if no_clock else 7)]
     if config.get('environment', 'navigation') != 'navigation':
         own_dim = config['entity_self_dim']-1
         width = config['entity_record_dim']
@@ -28,7 +29,7 @@ def entity_input(x, config=None):
     ptype = peers.new_zeros((*peers.shape[:-1], 2)); ptype[..., 1] = 1
     entities = torch.cat([torch.cat([gtype, goals, torch.zeros_like(goals)], -1),
                           torch.cat([ptype, peers, comm], -1)], -2)
-    return {'self': torch.cat([raw[..., :4], 1-x[..., -1:]], -1),
+    return {'self': raw[..., :4] if no_clock else torch.cat([raw[..., :4], 1-x[..., -1:]], -1),
             'entities': entities,
             'mask': torch.ones(entities.shape[:-1], dtype=torch.bool, device=x.device)}
 

@@ -15,10 +15,13 @@ class NativeEntryTests(unittest.TestCase):
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
             output = root / "source"
+            diagnostics = root / "diagnostics.json"
+            diagnostics.write_text(json.dumps({"save_fit_diagnostics": True}), encoding="utf-8")
             capture = io.StringIO()
             with redirect_stdout(capture), redirect_stderr(capture):
                 code = main(["--experiments", "N-I", "N-C", "N-R", "N-Gd", "N-Gr", "N-T", "N-F",
-                             "--profile", "smoke", "--methods", "AN", "--budget", "256", "--output", str(output)])
+                             "--profile", "smoke", "--methods", "AN", "--budget", "256",
+                             "--config", str(diagnostics), "--output", str(output)])
             self.assertEqual(code, 0, capture.getvalue())
             manifest = json.loads((output / "manifest.json").read_text(encoding="utf-8"))
             self.assertTrue(all(row["status"] == "completed" for row in manifest["experiments"].values()))

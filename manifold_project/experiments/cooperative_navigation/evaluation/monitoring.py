@@ -24,7 +24,7 @@ def progress_line(condition, seed, budget, row, evaluation=None):
     used = row['source_steps']
     fields = [f'{condition} seed={seed} round={row["round"]}',
               f'steps={used}/{budget} ({used / budget:.1%})',
-              f'train_J={number(row.get("train_J"))}',
+              f'{"segment_J" if row.get("task_mode") == "success_only" else "train_J"}={number(row.get("train_J"))}',
               f'critic_mse={number(row.get("critic_mse"))}', decision]
     if condition in ('mappo', 'ippo'):
         fields += [f'ppo_KL={number(row.get("ppo_kl"))}',
@@ -66,7 +66,8 @@ def plot_monitor(path, condition, seed, budget, rounds, curves, complete=False):
                         [float(v) if v is not None else np.nan for _, v in values],
                         label=label, **kwargs)
 
-        series(axes[0], rounds, 'train_J', '逐轮旧策略训练批回报', alpha=.4)
+        streaming = any(r.get('task_mode') == 'success_only' for r in rounds)
+        series(axes[0], rounds, 'train_J', '训练采样段折扣回报（非完整回合）' if streaming else '逐轮旧策略训练批回报', alpha=.4)
         if rounds:
             smooth = []
             for i, row in enumerate(rounds):
@@ -75,7 +76,7 @@ def plot_monitor(path, condition, seed, budget, rounds, curves, complete=False):
             series(axes[0], smooth, 'mean', '最近20轮均值')
         arrival = bool(curves and 'success_rate' in curves[0])
         keys = ('J', 'success_rate', 'restricted_mean_steps') if arrival else ('J', 'coverage', 'distance')
-        labels = ('独立任务回报', '首达成功率', '截尾完成步数（失败计上限）') if arrival else ('独立评价回报', '独立评价覆盖率', '独立评价终点距离')
+        labels = ('独立观测回报', '观察上限内成功率', '截尾完成步数（未完成计上限）') if arrival else ('独立评价回报', '独立评价覆盖率', '独立评价终点距离')
         for ax, key, label in zip(axes[1:4], keys, labels):
             series(ax, curves, key, label, 'budget_checkpoint', marker='o', drawstyle='steps-post')
             errors = [r for r in curves if r.get(key + '_se') is not None]

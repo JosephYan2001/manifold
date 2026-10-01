@@ -14,7 +14,7 @@ from manifold_project.experiments.applications.evaluation import load_actor, eva
 class RestoredBackendTests(unittest.TestCase):
     def config(self, environment):
         c = load_config(environment, 'smoke')
-        c.update(horizon=1 if environment == 'pair_entities' else 4, budget=80,
+        c.update(horizon=1 if environment == 'pair_entities' else 4, evaluation_horizon=4, budget=80,
                  batch_episodes=2, source_eval_episodes=1, evaluation_episodes=1,
                  eval_every_steps=1000, target_sizes=[2,6], save_fit_diagnostics=False,
                  direction_steps=1, actor_fit_steps=1, critic_steps=1, seed=40)
@@ -112,22 +112,22 @@ class RestoredBackendTests(unittest.TestCase):
                 b'from onpolicy.')
             self.assertEqual(hashlib.sha256(content).hexdigest(), expected, name)
 
-    def test_navigation_trial_variants_account_for_checks_and_freeze(self):
-        root = Path(__file__).resolve().parents[1]/'configs/navigation_trial'
-        cases = [('an_core','AN',False,False), ('an_checked','AN',True,True),
-                 ('da_checked','DA',False,True), ('mappo','MAPPO-E',False,False)]
+    def test_navigation_variants_account_for_checks_and_freeze(self):
+        root = Path(__file__).resolve().parents[1]/'configs/navigation'
+        cases = [('no_checks','AN',False,False), ('checked','AN',True,True),
+                 ('checked','DA',False,True), ('no_checks','MAPPO-E',False,False)]
         with TemporaryDirectory() as tmp, redirect_stdout(io.StringIO()):
             for name, method, direction, returns in cases:
                 c = load_config('navigation', 'pilot', root/f'{name}.json')
                 self.assertGreater(c['critic_lr'], c['actor_lr'])
                 # Shorten only for engineering verification, not research evidence.
-                c.update(seed=40, device='cpu', horizon=4, budget=80,
+                c.update(seed=40, device='cpu', horizon=4, evaluation_horizon=4, budget=80,
                          hidden=16, heads=2, relation_layers=1, batch_episodes=2,
                          minibatch_size=16, direction_steps=1, actor_fit_steps=1,
                          critic_steps=1, ppo_epochs=1, check_episodes=1,
                          source_eval_episodes=1, evaluation_episodes=1,
                          eval_every_steps=1000, target_sizes=[2,6,8])
-                result = train('navigation', method, c, Path(tmp)/name)
+                result = train('navigation', method, c, Path(tmp)/(name+'_'+method))
                 saved = torch.load(result['checkpoint'], weights_only=False)
                 costs = saved['costs']
                 if not direction:
@@ -135,7 +135,7 @@ class RestoredBackendTests(unittest.TestCase):
                 if not returns:
                     self.assertEqual(costs.get('return_old', 0)+costs.get('return_candidate', 0), 0)
                 self.assertLessEqual(sum(costs.values()), c['budget'])
-                evaluation = evaluate_checkpoint(result['checkpoint'], c, Path(tmp)/(name+'_eval'))
+                evaluation = evaluate_checkpoint(result['checkpoint'], c, Path(tmp)/(name+'_'+method+'_eval'))
                 self.assertEqual({r['target_n'] for r in evaluation['records']}, {2,4,6,8})
                 self.assertTrue(evaluation['frozen_actor_verified'])
 

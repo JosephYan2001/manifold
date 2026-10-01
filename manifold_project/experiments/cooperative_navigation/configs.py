@@ -18,11 +18,19 @@ def continuing_task(config):
 
 
 def arrival_task(config):
-    return config.get('task_mode') == 'first_arrival'
+    return config.get('task_mode') in ('first_arrival', 'success_only')
+
+
+def success_task(config):
+    return config.get('task_mode') == 'success_only'
+
+
+def evaluation_horizon(config):
+    return config.get('evaluation_horizon', 1000) if success_task(config) else episode_horizon(config)
 
 
 def episode_horizon(config):
-    return config['task_horizon'] if arrival_task(config) else config['horizon']
+    return config['task_horizon'] if config.get('task_mode') == 'first_arrival' else config['horizon']
 
 
 def load_config(profile, overrides=None):
@@ -55,7 +63,7 @@ def validate(c):
     for key in ('ppo_value_normalization', 'ppo_value_clipping', 'ppo_huber_loss'):
         if key in c and not isinstance(c[key], bool):
             raise ValueError(f'{key} 必须是布尔值')
-    if c.get('task_mode', 'finite_horizon') not in ('continuing', 'finite_horizon', 'first_arrival'):
+    if c.get('task_mode', 'finite_horizon') not in ('continuing', 'finite_horizon', 'first_arrival', 'success_only'):
         raise ValueError('task_mode 只支持 continuing / finite_horizon / first_arrival')
     if arrival_task(c) and (not isinstance(c.get('task_horizon'), int) or
                             isinstance(c['task_horizon'], bool) or c['task_horizon'] <= 0):

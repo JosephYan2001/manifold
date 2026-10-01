@@ -86,6 +86,8 @@ def render_checkpoint(checkpoint, output, n_agents=None, seed=1000000, fps=10,
                 actions = probabilities.argmax(-1) if deterministic else np.array(
                     [rng.choice(len(row), p=row / row.sum()) for row in probabilities])
                 obs, _, terminated, truncated, info = env.step(actions)
+                if step == env.horizon and not terminated and getattr(env, 'success_only', False):
+                    info['end_reason'] = 'evaluation_cutoff'
                 if step % frame_stride == 0 or terminated or truncated:
                     frame(step)
                 if terminated or truncated:

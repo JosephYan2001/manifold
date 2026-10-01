@@ -42,13 +42,21 @@ def load_config(environment: str, profile: str, overrides: str | Path | None = N
     result["environment"] = environment
     result["source_agents"] = result["n_agents"]
     result["profile"] = profile
-    result["protocol_version"] = "direction-v1"
+    result["protocol_version"] = ("navigation-success-v2" if environment == 'navigation'
+                                  and result.get('navigation_task') == 'success_only' else "direction-v1")
     result["smoke_only"] = profile == "smoke"
     validate_config(result)
     return result
 
 
 def validate_config(c: dict) -> None:
+    if c['environment'] == 'navigation':
+        if c.get('navigation_task') not in ('success_only', 'first_arrival'):
+            raise ValueError('navigation_task must be success_only or first_arrival')
+        if not isinstance(c.get('evaluation_horizon'), int) or isinstance(c['evaluation_horizon'], bool) or c['evaluation_horizon'] <= 0:
+            raise ValueError('evaluation_horizon must be a positive integer')
+        if c['navigation_task'] == 'success_only' and not 0 < c['gamma'] < 1:
+            raise ValueError('Success-only navigation requires gamma < 1')
     for key in ("budget", "n_agents", "horizon", "hidden", "heads", "rollout_steps", "minibatch_size",
                 "actor_fit_steps", "direction_steps", "critic_steps", "ppo_epochs", "evaluation_episodes",
                 "source_eval_episodes", "check_episodes"):

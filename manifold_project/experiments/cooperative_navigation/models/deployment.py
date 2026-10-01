@@ -20,4 +20,5 @@ class DeploymentActor(nn.Module):
             raw = torch.cat([own[..., :-1], entities.flatten(-2)], -1)
         extra = raw.new_zeros((*raw.shape[:-1], 6))
         extra[..., -1] = 1
-        return self.actor(torch.cat([raw, extra, 1-own[..., -1:]], -1))
+        fields = [raw, extra] if self.config.get('task_mode') == 'success_only' else [raw, extra, 1-own[..., -1:]]
+        return self.actor(torch.cat(fields, -1))

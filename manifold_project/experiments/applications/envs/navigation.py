@@ -7,11 +7,15 @@ class Navigation(LegacyNavigation):
     self_dim, entity_dim, action_dim = 5, 6, 5
 
     def __init__(self, config, n_agents=None, render_mode=None):
-        c = dict(config, observation_protocol='entities_v1', task_mode='first_arrival',
+        mode = config.get('navigation_task', 'first_arrival')
+        c = dict(config, observation_protocol='entities_v1', task_mode=mode,
                  task_horizon=config.get('horizon', 200), horizon=config.get('horizon', 200),
                  agent_neighbors=None, landmark_neighbors=None, local_ratio=config.get('local_ratio', .5),
                  render_mode=render_mode)
         super().__init__(c, n_agents)
+        if self.success_only:
+            self.self_dim = 4
+            self.horizon = config.get('evaluation_horizon', 1000)
         self.package_version = '1.1.1'
         self.n_agents = self.n
         self.coverage_radius = config.get('coverage_radius', .1)
@@ -28,7 +32,9 @@ class Navigation(LegacyNavigation):
             expected = 4 + 2 * n + 4 * (n - 1)
             if vector.shape != (expected,):
                 raise RuntimeError(f"Unexpected native observation shape {vector.shape}; expected {(expected,)}")
-            own[i, :4], own[i, 4] = vector[:4], 1 - self.t / self.horizon
+            own[i, :4] = vector[:4]
+            if not self.success_only:
+                own[i, 4] = 1 - self.t / self.horizon
             entities[i, :n, 0] = 1
             entities[i, :n, 2:4] = vector[4:4 + 2 * n].reshape(n, 2)
             entities[i, n:, 1] = 1
@@ -72,14 +78,17 @@ class Navigation(LegacyNavigation):
 
     def protocol(self):
         return {"environment": "mpe2.simple_spread_v3", "version": self.package_version,
-                "n_agents": self.n_agents, "n_landmarks": self.n_agents, "horizon": self.horizon,
+                "n_agents": self.n_agents, "n_landmarks": self.n_agents, "horizon": self.config['horizon'],
                 "actions": ["noop", "left", "right", "down", "up"],
-                "self_fields": ["self_velocity_x", "self_velocity_y", "self_position_x", "self_position_y", "remaining_time_fraction"],
+                "task_mode": self.config['task_mode'],
+                "sampling_horizon": self.config['horizon'],
+                "evaluation_horizon": self.horizon,
+                "self_fields": ["self_velocity_x", "self_velocity_y", "self_position_x", "self_position_y"] + ([] if self.success_only else ["remaining_time_fraction"]),
                 "entity_fields": ["is_landmark", "is_peer", "relative_x", "relative_y", "communication_0", "communication_1"],
-                "critic_fields": ["all_agent_positions_and_velocities", "all_landmark_positions", "elapsed_time_fraction"],
+                "critic_fields": ["all_agent_positions_and_velocities", "all_landmark_positions"] + ([] if self.success_only else ["elapsed_time_fraction"]),
                 "observation": "native_full_lists_no_truncation", "local_ratio": self.local_ratio,
                 "reward_aggregation": "mean_native_agent_rewards", "success": "first_simultaneous_coverage",
-                "coverage_radius": self.coverage_radius, "deadline_is_terminal": True,
+                "coverage_radius": self.coverage_radius, "deadline_is_terminal": not self.success_only,
                 "initial_position_range": [-self.initial_scale, self.initial_scale],
                 "agent_radius": [float(a.size) for a in self.world.agents],
                 "agent_acceleration": [a.accel for a in self.world.agents],

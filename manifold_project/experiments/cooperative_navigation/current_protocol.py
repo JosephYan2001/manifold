@@ -41,6 +41,9 @@ def runner_config(config, environment='navigation'):
     c['eval_fractions'] = sorted(set([0., 1.] + [i/c['budget'] for i in range(interval, c['budget'], interval)]))
     dims = {'navigation': (5, 6, 5), 'warehouse': (9, 11, 5), 'pair_entities': (3, 6, 2)}[environment]
     c.update(entity_self_dim=dims[0], entity_record_dim=dims[1], action_dim=dims[2])
+    if environment == 'navigation' and config.get('navigation_task') == 'success_only':
+        c.update(task_mode='success_only', complete_episodes=False, entity_self_dim=4,
+                 evaluation_horizon=config['evaluation_horizon'])
     return c
 
 
@@ -61,7 +64,8 @@ def train(environment, method, config, output):
         elif not config['return_check']:
             condition = 'no_return_check'
     directory = Path(output)
-    monitor_cap = len(c['eval_fractions'])*c['eval_episodes']*c['task_horizon']
+    from .configs import evaluation_horizon
+    monitor_cap = len(c['eval_fractions'])*c['eval_episodes']*evaluation_horizon(c)
     if minimum_cost(c, condition)+monitor_cap > c['budget']:
         raise ValueError('Budget cannot reserve a complete source update and its declared source monitoring')
     env = make_env(environment, config)
@@ -72,6 +76,17 @@ def train(environment, method, config, output):
     def progress(runner):
         rows = [dict(row, method=method, seed=config['seed'], source_steps_total=row['source_steps'],
                      train_discounted_return=row['train_J']) for row in runner.rounds]
+        for row in rows:
+            row['protocol_version'] = config['protocol_version']
+            eligible = [node for node in runner.curves if node['budget_checkpoint'] <= row['source_steps']]
+            if eligible:
+                node = eligible[-1]
+                row.update(monitor_return=node['J'], monitor_budget_checkpoint=node['budget_checkpoint'])
+                if 'success_rate' in node:
+                    row.update(eval_success=node['success_rate'],
+                               eval_restricted_mean_steps=node['restricted_mean_steps'])
+            if c['task_mode'] == 'success_only':
+                row['evaluation_horizon'] = c['evaluation_horizon']
         write_csv(directory/'training.csv', rows)
         if config.get('plot') and runner.round and runner.round % config.get('plot_every', 10) == 0:
             plot_overview(directory, rows)
@@ -82,7 +97,10 @@ def train(environment, method, config, output):
         from .evaluation.fit_probe import FitProbe
         probe = FitProbe(runner, config, directory)
         runner.fit_probe = probe
-    summary = runner.run()
+    try:
+        summary = runner.run()
+    finally:
+        runner.sampler.close()
     if probe:
         probe.finish()
     if not runner.round:

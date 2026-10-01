@@ -8,7 +8,7 @@ import time
 import numpy as np
 import torch
 from ..envs.tasks import Navigation
-from ..configs import continuing_task, arrival_task, episode_horizon
+from ..configs import continuing_task, arrival_task, episode_horizon, success_task, evaluation_horizon
 from ..models import Actor, Critic, Direction
 from ..evaluation.evaluate import evaluate, ARRIVAL_METRICS
 from .collector import Collector
@@ -98,6 +98,10 @@ class Runner:
             setattr(self, name, state[name])
         self.sampler.costs = Counter(state['costs'])
         self.sampler.counts = Counter(state['counts'])
+        if success_task(self.c):
+            if 'collector_state' not in state:
+                raise ValueError('Success-only resume requires the saved live collector state')
+            self.sampler.load_state_dict(state['collector_state'])
         self.optim_steps = Counter(state['optim_steps'])
         torch.set_rng_state(state['torch_rng'].cpu())
         if torch.cuda.is_available() and state['cuda_rng'] is not None:
@@ -138,6 +142,8 @@ class Runner:
             torch_rng=torch.get_rng_state(), cuda_rng=torch.cuda.get_rng_state_all() if torch.cuda.is_available() else None)
         if self.author_ppo:
             state.update(value_normalizer=self.author_ppo.normalizer_state(), implementation=self.author_ppo.description())
+        if success_task(self.c):
+            state['collector_state'] = self.sampler.state_dict()
         save_pt(self.directory/'checkpoints/final.pt', state)
         if self.best is not None:
             save_pt(self.directory/'checkpoints/best.pt', self.best)
@@ -202,7 +208,7 @@ class Runner:
         return batch_weighted(value, batch, self.c)
 
     def check_returns(self, actor, purpose, critic):
-        if not continuing_task(self.c):
+        if not (continuing_task(self.c) or success_task(self.c)):
             rows = self.sampler.collect(actor, self.c['return_check_episodes'], purpose, retain=False)
             scores = [r['J'] for r in rows]
             return scores, scores
@@ -360,7 +366,7 @@ class Runner:
                 self.log('return_check',attempt=attempt+1,old_returns=old_scores,
                          candidate_returns=new_scores,old_observed_returns=old_observed,
                          candidate_observed_returns=new_observed,
-                         score_kind='bootstrapped_old_critic' if continuing_task(self.c) else 'observed_finite_return',
+                         score_kind='bootstrapped_old_critic' if (continuing_task(self.c) or success_task(self.c)) else 'observed_finite_return',
                          difference=info['return_difference'],passed=info['accepted'])
             self.log('candidate', attempt=attempt+1, eta=eta, **info)
             if attempt == 0:
@@ -417,6 +423,10 @@ class Runner:
                 before_cost = self.rounds[-1]['source_steps'] if self.rounds else 0
                 started = time.perf_counter()
                 old, info = self.update()
+                if success_task(self.c):
+                    info.update(train_segment_return=info['train_J'],
+                                train_return_scope='segment_observed_discounted_return',
+                                task_mode='success_only')
                 info['update_seconds'] = time.perf_counter()-started
                 self.train_seconds += info['update_seconds']
                 self.round += 1
@@ -453,7 +463,7 @@ class Runner:
         if not self.c.get('budget_includes_monitoring', False):
             return 0
         left = len(self.grid)-len(self.curves)
-        return (max(0, left-1)*self.c['eval_episodes'] + (self.c['final_episodes'] if left else 0))*episode_horizon(self.c)
+        return (max(0, left-1)*self.c['eval_episodes'] + (self.c['final_episodes'] if left else 0))*evaluation_horizon(self.c)
 
     def summary(self):
         auc = sum((b['budget_checkpoint']-a['budget_checkpoint'])*a['J'] for a,b in zip(self.curves, self.curves[1:]))/self.c['budget']
@@ -462,7 +472,8 @@ class Runner:
         arrival = {}
         if arrival_task(self.c) and self.c.get('environment', 'navigation') == 'navigation':
             arrival = {k:self.curves[-1][k] for k in ARRIVAL_METRICS if k in self.curves[-1]}
-            arrival.update(task_horizon=self.c['task_horizon'],
+            arrival.update(task_horizon=None if success_task(self.c) else self.c['task_horizon'],
+                evaluation_horizon=evaluation_horizon(self.c),
                 success_AUC=sum((b['budget_checkpoint']-a['budget_checkpoint'])*a['success_rate']
                                 for a,b in zip(self.curves, self.curves[1:]))/self.c['budget'],
                 success_cost=next((r['budget_checkpoint'] for r in self.curves if r['success_rate'] >= .9), None))

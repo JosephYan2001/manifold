@@ -13,7 +13,7 @@ if __name__ == '__main__':
 import numpy as np
 from ..training.collector import episode
 from ..training.storage import seed_for
-from ..configs import arrival_task
+from ..configs import arrival_task, success_task, evaluation_horizon
 
 ARRIVAL_METRICS = ('success_rate', 'success_steps_mean', 'restricted_mean_steps',
                    'episode_steps', 'collision_pairs_total', 'path_length',
@@ -22,6 +22,8 @@ ARRIVAL_METRICS = ('success_rate', 'success_steps_mean', 'restricted_mean_steps'
 
 def evaluate(actor, config, condition, seed, purpose, count, n=None):
     n = n or config['n_agents']
+    if success_task(config):
+        config = dict(config, horizon=evaluation_horizon(config))
     rows = [episode(actor, config,
                     seed_for('evaluation-reset', purpose, n, i),
                     seed_for('evaluation-action', condition, seed, purpose, n, i))
@@ -37,9 +39,12 @@ def evaluate(actor, config, condition, seed, purpose, count, n=None):
                        success_steps_mean=float(np.mean(hits)) if hits else None,
                        restricted_mean_steps=metrics.pop('restricted_steps'))
         for steps in (100, 200, 500):
-            if steps <= config['task_horizon']:
+            if steps <= evaluation_horizon(config):
                 metrics[f'success_by_{steps}'] = float(np.mean([
                     r['success'] and r['success_steps'] <= steps for r in rows]))
+        if success_task(config):
+            metrics.update(evaluation_horizon=evaluation_horizon(config),
+                           censored_rate=float(np.mean([r['censored'] for r in rows])))
     return metrics, rows
 
 
@@ -70,7 +75,7 @@ def main(argv=None):
     if not jobs or any(not (args.suite/j['path']/'summary.json').exists() for j in jobs):
         p.error('所选训练必须已经完成，评价仅使用 final 模型')
     first_arrival = arrival_task(manifest['config'])
-    if first_arrival and args.steps != manifest['config']['task_horizon']:
+    if first_arrival and not success_task(manifest['config']) and args.steps != manifest['config']['task_horizon']:
         p.error('首达模型评价上限必须等于训练 task_horizon，不能改变时钟含义')
     if not continuing_task(manifest['config']) and not first_arrival:
         p.error('旧有限时域模型含时间特征，不能作为持续任务的长窗口评价')
@@ -87,6 +92,8 @@ def main(argv=None):
         if state['config'].get('task_mode') != manifest['config'].get('task_mode'):
             raise ValueError('checkpoint 的任务定义与持续任务套件不一致')
         config = dict(state['config'], horizon=args.steps, device='cpu')
+        if success_task(config):
+            config['evaluation_horizon'] = args.steps
         actor = load_actor(state, config)
         print(f'{"首达任务" if first_arrival else "长窗口"}评价 {job["condition"]} seed={job["seed"]}: '
               f'{args.episodes} 场景，步数上限 {args.steps}', flush=True)

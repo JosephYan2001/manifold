@@ -11,7 +11,7 @@ import torch
 from torch import nn
 from gymnasium.spaces import Box, Discrete
 
-from ..configs import continuing_task, arrival_task
+from ..configs import continuing_task, arrival_task, success_task
 from ..vendor.mappo.onpolicy.config import get_config
 from ..vendor.mappo.onpolicy.algorithms.r_mappo.algorithm.rMAPPOPolicy import R_MAPPOPolicy
 from ..vendor.mappo.onpolicy.algorithms.r_mappo.algorithm.r_actor_critic import R_Actor
@@ -123,7 +123,8 @@ class AuthorPPO:
         return dict(repository='https://github.com/marlbenchmark/on-policy', commit=COMMIT,
                     adapter=self.actor_kind, arguments={k:getattr(self.args, k) for k in keys},
                     critic_input='local_history' if self.local else 'central_state',
-                    timeout=('packed_real_transitions; success/deadline_terminal; collection_cutoff_bootstrap'
+                    timeout=('persistent_lanes; success_terminal; per_segment_cutoff_bootstrap; no_clock'
+                             if success_task(self.c) else 'packed_real_transitions; success/deadline_terminal; collection_cutoff_bootstrap'
                              if arrival_task(self.c) else
                              'pre_reset_final_value; independent_window_lanes; terminal_only_mask'),
                     actor_probability=('shared_entity_beta_mixture' if self.c.get('observation_protocol') == 'entities_v1'
@@ -201,15 +202,15 @@ class AuthorPPO:
     def make_arrival_buffer(self, batch):
         """Pack real transitions into one lane; upstream PPO sees no padding.
 
-        Interior resets are true task terminals. Only the last transition may
-        be a collection cutoff and bootstrap from its pre-reset observation.
-        The upstream return, ValueNorm and optimizer implementations are intact.
+        Every segment has its own terminal/cutoff and final observation. In
+        success-only mode compute upstream GAE separately before packing so
+        no trace crosses a reset or another segment's bootstrap boundary.
         """
         valid = batch['valid']
         real = {key: batch[key][valid] for key in
                 ('x', 'actions', 'reward', 'terminated', 'truncated')}
         total = len(real['reward'])
-        if not total or real['truncated'][:-1].any():
+        if not total or (real['truncated'][:-1].any() and not success_task(self.c)):
             raise ValueError('Packed train batch must end each interior episode with a task terminal')
         if not self.c.get('complete_episodes', False) and total*self.c['n_agents'] % self.args.num_mini_batch:
             raise ValueError('Packed real sample count must be divisible by the PPO minibatch count')
@@ -235,8 +236,27 @@ class AuthorPPO:
         logp, _ = self.policy.actor.evaluate_actions(flat_x, recurrent,
                     real['actions'].reshape(-1, 1), flat_x.new_ones((len(flat_x), 1)))
         buffer.action_log_probs[:, 0] = to_numpy(logp.reshape(*real['actions'].shape, 1))
-        buffer.compute_returns(final, self.trainer.value_normalizer)
-        if self.c.get('complete_episodes', False):
+        if success_task(self.c):
+            # Compute each segment with its OWN pre-reset/pre-cutoff state.
+            # Keep the upstream GAE/ValueNorm implementation; never trace through
+            # another segment's reset or use the next segment's value as s_T.
+            offset = 0
+            for i, length in enumerate(batch['lengths'].tolist()):
+                if not length:
+                    continue
+                part = copy(buffer)
+                part.episode_length = length
+                for key in ('rewards',):
+                    setattr(part, key, getattr(buffer, key)[offset:offset+length].copy())
+                for key in ('value_preds', 'returns', 'masks', 'bad_masks'):
+                    setattr(part, key, getattr(buffer, key)[offset:offset+length+1].copy())
+                next_value = to_numpy(self.values(final_inputs[i:i+1]))
+                part.compute_returns(next_value, self.trainer.value_normalizer)
+                buffer.returns[offset:offset+length] = part.returns[:-1]
+                offset += length
+        else:
+            buffer.compute_returns(final, self.trainer.value_normalizer)
+        if self.c.get('complete_episodes', False) or success_task(self.c):
             # Full episodes produce variable batch lengths. Keep every real
             # transition; only minibatch partitioning changes, never PPO math.
             from types import MethodType

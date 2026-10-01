@@ -1,50 +1,52 @@
 # 单源 CTDE 的方向函数学习
 
-在规定的本地信息和一个源规模下，利用团队经验学习动作概率怎样调整，再让共享 Actor 实现调整，分析规模变化后何时继续有效。
+项目研究在规定的本地信息和一个源规模下，利用团队经验学习动作概率的改进方向，再由共享 Actor 实现，并检验规模变化后的冻结执行表现。
 
-**2026-09-24：实验模块改为直接复用旧版主体。** 保留解析 Fisher 估计、方向到 Actor 的实现、条件跨规模运输三个贡献候选。恢复成对与导航原目录和训练器，仅修改当前协议需要的观测、模型接口、采样边界与预算，并补充旧包没有的两步模型和仓库适配。正式预算训练及性能结论尚待开展。
+研究分为两条比较：AN 与 SA 比较同一总体方向目标的有限样本估计差异；方向方法与 DA/PPO 比较“先学方向再实现”的训练价值。AN 与 SA 接近不等于方向路线失败，输入维度兼容也不等于跨规模迁移保证。
 
-## 阅读入口
+## 阅读与运行
 
-| 文档 | 职责 |
+| 入口 | 职责 |
 |---|---|
-| [CTDE 方向学习主稿（从这里开始）](docs/策略流形研究设计.CTDE本地策略改进版.md) | 当前理论主稿及四组研究问题；附录 C 含修改对照和任务验收 |
-| [总体实验方案](docs/总体实验方案.md) | 环境、实验编号、算法、指标、预算、结果保存及旧代码复用；开发和运行入口 |
-| [项目结构与代码说明](docs/项目结构与代码说明.md) | 各层级职责、对应文件/函数、调用流程、配置关系及修改位置；阅读代码从这里开始 |
-| [实验模块与运行命令](experiments/README.md) | 当前代码、归档迁用来源、配置、训练/冻结评价/GIF命令及验证范围 |
-| [研究主张与开发路线](docs/研究主张与开发路线.md) | 工作进度、阶段交付与完成条件 |
-| [问题审查](docs/理论与实验对应问题审查.md) | 信息压缩、源可识别性、方向变化及实际 Actor 等缺口 |
-| [相关论文与主张对照](../references/README.md) | 本地论文、原始来源与研究定位 |
+| [CTDE 方向学习主稿](docs/策略流形研究设计.CTDE本地策略改进版.md) | 理论主张、假设、命题与算法候选 |
+| [总体实验方案](docs/总体实验方案.md) | 环境职责、实验编号、比较方法、指标和预期结果 |
+| [项目结构与代码说明](docs/项目结构与代码说明.md) | 层级职责、代码调用、配置映射与修改位置 |
+| [公共实验运行说明](experiments/README.md) | 安装、统一入口、配置层次、输出与恢复 |
+| [协作导航实验手册](experiments/cooperative_navigation/README.md) | 当前导航协议、四组训练命令、指标与冻结评价 |
+| [研究主张与开发路线](docs/研究主张与开发路线.md) | 当前证据和下一阶段顺序 |
+| [结果索引](experiments/results/README.md) | 已有数据与分析报告 |
+| [问题审查](docs/理论与实验对应问题审查.md)、[相关论文](../references/README.md) | 理论适用缺口与文献依据 |
 
-## 当前目录
+成对和两步环境已形成多批机制、连续学习及迁移记录。当前应用工作是协作导航 success-v2 的源训练：成功才终止、200 步仅切分采样、轨迹跨段延续、无时间输入。旧限时导航结果作为历史记录；新协议的收敛和跨规模优势仍需新数据。
+
+## 项目层级
 
 ```text
 manifold_project/
-  README.md
-  docs/                 理论、研究路线与问题记录
-  experiments/          原成对/导航训练主体、当前机制诊断及任务适配
-  tools/
-    verification/       独立数学核验，不依赖旧实验代码
-    extract_math_check.py
-references/             论文 PDF 与文献索引
-archive/                原始旧实验归档、停用重写框架快照及说明
+  docs/                   理论、总体实验方案、结构说明
+  experiments/
+    configs/              当前矩阵配置
+    pair_coordination/    成对训练主体
+    cooperative_navigation/ 共用应用训练主体与导航手册
+    applications/         任务适配与冻结评价
+    finite/               有限机制诊断和两步模型
+    common/               配置、统计、绘图与运行信息
+    tests/                工程验证
+    results/              实验记录与判断
+  tools/verification/     独立数学核验
+references/               论文与文献索引
+archive/                  原始实现和历史计划归档
 ```
 
-目录内各层级、对应代码和调用关系统一见[项目结构与代码说明](docs/项目结构与代码说明.md)。日常入口是 `python -m manifold_project.experiments`；调当前实验参数先看 `experiments/configs/`，查训练算法看两个环境目录的 `training/`，做工程检查运行 `python -m pytest manifold_project/experiments/tests -q`。
+日常入口为 `python -m manifold_project.experiments`，在包含 manifold_project 的目录运行。原成对与导航训练主体直接复用归档后修订，实际执行不依赖 ZIP；来源见[归档说明](../archive/README.md)和[文件复用记录](experiments/reuse_audit.csv)。
 
-2026-09-23 的旧实现、两组机制数据和历史说明仍完整保存在[归档说明](../archive/README.md)所列压缩包。当前直接复用旧训练主体，并已清理重复实现、旧成对套件和历史脚本。旧结果没有恢复为当前证据。逐文件保留、移动与移除记录见 [reuse_audit.csv](experiments/reuse_audit.csv)。
+## 数学核验
 
-## 可运行的数学核验
-
-以下命令在仓库根目录 `D:\manifold` 运行，不训练模型，也不生成结果文件。
+以下命令不训练模型：
 
 ```powershell
 python -B manifold_project/tools/verification/check_cross_scale_foundations.py
 python -B manifold_project/tools/verification/check_ctde_extensions.py
 ```
 
-- `check_cross_scale_foundations.py`：仅使用 Python 标准库，自包含检查 P0/F1/F2/F3，分别对应受限模型的规模不变性、信息缺失、源不可识别和方向翻转；这些编号仅为脚本内的模型标识。
-- `check_ctde_extensions.py`：需要 NumPy；先执行 `check_ctde_local_policy.py`，再核验方差、参数投影、成对交互、二阶边界及本次新增推论的有限例子。
-- `extract_math_check.py`：默认提取当前 CTDE 主稿公式，可传入其他 Markdown 路径；按需生成 `build/mathcheck.tex`，供本机 TeX 工具检查，生成目录已被 Git 忽略。
-
-数值核验只支持列出的模型与恒等式；新版模块的工程验证也不等于收敛或导航/仓库满足迁移条件。下一步先运行 P-E（方向估计）、P-A（Actor 实现）、P-T（条件迁移）的 pilot，命令见实验模块说明，再确定正式源配置。
+数值核验支持具体有限例子和恒等式，不代替一般定理或环境条件证明。文稿公式提取工具为 tools/extract_math_check.py；工程测试命令见实验运行说明。

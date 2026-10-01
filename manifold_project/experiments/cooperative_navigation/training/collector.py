@@ -3,28 +3,37 @@ import numpy as np
 import torch
 from ..envs.tasks import Navigation
 from ..observations.history import History
-from ..configs import arrival_task, episode_horizon
+from ..configs import arrival_task, episode_horizon, success_task
 from .storage import seed_for
 
 
-def episode(actor, config, reset_seed, action_seed, n=None, retain=False, on_step=None, max_steps=None):
-    env = Navigation(config, n)
-    history = History(env.n, env.obs_dim, config['history'], env.horizon, include_time=env.include_time)
-    rng = np.random.default_rng(action_seed)
+def episode(actor, config, reset_seed, action_seed, n=None, retain=False, on_step=None, max_steps=None, session=None):
+    persistent = session is not None
+    session = {} if session is None else session
+    if not session or session['env'].end_reason is not None:
+        if session:
+            session['env'].close()
+        env = Navigation(config, n)
+        obs = env.reset(reset_seed)
+        session.update(env=env, obs=obs, previous=None,
+                       history=History(env.n, env.obs_dim, config['history'], env.horizon, include_time=env.include_time),
+                       rng=np.random.default_rng(action_seed), reset_seed=reset_seed,
+                       task_return=0., task_discounted_return=0.)
+    env, history, rng = session['env'], session['history'], session['rng']
     device = next(actor.parameters()).device
     rows = {key: [] for key in ('x', 'state', 'actions', 'mu', 'reward', 'terminated', 'truncated')}
     rewards, collisions, robot_collisions = [], [], []
     coverages, full_coverages = [], []
     path_length = 0.
     try:
-        obs = env.reset(reset_seed)
-        previous = None
+        obs, previous = session['obs'], session['previous']
         metrics = env.metrics()
-        limit = min(env.horizon, max_steps) if max_steps is not None else env.horizon
+        limit = (max_steps if max_steps is not None else env.horizon) if success_task(config) else (min(env.horizon, max_steps) if max_steps is not None else env.horizon)
+        start_step = env.t
         for t in range(limit):
             if env.end_reason is not None:
                 break
-            x = history.append(obs, previous, t)
+            x = history.append(obs, previous, env.t)
             with torch.no_grad():
                 p = actor(torch.as_tensor(x, device=device)).cpu().numpy()
             if not np.isfinite(p).all() or (p < 0).any() or not np.allclose(p.sum(-1), 1, atol=1e-6):
@@ -49,6 +58,8 @@ def episode(actor, config, reset_seed, action_seed, n=None, retain=False, on_ste
             collisions.append(metrics.get('collision_pairs', 0.))
             robot_collisions.append(metrics.get('collisions_per_agent', 0.))
             rewards.append(reward)
+            session['task_return'] += reward
+            session['task_discounted_return'] += config['gamma']**(env.t-1)*reward
             coverages.append(metrics.get('coverage', 0.))
             full_coverages.append(metrics.get('all_covered', 0.))
             if retain:
@@ -57,9 +68,11 @@ def episode(actor, config, reset_seed, action_seed, n=None, retain=False, on_ste
             previous = actions
             if terminated or truncated:
                 break
+        session.update(obs=obs, previous=previous)
         length = len(rewards)
         mean = lambda values: float(np.mean(values)) if len(values) else 0.
         metrics.update(J=float(np.dot(np.power(config['gamma'], np.arange(length)), rewards)),
+                       return_undiscounted=float(sum(rewards)),
                        collision_pairs=mean(collisions), collisions_per_agent=mean(robot_collisions),
                        mean_reward=mean(rewards), mean_coverage=mean(coverages),
                        tail_coverage=mean(coverages[length//2:]),
@@ -70,9 +83,13 @@ def episode(actor, config, reset_seed, action_seed, n=None, retain=False, on_ste
         if arrival_task(config) and config.get('environment', 'navigation') == 'navigation':
             success = env.end_reason == 'success'
             metrics.update(success=float(success), success_steps=length if success else None,
-                           restricted_steps=length if success else env.horizon,
+                           restricted_steps=length if success else limit,
                            end_reason=env.end_reason or 'collection_cutoff',
                            collision_pairs_total=float(sum(collisions)), path_length=path_length)
+        if success_task(config):
+            metrics.update(censored=float(env.end_reason != 'success'),
+                           segment_start_step=start_step, task_elapsed_steps=env.t)
+        session['last_metrics'] = metrics
         if not retain:
             return metrics
         batch = {key: np.asarray(value) for key, value in rows.items()}
@@ -86,13 +103,57 @@ def episode(actor, config, reset_seed, action_seed, n=None, retain=False, on_ste
                 batch[key] = np.empty((0, *shape))
         return batch
     finally:
-        env.close()
+        if not persistent:
+            env.close()
 
 
 class Collector:
     def __init__(self, config, condition, seed, log=None):
         self.config, self.condition, self.seed, self.log = config, condition, seed, log
         self.counts, self.costs = Counter(), Counter()
+        self.sessions = []
+
+    def close(self):
+        for session in self.sessions:
+            if session:
+                session['env'].close()
+        self.sessions = []
+
+    def state_dict(self):
+        """Exact committed physical state; never restart a live task on resume."""
+        return [self._session_state(s) if s else None for s in self.sessions]
+
+    @staticmethod
+    def _session_state(s):
+        env = s['env']
+        return dict(reset_seed=s['reset_seed'], t=env.t, end_reason=env.end_reason,
+                    bodies=[dict(p_pos=b.state.p_pos.copy(), p_vel=b.state.p_vel.copy(),
+                                 c=getattr(b.state, 'c', None)) for b in [*env.world.agents, *env.world.landmarks]],
+                    obs=s['obs'].copy(), previous=s['previous'], frames=s['history'].frames.copy(),
+                    rng=s['rng'].bit_generator.state, task_return=s['task_return'],
+                    task_discounted_return=s['task_discounted_return'])
+
+    def load_state_dict(self, saved):
+        self.close()
+        if saved is None:
+            return
+        self.sessions = [self._restore_session(s) if s is not None else {} for s in saved]
+
+    def _restore_session(self, saved):
+        env = Navigation(self.config)
+        env.reset(saved['reset_seed'])
+        for body, state in zip([*env.world.agents, *env.world.landmarks], saved['bodies']):
+            body.state.p_pos, body.state.p_vel = state['p_pos'].copy(), state['p_vel'].copy()
+            if state['c'] is not None:
+                body.state.c = state['c'].copy()
+        env.t, env.end_reason = saved['t'], saved['end_reason']
+        env.env.unwrapped.steps = env.t
+        history = History(env.n, env.obs_dim, self.config['history'], env.horizon, include_time=env.include_time)
+        history.frames[:] = saved['frames']
+        rng = np.random.default_rng()
+        rng.bit_generator.state = saved['rng']
+        return dict(env=env, history=history, rng=rng,
+                    **{k:saved[k] for k in ('obs','previous','reset_seed','task_return','task_discounted_return')})
 
     @property
     def used(self):
@@ -100,6 +161,12 @@ class Collector:
 
     def collect(self, actor, count, purpose, retain=True):
         arrival = arrival_task(self.config)
+        streaming = success_task(self.config) and purpose == 'train'
+        if streaming and not self.sessions:
+            self.sessions = [{} for _ in range(count)]
+        if streaming and len(self.sessions) != count:
+            raise ValueError('Cannot change persistent training lane count within a run')
+        remaining = [self.config['horizon']] * count
         fixed_steps = arrival and purpose == 'train' and not self.config.get('complete_episodes', False)
         quota = count*self.config['horizon'] if fixed_steps else count*episode_horizon(self.config)
         if self.used+quota > self.config['budget']:
@@ -112,6 +179,9 @@ class Collector:
             if attempts > quota+1000:
                 raise RuntimeError('Too many zero-step reset scenes; collection cannot progress')
             limit = min(episode_horizon(self.config), quota-(self.used-initial)) if fixed_steps else episode_horizon(self.config)
+            lane = next((i for i, left in enumerate(remaining) if left), 0) if streaming else None
+            if streaming:
+                limit = remaining[lane]
             index = self.counts[purpose]
             self.counts[purpose] += 1
             if self.log:
@@ -122,12 +192,26 @@ class Collector:
             result = episode(actor, self.config,
                 seed_for('train', self.condition, self.seed, purpose, index, 'reset'),
                 seed_for('train', self.condition, self.seed, purpose, index, 'action'),
-                retain=retain, on_step=debit, max_steps=limit)
+                retain=retain, on_step=debit, max_steps=limit,
+                session=self.sessions[lane] if streaming else None)
             length = len(result['reward']) if retain else result['episode_steps']
+            if streaming:
+                remaining[lane] -= length
             if not fixed_steps or length:
                 episodes.append(result)
             if self.log:
                 self.log('sampling', purpose=purpose, episode=index, used=self.used)
+                if streaming:
+                    session = self.sessions[lane]
+                    m = session['last_metrics']
+                    self.log('train_segment', lane=lane, segment_index=index, start_step=m['segment_start_step'],
+                             end_step=m['task_elapsed_steps'], steps=length, discounted_return=m['J'],
+                             return_undiscounted=m['return_undiscounted'], end_reason=m['end_reason'])
+                    if session['env'].end_reason == 'success':
+                        self.log('completed_task', lane=lane, steps=session['env'].t,
+                                 return_undiscounted=session['task_return'],
+                                 discounted_return=session['task_discounted_return'],
+                                 policy_scope='training_policy_may_change_between_segments')
         if not retain:
             return episodes
         device = next(actor.parameters()).device

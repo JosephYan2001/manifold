@@ -27,6 +27,7 @@ def parser() -> argparse.ArgumentParser:
     p.add_argument("--fit-steps", nargs="+", type=int)
     p.add_argument("--budget", type=int, help="Source decision joint steps PER method/seed/label group; fixed-base experiments use sample-sizes instead.")
     p.add_argument("--evaluation-episodes", type=int)
+    p.add_argument("--evaluation-horizon", type=int, help="Navigation observation cap, independent of the training segment length.")
     p.add_argument("--device", default=None, help="cpu, cuda, or cuda:N")
     p.add_argument("--threads", type=int)
     p.add_argument("--config", type=Path, help="JSON overrides, unknown keys are rejected.")
@@ -49,6 +50,8 @@ def resolve(args):
         if args.profile == "smoke":
             if exp.environment in ("navigation", "warehouse"):
                 c["horizon"] = 8
+            if exp.environment == 'navigation':
+                c['evaluation_horizon'] = 8
             c["batch_episodes"] = 8
             c["critic_episodes"] = 8
         for key in ("seeds", "data_seeds", "sample_sizes", "fit_steps", "budget", "evaluation_episodes", "device", "plot_every"):
@@ -57,6 +60,10 @@ def resolve(args):
                 c[key] = value
         if args.threads is not None:
             c["torch_threads"] = args.threads
+        if args.evaluation_horizon is not None:
+            if exp.environment != 'navigation' or args.evaluation_horizon <= 0:
+                raise ValueError('--evaluation-horizon requires navigation and a positive value')
+            c['evaluation_horizon'] = args.evaluation_horizon
         c["plot"] = args.plot
         c["allow_duplicate_openmp"] = args.allow_duplicate_openmp or c["allow_duplicate_openmp"]
         c["methods"] = [method for method in (args.methods or exp.methods) if method in exp.methods] if exp.methods else ["AN", "SA", "DA"]
@@ -304,7 +311,9 @@ def main(argv=None):
         if output.exists() and any(output.iterdir()):
             raise FileExistsError(f"Output directory is nonempty: {output}. Choose a new --output; existing runs are never overwritten.")
         output.mkdir(parents=True, exist_ok=True)
-        manifest = {"protocol_version": "direction-v1", "status": "running", "created_utc": datetime.now(timezone.utc).isoformat(),
+        versions = sorted({c['protocol_version'] for _, c in plan})
+        manifest = {"protocol_version": versions[0] if len(versions) == 1 else 'mixed', "protocol_versions": versions,
+                    "status": "running", "created_utc": datetime.now(timezone.utc).isoformat(),
                     "metadata": metadata(), "command_arguments": vars(args), "experiments": {},
                     "archive_sha256": "3872988f36a6a94a9dc4527ccd4b0ec894be217e0fa01b3f733709824efe09c6"}
         write_json(output / "manifest.json", manifest)

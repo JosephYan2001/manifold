@@ -1,7 +1,7 @@
 """Pinned native MPE2 dynamics; physical diagnostics never enter the actor."""
 import importlib.metadata
 import numpy as np
-from ..configs import continuing_task, arrival_task, episode_horizon
+from ..configs import continuing_task, arrival_task, episode_horizon, success_task
 
 
 class Navigation:
@@ -12,12 +12,13 @@ class Navigation:
         self.n = n or config['n_agents']
         self.horizon = episode_horizon(config)
         self.first_arrival = arrival_task(config)
+        self.success_only = success_task(config)
         self.config = dict(config)
         self.entity_protocol = config.get('observation_protocol') == 'entities_v1'
         self.end_reason = None
-        self.include_time = not continuing_task(config)
+        self.include_time = not (continuing_task(config) or self.success_only)
         self.env = simple_spread_v3.parallel_env(
-            N=self.n, local_ratio=config['local_ratio'], max_cycles=self.horizon,
+            N=self.n, local_ratio=config['local_ratio'], max_cycles=(2**63-1 if self.success_only else self.horizon),
             continuous_actions=False, num_agent_neighbors=config['agent_neighbors'],
             num_landmark_neighbors=config['landmark_neighbors'],
             terminate_on_success=False, curriculum=False, dynamic_rescaling=False,
@@ -64,7 +65,7 @@ class Navigation:
                 'collisions_per_agent': float(2*pairs/self.n)}
 
     def step(self, actions):
-        if self.t >= self.horizon or self.end_reason is not None:
+        if (not self.success_only and self.t >= self.horizon) or self.end_reason is not None:
             raise RuntimeError('采样窗口已结束，请 reset 或在新 rollout 中设置更长 horizon')
         observations, rewards, terminated, truncated, _ = self.env.step(dict(zip(self.names, map(int, actions))))
         self.t += 1
@@ -74,7 +75,7 @@ class Navigation:
         if len(set(terminated.values())) != 1 or len(set(truncated.values())) != 1:
             raise RuntimeError('当前团队采样器不支持机器人异步结束')
         terminal, timeout = all(terminated.values()), all(truncated.values())
-        if terminal or timeout != (self.t == self.horizon):
+        if terminal or timeout != (not self.success_only and self.t == self.horizon):
             raise RuntimeError('原生结束标志与关闭成功终止的固定采样窗口不一致')
         # The task definition belongs to this adapter. MPE supplies dynamics,
         # native rewards and final observations; its clock remains a truncation.

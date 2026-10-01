@@ -40,7 +40,7 @@ def load_actor(checkpoint, device='cpu'):
 
 @torch.no_grad()
 def rollout_episode(env, actor, seed, gamma=.99, collect=False, deterministic=False):
-    """A task deadline is terminal. Collection never cuts a task in this module."""
+    """Observe through success or the evaluation cap; never bootstrap a report."""
     device = next(actor.parameters()).device
     obs, info = env.reset(seed=int(seed))
     initial_success = bool(getattr(env, 'initial_done', False))
@@ -82,7 +82,7 @@ def rollout_episode(env, actor, seed, gamma=.99, collect=False, deterministic=Fa
             obs = next_obs
             if terminated:
                 break
-        if not terminated:
+        if not terminated and not getattr(env, 'success_only', False):
             raise RuntimeError('Environment did not terminate at the declared task horizon.')
     success = bool(info.get('success', initial_success))
     deliveries = float(info.get('deliveries_total', info.get('delivery_count', 0)))
@@ -97,6 +97,12 @@ def rollout_episode(env, actor, seed, gamma=.99, collect=False, deterministic=Fa
         inference_seconds_per_joint_step=inference_seconds / max(steps, 1),
         policy_mode='argmax' if deterministic else 'stochastic',
         wall_seconds=time.perf_counter() - start)
+    if getattr(env, 'success_only', False):
+        row.update(end_reason='success' if success else 'evaluation_cutoff',
+                   evaluation_horizon=env.horizon, censored=int(not success),
+                   terminated=bool(success), truncated=not success,
+                   return_scope='observed_until_success_or_evaluation_cutoff',
+                   protocol_version='navigation-success-v2')
     if success_defined:
         row.update(success=float(success), initial_success=int(initial_success),
             completion_time=steps if success else env.horizon,
@@ -128,7 +134,7 @@ def summarize(rows):
                 'collision_participation_per_agent_step', 'deliveries', 'throughput',
                 'throughput_per_agent', 'first_delivery_time', 'zero_delivery',
                 'longest_no_delivery_streak', 'blocked_forward_actions', 'entity_count', 'truncated_entity_count',
-                'inference_seconds_per_joint_step', 'wall_seconds'):
+                'inference_seconds_per_joint_step', 'wall_seconds', 'censored'):
         values = [float(row[key]) for row in rows if row.get(key) not in (None, '')]
         values = [value for value in values if math.isfinite(value)]
         if values:
@@ -137,6 +143,17 @@ def summarize(rows):
         out['initial_successes'] = sum(row.get('initial_success', 0) for row in rows)
     if 'success' in out:
         out['success_rate'] = out['success']
+    if any('censored' in row for row in rows):
+        out.update(evaluation_horizon=rows[0]['evaluation_horizon'],
+                   censored_count=sum(row['censored'] for row in rows),
+                   protocol_version='navigation-success-v2',
+                   return_scope='observed_until_success_or_evaluation_cutoff')
+        hits = [row['success_completion_time'] for row in rows if row['success']]
+        out['success_completion_time'] = float(np.mean(hits)) if hits else None
+        out['restricted_mean_steps'] = out['completion_time']
+        for bound in (200, 500, 1000):
+            if bound <= rows[0]['evaluation_horizon']:
+                out[f'success_by_{bound}'] = float(np.mean([row['success'] and row['steps'] <= bound for row in rows]))
     if any('collision_pairs' in row for row in rows):
         out['collisions_per_step'] = sum(row.get('collision_pairs', 0) for row in rows) / max(out['environment_steps'], 1)
         out['collision_participation_per_agent_step'] = 2 * sum(row.get('collision_pairs', 0) for row in rows) / max(sum(row['steps'] * row['n_agents'] for row in rows), 1)
@@ -160,7 +177,7 @@ def evaluate_checkpoint(checkpoint, config, output, experiment='N-T'):
     # reporting settings can override it; target fitting hyperparameters cannot.
     c = dict(saved['config'])
     for key in ('evaluation_episodes', 'target_sizes', 'evaluation_seed', 'device',
-                'deterministic_evaluation'):
+                'deterministic_evaluation', 'evaluation_horizon'):
         if key in config:
             c[key] = config[key]
     environment = saved['environment']
@@ -170,6 +187,8 @@ def evaluate_checkpoint(checkpoint, config, output, experiment='N-T'):
     state_before = {key: value.detach().clone() for key, value in actor.state_dict().items()}
     records, all_rows, protocols = [], [], []
     source_tags = dict(observation_mode=saved['actor_config'].get('mode', 'full'),
+        task_mode=saved.get('legacy_config', {}).get('task_mode', 'first_arrival'),
+        protocol_version=saved['config'].get('protocol_version', 'direction-v1'),
         source_experiment=saved['config'].get('experiment_id', 'unspecified'),
         relation_layers=saved['actor_config'].get('relation_layers', 2),
         source_profile=saved['config'].get('profile', 'unspecified'),
