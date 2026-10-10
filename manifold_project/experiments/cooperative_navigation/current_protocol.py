@@ -15,7 +15,8 @@ def runner_config(config, environment='navigation'):
     c.update(environment=environment, current_config=dict(config),
         observation_protocol='entities_v1', observation_mode=config['observation_mode'],
         hidden=config['hidden'], heads=config['heads'], relation_layers=config['relation_layers'],
-        task_mode='first_arrival', task_horizon=horizon, horizon=horizon, history=1,
+        network_chunk_size=config.get('network_chunk_size', 256),
+        task_mode='first_arrival', task_horizon=horizon, horizon=horizon, history=config.get('history', 1),
         complete_episodes=True, device=config['device'], threads=config.get('torch_threads', 1),
         n_agents=config['n_agents'], budget=config['budget'], seeds=[config['seed']],
         beta=config['probability_floor'], q_max=config['q_bound'], gamma=config['gamma'],
@@ -45,6 +46,8 @@ def runner_config(config, environment='navigation'):
         c.update(task_mode='success_only', complete_episodes=False, entity_self_dim=4,
                  evaluation_horizon=config['evaluation_horizon'],
                  train_reset_horizon=config.get('train_reset_horizon'))
+        if config.get('collection_mode') == 'episodes':
+            c.update(complete_episodes=True, train_reset_horizon=horizon)
     return c
 
 

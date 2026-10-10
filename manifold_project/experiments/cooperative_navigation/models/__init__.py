@@ -3,13 +3,21 @@ from torch import nn
 
 
 def entity_input(x, config=None):
-    """Decode native full MPE fields carried by the unchanged History sampler.
-
-    History appends previous action (5), frame validity (1), elapsed time (1).
-    Current-frame models deliberately ignore previous actions; their only clock
-    is remaining task time. List length varies; learned parameter shapes do not.
-    """
+    """Decode full entity frames, with ordered local history when configured."""
     config = config or {}
+    length = config.get('history', 1)
+    if length > 1 and config.get('observation_protocol') == 'entities_v1':
+        if config.get('environment', 'navigation') != 'navigation' or config.get('task_mode') != 'success_only':
+            raise ValueError('Entity history currently supports success-only navigation')
+        if x.shape[-1] % length:
+            raise ValueError('Packed observation is not divisible by history length')
+        frames = x.reshape(*x.shape[:-1], length, x.shape[-1] // length)
+        valid = frames[..., -1] > .5
+        frames = torch.where(valid[..., None], frames, torch.zeros_like(frames))
+        decoded = entity_input(frames, dict(config, history=1))
+        decoded['mask'] = decoded['mask'] & valid[..., None]
+        decoded.update(previous_action=frames[..., -6:-1], history_mask=valid)
+        return decoded
     no_clock = config.get('task_mode') == 'success_only'
     raw = x[..., :-(6 if no_clock else 7)]
     if config.get('environment', 'navigation') != 'navigation':
@@ -35,7 +43,9 @@ def entity_input(x, config=None):
 
 
 def entity_encoder(config):
-    from .entities import EntityEncoder
+    from .entities import EntityEncoder, TemporalEntityEncoder
+    if config.get('history', 1) > 1:
+        return TemporalEntityEncoder(config)
     return EntityEncoder(config.get('entity_self_dim', 5), config.get('entity_record_dim', 6),
                          config.get('action_dim', 5), config['hidden'], config.get('heads', 4),
                          config.get('relation_layers', 2), config.get('observation_mode', 'full'))

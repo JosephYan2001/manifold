@@ -46,12 +46,27 @@ def load_config(environment: str, profile: str, overrides: str | Path | None = N
                                    else "navigation-success-v2") if environment == 'navigation'
                                   and result.get('navigation_task') == 'success_only' else "direction-v1")
     result["smoke_only"] = profile == "smoke"
+    if environment == 'navigation' and result.get('collection_mode') == 'episodes':
+        result['protocol_version'] = 'navigation-episodes-v1'
+        result['train_reset_horizon'] = result['horizon']
+    if environment == 'navigation' and result.get('history', 1) > 1:
+        result['protocol_version'] += '-history-v1'
     validate_config(result)
     return result
 
 
 def validate_config(c: dict) -> None:
     if c['environment'] == 'navigation':
+        chunk = c.get('network_chunk_size', 256)
+        if not isinstance(chunk, int) or isinstance(chunk, bool) or chunk < 1:
+            raise ValueError('network_chunk_size must be a positive integer')
+        if c.get('collection_mode', 'streaming') not in ('streaming', 'episodes'):
+            raise ValueError('collection_mode must be streaming or episodes')
+        history = c.get('history', 1)
+        if not isinstance(history, int) or isinstance(history, bool) or history < 1:
+            raise ValueError('history must be a positive integer')
+        if history > 1 and c.get('navigation_task') != 'success_only':
+            raise ValueError('Observation history currently supports success-only navigation')
         if c.get('navigation_task') not in ('success_only', 'first_arrival'):
             raise ValueError('navigation_task must be success_only or first_arrival')
         if not isinstance(c.get('evaluation_horizon'), int) or isinstance(c['evaluation_horizon'], bool) or c['evaluation_horizon'] <= 0:

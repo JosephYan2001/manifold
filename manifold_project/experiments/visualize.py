@@ -1,7 +1,7 @@
 """Replay a source Actor at a declared team size, without training or a Critic.
 
-Retains the legacy visualize_navigation.py flow (frozen checkpoint, seeded rollout,
-native task rendering, GIF), adapted to the entity observation/checkpoint protocol.
+Retains the legacy navigation plot (numbered robots, trails and task metrics),
+adapted to the entity observation/checkpoint protocol.
 """
 from __future__ import annotations
 
@@ -14,6 +14,61 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from manifold_project.experiments.common.runtime import configure_runtime
+
+
+def save_navigation_gif(snapshots, output, fps, frame_stride, title):
+    """Draw recorded native states with the legacy fixed-axis trajectory view."""
+    import numpy as np
+    from PIL import Image
+    from matplotlib.figure import Figure
+    from matplotlib.backends.backend_agg import FigureCanvasAgg
+    from matplotlib.patches import Circle
+    from matplotlib import colormaps
+
+    fig = Figure(figsize=(7, 7), dpi=100, layout="constrained")
+    canvas = FigureCanvasAgg(fig)
+    ax = fig.add_subplot()
+    paths = np.stack([s['positions'] for s in snapshots])
+    goals = snapshots[0]['landmarks']
+    points = np.concatenate([paths.reshape(-1, 2), goals])
+    lo, hi = points.min(0) - .3, points.max(0) + .3
+    ax.set(xlim=(lo[0], hi[0]), ylim=(lo[1], hi[1]), aspect='equal', xlabel='x', ylabel='y')
+    colors = colormaps['tab10']
+    circles, labels, trails = [], [], []
+    for i, (pos, size) in enumerate(zip(paths[0], snapshots[0]['sizes'])):
+        color = colors(i % 10)
+        trails.append(ax.plot([], [], color=color, alpha=.45, lw=1)[0])
+        circle = Circle(pos, size, color=color, alpha=.8)
+        ax.add_patch(circle)
+        circles.append(circle)
+        labels.append(ax.text(*pos, str(i), ha='center', va='center', fontsize=9))
+    ax.scatter(*goals.T, marker='x', s=90, color='black', label='Landmarks')
+    ax.legend(loc='lower left')
+    heading = ax.set_title('')
+    indices = sorted(set(range(0, len(snapshots), frame_stride)) | {len(snapshots)-1})
+    images = []
+    try:
+        for k in indices:
+            state = snapshots[k]
+            for i, (circle, label, trail) in enumerate(zip(circles, labels, trails)):
+                circle.center = paths[k, i]
+                label.set_position(paths[k, i])
+                trail.set_data(paths[:k+1, i, 0], paths[:k+1, i, 1])
+            heading.set_text(f"{title}\nstep {state['step']}/{snapshots[-1]['step']} | "
+                             f"coverage {state['coverage']:.0%} | collision pairs {state['collision_pairs']:.0f}"
+                             f"\n{state['end_reason'] or 'running'}")
+            canvas.draw()
+            # Store indexed images instead of retaining 1000 full RGBA canvases.
+            with Image.fromarray(np.asarray(canvas.buffer_rgba()).copy()) as rgba:
+                with rgba.convert('RGB') as rgb:
+                    images.append(rgb.quantize(colors=128))
+        images[0].save(output, save_all=True, append_images=images[1:], loop=0,
+                       duration=max(1, round(1000/fps)), optimize=False)
+        return len(images)
+    finally:
+        for image in images:
+            image.close()
+        fig.clear()
 
 
 def warehouse_frame(adapter):
@@ -62,15 +117,23 @@ def render_checkpoint(checkpoint, output, n_agents=None, seed=1000000, fps=10,
     actor, payload = load_actor(checkpoint, device)
     if payload["environment"] not in ("navigation", "warehouse"):
         raise ValueError("Task rendering is supported for navigation and warehouse checkpoints")
-    env = make_env(payload["environment"], payload["config"], n_agents=n_agents,
-                   render_mode=None if payload["environment"] == "warehouse" else "rgb_array")
+    navigation = payload["environment"] == "navigation"
+    env = make_env(payload["environment"], payload["config"], n_agents=n_agents, render_mode=None)
     before = {name: value.detach().clone() for name, value in actor.state_dict().items()}
     frames = []
+    snapshots = []
     rng = np.random.default_rng(int(seed) + 170000003)
     try:
         obs, info = env.reset(seed=seed)
         def frame(step):
-            array = warehouse_frame(env) if payload["environment"] == "warehouse" else env.render()
+            if navigation:
+                snapshots.append(dict(positions=np.array([a.state.p_pos.copy() for a in env.world.agents]),
+                    landmarks=np.array([l.state.p_pos.copy() for l in env.world.landmarks]),
+                    sizes=np.array([a.size for a in env.world.agents]), step=step,
+                    coverage=info['coverage'], collision_pairs=info['collision_pairs'],
+                    end_reason=info.get('end_reason')))
+                return
+            array = warehouse_frame(env)
             if array is None:
                 raise RuntimeError("Native renderer returned no RGB frame")
             image = Image.fromarray(np.asarray(array, dtype=np.uint8)).convert("RGB")
@@ -88,16 +151,22 @@ def render_checkpoint(checkpoint, output, n_agents=None, seed=1000000, fps=10,
                 obs, _, terminated, truncated, info = env.step(actions)
                 if step == env.horizon and not terminated and getattr(env, 'success_only', False):
                     info['end_reason'] = 'evaluation_cutoff'
-                if step % frame_stride == 0 or terminated or truncated:
+                if navigation or step % frame_stride == 0 or terminated or truncated or step == env.horizon:
                     frame(step)
                 if terminated or truncated:
                     break
         if any(not torch.equal(value, actor.state_dict()[key]) for key, value in before.items()):
             raise AssertionError("Replay changed frozen Actor parameters")
         output.parent.mkdir(parents=True, exist_ok=True)
-        frames[0].save(output, save_all=True, append_images=frames[1:], loop=0,
-                       duration=max(1, round(1000 / fps)), optimize=False)
-        return {"output": str(output), "frames": len(frames), "scene_seed": seed,
+        if navigation:
+            count = save_navigation_gif(snapshots, output, fps, frame_stride,
+                f"{payload['method']} | N={env.n_agents} | seed={seed} | "
+                f"{'argmax' if deterministic else 'sampled'} policy")
+        else:
+            frames[0].save(output, save_all=True, append_images=frames[1:], loop=0,
+                           duration=max(1, round(1000 / fps)), optimize=False)
+            count = len(frames)
+        return {"output": str(output), "frames": count, "scene_seed": seed,
                 "n_agents": env.n_agents, "end_reason": info.get("end_reason"),
                 "frozen_actor_verified": True}
     finally:
@@ -119,6 +188,8 @@ def main(argv=None):
     parser.add_argument("--allow-duplicate-openmp", action="store_true")
     args = parser.parse_args(argv)
     configure_runtime(args.allow_duplicate_openmp)
+    import torch
+    torch.set_num_threads(1)
     os.environ.setdefault("SDL_VIDEODRIVER", "dummy")
     result = render_checkpoint(args.checkpoint, args.output, args.agents, args.seed,
                                args.fps, args.deterministic, args.device, args.frame_stride)

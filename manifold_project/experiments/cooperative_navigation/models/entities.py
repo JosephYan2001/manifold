@@ -64,9 +64,12 @@ class RelationAttention(nn.Module):
         # form an all-infinite softmax or retain a residual output.
         logits = torch.where(valid[:, None, :, None], logits, torch.zeros_like(logits))
         weights = torch.where(edges[:, None, :, :], logits.softmax(-1), torch.zeros_like(logits))
-        relation_values = self.relation_value(relations).reshape(
-            batch, nodes, nodes, self.heads, self.head_dim).permute(0, 3, 1, 2, 4)
-        messages = torch.matmul(weights, value) + (weights[..., None] * relation_values).sum(-2)
+        # Linearity permits projecting AFTER the weighted sum of 2D relations.
+        # Avoid materializing B x heads x nodes x nodes x head_dim messages.
+        mean_relation = torch.einsum('bhjk,bjkd->bhjd', weights, relations)
+        relation_message = torch.einsum('bhjd,hkd->bhjk', mean_relation,
+            self.relation_value.weight.reshape(self.heads, self.head_dim, 2))
+        messages = torch.matmul(weights, value) + relation_message
         messages = messages.transpose(1, 2).reshape(batch, nodes, hidden)
         result = tokens + self.update(torch.cat([tokens, messages], -1))
         return torch.where(valid[..., None], result, torch.zeros_like(result))
@@ -157,7 +160,7 @@ class EntityEncoder(nn.Module):
             counts = torch.stack([(selected & typed).sum(-1) for typed in type_masks], -1).to(entities.dtype)
         return entities, mask, counts
 
-    def forward(self, obs):
+    def forward_features(self, obs):
         own, entities, mask = obs["self"], obs["entities"], obs["mask"].bool()
         leading = own.shape[:-1]
         if own.shape[-1] != self.self_dim or entities.shape[-1] != self.entity_dim:
@@ -190,5 +193,67 @@ class EntityEncoder(nn.Module):
         # Retain action identity in the head even when only the self token is
         # visible. Empty types supply a zero readout and an explicit empty bit.
         own_context = own_context[:, None, :].expand(-1, self.action_dim, -1)
-        scores = self.head(torch.cat([own_context, query, *pooled, count_features, empty_features], -1)).squeeze(-1)
-        return scores.reshape(*leading, self.action_dim)
+        features = self.head[:-1](torch.cat([own_context, query, *pooled, count_features, empty_features], -1))
+        return features.reshape(*leading, self.action_dim, -1)
+
+    def forward(self, obs):
+        return self.head[-1](self.forward_features(obs)).squeeze(-1)
+
+
+class TemporalEntityEncoder(nn.Module):
+    """Encode each entity set, then combine ordered frame/action features.
+
+    No entity IDs or slot alignment across frames are assumed. Spatial pooling
+    remains permutation invariant per frame; temporal order is explicit.
+    """
+    def __init__(self, config):
+        super().__init__()
+        self.length = config['history']
+        self.chunk_size = config.get('network_chunk_size', 256)
+        if not isinstance(self.chunk_size, int) or isinstance(self.chunk_size, bool) or self.chunk_size < 1:
+            raise ValueError('network_chunk_size must be a positive integer')
+        hidden, actions = config['hidden'], config.get('action_dim', 5)
+        self.spatial = EntityEncoder(config['entity_self_dim'], config['entity_record_dim'],
+            actions, hidden, config.get('heads', 4), config.get('relation_layers', 2),
+            config.get('observation_mode', 'full'))
+        # The spatial final scalar head is replaced by a temporal head.
+        self.spatial.head[-1] = nn.Identity()
+        self.temporal = nn.Sequential(nn.Linear(self.length * (hidden + actions + 1), hidden),
+                                      nn.Tanh(), nn.Linear(hidden, 1))
+        nn.init.orthogonal_(self.temporal[-1].weight, gain=.01)
+        nn.init.zeros_(self.temporal[-1].bias)
+
+    def forward(self, obs):
+        # Chunk independent robot histories, not time within a history. During
+        # backward recompute each chunk instead of retaining every activation.
+        # This changes neither loss normalization nor optimizer step frequency.
+        leading = obs['history_mask'].shape[:-1]
+        count = math.prod(leading)
+        if count <= self.chunk_size:
+            return self._forward(obs)
+        fields = ('self', 'entities', 'mask', 'history_mask', 'previous_action')
+        flat = {key: obs[key].reshape(count, *obs[key].shape[len(leading):]) for key in fields}
+        outputs = []
+        for start in range(0, count, self.chunk_size):
+            chunk = {key: value[start:start+self.chunk_size] for key, value in flat.items()}
+            if torch.is_grad_enabled():
+                from torch.utils.checkpoint import checkpoint
+                outputs.append(checkpoint(self._forward, chunk, use_reentrant=False))
+            else:
+                outputs.append(self._forward(chunk))
+        return torch.cat(outputs, 0).reshape(*leading, -1)
+
+    def _forward(self, obs):
+        valid = obs['history_mask'].bool()
+        if valid.shape[-1] != self.length:
+            raise ValueError('History length does not match this checkpoint')
+        clean = dict(obs)
+        clean['self'] = torch.where(valid[..., None], obs['self'], torch.zeros_like(obs['self']))
+        clean['mask'] = obs['mask'].bool() & valid[..., None]
+        features = self.spatial.forward_features(clean)
+        features = torch.where(valid[..., None, None], features, torch.zeros_like(features))
+        previous = torch.where(valid[..., None], obs['previous_action'], torch.zeros_like(obs['previous_action']))
+        extra = torch.cat([previous, valid[..., None].to(features.dtype)], -1)
+        extra = extra.unsqueeze(-2).expand(*features.shape[:-1], extra.shape[-1])
+        ordered = torch.cat([features, extra], -1).transpose(-3, -2).flatten(-2)
+        return self.temporal(ordered).squeeze(-1)

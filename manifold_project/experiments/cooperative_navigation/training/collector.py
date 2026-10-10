@@ -94,7 +94,7 @@ def episode(actor, config, reset_seed, action_seed, n=None, retain=False, on_ste
             return metrics
         batch = {key: np.asarray(value) for key, value in rows.items()}
         # Construct s_T / h_T using the last action, before closing/resetting the env.
-        batch.update(final_x=history.append(obs, previous, env.t), final_state=env.state())
+        batch.update(final_x=history.peek(obs, previous, env.t), final_state=env.state())
         if not length:
             # An initially solved scene consumes zero transitions.
             shapes = dict(x=batch['final_x'].shape, state=batch['final_state'].shape,
@@ -162,7 +162,8 @@ class Collector:
 
     def collect(self, actor, count, purpose, retain=True):
         arrival = arrival_task(self.config)
-        streaming = success_task(self.config) and purpose == 'train'
+        episodic = success_task(self.config) and purpose == 'train' and self.config.get('complete_episodes', False)
+        streaming = success_task(self.config) and purpose == 'train' and not episodic
         reset_horizon = self.config.get('train_reset_horizon') if streaming else None
         if streaming and not self.sessions:
             self.sessions = [{} for _ in range(count)]
@@ -199,12 +200,28 @@ class Collector:
                          reserved_through=self.used+limit)
             def debit():
                 self.costs[purpose] += 1
-            result = episode(actor, self.config,
-                seed_for('train', self.condition, self.seed, purpose, index, 'reset'),
-                seed_for('train', self.condition, self.seed, purpose, index, 'action'),
-                retain=retain, on_step=debit, max_steps=limit,
-                session=self.sessions[lane] if streaming else None)
+            fresh_session = {} if episodic else None
+            try:
+                result = episode(actor, self.config,
+                    seed_for('train', self.condition, self.seed, purpose, index, 'reset'),
+                    seed_for('train', self.condition, self.seed, purpose, index, 'action'),
+                    retain=retain, on_step=debit, max_steps=limit,
+                    session=self.sessions[lane] if streaming else fresh_session)
+            finally:
+                if fresh_session and 'env' in fresh_session:
+                    fresh_session['env'].close()
             length = len(result['reward']) if retain else result['episode_steps']
+            if episodic:
+                m = fresh_session['last_metrics']
+                reset_due = m['end_reason'] != 'success'
+                if reset_due:
+                    m['end_reason'] = 'training_reset_cutoff'
+                segment_metrics.append(dict(m, reset_due=reset_due))
+                if self.log:
+                    self.log('train_episode', episode_index=index, steps=length,
+                             discounted_return=m['J'], return_undiscounted=m['return_undiscounted'],
+                             end_reason=m['end_reason'], terminated=not reset_due, truncated=reset_due,
+                             bootstrap='pre_reset_final_state' if reset_due else 'zero')
             if streaming:
                 remaining[lane] -= length
                 session = self.sessions[lane]
@@ -238,14 +255,20 @@ class Collector:
                                  return_undiscounted=session['task_return'],
                                  discounted_return=session['task_discounted_return'],
                                  policy_scope='training_policy_may_change_between_segments')
-        if streaming:
+        if streaming or episodic:
             self.last_training_metrics = dict(
-                train_mean_reward=sum(m['return_undiscounted'] for m in segment_metrics)/(self.used-initial),
+                train_mean_reward=sum(m['return_undiscounted'] for m in segment_metrics)/max(1,self.used-initial),
                 train_end_goal_distance=float(np.mean([m['distance'] for m in segment_metrics])),
                 train_agent_radius_max=max(m['agent_radius_max'] for m in segment_metrics),
                 train_task_age_max=max(m['task_elapsed_steps'] for m in segment_metrics),
                 train_reset_count=sum(m['reset_due'] for m in segment_metrics),
                 train_success_count=sum(m['end_reason'] == 'success' for m in segment_metrics))
+            if episodic:
+                self.last_training_metrics.update(train_episode_count=len(episodes),
+                    train_episode_steps_mean=float(np.mean([m['episode_steps'] for m in segment_metrics])),
+                    train_batch_steps=self.used-initial)
+                if self.used == initial:
+                    raise RuntimeError('All collected episodes were initially solved; no transitions to train on')
         if not retain:
             return episodes
         device = next(actor.parameters()).device

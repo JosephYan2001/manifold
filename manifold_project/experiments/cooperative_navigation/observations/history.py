@@ -17,3 +17,11 @@ class History:
         if self.include_time:
             x = np.concatenate([x, np.full((len(obs), 1), t/self.horizon)], axis=-1)
         return x.astype(np.float32)
+
+    def peek(self, obs, previous_action, t):
+        """Build a bootstrap observation without advancing the live history."""
+        saved = self.frames.copy()
+        try:
+            return self.append(obs, previous_action, t)
+        finally:
+            self.frames[:] = saved

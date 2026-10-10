@@ -123,7 +123,9 @@ class AuthorPPO:
         return dict(repository='https://github.com/marlbenchmark/on-policy', commit=COMMIT,
                     adapter=self.actor_kind, arguments={k:getattr(self.args, k) for k in keys},
                     critic_input='local_history' if self.local else 'central_state',
-                    timeout=('persistent_lanes; success_terminal; per_segment_cutoff_bootstrap; no_clock'
+                    timeout=('independent_episodes; success_terminal; capped_episode_bootstrap; no_clock'
+                             if success_task(self.c) and self.c.get('complete_episodes') else
+                             'persistent_lanes; success_terminal; per_segment_cutoff_bootstrap; no_clock'
                              if success_task(self.c) else 'packed_real_transitions; success/deadline_terminal; collection_cutoff_bootstrap'
                              if arrival_task(self.c) else
                              'pre_reset_final_value; independent_window_lanes; terminal_only_mask'),

@@ -425,9 +425,11 @@ class Runner:
                 old, info = self.update()
                 if success_task(self.c):
                     info.update(self.sampler.last_training_metrics,
-                                train_segment_return=info['train_J'],
-                                train_return_scope='segment_observed_discounted_return',
                                 task_mode='success_only')
+                    episodic = self.c.get('complete_episodes', False)
+                    info['train_episode_return' if episodic else 'train_segment_return'] = info['train_J']
+                    info['train_return_scope'] = ('episode_observed_discounted_return' if episodic
+                                                  else 'segment_observed_discounted_return')
                 info['update_seconds'] = time.perf_counter()-started
                 self.train_seconds += info['update_seconds']
                 self.round += 1

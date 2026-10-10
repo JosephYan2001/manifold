@@ -24,8 +24,12 @@ def progress_line(condition, seed, budget, row, evaluation=None):
     used = row['source_steps']
     fields = [f'{condition} seed={seed} round={row["round"]}',
               f'steps={used}/{budget} ({used / budget:.1%})',
-              f'{"segment_J" if row.get("task_mode") == "success_only" else "train_J"}={number(row.get("train_J"))}',
+              f'{"episode_J" if "train_episode_return" in row else "segment_J" if row.get("task_mode") == "success_only" else "train_J"}={number(row.get("train_J"))}',
               f'critic_mse={number(row.get("critic_mse"))}', decision]
+    if 'train_episode_count' in row:
+        fields += [f'episodes={row["train_episode_count"]}',
+                   f'batch_steps={row["train_batch_steps"]}',
+                   f'episode_len={number(row["train_episode_steps_mean"])}']
     if row.get('task_mode') == 'success_only':
         fields += [f'critic_ev={number(row.get("explained_variance"))}',
                    f'mean_r={number(row.get("train_mean_reward"))}',

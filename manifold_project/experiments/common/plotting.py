@@ -59,12 +59,38 @@ def _context(path, cache):
 
 
 def _read_data(directory, records):
-    from .reporting import read_csv
+    from .reporting import read_csv, GROUP_KEYS
     directory, cache = Path(directory), {}
     curves = []
     for path in sorted(directory.rglob('training.csv')):
         context = _context(path, cache)
-        curves.extend({**context, **row, '_family': 'learning'} for row in read_csv(path))
+        training = read_csv(path)
+        monitoring = []
+        events = path.parent / 'events.jsonl'
+        if training and any('train_segment_return' in row or 'train_episode_return' in row for row in training) and events.exists():
+            tags = {key: training[0][key] for key in ('environment', 'seed', *GROUP_KEYS)
+                    if key in training[0]}
+            # Read actual monitoring nodes, including the final evaluation AFTER
+            # the last optimizer round. Repeated training-row snapshots omit it.
+            with events.open(encoding='utf-8-sig') as handle:
+                for line in handle:
+                    try:
+                        event = json.loads(line)
+                    except json.JSONDecodeError:
+                        continue  # an interrupted append is not a complete event
+                    node = event.get('record', {})
+                    if event.get('stream') != 'evaluation' or _number(node.get('J')) is None:
+                        continue
+                    monitoring.append({**context, **tags, '_family': 'learning',
+                        'source_steps_total': node['budget_checkpoint'], 'monitor_return': node['J'],
+                        'eval_success': node.get('success_rate'),
+                        'eval_restricted_mean_steps': node.get('restricted_mean_steps')})
+        for row in training:
+            if monitoring:
+                row = {k: v for k, v in row.items() if k not in
+                       ('monitor_return', 'eval_success', 'eval_restricted_mean_steps')}
+            curves.append({**context, **row, '_family': 'learning'})
+        curves.extend(monitoring)
     rows = list(records or [])
     if not rows:
         for path in sorted(directory.rglob('diagnostics.csv')):
@@ -104,6 +130,8 @@ AXES = {'learning': ('source_steps_total', 'All source joint steps'),
 PANELS = {
     'learning': [
         ('Source return', ('eval_discounted_return', 'monitor_return', 'train_discounted_return', 'training_return')),
+        ('Training segment return', ('train_segment_return',)),
+        ('Training episode return', ('train_episode_return',)),
         ('Source task', ('eval_success', 'eval_throughput', 'train_success')),
         ('Direction', ('direction_error', 'direction_score', 'direction_check_score')),
         ('Actor realization', ('independent_forward_kl', 'forward_kl_training', 'train_forward_kl', 'policy_kl_old_to_new', 'old_new_kl')),
@@ -149,6 +177,8 @@ def _select_panels(rows):
         for title, fields in PANELS[family]:
             metric = next((field for field in fields if any(_number(row.get(field)) is not None for row in subset)), None)
             if metric:
+                if family == 'learning' and metric in ('eval_discounted_return', 'monitor_return'):
+                    title = 'Independent source evaluation return'
                 selections.append((family, title, metric, subset))
         # At most three families share a 3x3 figure. A single experiment gets
         # six useful panels; mixed suites allocate panels across experiment axes.

@@ -2,6 +2,17 @@
 
 统一入口为 `python -m manifold_project.experiments`。成对学习复用 pair_coordination 训练器，导航、仓库和实体成对任务共用 cooperative_navigation 的 Runner；有限机制诊断由 finite 组织。完整研究安排见[总体实验方案](../docs/总体实验方案.md)，代码职责见[项目结构与代码说明](../docs/项目结构与代码说明.md)。
 
+## 环境模块说明
+
+各环境的模块、观测空间、模型结构和算法数据流分别维护如下；文档路径遵循实际实现位置，两步环境在 `finite/`，仓库适配器在 `applications/envs/`。
+
+| 环境 | 模块文档 | 覆盖范围 |
+|---|---|---|
+| 成对协作 P | [模块组成说明](pair_coordination/模块组成说明.md) | 自身类型协议、P-L 类型表训练、固定基点诊断及 P-TB 实体分支 |
+| 两步协作 T | [两步环境模块组成说明](finite/两步环境模块组成说明.md) | 公开状态观测、三状态模型、标签和时间权重、T-V/T-L |
+| 协作导航 N | [模块组成说明](cooperative_navigation/模块组成说明.md) | 全名单与 8 帧历史、空间/时间网络、episode 采样与截断自举 |
+| 仓库 W | [仓库环境模块组成说明](applications/envs/仓库环境模块组成说明.md) | 九格观测、单帧实体网络、有限任务终止及共用 Runner 接入 |
+
 ## 1. 安装与入口
 
 在包含 manifold_project 的目录运行，本机为 D:\manifold。使用已有 PyTorch/CUDA 环境，或激活项目环境：
@@ -23,7 +34,7 @@ MPE2 固定 1.1.1，RWARE 固定 2.0.0。入口在计算库导入前设置 CUDA 
 | 全部实验编号与预期结果 | [总体实验方案](../docs/总体实验方案.md) | P/T/N/W 的研究问题、方法与指标 |
 | 已有证据 | [结果索引](results/README.md) | 已完成结果、历史边界和分析入口 |
 
-导航的唯一完整运行说明在导航 README。当前先运行 AN 无检查与 MAPPO-E，再比较 AN 双检查和保留回报检查的 DA。success-v3 的 200 步训练段、1000 步外部训练重置与评估观察上限分别设置；训练重置保留末状态自举。旧限时与 v2 无限延续结果不与修正后的结果混用。
+导航的唯一完整运行说明在导航 README。当前先运行 AN 无检查与 MAPPO-E，再比较 AN 双检查和保留回报检查的 DA。共同使用 8 帧历史，每个 episode 成功即结束，否则 400 步硬重置；收齐 16 个 episode 后更新。超时保留末状态自举，独立评估观察上限为 1000 步。旧导航数据已清理，当前协议需要从头训练。
 
 其他入口示例：
 
@@ -76,13 +87,13 @@ smoke 只做工程验证。pilot 当前应用预算默认 2M，formal 默认 20M
 
 统一矩阵入口没有自动续训开关。底层保存了恢复所需状态，但旧套件的外层清单不同，不能将其恢复命令直接套到矩阵目录。更换观测或终止协议后不能直接续训旧模型。历史结果中的 JSON 是必要溯源数据，不属于重复模板。
 
-## 5. 可视化与工程检查
+## 5. 可视化与配置检查
 
-当前矩阵模型使用 `python -m manifold_project.experiments.visualize` 生成 GIF，完整导航示例见导航手册。cooperative_navigation/tools 中的 monitor/replay/stability 只面向原套件格式。
+当前矩阵模型使用 `python -m manifold_project.experiments.visualize` 生成 GIF，完整导航示例见导航手册。训练过程由控制台、training.csv 和 overview.png 监控。原导航套件入口、分析脚本及 monitor/replay/stability 工具已删除，避免与当前入口混用。
 
 ```powershell
-python -m pip install -r manifold_project/experiments/requirements-test.txt
-python -m pytest manifold_project/experiments/tests -q
+python -m manifold_project.experiments --list
+python -m manifold_project.experiments --experiments N-C --profile pilot --methods AN --config manifold_project/experiments/configs/navigation/no_checks.json --device cuda --dry-run
 ```
 
-测试包括数学、输入权限、环境边界、采样连续性、恢复、冻结执行及图表。测试数量以实际输出为准；通过不代表算法收敛。源码来源与归档复用记录见 [reuse_audit.csv](reuse_audit.csv)，实际训练无需解压旧 ZIP。
+工程测试源码和测试专用依赖已按用户要求清理，统一安装清单为 experiments/requirements.txt。dry-run 只核对配置，不证明收敛。理论数学核验工具保留在 manifold_project/tools/verification/。源码来源与归档复用记录见 [reuse_audit.csv](reuse_audit.csv)，实际训练无需解压旧 ZIP。

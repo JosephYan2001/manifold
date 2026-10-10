@@ -8,9 +8,14 @@ class DeploymentActor(nn.Module):
         super().__init__()
         self.actor, self.config = actor, config
         self.model_config = dict(mode=config.get('observation_mode', 'full'),
+                                 history=config.get('history', 1),
                                  relation_layers=config.get('relation_layers', 2))
 
     def forward(self, obs):
+        if self.config.get('history', 1) > 1:
+            if 'history' not in obs:
+                raise ValueError('This checkpoint requires an environment with observation history')
+            return self.actor(obs['history'])
         own, entities = obs['self'], obs['entities']
         if self.config.get('environment', 'navigation') == 'navigation':
             n = (entities.shape[-2]+1)//2

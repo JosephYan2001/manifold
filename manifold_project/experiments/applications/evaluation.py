@@ -30,10 +30,32 @@ def load_actor(checkpoint, device='cpu'):
         from ..cooperative_navigation.models.deployment import DeploymentActor
         legacy_config = saved['config']
         actor = DeploymentActor(legacy_load(saved).to(device), legacy_config).eval()
-        normalized = dict(saved, config=legacy_config['current_config'],
-            method=saved['current_method'], environment=saved['current_environment'],
-            protocol=saved['current_protocol'], actor_config=actor.model_config,
-            source_steps_total=sum(saved['costs'].values()), legacy_config=legacy_config)
+        current_config = legacy_config['current_config']
+        # Runner saves resumable snapshots before train() adds final metadata.
+        # The selected best Actor also carries its config rather than that metadata.
+        method = saved.get('current_method')
+        if method is None:
+            method = {'ours': 'AN', 'sampled': 'SA', 'direct': 'DA',
+                      'mappo': 'MAPPO-E', 'ippo': 'IPPO-E'}.get(saved.get('condition'))
+            if method is None:
+                methods = current_config.get('methods', [])
+                if len(methods) != 1:
+                    raise ValueError('Checkpoint lacks unambiguous method metadata.')
+                method = methods[0]
+        environment = saved.get('current_environment', current_config['environment'])
+        protocol = saved.get('current_protocol')
+        if protocol is None:
+            env = make_env(environment, current_config)
+            try:
+                protocol = env.protocol()
+            finally:
+                env.close()
+        steps = (sum(saved['costs'].values()) if 'costs' in saved
+                 else saved.get('actor_source_steps'))
+        normalized = dict(saved, config=current_config,
+            method=method, environment=environment,
+            protocol=protocol, actor_config=actor.model_config,
+            source_steps_total=steps, legacy_config=legacy_config)
         return actor, normalized
     raise ValueError('Expected a current-protocol Runner checkpoint. Retired framework checkpoints are not supported.')
 
@@ -189,6 +211,7 @@ def evaluate_checkpoint(checkpoint, config, output, experiment='N-T'):
     state_before = {key: value.detach().clone() for key, value in actor.state_dict().items()}
     records, all_rows, protocols = [], [], []
     source_tags = dict(observation_mode=saved['actor_config'].get('mode', 'full'),
+        source_history=saved['actor_config'].get('history', 1),
         task_mode=saved.get('legacy_config', {}).get('task_mode', 'first_arrival'),
         protocol_version=saved['config'].get('protocol_version', 'direction-v1'),
         source_experiment=saved['config'].get('experiment_id', 'unspecified'),

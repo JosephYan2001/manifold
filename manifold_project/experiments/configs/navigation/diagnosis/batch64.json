@@ -1,0 +1,5 @@
+{
+  "direction_check": false,
+  "return_check": false,
+  "batch_episodes": 64
+}

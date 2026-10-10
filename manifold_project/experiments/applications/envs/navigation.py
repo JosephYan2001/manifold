@@ -1,6 +1,7 @@
 """Dictionary interface to the restored native navigation adapter; no second dynamics loop."""
 import numpy as np
 from ...cooperative_navigation.envs.navigation import Navigation as LegacyNavigation
+from ...cooperative_navigation.observations.history import History
 
 
 class Navigation(LegacyNavigation):
@@ -12,6 +13,8 @@ class Navigation(LegacyNavigation):
                  task_horizon=config.get('horizon', 200), horizon=config.get('horizon', 200),
                  agent_neighbors=None, landmark_neighbors=None, local_ratio=config.get('local_ratio', .5),
                  render_mode=render_mode)
+        if config.get('collection_mode') == 'episodes':
+            c['train_reset_horizon'] = config['horizon']
         super().__init__(c, n_agents)
         if self.success_only:
             self.self_dim = 4
@@ -22,6 +25,7 @@ class Navigation(LegacyNavigation):
         self.local_ratio = c['local_ratio']
         self.initial_scale = config.get('initial_scale', 1.)
         self.initial_done, self._ready = False, False
+        self.history_length = config.get('history', 1)
 
     def _observation(self, raw):
         n = self.n_agents
@@ -48,7 +52,11 @@ class Navigation(LegacyNavigation):
     def reset(self, seed=None):
         raw = super().reset(0 if seed is None else seed)
         self.initial_done, self._ready = self.end_reason == 'success', True
-        return self._observation(dict(zip(self.names, raw))), self._info(self.metrics())
+        obs = self._observation(dict(zip(self.names, raw)))
+        if self.history_length > 1:
+            self.history = History(self.n, self.obs_dim, self.history_length, self.horizon, include_time=False)
+            obs['history'] = self.history.append(raw, None, self.t)
+        return obs, self._info(self.metrics())
 
     def metrics(self):
         metrics = super().metrics()
@@ -74,7 +82,10 @@ class Navigation(LegacyNavigation):
                 or not np.all((actions >= 0) & (actions < 5) & (actions == np.floor(actions)))):
             raise ValueError('Expected one valid native action per robot after reset')
         raw, reward, terminal, truncated = super().step(actions)
-        return self._observation(dict(zip(self.names, raw))), reward, terminal, truncated, self._info(self.metrics())
+        obs = self._observation(dict(zip(self.names, raw)))
+        if self.history_length > 1:
+            obs['history'] = self.history.append(raw, actions.astype(int), self.t)
+        return obs, reward, terminal, truncated, self._info(self.metrics())
 
     def protocol(self):
         return {"environment": "mpe2.simple_spread_v3", "version": self.package_version,
@@ -83,12 +94,15 @@ class Navigation(LegacyNavigation):
                 "task_mode": self.config['task_mode'],
                 "sampling_horizon": self.config['horizon'],
                 "train_reset_horizon": self.config.get('train_reset_horizon'),
+                "training_collection": self.config.get('collection_mode', 'streaming'),
                 "training_reset_is_terminal": False,
                 "evaluation_horizon": self.horizon,
                 "self_fields": ["self_velocity_x", "self_velocity_y", "self_position_x", "self_position_y"] + ([] if self.success_only else ["remaining_time_fraction"]),
                 "entity_fields": ["is_landmark", "is_peer", "relative_x", "relative_y", "communication_0", "communication_1"],
                 "critic_fields": ["all_agent_positions_and_velocities", "all_landmark_positions"] + ([] if self.success_only else ["elapsed_time_fraction"]),
                 "observation": "native_full_lists_no_truncation", "local_ratio": self.local_ratio,
+                "history_length": self.history_length,
+                "history_fields": ["observation", "previous_local_action", "frame_valid"] if self.history_length > 1 else [],
                 "reward_aggregation": "mean_native_agent_rewards", "success": "first_simultaneous_coverage",
                 "coverage_radius": self.coverage_radius, "deadline_is_terminal": not self.success_only,
                 "initial_position_range": [-self.initial_scale, self.initial_scale],

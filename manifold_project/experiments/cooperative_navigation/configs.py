@@ -111,8 +111,10 @@ def validate(c):
     if any(not isinstance(n,int) or n < 2 for n in c['transfer_sizes']):
         raise ValueError('迁移人数必须为不小于 2 的整数')
     if c.get('observation_protocol') == 'entities_v1':
-        if c['history'] != 1 or c['agent_neighbors'] is not None or c['landmark_neighbors'] is not None:
-            raise ValueError('entities_v1 uses current-frame full native lists (neighbors=null, history=1)')
+        if c['agent_neighbors'] is not None or c['landmark_neighbors'] is not None:
+            raise ValueError('entities_v1 requires full native lists (neighbors=null)')
+        if c['history'] > 1 and (c.get('environment', 'navigation') != 'navigation' or not success_task(c)):
+            raise ValueError('Entity history currently supports success-only navigation')
         if c['hidden'] % c['heads']:
             raise ValueError('hidden must be divisible by heads')
     elif c['agent_neighbors'] != 2 or c['landmark_neighbors'] != 2:

@@ -1,6 +1,8 @@
 # 有限机制实验
 
-本模块与原成对训练器的分工见[项目结构与代码说明](../../docs/项目结构与代码说明.md)第 8 节；全项目调用关系与配置映射也统一在该说明维护。
+按环境阅读实现细节：[成对协作模块说明](../pair_coordination/模块组成说明.md)、[两步协作模块说明](两步环境模块组成说明.md)。两步说明包含公开状态观测、三状态模型、完整回合标签、时间权重和 T-V/T-L 数据流。
+
+本模块与原成对训练器的分工见[项目结构与代码说明](../../docs/项目结构与代码说明.md)；全项目调用关系与配置映射也统一在该说明维护。
 
 当前有限模块直接调用恢复的 `pair_coordination/` 源码，补充总体方案中的诊断与两步模型。P-L 调用旧 `run_training`，没有另一套成对多轮训练循环。运行不读 ZIP、不载入旧结果。
 
@@ -24,8 +26,4 @@ P-L 保留原 `checkpoints/final.json、best.json` 与单个事件账本，含�
 
 `actor_fit_steps` 控制实际 Actor 优化，`fit_steps` 列表是 P-A 的拟合预算轴；`source_eval_episodes` 参与选模并计费，`evaluation_episodes` 只做最后报告。有限网络不使用应用的 `hidden/heads/relation_layers`，但恢复的旧成对训练模块会导入 PyTorch。
 
-命令统一见[实验模块说明](../README.md)，逐文件来源见 [reuse_audit.csv](../reuse_audit.csv)。验证：
-
-```powershell
-python -m pytest manifold_project/experiments/tests/test_finite.py manifold_project/experiments/tests/test_pair_learning.py -q
-```
+命令统一见[实验模块说明](../README.md)，逐文件来源见 [reuse_audit.csv](../reuse_audit.csv)。正式启动前可追加 `--dry-run` 核对配置。
