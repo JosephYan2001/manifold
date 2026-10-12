@@ -51,7 +51,7 @@ def runner_config(config, environment='navigation'):
     return c
 
 
-def train(environment, method, config, output):
+def train(environment, method, config, output, resume=False, resume_from=None):
     from .training.runner import Runner, minimum_cost
     from .training.storage import load_pt, save_pt
     from ..applications.envs import make_env
@@ -59,6 +59,11 @@ def train(environment, method, config, output):
     from ..common.runtime import configure_torch
     configure_torch(config)
     c = runner_config(config, environment)
+    saved = None
+    if resume or resume_from:
+        saved = load_pt(Path(output)/'checkpoints/final.pt' if resume else resume_from)
+        from ..recovery import restored_config
+        c = restored_config(saved, config)
     condition = CONDITIONS[method]
     if method in ('AN', 'SA'):
         if not config['direction_check'] and not config['return_check']:
@@ -70,7 +75,7 @@ def train(environment, method, config, output):
     directory = Path(output)
     from .configs import evaluation_horizon
     monitor_cap = len(c['eval_fractions'])*c['eval_episodes']*evaluation_horizon(c)
-    if minimum_cost(c, condition)+monitor_cap > c['budget']:
+    if saved is None and minimum_cost(c, condition)+monitor_cap > c['budget']:
         raise ValueError('Budget cannot reserve a complete source update and its declared source monitoring')
     env = make_env(environment, config)
     try:
@@ -96,7 +101,17 @@ def train(environment, method, config, output):
         if config.get('plot') and runner.round and runner.round % config.get('plot_every', 10) == 0:
             plot_overview(directory, rows)
     started = time.perf_counter()
-    runner = Runner(directory, c, condition, config['seed'], progress=progress)
+    runner = Runner(directory, c, condition, config['seed'], progress=progress, resume=resume)
+    if resume_from:
+        runner.restore(saved)
+        runner.complete = False
+        runner.checkpoint()
+        # Preserve historical monitoring/optimization events for the usual plots.
+        source_events = Path(resume_from).parent.parent/'events.jsonl'
+        if source_events.is_file():
+            import shutil
+            with source_events.open('rb') as src, (directory/'events.jsonl').open('xb') as dst:
+                shutil.copyfileobj(src, dst)
     probe = None
     if method == 'AN' and config.get('save_fit_diagnostics', False):
         from .evaluation.fit_probe import FitProbe

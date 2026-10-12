@@ -1,0 +1,59 @@
+[
+  {
+    "run": "an_base",
+    "restored_round": 272,
+    "status": "passed",
+    "original_checkpoint_unchanged": true,
+    "new_training_steps": 0,
+    "device": "cpu",
+    "checks": [
+      "model weights",
+      "Adam state",
+      "sampling counts and budget",
+      "optimizer counts",
+      "CPU RNG",
+      "historical monitoring grid",
+      "completed flag reset",
+      "interrupted-extension restore",
+      "invalid budgets rejected"
+    ]
+  },
+  {
+    "run": "an_direction64",
+    "restored_round": 272,
+    "status": "passed",
+    "original_checkpoint_unchanged": true,
+    "new_training_steps": 0,
+    "device": "cpu",
+    "checks": [
+      "model weights",
+      "Adam state",
+      "sampling counts and budget",
+      "optimizer counts",
+      "CPU RNG",
+      "historical monitoring grid",
+      "completed flag reset",
+      "interrupted-extension restore",
+      "invalid budgets rejected"
+    ]
+  },
+  {
+    "run": "an_batch64",
+    "restored_round": 68,
+    "status": "passed",
+    "original_checkpoint_unchanged": true,
+    "new_training_steps": 0,
+    "device": "cpu",
+    "checks": [
+      "model weights",
+      "Adam state",
+      "sampling counts and budget",
+      "optimizer counts",
+      "CPU RNG",
+      "historical monitoring grid",
+      "completed flag reset",
+      "interrupted-extension restore",
+      "invalid budgets rejected"
+    ]
+  }
+]

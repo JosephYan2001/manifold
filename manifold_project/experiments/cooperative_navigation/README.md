@@ -166,3 +166,34 @@ python -m manifold_project.experiments.visualize --checkpoint "$out/an_core/N-C_
 2026-10-02 已按用户要求删除旧导航结果和判断报告。原始源码 ZIP 保留作实现来源，不能作为当前运行配置。历史协议读取分支保留用于代码兼容；当前所有训练命令统一使用本手册的 400 步 episode 批次协议，结果状态见[结果目录](../results/README.md)。
 
 工程检查覆盖终止与截断、无时间输入、逐段 GAE、跨轮连续性、CPU/CUDA 短训练、精确恢复和冻结变规模执行；通过测试不代表性能结论。运行验证的方法见实验运行说明。
+
+## 8. 中断恢复与增加预算续训
+
+两种操作统一使用 `python -m manifold_project.experiments --resume SUITE`，其中 `SUITE` 是包含 `manifest.json` 的结果目录，不是 `final.pt`。原方法、种子、batch、方向训练次数、设备和评估设置均从结果继承，无须重复传入 `--config`、`--profile` 或 `--methods`；恢复时禁止改变训练设置。
+
+```powershell
+Set-Location D:\manifold
+$src = "manifold_project/experiments/results/navigation_diagnosis_20261010_2m_s40_v1"
+$dst = "manifold_project/experiments/results/navigation_diagnosis_20261012_4m_s40_v1"
+
+# 中断恢复：原目录、原累计预算，从最近一次提交的 checkpoint 继续。
+python -m manifold_project.experiments --resume "$src/an_base" --allow-duplicate-openmp
+
+# 增加预算：已完成的 200 万步运行，延长到累计 400 万步，写入新目录。
+python -m manifold_project.experiments --resume "$src/an_base" --budget 4000000 --output "$dst/an_base" --allow-duplicate-openmp
+python -m manifold_project.experiments --resume "$src/an_direction64" --budget 4000000 --output "$dst/an_direction64" --allow-duplicate-openmp
+python -m manifold_project.experiments --resume "$src/an_batch64" --budget 4000000 --output "$dst/an_batch64" --allow-duplicate-openmp
+
+# 延长训练中途退出后，恢复新目录；不再重新指定旧来源。
+python -m manifold_project.experiments --resume "$dst/an_base" --allow-duplicate-openmp
+```
+
+任一命令加 `--dry-run` 只校验和打印恢复计划，不创建或修改结果。`--budget` 始终是累计源预算，包含已消耗的训练与源监测步骤。增加预算保留历史监测节点，并按原间隔追加新节点；不会重新采集历史监测。最终报告评价仍单独计费。
+
+模型、Critic、优化器、随机状态、采样序号、采样器状态和累计成本通过原 Runner 恢复；中断但尚未提交的采样按原账本规则计费，不会删除实际消耗。已经完成的运行在同预算恢复时不再更新模型，但可以重建最终评估和汇总。增加预算要求源训练已经完成，且新输出目录独立于原目录。
+
+当前公共恢复支持导航 `train`/`train_transfer` 套件；不支持有限实验、输入消融套件或 `save_fit_diagnostics=true` 的运行（FitProbe 尚未保存完整恢复状态）。启动后尚未生成任何 checkpoint 的已初始化运行会报错，不会悄悄从头训练。运行清单的 `recovery_history` 保存来源 checkpoint 哈希、配置和恢复前后的源码指纹；不同指纹会提示，但不能仅凭指纹差异判定算法变化。
+
+输出继续采用标准套件目录：`N-C_source_learning/full/AN_s40/checkpoints/final.pt`，以及原有的训练曲线、最终评估和套件汇总。`tools/extend_navigation.py` 仅保留为转发到公共入口的兼容包装，`tools/extend_navigation_diagnosis.ps1` 也已改用公共入口，不再维护独立续训流程。
+
+CPU 集成验证：`python -m unittest manifold_project.experiments.tests.test_recovery -v`。测试使用临时小规模环境，检查中断恢复与连续训练的参数一致性、预算扩展、扩展中断后的恢复、来源文件保护和 dry-run 无写入；不启动正式训练。

@@ -18,8 +18,9 @@ from .registry import APPLICATION, EXPERIMENTS, get_experiment
 
 def parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description="Direction-learning experiments v1 (source-only training).")
-    p.add_argument("--experiments", nargs="+", default=["P-E", "P-A", "P-T"], choices=list(EXPERIMENTS))
-    p.add_argument("--profile", choices=["smoke", "pilot", "formal"], default="pilot")
+    p.add_argument("--experiments", nargs="+", choices=list(EXPERIMENTS))
+    p.add_argument("--profile", choices=["smoke", "pilot", "formal"])
+    p.add_argument("--resume", type=Path, help="Resume a navigation training suite; inherit its configuration. A larger --budget requires a completed source and a new --output.")
     p.add_argument("--methods", nargs="+", choices=list(APPLICATION))
     p.add_argument("--seeds", nargs="+", type=int)
     p.add_argument("--data-seeds", nargs="+", type=int)
@@ -43,8 +44,9 @@ def parser() -> argparse.ArgumentParser:
 
 
 def resolve(args):
+    args.profile = args.profile or "pilot"
     plan = []
-    for name in dict.fromkeys(args.experiments):
+    for name in dict.fromkeys(args.experiments or ["P-E", "P-A", "P-T"]):
         exp = get_experiment(name)
         c = load_config(exp.environment, args.profile, args.config)
         if args.profile == "smoke":
@@ -204,7 +206,8 @@ def _run_train(exp, config, directory, args, generated):
                             record[key] = float(value)
                     result = dict(records=[record], checkpoint=str(source_path), protocol=saved["protocol"])
                 else:
-                    result = train(exp.environment, method, c, run_dir)
+                    recovery = getattr(args, '_recovery_runs', {}).get(str(run_dir.resolve()), {})
+                    result = train(exp.environment, method, c, run_dir, **recovery)
                 checkpoint = Path(result["checkpoint"])
                 checkpoints.append(checkpoint)
                 # Report-only evaluation: not used for best/stopping/hyperparameters.
@@ -297,6 +300,9 @@ def main(argv=None):
                   (f"  source={e.source_experiment}" if e.source_experiment else ""))
         return 0
     try:
+        if args.resume:
+            from .recovery import resume_suite
+            return resume_suite(args)
         plan = resolve(args)
         if args.dry_run:
             print(json.dumps({e.id: c for e, c in plan}, ensure_ascii=False, indent=2))
