@@ -99,6 +99,13 @@ def direction_terms(q, mu, actions):
     return score, fisher
 
 
+def direction_loss_values(q, mu, actions, advantage, objective):
+    score, fisher = direction_terms(q, mu, actions)
+    if objective not in ('sampled_square', 'analytic_fisher'):
+        raise ValueError(f'Unknown direction objective: {objective}')
+    return (score.square() if objective == 'sampled_square' else fisher)-2*advantage*score
+
+
 def ppo_loss(actor, batch, advantage, config):
     p = actor(batch['x'])
     action = batch['actions'].unsqueeze(-1)

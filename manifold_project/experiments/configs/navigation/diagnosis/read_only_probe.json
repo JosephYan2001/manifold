@@ -1,0 +1,8 @@
+{
+  "direction_check": false,
+  "return_check": false,
+  "save_fit_diagnostics": false,
+  "direction_diagnostic_rounds": [1, 64, 128, 256],
+  "direction_diagnostic_episodes": 16,
+  "save_direction_snapshots": true
+}

@@ -56,6 +56,17 @@ def load_config(environment: str, profile: str, overrides: str | Path | None = N
 
 
 def validate_config(c: dict) -> None:
+    rounds=c.get('direction_diagnostic_rounds',[])
+    if not isinstance(rounds,list) or any(type(r) is not int or r<1 for r in rounds) or len(set(rounds))!=len(rounds):
+        raise ValueError('direction_diagnostic_rounds must contain distinct positive integers')
+    count=c.get('direction_diagnostic_episodes',16)
+    if type(count) is not int or count<1:
+        raise ValueError('direction_diagnostic_episodes must be a positive integer')
+    if type(c.get('save_direction_snapshots',False)) is not bool:
+        raise ValueError('save_direction_snapshots must be boolean')
+    for key in ('direction_check','return_check'):
+        if type(c[key]) is not bool:
+            raise ValueError(f'{key} must be boolean')
     if c['environment'] == 'navigation':
         chunk = c.get('network_chunk_size', 256)
         if not isinstance(chunk, int) or isinstance(chunk, bool) or chunk < 1:

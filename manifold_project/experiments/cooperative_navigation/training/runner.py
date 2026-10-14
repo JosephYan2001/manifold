@@ -12,25 +12,20 @@ from ..configs import continuing_task, arrival_task, episode_horizon, success_ta
 from ..models import Actor, Critic, Direction
 from ..evaluation.evaluate import evaluate, ARRIVAL_METRICS
 from .collector import Collector
-from .ppo import returns, value_targets, batch_weighted, valid_values, direction_terms, ppo_loss
+from .ppo import returns, value_targets, batch_weighted, valid_values, direction_terms, direction_loss_values, ppo_loss
 from .storage import seed_for, event, save_json, save_pt, load_pt
 from .author_ppo import AuthorPPO, enabled as author_ppo_enabled
-
-
-def direction_check_enabled(condition):
-    return condition not in ('mappo', 'ippo', 'direct', 'no_direction_check', 'no_checks')
-
-
-def return_check_enabled(condition):
-    return condition not in ('mappo', 'ippo', 'no_return_check', 'no_checks')
+from .semantics import direction_check_enabled, return_check_enabled, objective_kind, effective_settings
+from .diagnostics import (categorical_kl, direction_metrics, critic_metrics, observe_direction,
+                          save_direction_snapshot, probe_steps)
 
 
 def minimum_cost(config, condition):
     cost = config['train_episodes']*(episode_horizon(config) if config.get('complete_episodes') else config['horizon'])
     episodes = 0
     if condition not in ('mappo','ippo'):
-        episodes += config['direction_check_episodes'] if direction_check_enabled(condition) else 0
-        episodes += 2*config['return_check_episodes'] if return_check_enabled(condition) else 0
+        episodes += config['direction_check_episodes'] if direction_check_enabled(condition, config) else 0
+        episodes += 2*config['return_check_episodes'] if return_check_enabled(condition, config) else 0
     return cost+episodes*episode_horizon(config)
 
 
@@ -45,6 +40,7 @@ class Runner:
         self.round, self.curves, self.rounds, self.snapshots = 0, [], [], []
         self.optim_steps = Counter()
         self.train_seconds, self.eval_seconds, self.eval_steps = 0., 0., 0
+        self.probe_offset = 0
         self.best = None
         torch.set_num_threads(config['threads'])
         torch.manual_seed(seed_for('initialization', seed))
@@ -83,7 +79,7 @@ class Runner:
     def log(self, stream, **record):
         event(self.log_path, stream, round=self.round+1, **record)
 
-    def restore(self, state):
+    def restore(self, state, external=False):
         if state['config'].get('task_mode', 'finite_horizon') != self.c.get('task_mode', 'finite_horizon'):
             raise ValueError('不能在不同任务定义之间直接恢复；请新建实验')
         if state.get('actor_kind', 'local_mlp_v1') != self.actor_kind:
@@ -103,6 +99,7 @@ class Runner:
                 raise ValueError('Success-only resume requires the saved live collector state')
             self.sampler.load_state_dict(state['collector_state'])
         self.optim_steps = Counter(state['optim_steps'])
+        self.probe_offset = state.get('diagnostic_steps',0) if external else state.get('probe_offset',0)
         torch.set_rng_state(state['torch_rng'].cpu())
         if torch.cuda.is_available() and state['cuda_rng'] is not None:
             torch.cuda.set_rng_state_all([s.cpu() for s in state['cuda_rng']])
@@ -139,6 +136,7 @@ class Runner:
             input_dim=self.input_dim, actor=self.actor.state_dict(), critic=self.critic.state_dict(),
             actor_optimizer=self.actor_optimizer.state_dict(), critic_optimizer=self.critic_optimizer.state_dict(),
             costs=dict(self.sampler.costs), counts=dict(self.sampler.counts), optim_steps=dict(self.optim_steps),
+            diagnostic_steps=self.diagnostic_steps,probe_offset=self.probe_offset,
             torch_rng=torch.get_rng_state(), cuda_rng=torch.cuda.get_rng_state_all() if torch.cuda.is_available() else None)
         if self.author_ppo:
             state.update(value_normalizer=self.author_ppo.normalizer_state(), implementation=self.author_ppo.description())
@@ -207,6 +205,10 @@ class Runner:
     def weighted(self, value, batch):
         return batch_weighted(value, batch, self.c)
 
+    @property
+    def diagnostic_steps(self):
+        return self.probe_offset+probe_steps(self.directory)
+
     def check_returns(self, actor, purpose, critic):
         if not (continuing_task(self.c) or success_task(self.c)):
             rows = self.sampler.collect(actor, self.c['return_check_episodes'], purpose, retain=False)
@@ -239,10 +241,15 @@ class Runner:
                 self.optim_steps[module] += 1
         last.update(loss=float(loss.detach()), grad_norm_before=float(np.mean(grad_before)),
                     grad_norm_after=float(np.mean(grad_after)), updates=len(grad_before))
-        self.log('optimization', module=module, **last)
+        self.log('optimization', module=module, **last,
+                 metric_scope='last_minibatch_pre_step',loss_last_minibatch_pre_step=float(loss.detach()))
         return last
 
     def update(self):
+        self.log('effective_configuration', **effective_settings(self.c, self.condition),
+                 label_kind=self.c['direction_label'], confidence_guarantee='none',
+                 bootstrap_rule='frozen_critic_at_truncation_zero_at_terminal',
+                 baseline_checkpoint=f'committed_round_{self.round}')
         if self.author_ppo:
             return self.update_author_ppo()
         old = deepcopy(self.actor)
@@ -253,6 +260,12 @@ class Runner:
                  J_std=float(episode_returns.std(unbiased=False)))
         advantage, target = self.labels(batch, old_critic)
         batch.update(advantage=advantage, value_target=target)
+        old_metrics=critic_metrics(old_critic,batch,self.c,local=self.condition=='ippo')
+        valid_advantage=valid_values(advantage,batch).double()
+        self.log('critic_full_batch',**old_metrics,stage='old_critic_labels',data_split='train',
+                 label_kind=self.c['direction_label'],label_source=f'old_critic_round_{self.round}',
+                 label_mean_unweighted=float(valid_advantage.mean()),
+                 label_std_unweighted=float(valid_advantage.std(unbiased=False)))
         def critic_loss(mb):
             value = self.critic(mb['x'] if self.condition == 'ippo' else mb['state'])
             mse = self.weighted((value-mb['value_target']).square(), mb)
@@ -261,12 +274,18 @@ class Runner:
                 explained = float(1-valid_values(mb['value_target']-value, mb).var(unbiased=False)/variance) if variance > 1e-12 else None
             return self.c['value_coef']*mse, {'value_mse':float(mse.detach()), 'explained_variance':explained}
         critic_info = self.optimize(self.critic, self.critic_optimizer, batch, self.c['critic_epochs'], 'critic', critic_loss)
+        self.log('critic_full_batch',**critic_metrics(self.critic,batch,self.c,local=self.condition=='ippo'),
+                 stage='postfit',data_split='train',label_kind=self.c['direction_label'],
+                 label_source=f'old_critic_round_{self.round}')
         info = dict(accepted=False, candidates=0, direction_pass=None, direction_score=None,
                     train_J=float(episode_returns.mean()), critic_mse=critic_info['value_mse'],
                     train_value_target=float(target[:, 0].mean()),
                     explained_variance=critic_info['explained_variance'],
                     return_difference=None, fit_kl_before=None, fit_kl_after=None,
                     fit_kl_p95=None, fit_kl_max=None, target_below_floor=None)
+        info.update(critic_mse_last_minibatch_pre_step=critic_info['value_mse'],
+                    explained_variance_last_minibatch_pre_step=critic_info['explained_variance'],
+                    **effective_settings(self.c,self.condition))
         if self.condition in ('mappo','ippo'):
             if self.c['ppo_normalize_advantage']:
                 a = batch['advantage']
@@ -278,7 +297,7 @@ class Runner:
             return old, info
         if self.condition == 'direct':
             for attempt in range(self.c['attempts']):
-                if self.sampler.used+2*self.c['return_check_episodes']*episode_horizon(self.c)+self.monitor_reserve() > self.c['budget']:
+                if return_check_enabled(self.condition, self.c) and self.sampler.used+2*self.c['return_check_episodes']*episode_horizon(self.c)+self.monitor_reserve() > self.c['budget']:
                     break
                 candidate = deepcopy(old)
                 optimizer = torch.optim.Adam(candidate.parameters(), lr=self.c['actor_lr']/(2**attempt))
@@ -287,11 +306,19 @@ class Runner:
                     ratio = candidate(mb['x']).gather(-1, chosen).squeeze(-1)/mb['mu'].gather(-1, chosen).squeeze(-1)
                     return -self.weighted(ratio*mb['advantage'], mb), {}
                 self.optimize(candidate, optimizer, batch, self.c['actor_epochs'], 'direct', direct_loss)
-                old_scores, _ = self.check_returns(old, 'return_old', old_critic)
-                new_scores, _ = self.check_returns(candidate, 'return_candidate', old_critic)
-                difference = float(np.mean(new_scores)-np.mean(old_scores))
+                difference = None
+                if return_check_enabled(self.condition, self.c):
+                    old_scores, old_observed = self.check_returns(old, 'return_old', old_critic)
+                    new_scores, new_observed = self.check_returns(candidate, 'return_candidate', old_critic)
+                    difference = float(np.mean(new_scores)-np.mean(old_scores))
+                    self.log('return_check', attempt=attempt+1, old_returns=old_scores,
+                             candidate_returns=new_scores, old_observed_returns=old_observed,
+                             candidate_observed_returns=new_observed, difference=difference,
+                             passed=difference > -self.c.get('return_tolerance', 0.),
+                             score_kind='bootstrapped_old_critic' if (continuing_task(self.c) or success_task(self.c)) else 'observed_finite_return',
+                             confidence_guarantee='none')
                 info.update(candidates=attempt+1, return_difference=difference,
-                            accepted=difference > -self.c.get('return_tolerance', 0.))
+                            accepted=difference is None or difference > -self.c.get('return_tolerance', 0.))
                 with torch.no_grad():
                     p = candidate(batch['x'])
                     info['policy_step_kl'] = float(self.weighted((batch['mu']*(batch['mu'].log()-p.log())).sum(-1), batch))
@@ -305,17 +332,19 @@ class Runner:
             direction = Direction(self.input_dim, self.c).to(self.c['device'])
         optimizer = torch.optim.Adam(direction.parameters(), lr=self.c['direction_lr'])
         def direction_loss(mb):
-            score, fisher = direction_terms(direction(mb['x']), mb['mu'], mb['actions'])
-            quadratic = score.square() if self.condition == 'sampled' else fisher
-            return self.weighted(quadratic-2*mb['advantage']*score, mb), {}
+            values=direction_loss_values(direction(mb['x']),mb['mu'],mb['actions'],mb['advantage'],objective_kind(self.c,self.condition))
+            return self.weighted(values, mb), {}
         self.optimize(direction, optimizer, batch, self.c['direction_epochs'], 'direction', direction_loss)
         if hasattr(self, 'fit_probe'):
             self.fit_probe(old, direction, batch, old_critic)
-        with torch.no_grad():
-            q = valid_values(direction(batch['x']), batch)
-            self.log('direction_fit',q_abs_mean=float(q.abs().mean()),q_abs_max=float(q.abs().max()),
-                     near_bound_fraction=float((q.abs()>.95*self.c['q_max']).float().mean()))
-        if direction_check_enabled(self.condition):
+        train_metrics=direction_metrics(direction,batch,self.c)
+        self.log('direction_fit',**train_metrics, data_split='train',
+                 label_kind=self.c['direction_label'],label_source=f'old_critic_round_{self.round}',
+                 aggregation='discount_weighted_valid_transitions_agents',
+                 near_bound_fraction=train_metrics['effective_bound_fraction'],
+                 near_bound_definition='abs(q) > 0.95 * q_max * (K-1)/K')
+        validation=observe_direction(self,old,old_critic,direction,batch)
+        if direction_check_enabled(self.condition, self.c):
             check = self.sampler.collect(old, self.c['direction_check_episodes'], 'direction_check')
             a, _ = self.labels(check, old_critic)
             with torch.no_grad():
@@ -324,12 +353,15 @@ class Runner:
                           {k:v[i:i+1] for k,v in check.items()})) for i in range(len(a))]
             info['direction_score'] = float(np.mean(values, dtype=np.float64))
             info['direction_pass'] = info['direction_score'] > self.c.get('direction_threshold', 0.)
-            self.log('direction_check', episode_scores=values, **info)
+            self.log('direction_check', episode_scores=values, **info,
+                     label_kind=self.c['direction_label'],label_source=f'old_critic_round_{self.round}',
+                     check_mode='empirical_mean_threshold',confidence_guarantee='none')
             if not info['direction_pass']:
+                save_direction_snapshot(self,old,old_critic,direction,batch,validation,None,None,info)
                 self.capture(None, old, info)
                 return old, info
         for attempt in range(self.c['attempts']):
-            if return_check_enabled(self.condition) and self.sampler.used+2*self.c['return_check_episodes']*episode_horizon(self.c)+self.monitor_reserve() > self.c['budget']:
+            if return_check_enabled(self.condition, self.c) and self.sampler.used+2*self.c['return_check_episodes']*episode_horizon(self.c)+self.monitor_reserve() > self.c['budget']:
                 break
             eta = (self.c['step_sizes'][attempt] if 'step_sizes' in self.c else self.c['eta']/(2**attempt))
             candidate = deepcopy(old)
@@ -350,13 +382,19 @@ class Runner:
                 actual = candidate(batch['x'])
                 step_kl = self.weighted((batch['mu']*(batch['mu'].log()-actual.log())).sum(-1), batch)
                 entropy = self.weighted(-(actual*actual.log()).sum(-1), batch)
+                before64=float(self.weighted(categorical_kl(batch['target'],batch['mu']),batch))
+                after64=float(self.weighted(categorical_kl(batch['target'],actual),batch))
             info.update(candidates=attempt+1, fit_kl_before=before,
                         policy_step_kl=float(step_kl), policy_entropy=float(entropy),
                         fit_kl_after=float(self.weighted(kl, batch)),
                         fit_kl_p95=float(torch.quantile(valid_values(kl, batch).flatten(), .95)),
                         fit_kl_max=float(valid_values(kl, batch).max()),
-                        target_below_floor=float(valid_values((batch['target'] < self.c['beta']/5).float(), batch).mean()))
-            if not return_check_enabled(self.condition):
+                        target_below_floor=float(valid_values((batch['target'] < self.c['beta']/self.c.get('action_dim',5)).float(), batch).mean()),
+                        fit_kl_before_fp64=before64,fit_kl_after_fp64=after64,
+                        old_to_target_kl_fp64=float(self.weighted(categorical_kl(batch['mu'],batch['target']),batch)),
+                        old_to_actor_kl_fp64=float(self.weighted(categorical_kl(batch['mu'],actual),batch)),
+                        tiny_target_flag=before64<1e-6,fit_ratio=after64/before64 if before64>=1e-6 else None)
+            if not return_check_enabled(self.condition, self.c):
                 info['accepted'] = True
             else:
                 old_scores, old_observed = self.check_returns(old, 'return_old', old_critic)
@@ -367,9 +405,11 @@ class Runner:
                          candidate_returns=new_scores,old_observed_returns=old_observed,
                          candidate_observed_returns=new_observed,
                          score_kind='bootstrapped_old_critic' if (continuing_task(self.c) or success_task(self.c)) else 'observed_finite_return',
+                         confidence_guarantee='none',
                          difference=info['return_difference'],passed=info['accepted'])
             self.log('candidate', attempt=attempt+1, eta=eta, **info)
             if attempt == 0:
+                save_direction_snapshot(self,old,old_critic,direction,batch,validation,candidate,eta,info)
                 self.capture(candidate, old, info)
             if info['accepted']:
                 self.actor.load_state_dict(candidate.state_dict())
@@ -481,6 +521,7 @@ class Runner:
                                 for a,b in zip(self.curves, self.curves[1:]))/self.c['budget'],
                 success_cost=next((r['budget_checkpoint'] for r in self.curves if r['success_rate'] >= .9), None))
         return dict(condition=self.condition, seed=self.seed, status='complete', rounds=self.round,
+            diagnostic_steps=self.diagnostic_steps, **effective_settings(self.c,self.condition),
             **arrival,
             implementation=({'backend':f'author_{self.condition}', 'commit':self.author_ppo.description()['commit']}
                             if self.author_ppo else {'backend':'local'}),
@@ -493,8 +534,8 @@ class Runner:
             accepted_rounds=sum(r['accepted'] for r in self.rounds),
             direction_rejections=sum(not r['direction_pass'] for r in gates), direction_checks=len(gates),
             candidates=sum(r['candidates'] for r in self.rounds),
-            return_checks=sum(r['candidates'] for r in self.rounds) if return_check_enabled(self.condition) else 0,
-            return_rejections=sum(r['candidates']-int(r['accepted']) for r in self.rounds) if return_check_enabled(self.condition) else 0,
+            return_checks=sum(r['candidates'] for r in self.rounds) if return_check_enabled(self.condition, self.c) else 0,
+            return_rejections=sum(r['candidates']-int(r['accepted']) for r in self.rounds) if return_check_enabled(self.condition, self.c) else 0,
             fit_kl_after=float(np.mean([r['fit_kl_after'] for r in fits])) if fits else None,
             train_seconds=self.train_seconds, evaluation_seconds=self.eval_seconds,
             optimizer_steps=sum(self.optim_steps.values()), optimizer_steps_by_module=dict(self.optim_steps),

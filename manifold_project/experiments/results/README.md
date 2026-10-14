@@ -27,9 +27,17 @@ P-E 与 KL 源目录保留原位，因为其他实验直接引用。其余已按
 
 2026-10-02 按用户要求删除旧导航的限时版、无限延续版和跨轮分段版数据，以及对应 checkpoint、GIF、曲线和判断报告；成对/两步数据及原始源码 ZIP 保留。
 
-当前协议为 `navigation-episodes-v1-history-v1`：8 帧历史，每个 episode 成功即结束，否则 400 步截断硬重置；收齐 16 个 episode 后更新，截断处使用重置前末状态自举。当前尚无此协议的训练结果。
+当前协议为 `navigation-episodes-v1-history-v1`：8 帧历史，每个 episode 成功即结束，否则 400 步截断硬重置；截断处使用重置前末状态自举。2026-10-14 已有以下完成结果，均为训练种子 40；A0/A1 每批16回合，A2每批64回合。
 
-下一批统一保存至 `navigation_ep400_history8_2m_s40/`，四个子目录为 `an_core/`、`mappo/`、`an_checked/`、`da_checked/`；运行前不创建空结果目录。任务、配置和命令见[导航实验手册](../cooperative_navigation/README.md)。新版性能需以实际数据判断。
+| 结果目录 | 声明累计预算 | 实际源步数 A0/A1/A2 | final 独立20场景回报 A0/A1/A2 | 成功数 |
+|---|---:|---|---|---|
+| navigation_diagnosis_20261010_2m_s40_v1 | 2M | 1996700 / 1996452 / 1996461 | -104.273 / -105.217 / -102.629 | 各0/20 |
+| navigation_diagnosis_20261012_4m_s40_v1 | 4M | 3999337 / 3998440 / 3992501 | -98.996 / -92.818 / -101.002 | 各0/20 |
+| navigation_ep400_history8_2m_s40/mappo | 2M | 1997221 | MAPPO-E：-54.320 | 7/20 |
+
+2M AN 的实验源码指纹以 `657d55d1` 开头，4M续训以 `c4671df2` 开头，旧MAPPO以 `6820ad62` 开头；完整值以各运行 manifest 为准。源步数包含监控，最终独立20场景评价另计。4M为同一模型续训，不是新的独立训练种子。最终报告使用 final.pt；best.pt 是源监控选择的诊断模型，不替代 final 报告。8场景监控与20场景最终报告不得混用。
+
+最新[数据、结论与诊断命令](../cooperative_navigation/续训结果与诊断执行清单.md)、[统计与GIF](navigation_diagnosis_20261012_4m_s40_v1/analysis_20261014/)、[整改验收记录](../cooperative_navigation/方向问题整改记录.md)。历史 `an_core_memfix` 保留在 `navigation_ep400_history8_2m_s40`，不与后续A0重复计算训练重复。尚未运行的计划目录不列为完成结果。
 
 ## 数据使用规则
 

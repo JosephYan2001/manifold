@@ -9,6 +9,8 @@ import time
 
 def restored_config(saved, public):
     """Preserve runner settings; only an explicit larger cumulative budget may change."""
+    from .cooperative_navigation.training.semantics import validate_legacy_resume
+    validate_legacy_resume(saved)
     c = deepcopy(saved['config'])
     old_public = c['current_config']
     changed = [key for key in set(public) | set(old_public)
@@ -107,6 +109,8 @@ def prepare(args):
                 record = dict(method=method, seed=seed, source=str(checkpoint), output=str(target))
                 if checkpoint.is_file():
                     saved = load_pt(checkpoint)
+                    from .cooperative_navigation.training.semantics import validate_legacy_resume
+                    validate_legacy_resume(saved,method)
                     required = ('actor','critic','actor_optimizer','critic_optimizer','costs','counts',
                                 'optim_steps','torch_rng','collector_state','rounds','curves','complete')
                     if any(key not in saved for key in required):

@@ -8,7 +8,7 @@ CONDITIONS = {'AN': 'ours', 'SA': 'sampled', 'DA': 'direct',
               'MAPPO-E': 'mappo', 'IPPO-E': 'ippo'}
 
 
-def runner_config(config, environment='navigation'):
+def runner_config(config, environment='navigation', method=None):
     from .configs import load_config
     c = load_config('smoke' if config.get('smoke_only') else 'pilot')
     horizon = int(config['horizon'])
@@ -48,6 +48,14 @@ def runner_config(config, environment='navigation'):
                  train_reset_horizon=config.get('train_reset_horizon'))
         if config.get('collection_mode') == 'episodes':
             c.update(complete_episodes=True, train_reset_horizon=horizon)
+    if method is not None:
+        c.update(semantics_version='method-gates-v2', requested_method=method,
+                 direction_objective='sampled_square' if method == 'SA' else 'analytic_fisher',
+                 direction_gate=method in ('AN','SA') and config['direction_check'],
+                 return_gate=method in ('AN','SA','DA') and config['return_check'])
+    for key, default in [('direction_diagnostic_rounds', []), ('direction_diagnostic_episodes', 16),
+                         ('save_direction_snapshots', False)]:
+        c[key] = config.get(key, default)
     return c
 
 
@@ -58,10 +66,12 @@ def train(environment, method, config, output, resume=False, resume_from=None):
     from ..common.reporting import write_csv, plot_overview
     from ..common.runtime import configure_torch
     configure_torch(config)
-    c = runner_config(config, environment)
+    c = runner_config(config, environment, method)
     saved = None
     if resume or resume_from:
         saved = load_pt(Path(output)/'checkpoints/final.pt' if resume else resume_from)
+        from .training.semantics import validate_legacy_resume
+        validate_legacy_resume(saved,method)
         from ..recovery import restored_config
         c = restored_config(saved, config)
     condition = CONDITIONS[method]
@@ -103,7 +113,7 @@ def train(environment, method, config, output, resume=False, resume_from=None):
     started = time.perf_counter()
     runner = Runner(directory, c, condition, config['seed'], progress=progress, resume=resume)
     if resume_from:
-        runner.restore(saved)
+        runner.restore(saved,external=True)
         runner.complete = False
         runner.checkpoint()
         # Preserve historical monitoring/optimization events for the usual plots.
@@ -134,8 +144,8 @@ def train(environment, method, config, output, resume=False, resume_from=None):
         budget=c['budget'], unused_budget=c['budget']-runner.sampler.used, rounds=runner.round,
         actor_updates=summary['accepted_rounds'], actor_parameters=summary['actor_parameters'],
         critic_parameters=summary['critic_parameters'], checkpoint=str(checkpoint),
-        diagnostic_steps=probe.steps if probe else 0,
+        diagnostic_steps=runner.diagnostic_steps+(probe.steps if probe else 0),
         wall_seconds=time.perf_counter()-started, training_backend='restored_cooperative_navigation.Runner')
     record.update({f'source_{key}_steps': value for key,value in runner.sampler.costs.items()})
     return dict(records=[record], checkpoint=str(checkpoint), config=config, protocol=protocol,
-                source_steps_total=runner.sampler.used, diagnostic_steps=probe.steps if probe else 0)
+                source_steps_total=runner.sampler.used, diagnostic_steps=runner.diagnostic_steps+(probe.steps if probe else 0))

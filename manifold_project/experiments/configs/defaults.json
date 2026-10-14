@@ -17,6 +17,8 @@
   "eval_every_steps": 500000, "source_eval_episodes": 100, "evaluation_episodes": 500,
   "plot_every": 10, "plot": false, "deterministic_evaluation": false,
   "save_fit_diagnostics": true, "fit_snapshot_fractions": [0.25, 0.5, 1.0],
+  "direction_diagnostic_rounds": [], "direction_diagnostic_episodes": 16,
+  "save_direction_snapshots": false,
   "local_ratio": 0.5, "coverage_radius": 0.1, "initial_scale": 1.0,
   "sensor_range": 1, "request_queue_size": 4,
   "type_probability": 0.6, "interaction_strength": 2.0, "source_agents": 4,

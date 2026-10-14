@@ -105,10 +105,13 @@ class Direction(nn.Module):
         self.net = entity_encoder(config) if self.entity else mlp(input_dim, config['hidden'], 5)
         self.q_max = config['q_max']
 
-    def forward(self, x):
+    def components(self, x):
         inputs = entity_input(x, self.config) if self.entity and not isinstance(x, dict) else x
         u = torch.tanh(self.net(inputs))
-        return self.q_max/2*(u-u.mean(dim=-1, keepdim=True))
+        return u, self.q_max/2*(u-u.mean(dim=-1, keepdim=True))
+
+    def forward(self, x):
+        return self.components(x)[1]
 
 
 class Critic(nn.Module):
