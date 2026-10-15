@@ -1,0 +1,267 @@
+{
+  "scope": "Fixed-checkpoint diagnosis; one training seed and one diagnostic data seed",
+  "bootstrap": {
+    "seed": 20261015,
+    "repeats": 20000,
+    "unit": "paired evaluation scene"
+  },
+  "runs": {
+    "direction": {
+      "verified": true,
+      "manifest": {
+        "checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\navigation_diagnosis_20261012_4m_s40_v1\\an_base\\N-C_source_learning\\full\\AN_s40\\checkpoints\\final.pt",
+        "checkpoint_sha256": "de593595e3192e45092bc01c38bddb4ff0f3d16079eac66bf14bbd441a16d316",
+        "source_round": 545,
+        "source_training_seed": 40,
+        "mode": "direction",
+        "diagnostic_seeds": [
+          40
+        ],
+        "batch_episodes": 16,
+        "initialization_seed": null,
+        "fit_trace_every_updates": 0,
+        "validation_episodes": 32,
+        "evaluation_episodes": 40,
+        "direction_epochs": [
+          16,
+          64
+        ],
+        "fit_epochs": 16,
+        "actor_lrs": [
+          0.0003
+        ],
+        "eta": 0.1,
+        "requested_kl": 0.0001,
+        "device": "cuda",
+        "kl_measure": "discount-weighted mean KL(old || candidate) on independent old-policy validation states",
+        "match_rule": "common KL = min(requested, 0.95 * minimum raw candidate KL); probability mixture with old policy",
+        "best_fit_rule": "minimum training target KL, includes epoch 0; evaluation never selects candidates",
+        "scope": "new samples at frozen saved Actor/Critic; not historical batch replay",
+        "probe_code_sha256": "f85d39fd2dc52c6266e0ae500250b5e5c5511a93ee18c9159295a8501106a520",
+        "status": "completed",
+        "diagnostic_steps": 219200,
+        "source_checkpoint_unchanged": true,
+        "source_actor_critic_frozen": true
+      },
+      "record_counts": {
+        "candidates": 4,
+        "trace": 34,
+        "scores": 4,
+        "evaluation": 200
+      },
+      "source_hashes": {
+        "diagnostics.csv": "1b4497a460b03a8af5580e01ea157cf693e71a79682e6a4555ed62a2ef899b84",
+        "direction_scores.csv": "029b210abcce7c455fdcd56eb3b48a01deeed2396bc91b0539fa36a428a07d68",
+        "effective_runner_config.json": "847f874c47695182d897cd9bb732cdb28abf816aeeb0ef3427c577e0086e40e0",
+        "evaluation_episodes.csv": "d1b48fd235dabc0b517679c7b8a196d5a19864c53e9758711c1934175ddcc746",
+        "fit_trace.csv": "6a1535f8575a6df850f4df04489ebeca2ea63148fbf1608bdefcd8510eb6e2e7",
+        "manifest.json": "bb550dc5894da0978c717cd915b02a0e526300f655b420bb046229846795d50e"
+      },
+      "code_matches_after_line_ending_normalization": true,
+      "common_kl": 3.702720410133094e-05,
+      "kl_match_max_abs_error": 5.0185008058922786e-17,
+      "collection_steps": 19200,
+      "evaluation_steps": 200000,
+      "fit_summary": [
+        {
+          "direction_epochs": 16,
+          "actor_lr": 0.0003,
+          "updates": 128,
+          "initial_train": 4.8013138519000085e-05,
+          "initial_validation": 5.3484853902822926e-05,
+          "final_train": 1.1009826344687703e-05,
+          "final_validation": 2.4070740305352365e-05,
+          "best_epoch": 16,
+          "best_train": 1.1009826344687703e-05,
+          "best_validation": 2.4070740305352365e-05,
+          "final_over_best_train": 1.0,
+          "final_over_initial_train": 0.2293086160224835,
+          "final_over_initial_validation": 0.4500477901479677,
+          "first_epoch_over_initial": 3.2270650498247564,
+          "rising_epochs": 3
+        },
+        {
+          "direction_epochs": 64,
+          "actor_lr": 0.0003,
+          "updates": 128,
+          "initial_train": 0.00023048809644454272,
+          "initial_validation": 0.00025931316808187394,
+          "final_train": 7.57943989167874e-05,
+          "final_validation": 0.00019133857407553317,
+          "best_epoch": 16,
+          "best_train": 7.57943989167874e-05,
+          "best_validation": 0.00019133857407553317,
+          "final_over_best_train": 1.0,
+          "final_over_initial_train": 0.32884300788619747,
+          "final_over_initial_validation": 0.7378667866767225,
+          "first_epoch_over_initial": 1.1985384192143642,
+          "rising_epochs": 2
+        }
+      ],
+      "pairwise_scene_comparisons": {
+        "target64_minus_target16": {
+          "mean": -0.09701149326201594,
+          "scene_bootstrap_95ci": [
+            -2.425166558370228,
+            2.422747996423514
+          ],
+          "n": 40
+        },
+        "actor16_minus_target16": {
+          "mean": -0.994187090018718,
+          "scene_bootstrap_95ci": [
+            -2.9233692329242107,
+            1.0019497643915896
+          ],
+          "n": 40
+        },
+        "actor64_minus_target64": {
+          "mean": -0.8710130715094856,
+          "scene_bootstrap_95ci": [
+            -3.6164546176623182,
+            1.6534412862672994
+          ],
+          "n": 40
+        }
+      }
+    },
+    "fit": {
+      "verified": true,
+      "manifest": {
+        "checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\navigation_diagnosis_20261012_4m_s40_v1\\an_batch64\\N-C_source_learning\\full\\AN_s40\\checkpoints\\final.pt",
+        "checkpoint_sha256": "f26521bb0cb665b2cef0cac0b04b9f007caec4fe49c52d6d4dff4b375068a72d",
+        "source_round": 136,
+        "source_training_seed": 40,
+        "mode": "fit",
+        "diagnostic_seeds": [
+          40
+        ],
+        "batch_episodes": 64,
+        "initialization_seed": null,
+        "fit_trace_every_updates": 0,
+        "validation_episodes": 32,
+        "evaluation_episodes": 40,
+        "direction_epochs": [
+          16
+        ],
+        "fit_epochs": 16,
+        "actor_lrs": [
+          0.0003,
+          0.0001,
+          3e-05
+        ],
+        "eta": 0.1,
+        "requested_kl": 0.0001,
+        "device": "cuda",
+        "kl_measure": "discount-weighted mean KL(old || candidate) on independent old-policy validation states",
+        "match_rule": "none; fit mode reports unmodified candidate policies",
+        "best_fit_rule": "minimum training target KL, includes epoch 0; evaluation never selects candidates",
+        "scope": "new samples at frozen saved Actor/Critic; not historical batch replay",
+        "probe_code_sha256": "f85d39fd2dc52c6266e0ae500250b5e5c5511a93ee18c9159295a8501106a520",
+        "status": "completed",
+        "diagnostic_steps": 318400,
+        "source_checkpoint_unchanged": true,
+        "source_actor_critic_frozen": true
+      },
+      "record_counts": {
+        "candidates": 6,
+        "trace": 51,
+        "scores": 2,
+        "evaluation": 280
+      },
+      "source_hashes": {
+        "diagnostics.csv": "b1b5238a784d03995068855f6c11d9e7470693b9f92609cc94fa6bd5459a9844",
+        "direction_scores.csv": "c108823f044531f756570ba644160cc05df8b8e4445d20694806ad22bc2c9aa5",
+        "effective_runner_config.json": "a0d50f824e5634034116734271dde4f4d1a2d12ce370fcf64cc30e8ce3083cc7",
+        "evaluation_episodes.csv": "ea6cc28dbf32262ad5e3791507724a21415c759c6b2032a5c1a46192ace5a05a",
+        "fit_trace.csv": "f5e4644ff9b17e1c3dc23fe91a0df0726ed586e79c2a42e9643323e22b906537",
+        "manifest.json": "75a0f53ec2017668abe42efb54c8afbf5824cc1ca526c8b1de7a445790e90ff6"
+      },
+      "code_matches_after_line_ending_normalization": true,
+      "common_kl": null,
+      "kl_match_max_abs_error": null,
+      "collection_steps": 38400,
+      "evaluation_steps": 280000,
+      "fit_summary": [
+        {
+          "direction_epochs": 16,
+          "actor_lr": 0.0001,
+          "updates": 512,
+          "initial_train": 3.3566336101121574e-05,
+          "initial_validation": 3.3909682695027554e-05,
+          "final_train": 5.413026235116573e-06,
+          "final_validation": 6.949005216539567e-06,
+          "best_epoch": 16,
+          "best_train": 5.413026235116573e-06,
+          "best_validation": 6.949005216539567e-06,
+          "final_over_best_train": 1.0,
+          "final_over_initial_train": 0.16126354150805586,
+          "final_over_initial_validation": 0.20492687233427148,
+          "first_epoch_over_initial": 0.29009455399996736,
+          "rising_epochs": 5
+        },
+        {
+          "direction_epochs": 16,
+          "actor_lr": 0.0003,
+          "updates": 512,
+          "initial_train": 3.3566336101121574e-05,
+          "initial_validation": 3.3909682695027554e-05,
+          "final_train": 1.4733612170425279e-05,
+          "final_validation": 1.5497723836357742e-05,
+          "best_epoch": 13,
+          "best_train": 7.68486148921822e-06,
+          "best_validation": 9.290409338919939e-06,
+          "final_over_best_train": 1.9172254686823413,
+          "final_over_initial_train": 0.4389401371075759,
+          "final_over_initial_validation": 0.45702945603293116,
+          "first_epoch_over_initial": 0.4486579135487528,
+          "rising_epochs": 7
+        },
+        {
+          "direction_epochs": 16,
+          "actor_lr": 3e-05,
+          "updates": 512,
+          "initial_train": 3.3566336101121574e-05,
+          "initial_validation": 3.3909682695027554e-05,
+          "final_train": 5.8761941348246855e-06,
+          "final_validation": 7.175523692416626e-06,
+          "best_epoch": 16,
+          "best_train": 5.8761941348246855e-06,
+          "best_validation": 7.175523692416626e-06,
+          "final_over_best_train": 1.0,
+          "final_over_initial_train": 0.17506212525317413,
+          "final_over_initial_validation": 0.2116069252829909,
+          "first_epoch_over_initial": 0.3221273904284468,
+          "rising_epochs": 0
+        }
+      ],
+      "pairwise_scene_comparisons": {
+        "lr3e4_best_minus_final": {
+          "mean": 0.9149141210790539,
+          "scene_bootstrap_95ci": [
+            -0.15622640621607567,
+            1.934555487101711
+          ],
+          "n": 40
+        },
+        "lr0.0001_minus_lr3e4": {
+          "mean": 0.5335007380251934,
+          "scene_bootstrap_95ci": [
+            -0.609281540241011,
+            1.5730582058650953
+          ],
+          "n": 40
+        },
+        "lr3e-05_minus_lr3e4": {
+          "mean": 0.7266302552266815,
+          "scene_bootstrap_95ci": [
+            -0.5347291998614887,
+            1.8600780282976839
+          ],
+          "n": 40
+        }
+      }
+    }
+  },
+  "total_diagnostic_steps": 537600
+}

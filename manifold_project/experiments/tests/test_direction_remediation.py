@@ -6,6 +6,7 @@ import unittest
 from contextlib import redirect_stdout
 from io import StringIO
 import json
+from unittest.mock import patch
 
 from manifold_project.experiments.common.runtime import configure_runtime
 configure_runtime(True)
@@ -20,6 +21,7 @@ from manifold_project.experiments.cooperative_navigation.training.storage import
 from manifold_project.experiments.cooperative_navigation.replay_direction import replay
 from manifold_project.experiments.tests.test_recovery import same
 
+EVIDENCE = {}
 
 def settings(method='AN',direction=False,returns=False):
     p=load_config('navigation','smoke')
@@ -61,7 +63,16 @@ class RemediationTests(unittest.TestCase):
                     self.assertEqual(minimum_cost(c,condition),16+8*(int(dg and method!='DA')+2*int(rg)))
                     r=Runner(self.root/f'{method}_{dg}_{rg}',c,condition,40)
                     try:
-                        _,info=r.update()
+                        with patch('manifold_project.experiments.cooperative_navigation.training.runner.direction_loss_values',
+                                   wraps=direction_loss_values) as loss_spy, patch.object(
+                                   r,'check_returns',wraps=r.check_returns) as return_spy:
+                            _,info=r.update()
+                        if method!='DA':
+                            self.assertGreater(loss_spy.call_count,0)
+                            self.assertEqual({call.args[-1] for call in loss_spy.call_args_list},
+                                             {'sampled_square' if method=='SA' else 'analytic_fisher'})
+                        if not rg:
+                            return_spy.assert_not_called()
                         self.assertEqual(info['effective_objective'],effective['effective_objective'])
                         self.assertEqual(r.sampler.counts['direction_check']>0,dg and method!='DA')
                         # A direction rejection can legitimately prevent a return check.
@@ -74,6 +85,8 @@ class RemediationTests(unittest.TestCase):
                             self.assertTrue(info['accepted'])
                             self.assertEqual(r.sampler.used,16)
                     finally:r.sampler.close()
+        EVIDENCE['method_gates'] = dict(combinations=12,actual_objective_calls_checked=True,
+            disabled_return_check_calls=0,DA_without_checks_training_steps=16)
 
     def test_probe_is_read_only_and_snapshot_replays(self):
         results=[]
@@ -83,10 +96,15 @@ class RemediationTests(unittest.TestCase):
                      direction_diagnostic_episodes=2,save_direction_snapshots=enabled)
             r=Runner(self.root/str(enabled),c,'no_checks',40)
             try:
+                captured={}
+                def capture(old,direction,batch,critic):
+                    captured['batch']=deepcopy(batch)
+                    captured['direction']=deepcopy(direction.state_dict())
+                r.fit_probe=capture
                 r.update()
                 results.append(deepcopy(dict(actor=r.actor.state_dict(),critic=r.critic.state_dict(),
                     optimizer=r.critic_optimizer.state_dict(),counts=r.sampler.counts,costs=r.sampler.costs,
-                    torch_rng=torch.get_rng_state(),optim_steps=r.optim_steps)))
+                    torch_rng=torch.get_rng_state(),optim_steps=r.optim_steps,**captured)))
                 self.assertEqual(r.diagnostic_steps,16 if enabled else 0)
                 if enabled:
                     snapshot=r.directory/'direction_snapshots/round_000001.pt'
@@ -115,6 +133,9 @@ class RemediationTests(unittest.TestCase):
                     recovered.sampler.close()
             finally:r.sampler.close()
         self.assertTrue(same(results[0],results[1]))
+        EVIDENCE['read_only_monitor'] = dict(training_batch_labels_direction_equal=True,
+            actor_critic_optimizer_rng_equal=True,extra_probe_steps=16,
+            snapshot_replay=True,padded_snapshot_replay=True,unfinished_probe_recovery_steps=32)
 
     def test_saturation_and_small_kl(self):
         for k in (2,5):

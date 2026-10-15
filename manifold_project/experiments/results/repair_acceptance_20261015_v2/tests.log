@@ -1,0 +1,17 @@
+test_legacy_buggy_resumes_are_rejected (manifold_project.experiments.tests.test_direction_remediation.RemediationTests.test_legacy_buggy_resumes_are_rejected) ... ok
+test_method_and_gate_truth_table (manifold_project.experiments.tests.test_direction_remediation.RemediationTests.test_method_and_gate_truth_table) ... ok
+test_probe_is_read_only_and_snapshot_replays (manifold_project.experiments.tests.test_direction_remediation.RemediationTests.test_probe_is_read_only_and_snapshot_replays) ... ok
+test_saturation_and_small_kl (manifold_project.experiments.tests.test_direction_remediation.RemediationTests.test_saturation_and_small_kl) ... ok
+test_frozen_full_batch_block_invariance (manifold_project.experiments.tests.test_repair_acceptance.RepairAcceptanceTests.test_frozen_full_batch_block_invariance) ... ok
+test_frozen_snapshots_fit_origin_and_three_kls (manifold_project.experiments.tests.test_repair_acceptance.RepairAcceptanceTests.test_frozen_snapshots_fit_origin_and_three_kls) ... ok
+test_kl_orientation_independent_reference (manifold_project.experiments.tests.test_repair_acceptance.RepairAcceptanceTests.test_kl_orientation_independent_reference) ... ok
+test_both_modes_leave_source_frozen (manifold_project.experiments.tests.test_navigation_diagnose.DiagnosticTests.test_both_modes_leave_source_frozen) ... ok
+test_mixture_hits_kl_and_rejects_unreachable (manifold_project.experiments.tests.test_navigation_diagnose.DiagnosticTests.test_mixture_hits_kl_and_rejects_unreachable) ... ok
+test_interruption_matches_uninterrupted_and_extension_recovers (manifold_project.experiments.tests.test_recovery.RecoveryTests.test_interruption_matches_uninterrupted_and_extension_recovers) ... ok
+test_invalid_changes_and_dry_run_leave_source_untouched (manifold_project.experiments.tests.test_recovery.RecoveryTests.test_invalid_changes_and_dry_run_leave_source_untouched) ... ok
+test_unstarted_extension_run_keeps_its_source (manifold_project.experiments.tests.test_recovery.RecoveryTests.test_unstarted_extension_run_keeps_its_source) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 36.154s
+
+OK
