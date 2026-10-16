@@ -1,0 +1,18 @@
+{
+  "checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\navigation_diagnosis_20261012_4m_s40_v1\\an_base\\N-C_source_learning\\full\\AN_s40\\checkpoints\\final.pt",
+  "sample_sizes": [
+    16,
+    64
+  ],
+  "init_seeds": [
+    40
+  ],
+  "requested_updates": [
+    128,
+    512
+  ],
+  "data_seeds": [
+    40
+  ],
+  "status": "completed"
+}

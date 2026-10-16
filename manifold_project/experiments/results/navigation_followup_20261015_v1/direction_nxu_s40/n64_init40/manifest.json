@@ -1,0 +1,35 @@
+{
+  "checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\navigation_diagnosis_20261012_4m_s40_v1\\an_base\\N-C_source_learning\\full\\AN_s40\\checkpoints\\final.pt",
+  "checkpoint_sha256": "de593595e3192e45092bc01c38bddb4ff0f3d16079eac66bf14bbd441a16d316",
+  "source_round": 545,
+  "source_training_seed": 40,
+  "mode": "direction",
+  "diagnostic_seeds": [
+    40
+  ],
+  "batch_episodes": 64,
+  "initialization_seed": 40,
+  "fit_trace_every_updates": 0,
+  "validation_episodes": 32,
+  "evaluation_episodes": 40,
+  "direction_epochs": [
+    4,
+    16
+  ],
+  "fit_epochs": 16,
+  "actor_lrs": [
+    0.0003
+  ],
+  "eta": 0.1,
+  "requested_kl": 0.0001,
+  "device": "cuda",
+  "kl_measure": "discount-weighted mean KL(old || candidate) on independent old-policy validation states",
+  "match_rule": "common KL = min(requested, 0.95 * minimum raw candidate KL); probability mixture with old policy",
+  "best_fit_rule": "minimum training target KL, includes epoch 0; evaluation never selects candidates",
+  "scope": "new samples at frozen saved Actor/Critic; not historical batch replay",
+  "probe_code_sha256": "f85d39fd2dc52c6266e0ae500250b5e5c5511a93ee18c9159295a8501106a520",
+  "status": "completed",
+  "diagnostic_steps": 238400,
+  "source_checkpoint_unchanged": true,
+  "source_actor_critic_frozen": true
+}

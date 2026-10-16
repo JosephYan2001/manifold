@@ -1,0 +1,193 @@
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 0, "reserved_through": 400}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 0, "steps": 400, "discounted_return": -91.84730323779473, "return_undiscounted": -357.61071542581726, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 0, "used": 400}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 1, "reserved_through": 800}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 1, "steps": 400, "discounted_return": -101.81383448482131, "return_undiscounted": -383.2749814143037, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 1, "used": 800}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 2, "reserved_through": 1200}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 2, "steps": 400, "discounted_return": -94.48971227540197, "return_undiscounted": -379.72647389251387, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 2, "used": 1200}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 3, "reserved_through": 1600}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 3, "steps": 400, "discounted_return": -92.59162209388637, "return_undiscounted": -385.38710443310265, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 3, "used": 1600}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 4, "reserved_through": 2000}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 4, "steps": 400, "discounted_return": -91.96352418140421, "return_undiscounted": -352.5612858833836, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 4, "used": 2000}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 5, "reserved_through": 2400}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 5, "steps": 400, "discounted_return": -92.3755842679245, "return_undiscounted": -412.1272369411734, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 5, "used": 2400}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 6, "reserved_through": 2800}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 6, "steps": 400, "discounted_return": -116.03113896291306, "return_undiscounted": -437.80375565080874, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 6, "used": 2800}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 7, "reserved_through": 3200}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 7, "steps": 400, "discounted_return": -111.12912945959165, "return_undiscounted": -460.72011026565616, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 7, "used": 3200}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 8, "reserved_through": 3600}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 8, "steps": 400, "discounted_return": -86.41178816089722, "return_undiscounted": -333.56925649596485, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 8, "used": 3600}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 9, "reserved_through": 4000}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 9, "steps": 400, "discounted_return": -119.8965804208097, "return_undiscounted": -433.06568943804047, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 9, "used": 4000}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 10, "reserved_through": 4400}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 10, "steps": 400, "discounted_return": -92.67229433941668, "return_undiscounted": -384.03719612224177, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 10, "used": 4400}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 11, "reserved_through": 4800}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 11, "steps": 400, "discounted_return": -94.22822038567895, "return_undiscounted": -372.53336391145695, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 11, "used": 4800}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 12, "reserved_through": 5200}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 12, "steps": 400, "discounted_return": -109.81316170447323, "return_undiscounted": -485.9529789170217, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 12, "used": 5200}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 13, "reserved_through": 5600}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 13, "steps": 400, "discounted_return": -120.65636053033931, "return_undiscounted": -433.10283979039207, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 13, "used": 5600}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 14, "reserved_through": 6000}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 14, "steps": 400, "discounted_return": -115.23620555572101, "return_undiscounted": -493.3975068801032, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 14, "used": 6000}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 15, "reserved_through": 6400}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 15, "steps": 400, "discounted_return": -87.68568713657797, "return_undiscounted": -373.5238889061648, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 15, "used": 6400}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 16, "reserved_through": 6800}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 16, "steps": 400, "discounted_return": -89.3557866783106, "return_undiscounted": -378.0331073034991, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 16, "used": 6800}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 17, "reserved_through": 7200}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 17, "steps": 400, "discounted_return": -83.88283481134056, "return_undiscounted": -357.24031581759243, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 17, "used": 7200}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 18, "reserved_through": 7600}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 18, "steps": 400, "discounted_return": -107.45578694950574, "return_undiscounted": -425.4949544393333, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 18, "used": 7600}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 19, "reserved_through": 8000}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 19, "steps": 400, "discounted_return": -106.88320140198944, "return_undiscounted": -391.25987993997086, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 19, "used": 8000}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 20, "reserved_through": 8400}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 20, "steps": 400, "discounted_return": -101.36191009259592, "return_undiscounted": -418.4953487488659, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 20, "used": 8400}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 21, "reserved_through": 8800}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 21, "steps": 400, "discounted_return": -95.23334794616405, "return_undiscounted": -349.70370506661465, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 21, "used": 8800}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 22, "reserved_through": 9200}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 22, "steps": 400, "discounted_return": -112.42986134835697, "return_undiscounted": -417.07079874258136, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 22, "used": 9200}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 23, "reserved_through": 9600}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 23, "steps": 400, "discounted_return": -100.03204632218663, "return_undiscounted": -394.5828702340572, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 23, "used": 9600}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 24, "reserved_through": 10000}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 24, "steps": 400, "discounted_return": -93.29903076102178, "return_undiscounted": -375.53668244100976, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 24, "used": 10000}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 25, "reserved_through": 10400}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 25, "steps": 400, "discounted_return": -112.28917329795605, "return_undiscounted": -490.9706948651404, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 25, "used": 10400}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 26, "reserved_through": 10800}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 26, "steps": 400, "discounted_return": -92.58829127430725, "return_undiscounted": -379.33637917793146, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 26, "used": 10800}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 27, "reserved_through": 11200}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 27, "steps": 400, "discounted_return": -106.26756400998528, "return_undiscounted": -434.35938816492717, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 27, "used": 11200}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 28, "reserved_through": 11600}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 28, "steps": 400, "discounted_return": -114.99849353685278, "return_undiscounted": -421.9806595934603, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 28, "used": 11600}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 29, "reserved_through": 12000}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 29, "steps": 400, "discounted_return": -110.03461356341464, "return_undiscounted": -427.14435816716133, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 29, "used": 12000}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 30, "reserved_through": 12400}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 30, "steps": 400, "discounted_return": -84.51787378422331, "return_undiscounted": -367.78319731367407, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 30, "used": 12400}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 31, "reserved_through": 12800}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 31, "steps": 400, "discounted_return": -87.71772595832434, "return_undiscounted": -384.3435975624163, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 31, "used": 12800}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 32, "reserved_through": 13200}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 32, "steps": 400, "discounted_return": -98.68817122250701, "return_undiscounted": -398.90972657701803, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 32, "used": 13200}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 33, "reserved_through": 13600}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 33, "steps": 400, "discounted_return": -89.19352711712226, "return_undiscounted": -403.6573234112474, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 33, "used": 13600}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 34, "reserved_through": 14000}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 34, "steps": 400, "discounted_return": -84.70593730098267, "return_undiscounted": -380.72623475066166, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 34, "used": 14000}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 35, "reserved_through": 14400}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 35, "steps": 400, "discounted_return": -126.04032926997203, "return_undiscounted": -483.487691578223, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 35, "used": 14400}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 36, "reserved_through": 14800}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 36, "steps": 400, "discounted_return": -130.02257855281502, "return_undiscounted": -517.5933150459548, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 36, "used": 14800}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 37, "reserved_through": 15200}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 37, "steps": 400, "discounted_return": -103.29257416561566, "return_undiscounted": -375.8701719840235, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 37, "used": 15200}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 38, "reserved_through": 15600}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 38, "steps": 400, "discounted_return": -96.55080207049545, "return_undiscounted": -416.4590239413063, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 38, "used": 15600}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 39, "reserved_through": 16000}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 39, "steps": 400, "discounted_return": -96.91925105142889, "return_undiscounted": -397.9930619517014, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 39, "used": 16000}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 40, "reserved_through": 16400}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 40, "steps": 400, "discounted_return": -123.24353097670111, "return_undiscounted": -514.5540869128872, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 40, "used": 16400}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 41, "reserved_through": 16800}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 41, "steps": 400, "discounted_return": -113.16282592674517, "return_undiscounted": -440.0138029407018, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 41, "used": 16800}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 42, "reserved_through": 17200}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 42, "steps": 400, "discounted_return": -114.24752636734834, "return_undiscounted": -442.60087165430497, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 42, "used": 17200}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 43, "reserved_through": 17600}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 43, "steps": 400, "discounted_return": -116.1200376227762, "return_undiscounted": -476.1571146193989, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 43, "used": 17600}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 44, "reserved_through": 18000}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 44, "steps": 400, "discounted_return": -83.75446911036651, "return_undiscounted": -366.68790432649826, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 44, "used": 18000}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 45, "reserved_through": 18400}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 45, "steps": 400, "discounted_return": -91.00022882230928, "return_undiscounted": -363.0818416427565, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 45, "used": 18400}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 46, "reserved_through": 18800}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 46, "steps": 400, "discounted_return": -110.59144864685074, "return_undiscounted": -433.3915359162215, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 46, "used": 18800}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 47, "reserved_through": 19200}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 47, "steps": 400, "discounted_return": -89.07080830255754, "return_undiscounted": -382.80978489944573, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 47, "used": 19200}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 48, "reserved_through": 19600}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 48, "steps": 400, "discounted_return": -101.42217493051035, "return_undiscounted": -420.45221060772207, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 48, "used": 19600}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 49, "reserved_through": 20000}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 49, "steps": 400, "discounted_return": -97.500864293952, "return_undiscounted": -385.1810126249101, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 49, "used": 20000}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 50, "reserved_through": 20400}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 50, "steps": 400, "discounted_return": -99.35973920375304, "return_undiscounted": -411.58789788536524, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 50, "used": 20400}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 51, "reserved_through": 20800}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 51, "steps": 400, "discounted_return": -114.46857488163212, "return_undiscounted": -462.87248696094866, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 51, "used": 20800}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 52, "reserved_through": 21200}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 52, "steps": 400, "discounted_return": -118.62242473788447, "return_undiscounted": -441.7587416696866, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 52, "used": 21200}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 53, "reserved_through": 21600}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 53, "steps": 400, "discounted_return": -81.77953551518624, "return_undiscounted": -338.6674702127154, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 53, "used": 21600}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 54, "reserved_through": 22000}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 54, "steps": 400, "discounted_return": -109.96796701033992, "return_undiscounted": -442.51877631677974, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 54, "used": 22000}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 55, "reserved_through": 22400}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 55, "steps": 400, "discounted_return": -69.92858647658332, "return_undiscounted": -300.65864485228377, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 55, "used": 22400}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 56, "reserved_through": 22800}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 56, "steps": 400, "discounted_return": -94.45656966336236, "return_undiscounted": -396.5995708143242, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 56, "used": 22800}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 57, "reserved_through": 23200}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 57, "steps": 400, "discounted_return": -117.7617912494823, "return_undiscounted": -464.73812915378693, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 57, "used": 23200}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 58, "reserved_through": 23600}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 58, "steps": 400, "discounted_return": -86.89553263929523, "return_undiscounted": -323.4376407622813, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 58, "used": 23600}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 59, "reserved_through": 24000}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 59, "steps": 400, "discounted_return": -83.57228308184696, "return_undiscounted": -336.8409355739181, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 59, "used": 24000}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 60, "reserved_through": 24400}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 60, "steps": 400, "discounted_return": -99.37705531880455, "return_undiscounted": -392.53999404986314, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 60, "used": 24400}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 61, "reserved_through": 24800}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 61, "steps": 400, "discounted_return": -104.39938860664671, "return_undiscounted": -454.5282797005607, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 61, "used": 24800}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 62, "reserved_through": 25200}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 62, "steps": 400, "discounted_return": -100.5461820778901, "return_undiscounted": -395.4320422630471, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 62, "used": 25200}}
+{"stream": "sampling_start", "record": {"round": 137, "purpose": "train", "episode": 63, "reserved_through": 25600}}
+{"stream": "train_episode", "record": {"round": 137, "episode_index": 63, "steps": 400, "discounted_return": -125.32152038997414, "return_undiscounted": -472.2248348411587, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"round": 137, "purpose": "train", "episode": 63, "used": 25600}}
+{"stream": "optimization", "record": {"round": 137, "module": "direction", "loss": 0.000295687816105783, "grad_norm_before": 0.07949344598273456, "grad_norm_after": 0.07949344598273456, "updates": 512, "metric_scope": "last_minibatch_pre_step", "loss_last_minibatch_pre_step": 0.000295687816105783}}
