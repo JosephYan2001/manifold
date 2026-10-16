@@ -54,7 +54,8 @@ def runner_config(config, environment='navigation', method=None):
                  direction_gate=method in ('AN','SA') and config['direction_check'],
                  return_gate=method in ('AN','SA','DA') and config['return_check'])
     for key, default in [('direction_diagnostic_rounds', []), ('direction_diagnostic_episodes', 16),
-                         ('save_direction_snapshots', False)]:
+                         ('save_direction_snapshots', False), ('actor_fit_selection', 'last'),
+                         ('actor_fit_selection_atol', 1e-12), ('actor_fit_selection_rtol', 1e-6)]:
         c[key] = config.get(key, default)
     return c
 
@@ -142,7 +143,7 @@ def train(environment, method, config, output, resume=False, resume_from=None):
     save_pt(checkpoint, saved)
     record = dict(method=method, seed=config['seed'], source_steps_total=runner.sampler.used,
         budget=c['budget'], unused_budget=c['budget']-runner.sampler.used, rounds=runner.round,
-        actor_updates=summary['accepted_rounds'], actor_parameters=summary['actor_parameters'],
+        actor_updates=summary['actor_changed_rounds'], actor_parameters=summary['actor_parameters'],
         critic_parameters=summary['critic_parameters'], checkpoint=str(checkpoint),
         diagnostic_steps=runner.diagnostic_steps+(probe.steps if probe else 0),
         wall_seconds=time.perf_counter()-started, training_backend='restored_cooperative_navigation.Runner')

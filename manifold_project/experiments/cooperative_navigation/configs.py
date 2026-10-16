@@ -55,6 +55,12 @@ def load_config(profile, overrides=None):
 
 
 def validate(c):
+    if c.get('actor_fit_selection', 'last') not in ('last', 'best_train_kl'):
+        raise ValueError('actor_fit_selection must be last or best_train_kl')
+    for key, default in (('actor_fit_selection_atol', 1e-12), ('actor_fit_selection_rtol', 1e-6)):
+        value = c.get(key, default)
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not 0 <= value < float('inf'):
+            raise ValueError(f'{key} must be finite and nonnegative')
     if c.get('ppo_activation', 'relu') not in ('relu', 'tanh'):
         raise ValueError('ppo_activation 只支持 relu / tanh')
     for key in ('mappo_backend', 'ippo_backend'):

@@ -46,21 +46,22 @@ class DiagnosticTests(unittest.TestCase):
             digest=hashlib.sha256(source.read_bytes()).hexdigest()
             shared=['--checkpoint',str(source),'--device','cpu','--seeds','40',
                     '--validation-episodes','2','--evaluation-episodes','2',
-                    '--direction-epochs','1','2','--fit-epochs','2',
+                    '--fit-epochs','2',
                     '--actor-lrs','0.0003','0.0001','--allow-duplicate-openmp']
             with redirect_stdout(StringIO()):
                 main(shared+['--mode','direction','--output',str(root/'dry'),'--dry-run'])
             self.assertFalse((root/'dry').exists())
             for mode in ['direction','fit']:
                 out=root/mode
+                direction_budget = ['--direction-epochs','1','2'] if mode=='direction' else ['--direction-updates','4']
                 with redirect_stdout(StringIO()):
-                    main(shared+['--mode',mode,'--output',str(out),'--fit-trace-every-updates','1'])
+                    main(shared+direction_budget+['--mode',mode,'--output',str(out),'--fit-trace-every-updates','1'])
                 manifest=json.loads((out/'manifest.json').read_text())
                 self.assertEqual(manifest['status'],'completed')
                 self.assertTrue(manifest['source_actor_critic_frozen'])
                 with (out/'diagnostics.csv').open(encoding='utf-8-sig') as f:
                     rows=list(csv.DictReader(f))
-                self.assertEqual(len(rows),4)
+                self.assertEqual(len(rows),4 if mode=='direction' else 5)
                 with (out/'fit_trace.csv').open(encoding='utf-8-sig') as f:
                     trace=list(csv.DictReader(f))
                 self.assertTrue(any(r['scope']=='post_optimizer_step' for r in trace))

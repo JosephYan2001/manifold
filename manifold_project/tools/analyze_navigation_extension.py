@@ -6,7 +6,7 @@ from pathlib import Path
 
 import numpy as np
 
-ROOT = Path(__file__).resolve().parents[1] / 'experiments/results'
+ROOT = Path(__file__).resolve().parents[1] / 'experiments/results/evidence/navigation'
 OUT = ROOT / 'navigation_diagnosis_20261012_4m_s40_v1/analysis_20261014'
 NAMES = ['an_base', 'an_direction64', 'an_batch64']
 

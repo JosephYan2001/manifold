@@ -36,9 +36,9 @@
 
 ### 1.3 已有结果能说明什么
 
-本次数据位于 [navigation_ep400_history8_2m_s40](../experiments/results/navigation_ep400_history8_2m_s40/)，其中已完成组为 `an_core_memfix/N-C_source_learning/full/AN_s40`。
+本次数据位于 [navigation_ep400_history8_2m_s40](../experiments/results/evidence/navigation/navigation_ep400_history8_2m_s40/)，其中已完成组为 `an_core_memfix/N-C_source_learning/full/AN_s40`。
 
-该组 [summary.json](../experiments/results/navigation_ep400_history8_2m_s40/an_core_memfix/N-C_source_learning/full/AN_s40/summary.json)记录 272 轮、1,996,569 个计费源环境步，最终报告成功率为 0；两个固定场景的 final 模型 GIF 也均到达 1000 步评估上限而未成功。
+该组 [summary.json](../experiments/results/archive/navigation/navigation_ep400_history8_2m_s40/an_core_memfix/N-C_source_learning/full/AN_s40/summary.json)记录 272 轮、1,996,569 个计费源环境步，最终报告成功率为 0；两个固定场景的 final 模型 GIF 也均到达 1000 步评估上限而未成功。
 
 这些结果表明当前模型没有在这些评价中实现任务成功。它们不能定位原因，不能说明方向始终无效，也不能单凭两个 GIF 判断整个策略分布。已有拟合 KL 只衡量策略之间的接近程度，不是方向质量或任务完成能力的证明。
 
@@ -201,7 +201,7 @@ D1 至 D3 只能诊断固定基点。下一次基线训练在实际计费源步�
 建议只产生以下文件，避免每个候选另存一套 JSON/JSONL：
 
 ```text
-experiments/results/navigation_direction_actor_diagnostic_s40/
+experiments/results/evidence/navigation/navigation_direction_actor_diagnostic_s40/
   manifest.json          配置、代码版本、源 checkpoint 哈希、种子和预算
   metrics.csv            每基点、批次、方向种子和拟合档的汇总
   episodes.csv           每策略每场景的配对评价记录

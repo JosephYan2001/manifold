@@ -1,0 +1,6 @@
+{
+  "direction_check": false,
+  "return_check": false,
+  "actor_fit_selection": "best_train_kl",
+  "actor_lr": 0.0003
+}

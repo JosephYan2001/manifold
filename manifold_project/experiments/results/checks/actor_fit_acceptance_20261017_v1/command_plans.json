@@ -1,0 +1,92 @@
+{
+  "a2_s41_u512": {
+    "checkpoint": "D:\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\navigation_diagnosis_20261012_4m_s40_v1\\an_batch64\\N-C_source_learning\\full\\AN_s40\\checkpoints\\final.pt",
+    "checkpoint_sha256": "f26521bb0cb665b2cef0cac0b04b9f007caec4fe49c52d6d4dff4b375068a72d",
+    "source_round": 136,
+    "source_training_seed": 40,
+    "input_path": "D:\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\navigation_diagnosis_20261012_4m_s40_v1\\an_batch64\\N-C_source_learning\\full\\AN_s40\\checkpoints\\final.pt",
+    "input_sha256": "f26521bb0cb665b2cef0cac0b04b9f007caec4fe49c52d6d4dff4b375068a72d",
+    "input_kind": "checkpoint",
+    "mode": "fit",
+    "diagnostic_seeds": [
+      41
+    ],
+    "batch_episodes": 64,
+    "initialization_seed": 40,
+    "fit_trace_every_updates": 1,
+    "validation_episodes": 32,
+    "evaluation_episodes": 40,
+    "evaluation_scene_seed": 20261017,
+    "evaluation_purpose": "frozen-checkpoint-probe-scenes-20261017",
+    "direction_epochs": [
+      16
+    ],
+    "direction_updates": [
+      512
+    ],
+    "fit_epochs": 16,
+    "actor_updates_per_trajectory": 512,
+    "actor_lrs": [
+      0.0003,
+      3e-05
+    ],
+    "prepare_only": false,
+    "eta": 0.1,
+    "requested_kl": 0.0001,
+    "device": "cuda",
+    "fit_semantics_version": "actor-fit-selection-v1",
+    "fit_selection_atol": 1e-12,
+    "fit_selection_rtol": 1e-06,
+    "kl_measure": "discount-weighted mean KL(old || candidate) on independent old-policy validation states",
+    "match_rule": "none; fit mode reports unmodified candidate policies",
+    "best_fit_rule": "minimum finite full-training-batch KL at epoch boundaries including zero; numerical ties favor old",
+    "scope": "new samples at frozen Actor/Critic; not historical batch replay",
+    "probe_code_sha256": "1c407372b807838f7b4800656622aacde3ab7f2c877df244859549ffca08d196",
+    "fit_code_sha256": "40d8140d3f4ddf528de7672ed48e993cd8a4d3ad326c470177d96d83e9c08d5f"
+  },
+  "a0_s40_u128": {
+    "checkpoint": "D:\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\navigation_diagnosis_20261012_4m_s40_v1\\an_base\\N-C_source_learning\\full\\AN_s40\\checkpoints\\final.pt",
+    "checkpoint_sha256": "de593595e3192e45092bc01c38bddb4ff0f3d16079eac66bf14bbd441a16d316",
+    "source_round": 545,
+    "source_training_seed": 40,
+    "input_path": "D:\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\navigation_diagnosis_20261012_4m_s40_v1\\an_base\\N-C_source_learning\\full\\AN_s40\\checkpoints\\final.pt",
+    "input_sha256": "de593595e3192e45092bc01c38bddb4ff0f3d16079eac66bf14bbd441a16d316",
+    "input_kind": "checkpoint",
+    "mode": "fit",
+    "diagnostic_seeds": [
+      40
+    ],
+    "batch_episodes": 64,
+    "initialization_seed": 40,
+    "fit_trace_every_updates": 1,
+    "validation_episodes": 32,
+    "evaluation_episodes": 40,
+    "evaluation_scene_seed": 20261017,
+    "evaluation_purpose": "frozen-checkpoint-probe-scenes-20261017",
+    "direction_epochs": [
+      4
+    ],
+    "direction_updates": [
+      128
+    ],
+    "fit_epochs": 16,
+    "actor_updates_per_trajectory": 512,
+    "actor_lrs": [
+      0.0003,
+      3e-05
+    ],
+    "prepare_only": false,
+    "eta": 0.1,
+    "requested_kl": 0.0001,
+    "device": "cuda",
+    "fit_semantics_version": "actor-fit-selection-v1",
+    "fit_selection_atol": 1e-12,
+    "fit_selection_rtol": 1e-06,
+    "kl_measure": "discount-weighted mean KL(old || candidate) on independent old-policy validation states",
+    "match_rule": "none; fit mode reports unmodified candidate policies",
+    "best_fit_rule": "minimum finite full-training-batch KL at epoch boundaries including zero; numerical ties favor old",
+    "scope": "new samples at frozen Actor/Critic; not historical batch replay",
+    "probe_code_sha256": "1c407372b807838f7b4800656622aacde3ab7f2c877df244859549ffca08d196",
+    "fit_code_sha256": "40d8140d3f4ddf528de7672ed48e993cd8a4d3ad326c470177d96d83e9c08d5f"
+  }
+}

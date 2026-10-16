@@ -13,7 +13,7 @@ import unittest
 
 
 MODULES = ('test_direction_remediation','test_repair_acceptance',
-           'test_navigation_diagnose','test_recovery')
+           'test_navigation_diagnose','test_recovery','test_actor_fit_selection')
 
 
 class RecordedResult(unittest.TextTestResult):
@@ -45,7 +45,7 @@ def main(argv=None):
             'manifold_project.experiments.tests.'+name for name in MODULES])
         result = unittest.TextTestRunner(stream=log,verbosity=2,resultclass=RecordedResult).run(suite)
     import torch
-    from manifold_project.experiments.tests import test_repair_acceptance, test_direction_remediation
+    from manifold_project.experiments.tests import test_repair_acceptance, test_direction_remediation, test_actor_fit_selection
     report = dict(scope='CPU engineering acceptance, not a training-performance experiment',
         created_utc=datetime.now(timezone.utc).isoformat(),python=sys.executable,
         python_version=platform.python_version(),torch_version=torch.__version__,device='cpu',
@@ -55,7 +55,8 @@ def main(argv=None):
         passed=result.passed,failures=[dict(test=t.id(),traceback=trace) for t,trace in result.failures],
         errors=[dict(test=t.id(),traceback=trace) for t,trace in result.errors],
         skipped=[dict(test=t.id(),reason=why) for t,why in result.skipped],
-        evidence={**test_direction_remediation.EVIDENCE,**test_repair_acceptance.EVIDENCE},
+        evidence={**test_direction_remediation.EVIDENCE,**test_repair_acceptance.EVIDENCE,
+                  **test_actor_fit_selection.EVIDENCE},
         limits=['No formal training launched; no reward threshold used.',
                 'CPU tiny fixtures only; CUDA and full-scale performance are not certified.',
                 'Frozen-data aggregation invariance does not imply optimizer minibatch invariance.'])

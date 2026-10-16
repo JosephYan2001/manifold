@@ -56,6 +56,14 @@ def load_config(environment: str, profile: str, overrides: str | Path | None = N
 
 
 def validate_config(c: dict) -> None:
+    if c.get('actor_fit_selection', 'last') not in ('last', 'best_train_kl'):
+        raise ValueError('actor_fit_selection must be last or best_train_kl')
+    if c['environment'] in ('pair', 'two_step') and c.get('actor_fit_selection', 'last') != 'last':
+        raise ValueError('best_train_kl currently applies to the application Runner, not finite table experiments')
+    for key, default in (('actor_fit_selection_atol', 1e-12), ('actor_fit_selection_rtol', 1e-6)):
+        value = c.get(key, default)
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value < 0:
+            raise ValueError(f'{key} must be finite and nonnegative')
     rounds=c.get('direction_diagnostic_rounds',[])
     if not isinstance(rounds,list) or any(type(r) is not int or r<1 for r in rounds) or len(set(rounds))!=len(rounds):
         raise ValueError('direction_diagnostic_rounds must contain distinct positive integers')

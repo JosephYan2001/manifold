@@ -158,7 +158,7 @@ class RepairAcceptanceTests(unittest.TestCase):
                             data=deepcopy(batch))
             self.assertTrue(same(initial_actor,old.state_dict()))
 
-        def optimize(model,optimizer,batch,epochs,module,objective):
+        def optimize(model,optimizer,batch,epochs,module,objective,**kwargs):
             original_step = optimizer.step
             steps = 0
             if module == 'direction':direction_data = deepcopy(batch)
@@ -192,7 +192,7 @@ class RepairAcceptanceTests(unittest.TestCase):
                 if module == 'actor_fit':check_frozen()
                 return result
             with patch.object(optimizer,'step',side_effect=step):
-                result = original_optimize(model,optimizer,batch,epochs,module,objective)
+                result = original_optimize(model,optimizer,batch,epochs,module,objective,**kwargs)
             if module == 'direction':captured['direction_steps_checked'] = steps
             if module == 'actor_fit':
                 self.assertFalse(same(model.state_dict(),old.state_dict()))
