@@ -47,6 +47,12 @@ def main():
         assert manifest['source_actor_critic_frozen'] and manifest['probe_code_sha256'] in hashes
         tail=manifest['checkpoint'].replace('\\','/').split('manifold_project/',1)[1]
         checkpoint=WORKSPACE/'manifold_project'/tail
+        if not checkpoint.exists():
+            result_root=WORKSPACE/'manifold_project/experiments/results'
+            recorded=checkpoint.relative_to(result_root).as_posix()
+            moves=json.loads((result_root/'path_map.json').read_text(encoding='utf-8'))['moves']
+            move=next(m for m in moves if recorded==m['from'] or recorded.startswith(m['from']+'/'))
+            checkpoint=result_root/move['to']/Path(recorded).relative_to(move['from'])
         assert hashlib.sha256(checkpoint.read_bytes()).hexdigest()==manifest['checkpoint_sha256']
         assert len(diag)==expected_candidates
         groups={name:sorted([e for e in eps if e['candidate']==name],key=lambda e:int(e['episode']))

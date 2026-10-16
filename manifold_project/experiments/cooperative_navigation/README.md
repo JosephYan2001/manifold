@@ -91,7 +91,7 @@ AN/DA 的 Critic 标签是截断处自举的 n-step reward-to-go；策略标签�
 
 ```powershell
 $cfg = "manifold_project/experiments/configs/navigation"
-$out = "manifold_project/experiments/results/navigation_ep400_history8_2m_s40"
+$out = "manifold_project/experiments/results/evidence/navigation/navigation_ep400_history8_2m_s40"
 $budget = 2000000
 
 # 先运行：AN 无检查
@@ -175,8 +175,8 @@ python -m manifold_project.experiments.visualize --checkpoint "$out/an_core/N-C_
 
 ```powershell
 Set-Location D:\manifold
-$src = "manifold_project/experiments/results/navigation_diagnosis_20261010_2m_s40_v1"
-$dst = "manifold_project/experiments/results/navigation_diagnosis_20261012_4m_s40_v1"
+$src = "manifold_project/experiments/results/evidence/navigation/navigation_diagnosis_20261010_2m_s40_v1"
+$dst = "manifold_project/experiments/results/evidence/navigation/navigation_diagnosis_20261012_4m_s40_v1"
 
 # 中断恢复：原目录、原累计预算，从最近一次提交的 checkpoint 继续。
 python -m manifold_project.experiments --resume "$src/an_base" --allow-duplicate-openmp
@@ -199,3 +199,9 @@ python -m manifold_project.experiments --resume "$dst/an_base" --allow-duplicate
 输出继续采用标准套件目录：`N-C_source_learning/full/AN_s40/checkpoints/final.pt`，以及原有的训练曲线、最终评估和套件汇总。`tools/extend_navigation.py` 仅保留为转发到公共入口的兼容包装，`tools/extend_navigation_diagnosis.ps1` 也已改用公共入口，不再维护独立续训流程。
 
 CPU 集成验证：`python -m unittest manifold_project.experiments.tests.test_recovery -v`。测试使用临时小规模环境，检查中断恢复与连续训练的参数一致性、预算扩展、扩展中断后的恢复、来源文件保护和 dry-run 无写入；不启动正式训练。
+
+## Actor 最佳拟合与固定目标实验
+
+2026-10-17 新增 `actor_fit_selection=last|best_train_kl`，默认保留 last；best_train_kl 按完整训练批次的 FP64 目标 KL 在 epoch 边界选择，包含零更新点。正式训练和 diagnose 共用同一个拟合实现。
+
+`diagnose --mode fit` 现在支持显式 `--direction-updates` 或 `--direction-epochs`，自动保存固定目标；`--prepare-only` 仅生成目标，`--fixed-target` 重放已有目标。详细参数、A2/A0 命令与读取结果方法见 [Actor 拟合最小干预执行说明](Actor拟合最小干预执行说明.md)。

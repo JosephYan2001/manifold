@@ -42,14 +42,14 @@ MPE2 固定 1.1.1，RWARE 固定 2.0.0。入口在计算库导入前设置 CUDA 
 
 ```powershell
 # 固定基点机制诊断；只解析时追加 --dry-run
-python -m manifold_project.experiments --experiments P-E P-A P-T --profile pilot --output manifold_project/experiments/results/pair_mechanisms_new --plot
+python -m manifold_project.experiments --experiments P-E P-A P-T --profile pilot --output manifold_project/experiments/results/evidence/finite/pair_mechanisms_new --plot
 
 # P-EA 直接使用已有 P-E 的方向，不重新学习
-python -m manifold_project.experiments --experiments P-EA --profile formal --source manifold_project/experiments/results/pair_estimation_20seeds_v1 --config manifold_project/experiments/configs/pair_ea_mc.json --sample-sizes 2048 --output manifold_project/experiments/results/pair_ea_new --plot
+python -m manifold_project.experiments --experiments P-EA --profile formal --source manifold_project/experiments/results/evidence/finite/pair_estimation_20seeds_v1 --config manifold_project/experiments/configs/pair_ea_mc.json --sample-sizes 2048 --output manifold_project/experiments/results/evidence/finite/pair_ea_new --plot
 
 # 仓库源训练与冻结评价
-python -m manifold_project.experiments --experiments W-C --profile pilot --device cuda --output manifold_project/experiments/results/warehouse_source_new --plot
-python -m manifold_project.experiments --experiments W-T W-L --profile pilot --source manifold_project/experiments/results/warehouse_source_new --device cuda --output manifold_project/experiments/results/warehouse_transfer_new --plot
+python -m manifold_project.experiments --experiments W-C --profile pilot --device cuda --output manifold_project/experiments/results/evidence/warehouse/warehouse_source_new --plot
+python -m manifold_project.experiments --experiments W-T W-L --profile pilot --source manifold_project/experiments/results/evidence/warehouse/warehouse_source_new --device cuda --output manifold_project/experiments/results/evidence/warehouse/warehouse_transfer_new --plot
 ```
 
 这些是入口示例，不要求重做已完成的成对实验。已有目录不覆盖；P-EA 使用 data-seeds，普通训练使用 seeds。N-F/W-F 等拟合诊断需要源训练提前保存所需数据，不能从未启用诊断的运行事后补出。

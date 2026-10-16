@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-16",
+  "purpose": "Directory reorganization only; paths are relative to experiments/results. Historical manifests and raw data retain their original contents.",
+  "moves": [
+    {"from": "navigation_ep400_history8_2m_s40/an_core_memfix", "to": "archive/navigation/navigation_ep400_history8_2m_s40/an_core_memfix"},
+    {"from": "navigation_ep400_history8_2m_s40", "to": "evidence/navigation/navigation_ep400_history8_2m_s40"},
+    {"from": "navigation_diagnosis_20261010_2m_s40_v1", "to": "evidence/navigation/navigation_diagnosis_20261010_2m_s40_v1"},
+    {"from": "navigation_diagnosis_20261012_4m_s40_v1", "to": "evidence/navigation/navigation_diagnosis_20261012_4m_s40_v1"},
+    {"from": "navigation_fixed_diagnosis_20261014_v1", "to": "evidence/navigation/navigation_fixed_diagnosis_20261014_v1"},
+    {"from": "navigation_followup_20261015_v1", "to": "evidence/navigation/navigation_followup_20261015_v1"},
+    {"from": "baselines", "to": "evidence/finite/baselines"},
+    {"from": "finite_budget_study", "to": "evidence/finite/finite_budget_study"},
+    {"from": "mechanisms", "to": "evidence/finite/mechanisms"},
+    {"from": "pair_estimation_20seeds_v1", "to": "evidence/finite/pair_estimation_20seeds_v1"},
+    {"from": "pair_kl_mc2048_20seeds_v1", "to": "evidence/finite/pair_kl_mc2048_20seeds_v1"},
+    {"from": "repair_acceptance_20261015_v1", "to": "checks/repair_acceptance_20261015_v1"},
+    {"from": "repair_acceptance_20261015_v2", "to": "checks/repair_acceptance_20261015_v2"},
+    {"from": "manifold_当前问题归因与原稿修订决策_20261016.md", "to": "notes/manifold_当前问题归因与原稿修订决策_20261016.md"}
+  ]
+}

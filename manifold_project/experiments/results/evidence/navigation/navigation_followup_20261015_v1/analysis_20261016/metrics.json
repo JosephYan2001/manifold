@@ -1,0 +1,625 @@
+{
+  "scope": "Fixed checkpoints; diagnostic data seeds are not independent training seeds",
+  "runs": {
+    "fit_new": {
+      "verified": true,
+      "manifest": {
+        "checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\navigation_diagnosis_20261012_4m_s40_v1\\an_batch64\\N-C_source_learning\\full\\AN_s40\\checkpoints\\final.pt",
+        "checkpoint_sha256": "f26521bb0cb665b2cef0cac0b04b9f007caec4fe49c52d6d4dff4b375068a72d",
+        "source_round": 136,
+        "source_training_seed": 40,
+        "mode": "fit",
+        "diagnostic_seeds": [
+          41,
+          42
+        ],
+        "batch_episodes": 64,
+        "initialization_seed": 40,
+        "fit_trace_every_updates": 1,
+        "validation_episodes": 32,
+        "evaluation_episodes": 40,
+        "direction_epochs": [
+          16
+        ],
+        "fit_epochs": 16,
+        "actor_lrs": [
+          0.0003,
+          0.0001,
+          3e-05
+        ],
+        "eta": 0.1,
+        "requested_kl": 0.0001,
+        "device": "cuda",
+        "kl_measure": "discount-weighted mean KL(old || candidate) on independent old-policy validation states",
+        "match_rule": "none; fit mode reports unmodified candidate policies",
+        "best_fit_rule": "minimum training target KL, includes epoch 0; evaluation never selects candidates",
+        "scope": "new samples at frozen saved Actor/Critic; not historical batch replay",
+        "probe_code_sha256": "f85d39fd2dc52c6266e0ae500250b5e5c5511a93ee18c9159295a8501106a520",
+        "status": "completed",
+        "diagnostic_steps": 636394,
+        "source_checkpoint_unchanged": true,
+        "source_actor_critic_frozen": true
+      },
+      "record_counts": {
+        "diagnostics": 12,
+        "trace": 3174,
+        "scores": 4,
+        "evaluation": 560
+      },
+      "source_sha256": {
+        "diagnostics.csv": "a073c03fb7f40431fe862215a80ff7d1051f6c495d259815c65de5dd5fbfaf14",
+        "direction_scores.csv": "f25ea2ee23f44fd5f8e15bbd578d4bd67cd74ca97eb2a050e6d2c39a66370087",
+        "effective_runner_config.json": "a0d50f824e5634034116734271dde4f4d1a2d12ce370fcf64cc30e8ce3083cc7",
+        "evaluation_episodes.csv": "b5469893d70101c662d4bfa70d0ad515047a392b54106e7fb665e7a28498801e",
+        "fit_trace.csv": "cf2d3522b4275e39e426202268478c7c950d5d142b656b3b48bc478ee6620a11",
+        "manifest.json": "e866b3039aaeb469dbae423c681369a9a218703d793d0271ed60fff799604c44"
+      },
+      "fit_summary": [
+        {
+          "data_seed": 41,
+          "direction_epochs": 16,
+          "actor_lr": 0.0001,
+          "initial_train": 2.325738162458603e-06,
+          "initial_validation": 2.2160065405491912e-06,
+          "final_train": 2.0109591952870025e-06,
+          "final_validation": 2.2439683178045926e-06,
+          "final_over_initial": 0.8646541677594357,
+          "best_epoch": 5,
+          "best_epoch_train": 1.937132366004391e-06,
+          "best_observed_update": 510,
+          "best_observed_train": 1.8580345588715235e-06,
+          "first_step_over_initial": 8.43240074675227,
+          "first_step_actual_kl": 2.0137878602303705e-05,
+          "steps_worse_than_initial": 173,
+          "optimizer_updates": 512
+        },
+        {
+          "data_seed": 41,
+          "direction_epochs": 16,
+          "actor_lr": 0.0003,
+          "initial_train": 2.325738162458603e-06,
+          "initial_validation": 2.2160065405491912e-06,
+          "final_train": 5.705873883092441e-06,
+          "final_validation": 5.5355569464733545e-06,
+          "final_over_initial": 2.453360389056265,
+          "best_epoch": 0,
+          "best_epoch_train": 2.325738162458603e-06,
+          "best_observed_update": 0,
+          "best_observed_train": 2.325738162458603e-06,
+          "first_step_over_initial": 79.2688922937278,
+          "first_step_actual_kl": 0.0001829115986385808,
+          "steps_worse_than_initial": 512,
+          "optimizer_updates": 512
+        },
+        {
+          "data_seed": 41,
+          "direction_epochs": 16,
+          "actor_lr": 3e-05,
+          "initial_train": 2.325738162458603e-06,
+          "initial_validation": 2.2160065405491912e-06,
+          "final_train": 1.7551573528791887e-06,
+          "final_validation": 1.969289298061443e-06,
+          "final_over_initial": 0.7546667897575206,
+          "best_epoch": 16,
+          "best_epoch_train": 1.7551573528791887e-06,
+          "best_observed_update": 501,
+          "best_observed_train": 1.7255623581988235e-06,
+          "first_step_over_initial": 1.2952665615366301,
+          "first_step_actual_kl": 1.8058915270713661e-06,
+          "steps_worse_than_initial": 12,
+          "optimizer_updates": 512
+        },
+        {
+          "data_seed": 42,
+          "direction_epochs": 16,
+          "actor_lr": 0.0001,
+          "initial_train": 2.136293268805489e-05,
+          "initial_validation": 1.582732144345577e-05,
+          "final_train": 4.843916899236339e-06,
+          "final_validation": 5.6429148660001145e-06,
+          "final_over_initial": 0.22674400420429264,
+          "best_epoch": 16,
+          "best_epoch_train": 4.843916899236339e-06,
+          "best_observed_update": 464,
+          "best_observed_train": 4.441530806734596e-06,
+          "first_step_over_initial": 1.0002305946268353,
+          "first_step_actual_kl": 2.3909282101130773e-05,
+          "steps_worse_than_initial": 1,
+          "optimizer_updates": 512
+        },
+        {
+          "data_seed": 42,
+          "direction_epochs": 16,
+          "actor_lr": 0.0003,
+          "initial_train": 2.136293268805489e-05,
+          "initial_validation": 1.582732144345577e-05,
+          "final_train": 6.61998677445099e-06,
+          "final_validation": 7.514315396004647e-06,
+          "final_over_initial": 0.30988192825007416,
+          "best_epoch": 15,
+          "best_epoch_train": 5.68034480575258e-06,
+          "best_observed_update": 483,
+          "best_observed_train": 5.657271777730477e-06,
+          "first_step_over_initial": 7.866884757637166,
+          "first_step_actual_kl": 0.00021718569557767367,
+          "steps_worse_than_initial": 29,
+          "optimizer_updates": 512
+        },
+        {
+          "data_seed": 42,
+          "direction_epochs": 16,
+          "actor_lr": 3e-05,
+          "initial_train": 2.136293268805489e-05,
+          "initial_validation": 1.582732144345577e-05,
+          "final_train": 5.109550239936706e-06,
+          "final_validation": 5.376330651804161e-06,
+          "final_over_initial": 0.23917831481974933,
+          "best_epoch": 16,
+          "best_epoch_train": 5.109550239936706e-06,
+          "best_observed_update": 510,
+          "best_observed_train": 4.96150431836424e-06,
+          "first_step_over_initial": 0.7625446346233882,
+          "first_step_actual_kl": 2.1442577966549e-06,
+          "steps_worse_than_initial": 0,
+          "optimizer_updates": 512
+        }
+      ],
+      "evaluation_steps": 559594,
+      "collection_steps": 76800,
+      "max_kl_match_error": 0.0,
+      "successful_evaluations": [
+        {
+          "data_seed": "42",
+          "candidate": "direction16_lr0.0003_best",
+          "episode": 31,
+          "episode_steps": 594
+        }
+      ]
+    },
+    "n16": {
+      "verified": true,
+      "manifest": {
+        "checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\navigation_diagnosis_20261012_4m_s40_v1\\an_base\\N-C_source_learning\\full\\AN_s40\\checkpoints\\final.pt",
+        "checkpoint_sha256": "de593595e3192e45092bc01c38bddb4ff0f3d16079eac66bf14bbd441a16d316",
+        "source_round": 545,
+        "source_training_seed": 40,
+        "mode": "direction",
+        "diagnostic_seeds": [
+          40
+        ],
+        "batch_episodes": 16,
+        "initialization_seed": 40,
+        "fit_trace_every_updates": 0,
+        "validation_episodes": 32,
+        "evaluation_episodes": 40,
+        "direction_epochs": [
+          16,
+          64
+        ],
+        "fit_epochs": 16,
+        "actor_lrs": [
+          0.0003
+        ],
+        "eta": 0.1,
+        "requested_kl": 0.0001,
+        "device": "cuda",
+        "kl_measure": "discount-weighted mean KL(old || candidate) on independent old-policy validation states",
+        "match_rule": "common KL = min(requested, 0.95 * minimum raw candidate KL); probability mixture with old policy",
+        "best_fit_rule": "minimum training target KL, includes epoch 0; evaluation never selects candidates",
+        "scope": "new samples at frozen saved Actor/Critic; not historical batch replay",
+        "probe_code_sha256": "f85d39fd2dc52c6266e0ae500250b5e5c5511a93ee18c9159295a8501106a520",
+        "status": "completed",
+        "diagnostic_steps": 219200,
+        "source_checkpoint_unchanged": true,
+        "source_actor_critic_frozen": true
+      },
+      "record_counts": {
+        "diagnostics": 4,
+        "trace": 34,
+        "scores": 4,
+        "evaluation": 200
+      },
+      "source_sha256": {
+        "diagnostics.csv": "a7762c83c06b4bd1403990badb3dfc53bfa643092fe141662d3b9277d5ed0030",
+        "direction_scores.csv": "d59e12895d6efec69e5a6696d1d1989875fd2399c3831fe68e322a24586304e5",
+        "effective_runner_config.json": "847f874c47695182d897cd9bb732cdb28abf816aeeb0ef3427c577e0086e40e0",
+        "evaluation_episodes.csv": "d1b48fd235dabc0b517679c7b8a196d5a19864c53e9758711c1934175ddcc746",
+        "fit_trace.csv": "5f85494956a4032d931babf6c8df8582b3b894fc23b3e5e2168fe46ace0a9266",
+        "manifest.json": "12657640b837cff6bee110b2c3473724338442391e0df38cf5b7f14bf2e47617"
+      },
+      "fit_summary": [
+        {
+          "data_seed": 40,
+          "direction_epochs": 16,
+          "actor_lr": 0.0003,
+          "initial_train": 4.8013138519000085e-05,
+          "initial_validation": 5.3484853902822926e-05,
+          "final_train": 1.1009826344687703e-05,
+          "final_validation": 2.4070740305352365e-05,
+          "final_over_initial": 0.2293086160224835,
+          "best_epoch": 16,
+          "best_epoch_train": 1.1009826344687703e-05,
+          "best_observed_update": 128,
+          "best_observed_train": 1.1009826344687703e-05,
+          "first_step_over_initial": null,
+          "first_step_actual_kl": null,
+          "steps_worse_than_initial": null,
+          "optimizer_updates": 128
+        },
+        {
+          "data_seed": 40,
+          "direction_epochs": 64,
+          "actor_lr": 0.0003,
+          "initial_train": 0.00023048809644454272,
+          "initial_validation": 0.00025931316808187394,
+          "final_train": 7.57943989167874e-05,
+          "final_validation": 0.00019133857407553317,
+          "final_over_initial": 0.32884300788619747,
+          "best_epoch": 16,
+          "best_epoch_train": 7.57943989167874e-05,
+          "best_observed_update": 128,
+          "best_observed_train": 7.57943989167874e-05,
+          "first_step_over_initial": null,
+          "first_step_actual_kl": null,
+          "steps_worse_than_initial": null,
+          "optimizer_updates": 128
+        }
+      ],
+      "evaluation_steps": 200000,
+      "collection_steps": 19200,
+      "max_kl_match_error": 5.0185008058922786e-17,
+      "successful_evaluations": []
+    },
+    "n64": {
+      "verified": true,
+      "manifest": {
+        "checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\navigation_diagnosis_20261012_4m_s40_v1\\an_base\\N-C_source_learning\\full\\AN_s40\\checkpoints\\final.pt",
+        "checkpoint_sha256": "de593595e3192e45092bc01c38bddb4ff0f3d16079eac66bf14bbd441a16d316",
+        "source_round": 545,
+        "source_training_seed": 40,
+        "mode": "direction",
+        "diagnostic_seeds": [
+          40
+        ],
+        "batch_episodes": 64,
+        "initialization_seed": 40,
+        "fit_trace_every_updates": 0,
+        "validation_episodes": 32,
+        "evaluation_episodes": 40,
+        "direction_epochs": [
+          4,
+          16
+        ],
+        "fit_epochs": 16,
+        "actor_lrs": [
+          0.0003
+        ],
+        "eta": 0.1,
+        "requested_kl": 0.0001,
+        "device": "cuda",
+        "kl_measure": "discount-weighted mean KL(old || candidate) on independent old-policy validation states",
+        "match_rule": "common KL = min(requested, 0.95 * minimum raw candidate KL); probability mixture with old policy",
+        "best_fit_rule": "minimum training target KL, includes epoch 0; evaluation never selects candidates",
+        "scope": "new samples at frozen saved Actor/Critic; not historical batch replay",
+        "probe_code_sha256": "f85d39fd2dc52c6266e0ae500250b5e5c5511a93ee18c9159295a8501106a520",
+        "status": "completed",
+        "diagnostic_steps": 238400,
+        "source_checkpoint_unchanged": true,
+        "source_actor_critic_frozen": true
+      },
+      "record_counts": {
+        "diagnostics": 4,
+        "trace": 34,
+        "scores": 4,
+        "evaluation": 200
+      },
+      "source_sha256": {
+        "diagnostics.csv": "d76ddab5a089524d949cfcd7bf419a54f7292b753a5c2e7889e7405d2431d717",
+        "direction_scores.csv": "c8d0e447d4e294f56f4228ca73a5b3a05bde07ebb32793a5cbd8e4063183e99c",
+        "effective_runner_config.json": "8462f756d9bdd47997af3031c85d7398e55449337cb3f69565b01a9275963481",
+        "evaluation_episodes.csv": "103d6bd1e4b59bacde026706e5bcd112d1ccd65cde0780b99c5f2b36ca1f9aff",
+        "fit_trace.csv": "340d228d80051838082be32a40eece4c962030301c3bf917e9c00996046ed181",
+        "manifest.json": "700f7c9228ef4e23952ff5eed5a1ce0b9f7ae4ab1dc4420352375bb848451abb"
+      },
+      "fit_summary": [
+        {
+          "data_seed": 40,
+          "direction_epochs": 16,
+          "actor_lr": 0.0003,
+          "initial_train": 4.7495384462877565e-06,
+          "initial_validation": 4.779831982739804e-06,
+          "final_train": 1.6813484447438934e-05,
+          "final_validation": 1.62066180419647e-05,
+          "final_over_initial": 3.5400249177012912,
+          "best_epoch": 0,
+          "best_epoch_train": 4.7495384462877565e-06,
+          "best_observed_update": 0,
+          "best_observed_train": 4.7495384462877565e-06,
+          "first_step_over_initial": null,
+          "first_step_actual_kl": null,
+          "steps_worse_than_initial": null,
+          "optimizer_updates": 512
+        },
+        {
+          "data_seed": 40,
+          "direction_epochs": 4,
+          "actor_lr": 0.0003,
+          "initial_train": 6.015584089368106e-06,
+          "initial_validation": 6.645544894255561e-06,
+          "final_train": 8.805156728128041e-05,
+          "final_validation": 8.231594165366889e-05,
+          "final_over_initial": 14.637243195868882,
+          "best_epoch": 5,
+          "best_epoch_train": 1.769012487261066e-06,
+          "best_observed_update": 160,
+          "best_observed_train": 1.769012487261066e-06,
+          "first_step_over_initial": null,
+          "first_step_actual_kl": null,
+          "steps_worse_than_initial": null,
+          "optimizer_updates": 512
+        }
+      ],
+      "evaluation_steps": 200000,
+      "collection_steps": 38400,
+      "max_kl_match_error": 1.5904737650593997e-17,
+      "successful_evaluations": []
+    },
+    "fit_old": {
+      "verified": true,
+      "manifest": {
+        "checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\navigation_diagnosis_20261012_4m_s40_v1\\an_batch64\\N-C_source_learning\\full\\AN_s40\\checkpoints\\final.pt",
+        "checkpoint_sha256": "f26521bb0cb665b2cef0cac0b04b9f007caec4fe49c52d6d4dff4b375068a72d",
+        "source_round": 136,
+        "source_training_seed": 40,
+        "mode": "fit",
+        "diagnostic_seeds": [
+          40
+        ],
+        "batch_episodes": 64,
+        "initialization_seed": null,
+        "fit_trace_every_updates": 0,
+        "validation_episodes": 32,
+        "evaluation_episodes": 40,
+        "direction_epochs": [
+          16
+        ],
+        "fit_epochs": 16,
+        "actor_lrs": [
+          0.0003,
+          0.0001,
+          3e-05
+        ],
+        "eta": 0.1,
+        "requested_kl": 0.0001,
+        "device": "cuda",
+        "kl_measure": "discount-weighted mean KL(old || candidate) on independent old-policy validation states",
+        "match_rule": "none; fit mode reports unmodified candidate policies",
+        "best_fit_rule": "minimum training target KL, includes epoch 0; evaluation never selects candidates",
+        "scope": "new samples at frozen saved Actor/Critic; not historical batch replay",
+        "probe_code_sha256": "f85d39fd2dc52c6266e0ae500250b5e5c5511a93ee18c9159295a8501106a520",
+        "status": "completed",
+        "diagnostic_steps": 318400,
+        "source_checkpoint_unchanged": true,
+        "source_actor_critic_frozen": true
+      },
+      "record_counts": {
+        "diagnostics": 6,
+        "trace": 51,
+        "scores": 2,
+        "evaluation": 280
+      },
+      "source_sha256": {
+        "diagnostics.csv": "b1b5238a784d03995068855f6c11d9e7470693b9f92609cc94fa6bd5459a9844",
+        "direction_scores.csv": "c108823f044531f756570ba644160cc05df8b8e4445d20694806ad22bc2c9aa5",
+        "effective_runner_config.json": "a0d50f824e5634034116734271dde4f4d1a2d12ce370fcf64cc30e8ce3083cc7",
+        "evaluation_episodes.csv": "ea6cc28dbf32262ad5e3791507724a21415c759c6b2032a5c1a46192ace5a05a",
+        "fit_trace.csv": "f5e4644ff9b17e1c3dc23fe91a0df0726ed586e79c2a42e9643323e22b906537",
+        "manifest.json": "75a0f53ec2017668abe42efb54c8afbf5824cc1ca526c8b1de7a445790e90ff6"
+      },
+      "fit_summary": [
+        {
+          "data_seed": 40,
+          "direction_epochs": 16,
+          "actor_lr": 0.0001,
+          "initial_train": 3.3566336101121574e-05,
+          "initial_validation": 3.3909682695027554e-05,
+          "final_train": 5.413026235116573e-06,
+          "final_validation": 6.949005216539567e-06,
+          "final_over_initial": 0.16126354150805586,
+          "best_epoch": 16,
+          "best_epoch_train": 5.413026235116573e-06,
+          "best_observed_update": 512,
+          "best_observed_train": 5.413026235116573e-06,
+          "first_step_over_initial": null,
+          "first_step_actual_kl": null,
+          "steps_worse_than_initial": null,
+          "optimizer_updates": 512
+        },
+        {
+          "data_seed": 40,
+          "direction_epochs": 16,
+          "actor_lr": 0.0003,
+          "initial_train": 3.3566336101121574e-05,
+          "initial_validation": 3.3909682695027554e-05,
+          "final_train": 1.4733612170425279e-05,
+          "final_validation": 1.5497723836357742e-05,
+          "final_over_initial": 0.4389401371075759,
+          "best_epoch": 13,
+          "best_epoch_train": 7.68486148921822e-06,
+          "best_observed_update": 416,
+          "best_observed_train": 7.68486148921822e-06,
+          "first_step_over_initial": null,
+          "first_step_actual_kl": null,
+          "steps_worse_than_initial": null,
+          "optimizer_updates": 512
+        },
+        {
+          "data_seed": 40,
+          "direction_epochs": 16,
+          "actor_lr": 3e-05,
+          "initial_train": 3.3566336101121574e-05,
+          "initial_validation": 3.3909682695027554e-05,
+          "final_train": 5.8761941348246855e-06,
+          "final_validation": 7.175523692416626e-06,
+          "final_over_initial": 0.17506212525317413,
+          "best_epoch": 16,
+          "best_epoch_train": 5.8761941348246855e-06,
+          "best_observed_update": 512,
+          "best_observed_train": 5.8761941348246855e-06,
+          "first_step_over_initial": null,
+          "first_step_actual_kl": null,
+          "steps_worse_than_initial": null,
+          "optimizer_updates": 512
+        }
+      ],
+      "evaluation_steps": 280000,
+      "collection_steps": 38400,
+      "max_kl_match_error": 0.0,
+      "successful_evaluations": []
+    },
+    "direction_old": {
+      "verified": true,
+      "manifest": {
+        "checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\navigation_diagnosis_20261012_4m_s40_v1\\an_base\\N-C_source_learning\\full\\AN_s40\\checkpoints\\final.pt",
+        "checkpoint_sha256": "de593595e3192e45092bc01c38bddb4ff0f3d16079eac66bf14bbd441a16d316",
+        "source_round": 545,
+        "source_training_seed": 40,
+        "mode": "direction",
+        "diagnostic_seeds": [
+          40
+        ],
+        "batch_episodes": 16,
+        "initialization_seed": null,
+        "fit_trace_every_updates": 0,
+        "validation_episodes": 32,
+        "evaluation_episodes": 40,
+        "direction_epochs": [
+          16,
+          64
+        ],
+        "fit_epochs": 16,
+        "actor_lrs": [
+          0.0003
+        ],
+        "eta": 0.1,
+        "requested_kl": 0.0001,
+        "device": "cuda",
+        "kl_measure": "discount-weighted mean KL(old || candidate) on independent old-policy validation states",
+        "match_rule": "common KL = min(requested, 0.95 * minimum raw candidate KL); probability mixture with old policy",
+        "best_fit_rule": "minimum training target KL, includes epoch 0; evaluation never selects candidates",
+        "scope": "new samples at frozen saved Actor/Critic; not historical batch replay",
+        "probe_code_sha256": "f85d39fd2dc52c6266e0ae500250b5e5c5511a93ee18c9159295a8501106a520",
+        "status": "completed",
+        "diagnostic_steps": 219200,
+        "source_checkpoint_unchanged": true,
+        "source_actor_critic_frozen": true
+      },
+      "record_counts": {
+        "diagnostics": 4,
+        "trace": 34,
+        "scores": 4,
+        "evaluation": 200
+      },
+      "source_sha256": {
+        "diagnostics.csv": "1b4497a460b03a8af5580e01ea157cf693e71a79682e6a4555ed62a2ef899b84",
+        "direction_scores.csv": "029b210abcce7c455fdcd56eb3b48a01deeed2396bc91b0539fa36a428a07d68",
+        "effective_runner_config.json": "847f874c47695182d897cd9bb732cdb28abf816aeeb0ef3427c577e0086e40e0",
+        "evaluation_episodes.csv": "d1b48fd235dabc0b517679c7b8a196d5a19864c53e9758711c1934175ddcc746",
+        "fit_trace.csv": "6a1535f8575a6df850f4df04489ebeca2ea63148fbf1608bdefcd8510eb6e2e7",
+        "manifest.json": "bb550dc5894da0978c717cd915b02a0e526300f655b420bb046229846795d50e"
+      },
+      "fit_summary": [
+        {
+          "data_seed": 40,
+          "direction_epochs": 16,
+          "actor_lr": 0.0003,
+          "initial_train": 4.8013138519000085e-05,
+          "initial_validation": 5.3484853902822926e-05,
+          "final_train": 1.1009826344687703e-05,
+          "final_validation": 2.4070740305352365e-05,
+          "final_over_initial": 0.2293086160224835,
+          "best_epoch": 16,
+          "best_epoch_train": 1.1009826344687703e-05,
+          "best_observed_update": 128,
+          "best_observed_train": 1.1009826344687703e-05,
+          "first_step_over_initial": null,
+          "first_step_actual_kl": null,
+          "steps_worse_than_initial": null,
+          "optimizer_updates": 128
+        },
+        {
+          "data_seed": 40,
+          "direction_epochs": 64,
+          "actor_lr": 0.0003,
+          "initial_train": 0.00023048809644454272,
+          "initial_validation": 0.00025931316808187394,
+          "final_train": 7.57943989167874e-05,
+          "final_validation": 0.00019133857407553317,
+          "final_over_initial": 0.32884300788619747,
+          "best_epoch": 16,
+          "best_epoch_train": 7.57943989167874e-05,
+          "best_observed_update": 128,
+          "best_observed_train": 7.57943989167874e-05,
+          "first_step_over_initial": null,
+          "first_step_actual_kl": null,
+          "steps_worse_than_initial": null,
+          "optimizer_updates": 128
+        }
+      ],
+      "evaluation_steps": 200000,
+      "collection_steps": 19200,
+      "max_kl_match_error": 5.0185008058922786e-17,
+      "successful_evaluations": []
+    }
+  },
+  "n16_repeat_max_abs_errors": {
+    "diag": 0.0,
+    "trace": 0.0,
+    "scores": 0.0,
+    "episodes": 0.0
+  },
+  "direction_validation_matrix": [
+    {
+      "N": 16,
+      "U": 128,
+      "B": -0.009986413434979032,
+      "D": 0.00032243222517957864,
+      "E": 0.01063127788533819,
+      "normalized_label_alignment": 0.0031271283398498204,
+      "tanh_saturation": 0.0,
+      "effective_bound_fraction": 0.0
+    },
+    {
+      "N": 16,
+      "U": 512,
+      "B": -0.0677362038349629,
+      "D": -0.008059775088365485,
+      "E": 0.051616653658231926,
+      "normalized_label_alignment": -0.03547545709971581,
+      "tanh_saturation": 0.5932968750000001,
+      "effective_bound_fraction": 0.00923046875
+    },
+    {
+      "N": 64,
+      "U": 128,
+      "B": 7.405725336276153e-05,
+      "D": 0.0007018711228049206,
+      "E": 0.0013296849922470797,
+      "normalized_label_alignment": 0.019247883926775778,
+      "tanh_saturation": 0.0,
+      "effective_bound_fraction": 0.0
+    },
+    {
+      "N": 64,
+      "U": 512,
+      "B": 0.00015167624972236865,
+      "D": 0.0005537170654837213,
+      "E": 0.000955757881245074,
+      "normalized_label_alignment": 0.017910757944921484,
+      "tanh_saturation": 0.0,
+      "effective_bound_fraction": 0.0
+    }
+  ],
+  "new_diagnostic_steps": 1093994,
+  "new_steps_with_previous_fixed_diagnosis": 1631594
+}

@@ -1,6 +1,6 @@
 # 共同预算与检查消融
 
-本组已经完成，分析见[四组报告](../../results/finite_budget_study/四组预算与检查消融报告.md)与[冻结迁移分析](../../results/finite_budget_study/冻结跨规模迁移分析.md)。下面保留复现命令；重新执行需更换输出目录，不覆盖已有数据。
+本组已经完成，分析见[四组报告](../../results/evidence/finite/finite_budget_study/四组预算与检查消融报告.md)与[冻结迁移分析](../../results/evidence/finite/finite_budget_study/冻结跨规模迁移分析.md)。下面保留复现命令；重新执行需更换输出目录，不覆盖已有数据。
 
 P-L、T-L，MC学习标签，种子40–49，源联合步数上限262144，为此前65536的四倍。所有未列参数保持formal有限环境配置。检查未关闭时每批512回合。配置不会自动开始训练。
 
@@ -15,10 +15,10 @@ DA本身没有方向检查。因此no_direction中的DA等同full，no_checks中
 
 ```powershell
 $exp = "manifold_project/experiments"
-python -m manifold_project.experiments --experiments P-L T-L --profile formal --methods AN SA DA --config "$exp/configs/finite_budget_study/full.json" --output "$exp/results/finite_budget_study/full_262k" --plot
-python -m manifold_project.experiments --experiments P-L T-L --profile formal --methods AN SA --config "$exp/configs/finite_budget_study/no_direction.json" --output "$exp/results/finite_budget_study/no_direction_262k" --plot
-python -m manifold_project.experiments --experiments P-L T-L --profile formal --methods AN SA DA --config "$exp/configs/finite_budget_study/no_return.json" --output "$exp/results/finite_budget_study/no_return_262k" --plot
-python -m manifold_project.experiments --experiments P-L T-L --profile formal --methods AN SA --config "$exp/configs/finite_budget_study/no_checks.json" --output "$exp/results/finite_budget_study/no_checks_262k" --plot
+python -m manifold_project.experiments --experiments P-L T-L --profile formal --methods AN SA DA --config "$exp/configs/finite_budget_study/full.json" --output "$exp/results/evidence/finite/finite_budget_study/full_262k" --plot
+python -m manifold_project.experiments --experiments P-L T-L --profile formal --methods AN SA --config "$exp/configs/finite_budget_study/no_direction.json" --output "$exp/results/evidence/finite/finite_budget_study/no_direction_262k" --plot
+python -m manifold_project.experiments --experiments P-L T-L --profile formal --methods AN SA DA --config "$exp/configs/finite_budget_study/no_return.json" --output "$exp/results/evidence/finite/finite_budget_study/no_return_262k" --plot
+python -m manifold_project.experiments --experiments P-L T-L --profile formal --methods AN SA --config "$exp/configs/finite_budget_study/no_checks.json" --output "$exp/results/evidence/finite/finite_budget_study/no_checks_262k" --plot
 ```
 
 在直接包含manifold_project的目录使用此前Python环境执行。建议顺序执行，避免同时占用资源。统一入口不自动续训，这些是从相同初始化重跑，不是从旧65k检查点接续。目录非空时停止，勿覆盖原结果。

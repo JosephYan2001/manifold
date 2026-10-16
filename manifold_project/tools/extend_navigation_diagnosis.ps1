@@ -8,8 +8,8 @@ param(
 
 $ErrorActionPreference = "Stop"
 Set-Location (Split-Path (Split-Path $PSScriptRoot -Parent) -Parent)
-$sourceRoot = "manifold_project/experiments/results/navigation_diagnosis_20261010_2m_s40_v1"
-$targetRoot = "manifold_project/experiments/results/navigation_diagnosis_20261012_4m_s40_v1"
+$sourceRoot = "manifold_project/experiments/results/evidence/navigation/navigation_diagnosis_20261010_2m_s40_v1"
+$targetRoot = "manifold_project/experiments/results/evidence/navigation/navigation_diagnosis_20261012_4m_s40_v1"
 
 foreach ($run in $Runs) {
     $runArguments = @(

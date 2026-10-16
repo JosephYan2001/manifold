@@ -18,6 +18,7 @@ from .author_ppo import AuthorPPO, enabled as author_ppo_enabled
 from .semantics import direction_check_enabled, return_check_enabled, objective_kind, effective_settings
 from .diagnostics import (categorical_kl, direction_metrics, critic_metrics, observe_direction,
                           save_direction_snapshot, probe_steps)
+from .actor_fit import fit_actor, validate_fit_config
 
 
 def minimum_cost(config, condition):
@@ -32,6 +33,7 @@ def minimum_cost(config, condition):
 class Runner:
     def __init__(self, directory, config, condition, seed, audit=False, resume=False, progress=None):
         self.directory, self.c, self.condition, self.seed = Path(directory), config, condition, seed
+        validate_fit_config(config)
         self.directory.mkdir(parents=True, exist_ok=True)
         self.audit = audit and condition in ('ours','no_return_check')
         self.progress = progress
@@ -219,11 +221,14 @@ class Runner:
         observed = returns(batch['reward'], self.c['gamma'])[:, 0]
         return target[:, 0].double().tolist(), observed.double().tolist()
 
-    def optimize(self, model, optimizer, batch, epochs, module, objective):
+    def optimize(self, model, optimizer, batch, epochs, module, objective, *, observer=None, orders=None):
         rng = np.random.default_rng(seed_for(self.seed, self.round+1, module, 'minibatches'))
         last, grad_before, grad_after = {}, [], []
-        for _ in range(epochs):
-            order = rng.permutation(len(batch['reward']))
+        if orders is not None and (len(orders) != epochs or any(
+                sorted(order) != list(range(len(batch['reward']))) for order in orders)):
+            raise ValueError('Each saved epoch order must be a permutation of the whole batch')
+        for epoch in range(1, epochs+1):
+            order = rng.permutation(len(batch['reward'])) if orders is None else orders[epoch-1]
             for start in range(0, len(order), self.c['minibatch_episodes']):
                 indices = order[start:start+self.c['minibatch_episodes']]
                 mb = {k:v[indices] for k,v in batch.items()}
@@ -239,6 +244,10 @@ class Runner:
                 grad_before.append(float(norm))
                 grad_after.append(min(float(norm), self.c['grad_norm']))
                 self.optim_steps[module] += 1
+                if observer is not None:
+                    observer(epoch, len(grad_before), 'post_optimizer_step')
+            if observer is not None:
+                observer(epoch, len(grad_before), 'post_epoch')
         last.update(loss=float(loss.detach()), grad_norm_before=float(np.mean(grad_before)),
                     grad_norm_after=float(np.mean(grad_after)), updates=len(grad_before))
         self.log('optimization', module=module, **last,
@@ -371,18 +380,18 @@ class Runner:
                 with torch.no_grad():
                     return (batch['target']*(batch['target'].log()-model(batch['x']).log())).sum(-1)
             before = float(self.weighted(kl_values(candidate), batch))
-            optimizer = torch.optim.Adam(candidate.parameters(), lr=self.c['actor_lr'])
             epochs = math.ceil(self.c['actor_epochs']/4) if self.condition == 'fit_quarter' else self.c['actor_epochs']
-            def fit_loss(mb):
-                kl = (mb['target']*(mb['target'].log()-candidate(mb['x']).log())).sum(-1)
-                return self.weighted(kl, mb), {}
-            self.optimize(candidate, optimizer, batch, epochs, 'actor_fit', fit_loss)
+            fitted = fit_actor(self, old, batch, epochs)
+            candidate = fitted['selected']
+            info.update(fitted['info'])
+            self.log('actor_fit_selection', attempt=attempt+1, eta=eta,
+                     history=fitted['history'], **fitted['info'])
             kl = kl_values(candidate)
             with torch.no_grad():
                 actual = candidate(batch['x'])
                 step_kl = self.weighted((batch['mu']*(batch['mu'].log()-actual.log())).sum(-1), batch)
                 entropy = self.weighted(-(actual*actual.log()).sum(-1), batch)
-                before64=float(self.weighted(categorical_kl(batch['target'],batch['mu']),batch))
+                before64=fitted['info']['fit_initial_train_kl']
                 after64=float(self.weighted(categorical_kl(batch['target'],actual),batch))
             info.update(candidates=attempt+1, fit_kl_before=before,
                         policy_step_kl=float(step_kl), policy_entropy=float(entropy),
@@ -391,6 +400,7 @@ class Runner:
                         fit_kl_max=float(valid_values(kl, batch).max()),
                         target_below_floor=float(valid_values((batch['target'] < self.c['beta']/self.c.get('action_dim',5)).float(), batch).mean()),
                         fit_kl_before_fp64=before64,fit_kl_after_fp64=after64,
+                        target_to_cached_mu_kl_fp64=float(self.weighted(categorical_kl(batch['target'],batch['mu']),batch)),
                         old_to_target_kl_fp64=float(self.weighted(categorical_kl(batch['mu'],batch['target']),batch)),
                         old_to_actor_kl_fp64=float(self.weighted(categorical_kl(batch['mu'],actual),batch)),
                         tiny_target_flag=before64<1e-6,fit_ratio=after64/before64 if before64>=1e-6 else None)
@@ -407,6 +417,10 @@ class Runner:
                          score_kind='bootstrapped_old_critic' if (continuing_task(self.c) or success_task(self.c)) else 'observed_finite_return',
                          confidence_guarantee='none',
                          difference=info['return_difference'],passed=info['accepted'])
+            info['actor_changed'] = bool(info['accepted'] and info['fit_candidate_changed'])
+            info['zero_update_reason'] = ('selected_epoch_zero' if info['fit_selected_zero_update'] else
+                                          'return_check_rejected' if not info['accepted'] else
+                                          'identical_state' if not info['actor_changed'] else None)
             self.log('candidate', attempt=attempt+1, eta=eta, **info)
             if attempt == 0:
                 save_direction_snapshot(self,old,old_critic,direction,batch,validation,candidate,eta,info)
@@ -532,6 +546,8 @@ class Runner:
                  'mean_reward','mean_coverage','tail_coverage','tail_all_covered') if k in self.curves[-1]},
             coverage_cost=next((r['budget_checkpoint'] for r in self.curves if r.get('coverage', 0) >= .8), None),
             accepted_rounds=sum(r['accepted'] for r in self.rounds),
+            actor_changed_rounds=sum(r.get('actor_changed', r['accepted']) for r in self.rounds),
+            selected_zero_update_rounds=sum(r.get('fit_selected_zero_update', False) for r in self.rounds),
             direction_rejections=sum(not r['direction_pass'] for r in gates), direction_checks=len(gates),
             candidates=sum(r['candidates'] for r in self.rounds),
             return_checks=sum(r['candidates'] for r in self.rounds) if return_check_enabled(self.condition, self.c) else 0,
