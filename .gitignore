@@ -4,3 +4,7 @@ __pycache__/
 .venv/
 manifold_project/build/
 
+
+# Large actor-fit experiment tensors
+/manifold_project/experiments/results/evidence/navigation/actor_fit_e1_20261017_v1/a0_s40_u128/fixed_targets/data_s40_direction_u128.pt
+/manifold_project/experiments/results/evidence/navigation/actor_fit_e1_20261017_v1/a2_s41_u512/fixed_targets/data_s41_direction_u512.pt
