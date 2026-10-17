@@ -1,0 +1,65 @@
+{
+  "checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\navigation_diagnosis_20261012_4m_s40_v1\\an_batch64\\N-C_source_learning\\full\\AN_s40\\checkpoints\\final.pt",
+  "checkpoint_sha256": "f26521bb0cb665b2cef0cac0b04b9f007caec4fe49c52d6d4dff4b375068a72d",
+  "source_round": 136,
+  "source_training_seed": 40,
+  "input_path": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\navigation_diagnosis_20261012_4m_s40_v1\\an_batch64\\N-C_source_learning\\full\\AN_s40\\checkpoints\\final.pt",
+  "input_sha256": "f26521bb0cb665b2cef0cac0b04b9f007caec4fe49c52d6d4dff4b375068a72d",
+  "input_kind": "checkpoint",
+  "mode": "fit",
+  "diagnostic_seeds": [
+    41
+  ],
+  "batch_episodes": 64,
+  "initialization_seed": 40,
+  "fit_trace_every_updates": 1,
+  "validation_episodes": 32,
+  "evaluation_episodes": 40,
+  "evaluation_scene_seed": 20261017,
+  "evaluation_purpose": "frozen-checkpoint-probe-scenes-20261017",
+  "direction_epochs": [
+    16
+  ],
+  "direction_updates": [
+    512
+  ],
+  "fit_epochs": 16,
+  "actor_updates_per_trajectory": 512,
+  "actor_lrs": [
+    0.0003,
+    3e-05
+  ],
+  "prepare_only": false,
+  "eta": 0.1,
+  "requested_kl": 0.0001,
+  "device": "cuda",
+  "fit_semantics_version": "actor-fit-selection-v1",
+  "fit_selection_atol": 1e-12,
+  "fit_selection_rtol": 1e-06,
+  "kl_measure": "discount-weighted mean KL(old || candidate) on independent old-policy validation states",
+  "match_rule": "none; fit mode reports unmodified candidate policies",
+  "best_fit_rule": "minimum finite full-training-batch KL at epoch boundaries including zero; numerical ties favor old",
+  "scope": "new samples at frozen Actor/Critic; not historical batch replay",
+  "probe_code_sha256": "57f696138a706a19f45070bbb308d3c75fc5810ff3b04befa7e4d2852d59823b",
+  "fit_code_sha256": "43a9af1a27b79461543634e7aefa145dafbed5328896e47e68f2233e83df1c46",
+  "status": "completed",
+  "fixed_targets": [
+    {
+      "path": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\actor_fit_e1_20261017_v1\\a2_s41_u512\\fixed_targets\\data_s41_direction_u512.pt",
+      "sha256": "89ac45d7425d8dd92ba6435c0392884c729e5c865d3fa530b28b0d3df5be16d5",
+      "frozen_sha256": "0fbae7c8521525ff7e47aca491d3b40c8f9398effe4ff7ba3b1a2a0f7fc6738c",
+      "data_seed": 41,
+      "direction_updates": 512,
+      "newly_prepared": true
+    }
+  ],
+  "diagnostic_steps": 198400,
+  "collection_steps": 38400,
+  "evaluation_steps": 160000,
+  "direction_optimizer_updates": 512,
+  "actor_optimizer_updates": 1024,
+  "elapsed_seconds": 6831.444787300075,
+  "input_unchanged": true,
+  "source_checkpoint_unchanged": true,
+  "source_actor_critic_frozen": true
+}
