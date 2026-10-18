@@ -1,6 +1,6 @@
 # 实验结果索引
 
-2026-10-17 已接入 Actor 最佳候选选择、固定目标保存/重放和显式方向预算，CPU 工程验收 17/17 通过。下一步运行同一目标的两档学习率对照，见[执行命令](../cooperative_navigation/Actor拟合最小干预执行说明.md)和[当前安排](notes/README.md)；完整 CUDA 对照尚未运行。
+2026-10-18 已完成 [A0 数据种子 43、44 的确认分析](evidence/navigation/actor_fit_e1_confirm_20261018_v1/analysis_20261018/新种子确认分析.md)：两组小学习率最佳候选均产生非零验证拟合改善，但尚未确认回报提高，seed 44 的教师有待复核的负向信号。固定教师纯评价入口已接入，[最新 CPU 工程验收](checks/teacher_evaluation_acceptance_20261018_v1/验收报告.md) 21/21 通过；正式 100 对收益复核尚未运行，需使用训练机器上的完整快照，见[当前安排](notes/README.md)。此前 [E1 开发结果](evidence/navigation/actor_fit_e1_20261017_v1/analysis_20261017/E1结果分析.md)和 17/17 工程验收作为既有证据保留。
 
 ## 按用途查找
 

@@ -1,0 +1,54 @@
+{
+  "scope": "Documented CLI syntax and source consistency; not a formal evaluation or dry-run of unavailable packets",
+  "formal_evaluation_executed": false,
+  "acceptance_sources_unchanged": true,
+  "local_document_links_checked": 60,
+  "plans": [
+    {
+      "data_seed": 43,
+      "argv": [
+        "--mode",
+        "teacher-eval",
+        "--fixed-target",
+        "manifold_project/experiments/results/evidence/navigation/actor_fit_e1_confirm_20261018_v1/a0_s43_44_u128/fixed_targets/data_s43_direction_u128.pt",
+        "--output",
+        "manifold_project/experiments/results/evidence/navigation/teacher_return_review_20261018_v1/s43",
+        "--evaluation-episodes",
+        "100",
+        "--evaluation-seed",
+        "20261019",
+        "--device",
+        "cuda",
+        "--allow-duplicate-openmp"
+      ],
+      "input_available_locally": false,
+      "output_exists": false,
+      "historical_target_sha256": "7a941d224dc3f36c6d6a0a2237fbcde23f757cc369cc2a63a1cf80e7d7a12fce",
+      "new_reset_seeds_disjoint_from_discovery": true,
+      "executed": false
+    },
+    {
+      "data_seed": 44,
+      "argv": [
+        "--mode",
+        "teacher-eval",
+        "--fixed-target",
+        "manifold_project/experiments/results/evidence/navigation/actor_fit_e1_confirm_20261018_v1/a0_s43_44_u128/fixed_targets/data_s44_direction_u128.pt",
+        "--output",
+        "manifold_project/experiments/results/evidence/navigation/teacher_return_review_20261018_v1/s44",
+        "--evaluation-episodes",
+        "100",
+        "--evaluation-seed",
+        "20261019",
+        "--device",
+        "cuda",
+        "--allow-duplicate-openmp"
+      ],
+      "input_available_locally": false,
+      "output_exists": false,
+      "historical_target_sha256": "12e0f86e2c861098dcfb1b9532ab7e47b027eb0086c61631ebf3f49fbc922532",
+      "new_reset_seeds_disjoint_from_discovery": true,
+      "executed": false
+    }
+  ]
+}

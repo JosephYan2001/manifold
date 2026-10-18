@@ -1,0 +1,226 @@
+{
+  "scope": "CPU engineering acceptance, not a training-performance experiment",
+  "created_utc": "2026-10-18T07:58:25.669828+00:00",
+  "python": "D:\\python_exercise_program\\dqn+pso\\.conda\\python.exe",
+  "python_version": "3.11.13",
+  "torch_version": "2.7.1+cu118",
+  "device": "cpu",
+  "git_head": "0112d4348008d2fdbdb19fba17ce2e30cb95a72f",
+  "source_sha256": {
+    "manifold_project/experiments/cooperative_navigation/__init__.py": "dbb3ffc904737a3803ce7c043d1b5b1d883872142c3900a0936ae68704c7ee07",
+    "manifold_project/experiments/cooperative_navigation/accept_repairs.py": "5756450da4b0b7eac81fa92a65b3ed5baf5f6ee1617ecc18777eaea8b33376a7",
+    "manifold_project/experiments/cooperative_navigation/configs.py": "5e211291311ce0cb38d393d58d13e93a182427f0e2be207269f986dadc37fc5f",
+    "manifold_project/experiments/cooperative_navigation/current_protocol.py": "baf4c070c22745bb38399b80303b8ba2ce4f4a8f49bb41952ea2da056176637a",
+    "manifold_project/experiments/cooperative_navigation/diagnose.py": "3e872102837ef5431bdcb74f7fb07fa97388772beffe4e6a5e11c8c48187faed",
+    "manifold_project/experiments/cooperative_navigation/envs/__init__.py": "e06cdc0a9bbc03e66b99340adf6f9c8aa4813fd54ead8c66ec9121e5fd51a6ed",
+    "manifold_project/experiments/cooperative_navigation/envs/navigation.py": "87df4bafeae90301f1399015a4c7b3f0901860194029224e01494fedf6405900",
+    "manifold_project/experiments/cooperative_navigation/envs/tasks.py": "f59d348437a6af557f5bc72361e23cc24ff807e6b45b063efc0da98354165eea",
+    "manifold_project/experiments/cooperative_navigation/evaluation/__init__.py": "07e9108f4bc2b888d97dfee392be3a6290ad6dc9c9695992112674b3cd750b9b",
+    "manifold_project/experiments/cooperative_navigation/evaluation/evaluate.py": "3ac92457ac66337c91cd19d5e043073649e4e0859315bf5e642c08d732d42849",
+    "manifold_project/experiments/cooperative_navigation/evaluation/fit_probe.py": "0bf45f78b34399c708b169b33118aeb3e455ae367e4babc28a1346f8e7d83347",
+    "manifold_project/experiments/cooperative_navigation/evaluation/monitoring.py": "94bf79b171f11a977a4114ba403bc1b4d830eb5ca2c81c0ef2d0f1b0f6e14b48",
+    "manifold_project/experiments/cooperative_navigation/evaluation/plotting.py": "73d50e4fa92ee2284517d2db2337af0bd226934c35dc6b6ba0b9b3d3f22190c4",
+    "manifold_project/experiments/cooperative_navigation/evaluation/reporting.py": "dc856a0664a8ef1f889d69c71d854050692b8b1bef61ed5b7fec2844fcef49de",
+    "manifold_project/experiments/cooperative_navigation/evaluation/teacher_probe.py": "ab63dd0348cbc22f7fd6c957294d9dcbd57462e722b14ceb9e9b63e7ba57e137",
+    "manifold_project/experiments/cooperative_navigation/models/__init__.py": "0f4803119431914e15c5b4dd2b8bee88a55ed8bd12e0dece64c4c99b6b4aa418",
+    "manifold_project/experiments/cooperative_navigation/models/deployment.py": "1a48c30dd5a02785d4aa955d786948586eaead42538dffa5d0e91ead6a90b0fc",
+    "manifold_project/experiments/cooperative_navigation/models/entities.py": "45f99a8b34fd56e007571521ad93468cac4609c26f3bb0cb80ae6384005de1b0",
+    "manifold_project/experiments/cooperative_navigation/observations/__init__.py": "1cd2781df4e6fb9dd4465f28c5d3d1a5e51e5f01d78954bc715992cff293f55d",
+    "manifold_project/experiments/cooperative_navigation/observations/history.py": "319ebf40d91989cad52aa4f57de862f038a1dcf62c6ee5fd5874bdcb9d30040f",
+    "manifold_project/experiments/cooperative_navigation/replay_direction.py": "3b4e0c13b6bbe66111048c7593bda02b12d6219581721f0da88979921050804d",
+    "manifold_project/experiments/cooperative_navigation/training/__init__.py": "a4aa39547e7d355a50165193796764d86b93fdf93f83a5882a98da50f3094b6d",
+    "manifold_project/experiments/cooperative_navigation/training/actor_fit.py": "40d8140d3f4ddf528de7672ed48e993cd8a4d3ad326c470177d96d83e9c08d5f",
+    "manifold_project/experiments/cooperative_navigation/training/author_ppo.py": "a8b54d121c9dfe11489a0f06d32c10c1f9e3fc80ac1d9de045b45d20c1677026",
+    "manifold_project/experiments/cooperative_navigation/training/collector.py": "8a8e1e1bcadcd176efbbfd1570c8da996e2f735e3aae26905d4aa73224b06376",
+    "manifold_project/experiments/cooperative_navigation/training/diagnostics.py": "1c0900f3cb721e776d27640b69e2a2389bae409db29002ab5f5eb32634ff05a1",
+    "manifold_project/experiments/cooperative_navigation/training/entity_policy.py": "021af5aeaca9afa32012c3431e3d98e2f304f682fd1fd5453df7e07382dfab63",
+    "manifold_project/experiments/cooperative_navigation/training/fixed_target.py": "1db51c253462b69b7020f331c0023ef45cc07906fccf049d70e87ed2ea274848",
+    "manifold_project/experiments/cooperative_navigation/training/ppo.py": "e28429b68865555087f4cd0985f800eb6833b7abbe9c2d040391787e0af9e008",
+    "manifold_project/experiments/cooperative_navigation/training/runner.py": "ba056090348bc8371d464ea108ee7c2433f5eb6ec8b10814095646bab1811d8f",
+    "manifold_project/experiments/cooperative_navigation/training/semantics.py": "6ff03b67849af78c72bc9d496c2f13ec4cb5cf9e5e587643fb03798b3f202714",
+    "manifold_project/experiments/cooperative_navigation/training/storage.py": "43d818589a81e421d56e189a542a773f5af4c3c16149b76553bc593d1ba2304f",
+    "manifold_project/experiments/cooperative_navigation/vendor/mappo/onpolicy/algorithms/r_mappo/algorithm/r_actor_critic.py": "4ca6447bc7b76f1c0c1fb28225e3b41504f87c5ba3fb6eaa49da32ab1067f182",
+    "manifold_project/experiments/cooperative_navigation/vendor/mappo/onpolicy/algorithms/r_mappo/algorithm/rMAPPOPolicy.py": "c1ca8f66a2d9457638177a2f81b849762e0db17e21e409b9aab14c1fe78b031d",
+    "manifold_project/experiments/cooperative_navigation/vendor/mappo/onpolicy/algorithms/r_mappo/r_mappo.py": "7aa29cb9c3b711798e4a9fd8a24437d373bb48a36dd958fa441f77df9814bcb6",
+    "manifold_project/experiments/cooperative_navigation/vendor/mappo/onpolicy/algorithms/utils/act.py": "e1ca14c07401baa2f2342853c09dd9faf0ce89eac6facd02bbe078d2439b7f22",
+    "manifold_project/experiments/cooperative_navigation/vendor/mappo/onpolicy/algorithms/utils/cnn.py": "410e28dc1977daefc9571207173f6b54caacefae2f9e9a59dc32a6bd7f213b36",
+    "manifold_project/experiments/cooperative_navigation/vendor/mappo/onpolicy/algorithms/utils/distributions.py": "157092a52d685881c0c10d2e5487eaebb7a7d66b3d608a7e5f5ca6ea42b9af7a",
+    "manifold_project/experiments/cooperative_navigation/vendor/mappo/onpolicy/algorithms/utils/mlp.py": "790c0c6ec9f38569919e7e5c065d765c2b808da962619beb85eb6f7ba3a30087",
+    "manifold_project/experiments/cooperative_navigation/vendor/mappo/onpolicy/algorithms/utils/popart.py": "9205b0ce68ec6b9dc11673adfe788ba26e9f301f31c6a2f7f5d242e412d760fe",
+    "manifold_project/experiments/cooperative_navigation/vendor/mappo/onpolicy/algorithms/utils/rnn.py": "8a5f7bc2a9263d4ebd3234e877ee305c5caae24987d39e1155fc3fe35e089eaf",
+    "manifold_project/experiments/cooperative_navigation/vendor/mappo/onpolicy/algorithms/utils/util.py": "390fc541abc72231b864e6017b2a8e75b58a1bc593e87fc3bc27b80b9effa2c6",
+    "manifold_project/experiments/cooperative_navigation/vendor/mappo/onpolicy/config.py": "61261a04812fba57e81941ae14309100b8bf809dcfe4d038dd0a4a7ae5afaab4",
+    "manifold_project/experiments/cooperative_navigation/vendor/mappo/onpolicy/utils/shared_buffer.py": "4aeb41628220d8e56362a3cfbfe1ac9da7eea3dc56c57877564f535f23d5b82c",
+    "manifold_project/experiments/cooperative_navigation/vendor/mappo/onpolicy/utils/util.py": "397ec9d68851663ad012bafa60a65b6510405b64f476913b0700bb6fcca22e0c",
+    "manifold_project/experiments/cooperative_navigation/vendor/mappo/onpolicy/utils/valuenorm.py": "df19f747f5845c337d1933ee1a092fa3c758f9ada38bfa3e32aa7d277ac845a2",
+    "manifold_project/experiments/common/__init__.py": "b3c1d5d6fc3e7688ea8bf3f2c373363764979454e541a31b31ba0b87716beeca",
+    "manifold_project/experiments/common/config.py": "53bc5cf224186a88874cfb634235263a24ed6ca02c777f2f93e36a76bfd3e766",
+    "manifold_project/experiments/common/plotting.py": "8c675d9a6c551f3ea070ac76cca1d08b728adcf8dedf98528c19ee31eaae0043",
+    "manifold_project/experiments/common/reporting.py": "09e2991580ec4be7c586905536f70b0b566d15775239a03e80c502ed906da02b",
+    "manifold_project/experiments/common/runtime.py": "622f4cfee347b19d8593c3b2dc4702fc9eccb704e0eb5f32de4f77d3df0e9c89",
+    "manifold_project/experiments/common/statistics.py": "6a5a5ee31b9a78b3e41926a4befe1bc6d72fcc49fdc4ad7968fb31a7efea604a",
+    "manifold_project/experiments/tests/test_actor_fit_selection.py": "2234e48a7e8efad85db85af86a749273506661cdbf710093258bd8c78fb5c7d2",
+    "manifold_project/experiments/tests/test_direction_remediation.py": "2c6455dcd813a92ce67e380c5d2b4f590e38cebf4ead530b34a8ab7d3550b475",
+    "manifold_project/experiments/tests/test_navigation_diagnose.py": "f55388ac9b2e506fcdd8630c0ba02609aabf81eb55e87f20be76bd240aeebf0d",
+    "manifold_project/experiments/tests/test_recovery.py": "36160e7f81cef7065b5b3afe945666b3623f1b4dc6f7ba29bdd7482aa876ca41",
+    "manifold_project/experiments/tests/test_repair_acceptance.py": "a53e6ff6f10e91e74d5b2e416681d2a1d98eee3cd65eb3ac677ab1bd55aa870b",
+    "manifold_project/experiments/tests/test_teacher_evaluation.py": "8eef9e81902c2a0ee0e7e44347bb85b30fb8093058801b9e66de4e1ca4337fe8"
+  },
+  "elapsed_seconds": 23.471507499984,
+  "tests_run": 21,
+  "verified": true,
+  "passed": [
+    "manifold_project.experiments.tests.test_direction_remediation.RemediationTests.test_legacy_buggy_resumes_are_rejected",
+    "manifold_project.experiments.tests.test_direction_remediation.RemediationTests.test_method_and_gate_truth_table",
+    "manifold_project.experiments.tests.test_direction_remediation.RemediationTests.test_probe_is_read_only_and_snapshot_replays",
+    "manifold_project.experiments.tests.test_direction_remediation.RemediationTests.test_saturation_and_small_kl",
+    "manifold_project.experiments.tests.test_repair_acceptance.RepairAcceptanceTests.test_frozen_full_batch_block_invariance",
+    "manifold_project.experiments.tests.test_repair_acceptance.RepairAcceptanceTests.test_frozen_snapshots_fit_origin_and_three_kls",
+    "manifold_project.experiments.tests.test_repair_acceptance.RepairAcceptanceTests.test_kl_orientation_independent_reference",
+    "manifold_project.experiments.tests.test_navigation_diagnose.DiagnosticTests.test_both_modes_leave_source_frozen",
+    "manifold_project.experiments.tests.test_navigation_diagnose.DiagnosticTests.test_mixture_hits_kl_and_rejects_unreachable",
+    "manifold_project.experiments.tests.test_recovery.RecoveryTests.test_interruption_matches_uninterrupted_and_extension_recovers",
+    "manifold_project.experiments.tests.test_recovery.RecoveryTests.test_invalid_changes_and_dry_run_leave_source_untouched",
+    "manifold_project.experiments.tests.test_recovery.RecoveryTests.test_unstarted_extension_run_keeps_its_source",
+    "manifold_project.experiments.tests.test_actor_fit_selection.ActorFitTests.test_intermediate_best_full_budget_and_legacy_trajectory",
+    "manifold_project.experiments.tests.test_actor_fit_selection.ActorFitTests.test_prepare_and_replay_without_source_sampling_or_direction_training",
+    "manifold_project.experiments.tests.test_actor_fit_selection.ActorFitTests.test_production_commit_and_zero_update_cost",
+    "manifold_project.experiments.tests.test_actor_fit_selection.ActorFitTests.test_public_configuration_routes_selection_and_rejects_invalid_values",
+    "manifold_project.experiments.tests.test_actor_fit_selection.ActorFitTests.test_zero_candidate_and_ties",
+    "manifold_project.experiments.tests.test_teacher_evaluation.TeacherEvaluationTests.test_full_count_primary_statistic_and_early_success_cost",
+    "manifold_project.experiments.tests.test_teacher_evaluation.TeacherEvaluationTests.test_interrupted_execution_preserves_partial_cost_without_final_inference",
+    "manifold_project.experiments.tests.test_teacher_evaluation.TeacherEvaluationTests.test_invalid_overrides_dry_run_and_snapshot_integrity",
+    "manifold_project.experiments.tests.test_teacher_evaluation.TeacherEvaluationTests.test_real_execution_has_no_training_and_matches_existing_evaluation"
+  ],
+  "failures": [],
+  "errors": [],
+  "skipped": [],
+  "evidence": {
+    "method_gates": {
+      "combinations": 12,
+      "actual_objective_calls_checked": true,
+      "disabled_return_check_calls": 0,
+      "DA_without_checks_training_steps": 16
+    },
+    "read_only_monitor": {
+      "training_batch_labels_direction_equal": true,
+      "actor_critic_optimizer_rng_equal": true,
+      "extra_probe_steps": 16,
+      "snapshot_replay": true,
+      "padded_snapshot_replay": true,
+      "unfinished_probe_recovery_steps": 32
+    },
+    "full_batch": {
+      "cached_reduction_max_abs_error": 7.105427357601002e-15,
+      "network_rechunk_direction_max_abs_error": 2.710505431213761e-20,
+      "cached_atol": 1e-10,
+      "network_atol": 2e-06,
+      "network_rtol": 2e-05,
+      "valid_lengths": [
+        8,
+        5,
+        3,
+        7,
+        1
+      ],
+      "time_blocks": [
+        1,
+        3,
+        5,
+        8
+      ],
+      "episode_blocks": [
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    "freeze_and_kl": {
+      "zero_loss": 5.788717061250281e-09,
+      "fit_kl_before": 5.788717061250281e-09,
+      "reference_kls": {
+        "fit_kl_before_fp64": 5.367927587060483e-11,
+        "fit_kl_after_fp64": 1.7678023204931117e-10,
+        "old_to_actor_kl_fp64": 1.1219001782765972e-10,
+        "old_to_target_kl_fp64": 5.3679293493281973e-11
+      },
+      "absolute_errors": {
+        "fit_kl_before_fp64": 3.486733062202018e-18,
+        "fit_kl_after_fp64": 8.562844454178231e-19,
+        "old_to_actor_kl_fp64": 5.222806419390329e-18,
+        "old_to_target_kl_fp64": 3.335289572169799e-18
+      },
+      "direction_steps_checked": 4,
+      "fit_steps_checked": 6,
+      "kl_atol": 2e-14
+    },
+    "asymmetric_kl_fixture": {
+      "target_to_old": 0.5371764588384369,
+      "target_to_candidate": 0.3417174336185297,
+      "old_to_candidate": 0.29885972636752456
+    },
+    "actor_selection_middle": {
+      "selected_epoch": 1,
+      "total_updates": 3,
+      "final_iterate_matches_legacy": true,
+      "independent_candidate_storage": true
+    },
+    "fixed_target_replay": {
+      "source_checkpoint_not_required": true,
+      "training_validation_sampling_calls": 0,
+      "direction_updates": 0,
+      "labels_regenerated": false,
+      "repeated_fit_states_identical": true,
+      "raw_teacher_evaluated": true,
+      "evaluation_cost_deduplicated": true
+    },
+    "actor_selection_commit": {
+      "selected_state_committed": true,
+      "zero_update_training_steps": 16,
+      "zero_update_optimizer_steps": 6,
+      "no_extra_eta_retry": true
+    },
+    "teacher_evaluation_statistics": {
+      "predeclared_pair_count_completed": true,
+      "primary_metric": "mean paired realized discounted return difference",
+      "percentile_bootstrap_repeats": 50000,
+      "independent_recomputation_matches": true,
+      "completed_episode_steps": 16,
+      "early_success_charged_actual_steps": true
+    },
+    "teacher_evaluation_interruption": {
+      "partial_execution_steps_preserved": 5,
+      "completed_pairs": 0,
+      "partial_episode_cost_included": true,
+      "final_inference_not_emitted": true
+    },
+    "teacher_evaluation_validation": {
+      "dry_run_no_execution": true,
+      "fixed_count_default": 100,
+      "requires_new_explicit_scene_seed": true,
+      "training_and_eta_overrides_rejected": true,
+      "corrupt_snapshot_rejected": true,
+      "existing_output_preserved": true
+    },
+    "teacher_evaluation_execution": {
+      "training_collection_calls": 0,
+      "optimizer_constructions": 0,
+      "direction_updates": 0,
+      "actor_updates": 0,
+      "old_and_teacher_only": true,
+      "existing_evaluation_returns_identical": true,
+      "complete_pairs": 4,
+      "source_checkpoint_not_required": true,
+      "frozen_target_bytes_unchanged": true,
+      "model_hashes_unchanged": true,
+      "histories_reset_and_advance": true,
+      "teacher_recomputed_on_new_inputs": true
+    }
+  },
+  "limits": [
+    "No formal training launched; no reward threshold used.",
+    "CPU tiny fixtures only; CUDA and full-scale performance are not certified.",
+    "Frozen-data aggregation invariance does not imply optimizer minibatch invariance."
+  ]
+}

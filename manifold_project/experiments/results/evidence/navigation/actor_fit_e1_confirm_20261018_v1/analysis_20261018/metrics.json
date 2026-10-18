@@ -1,0 +1,1364 @@
+{
+  "manifest": {
+    "checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\navigation_diagnosis_20261012_4m_s40_v1\\an_base\\N-C_source_learning\\full\\AN_s40\\checkpoints\\final.pt",
+    "checkpoint_sha256": "de593595e3192e45092bc01c38bddb4ff0f3d16079eac66bf14bbd441a16d316",
+    "source_round": 545,
+    "source_training_seed": 40,
+    "input_path": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\navigation_diagnosis_20261012_4m_s40_v1\\an_base\\N-C_source_learning\\full\\AN_s40\\checkpoints\\final.pt",
+    "input_sha256": "de593595e3192e45092bc01c38bddb4ff0f3d16079eac66bf14bbd441a16d316",
+    "input_kind": "checkpoint",
+    "mode": "fit",
+    "diagnostic_seeds": [
+      43,
+      44
+    ],
+    "batch_episodes": 64,
+    "initialization_seed": 40,
+    "fit_trace_every_updates": 1,
+    "validation_episodes": 32,
+    "evaluation_episodes": 40,
+    "evaluation_scene_seed": 20261018,
+    "evaluation_purpose": "frozen-checkpoint-probe-scenes-20261018",
+    "direction_epochs": [
+      4
+    ],
+    "direction_updates": [
+      128
+    ],
+    "fit_epochs": 16,
+    "actor_updates_per_trajectory": 512,
+    "actor_lrs": [
+      0.0003,
+      3e-05
+    ],
+    "prepare_only": false,
+    "eta": 0.1,
+    "requested_kl": 0.0001,
+    "device": "cuda",
+    "fit_semantics_version": "actor-fit-selection-v1",
+    "fit_selection_atol": 1e-12,
+    "fit_selection_rtol": 1e-06,
+    "kl_measure": "discount-weighted mean KL(old || candidate) on independent old-policy validation states",
+    "match_rule": "none; fit mode reports unmodified candidate policies",
+    "best_fit_rule": "minimum finite full-training-batch KL at epoch boundaries including zero; numerical ties favor old",
+    "scope": "new samples at frozen Actor/Critic; not historical batch replay",
+    "probe_code_sha256": "57f696138a706a19f45070bbb308d3c75fc5810ff3b04befa7e4d2852d59823b",
+    "fit_code_sha256": "43a9af1a27b79461543634e7aefa145dafbed5328896e47e68f2233e83df1c46",
+    "status": "completed",
+    "fixed_targets": [
+      {
+        "path": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\actor_fit_e1_confirm_20261018_v1\\a0_s43_44_u128\\fixed_targets\\data_s43_direction_u128.pt",
+        "sha256": "7a941d224dc3f36c6d6a0a2237fbcde23f757cc369cc2a63a1cf80e7d7a12fce",
+        "frozen_sha256": "d97048029c5e9bb763bc48e0f85a99670eccf69b7f02c6ff3ddaf36d16a6ad87",
+        "data_seed": 43,
+        "direction_updates": 128,
+        "newly_prepared": true
+      },
+      {
+        "path": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\actor_fit_e1_confirm_20261018_v1\\a0_s43_44_u128\\fixed_targets\\data_s44_direction_u128.pt",
+        "sha256": "12e0f86e2c861098dcfb1b9532ab7e47b027eb0086c61631ebf3f49fbc922532",
+        "frozen_sha256": "446bb3cecb54306674b60ad22f5a27997c2bcde278e002a9cecdbf3073a62f88",
+        "data_seed": 44,
+        "direction_updates": 128,
+        "newly_prepared": true
+      }
+    ],
+    "diagnostic_steps": 476800,
+    "collection_steps": 76800,
+    "evaluation_steps": 400000,
+    "direction_optimizer_updates": 256,
+    "actor_optimizer_updates": 2048,
+    "elapsed_seconds": 13981.152143099927,
+    "input_unchanged": true,
+    "source_checkpoint_unchanged": true,
+    "source_actor_critic_frozen": true
+  },
+  "source_code_checks": {
+    "diagnose.py": [
+      "CRLF"
+    ],
+    "training/actor_fit.py": [
+      "CRLF"
+    ]
+  },
+  "artifact_sha256": {
+    "a0_s43_44_u128\\data_seed_43\\config.json": "0d1232dadae54e1dbb92f900823b23b5a2c9e51058cb63f233326a51c18894a2",
+    "a0_s43_44_u128\\data_seed_43\\events.jsonl": "21119c957116763269a81a2fb63bb55b80401e5374fe852491415e2abc1e1946",
+    "a0_s43_44_u128\\data_seed_44\\config.json": "7087ceed3f8e803d6bf6abf401be5333de31caed58a2c67184946de59ad59066",
+    "a0_s43_44_u128\\data_seed_44\\events.jsonl": "ae10eb82ab23836a023944ac94cead6de7a590f349c1b55d955baf32d6a06941",
+    "a0_s43_44_u128\\diagnostics.csv": "02e7af0a270186b1329646893594f325427ef4b2b34734a027aa495500250699",
+    "a0_s43_44_u128\\direction_scores.csv": "5eb4198a558e1f80237827fe5795db30bf2b50ee1e904e16d9dc2a53f69d4d64",
+    "a0_s43_44_u128\\effective_runner_config.json": "8462f756d9bdd47997af3031c85d7398e55449337cb3f69565b01a9275963481",
+    "a0_s43_44_u128\\evaluation_episodes.csv": "58dbf91d7a411f9b32ab3e1836a511427aa4dee0d1bc33c4fb3f4645105e2952",
+    "a0_s43_44_u128\\fit_candidates\\data_s43_u128_lr0.0003.pt": "9a36673eb26184d14ea257cb602273d48c606a7826929b61efee3b4c44385eb1",
+    "a0_s43_44_u128\\fit_candidates\\data_s43_u128_lr3e-05.pt": "ff3e152f2cf2671b215aab96188f3f89b4da26b760aaf8e5668cf960ad9cc957",
+    "a0_s43_44_u128\\fit_candidates\\data_s44_u128_lr0.0003.pt": "5ada94955fb7b7b7b6f2a4e5b1ebf0eb1ac26f11b94782d2aedf70ab7669e696",
+    "a0_s43_44_u128\\fit_candidates\\data_s44_u128_lr3e-05.pt": "b377957dc4e6a5e043706cb07f0fac144ef6ae9b5e9bd0093f428ac2e078d9d3",
+    "a0_s43_44_u128\\fit_trace.csv": "fb9f27b1e8689cb1e011ffc695b2259a7720a9d531d48dac3093be177a68acb8",
+    "a0_s43_44_u128\\manifest.json": "4a7106b257406088254d3605e90a145b055279659a780e25b71519b9d2523c0b"
+  },
+  "bootstrap": {
+    "draws": 50000,
+    "seed": 20261018,
+    "paired": true,
+    "simultaneous_intervals": false
+  },
+  "limitations": [
+    "Frozen target packets absent: no KL recomputation or fit replay.",
+    "Both units use one source Actor and the same evaluation reset scenes.",
+    "Scene intervals do not measure variability across independently trained source models.",
+    "t intervals and leave-one-out means are sensitivity descriptions; no observations excluded."
+  ],
+  "units": {
+    "43": {
+      "target": {
+        "path": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\actor_fit_e1_confirm_20261018_v1\\a0_s43_44_u128\\fixed_targets\\data_s43_direction_u128.pt",
+        "sha256": "7a941d224dc3f36c6d6a0a2237fbcde23f757cc369cc2a63a1cf80e7d7a12fce",
+        "frozen_sha256": "d97048029c5e9bb763bc48e0f85a99670eccf69b7f02c6ff3ddaf36d16a6ad87",
+        "data_seed": 43,
+        "direction_updates": 128,
+        "newly_prepared": true
+      },
+      "fixed_target_present": false,
+      "direction_scores": [
+        {
+          "data_seed": "43",
+          "direction_epochs": "4",
+          "split": "train",
+          "init_seed": "40",
+          "optimizer_updates": "128",
+          "score": "0.0002708910905819062",
+          "B_label": "0.0002708910905819062",
+          "D_label": "0.0003601422401645923",
+          "fisher_energy": "0.00044939338974727837",
+          "sampled_energy": "0.0004477679697886699",
+          "analytic_risk": "-0.0002708910905819062",
+          "sampled_risk": "-0.0002725165105405147",
+          "tanh_saturation": "0.0",
+          "effective_bound_fraction": "0.0",
+          "q_action_span": "0.024990865149757156",
+          "q_abs_mean": "0.009147683234231409",
+          "q_abs_max": "0.2325400859117508",
+          "saturation_threshold": "0.95",
+          "effective_component_bound": "0.8",
+          "q_max": "1.0",
+          "action_count": "5",
+          "interpretation": "surrogate with frozen-critic GAE labels, not true advantage"
+        },
+        {
+          "data_seed": "43",
+          "direction_epochs": "4",
+          "split": "validation",
+          "init_seed": "40",
+          "optimizer_updates": "128",
+          "score": "0.0018828815835333843",
+          "B_label": "0.0018828815835333843",
+          "D_label": "0.001177530049008903",
+          "fisher_energy": "0.0004721785144844217",
+          "sampled_energy": "0.0004635408410121189",
+          "analytic_risk": "-0.0018828815835333843",
+          "sampled_risk": "-0.001891519257005687",
+          "tanh_saturation": "0.0",
+          "effective_bound_fraction": "0.0",
+          "q_action_span": "0.02430678623921267",
+          "q_abs_mean": "0.009035988053727123",
+          "q_abs_max": "0.21939760446548462",
+          "saturation_threshold": "0.95",
+          "effective_component_bound": "0.8",
+          "q_max": "1.0",
+          "action_count": "5",
+          "interpretation": "surrogate with frozen-critic GAE labels, not true advantage"
+        }
+      ],
+      "fits": {
+        "0.0003": {
+          "best_epoch": 0,
+          "optimizer_updates": 512,
+          "initial_train_kl": 2.244727311067899e-06,
+          "initial_validation_kl": 2.359116089941733e-06,
+          "first_step_train_ratio": 143.82581139539784,
+          "steps_worse_than_initial": 512,
+          "best_train_kl": 2.244727311067899e-06,
+          "best_train_ratio": 1.0,
+          "best_validation_kl": 2.359116089941733e-06,
+          "best_validation_ratio": 1.0,
+          "final_train_kl": 1.6917854309931724e-05,
+          "final_train_ratio": 7.536708011933655,
+          "final_validation_kl": 1.6336911418042357e-05,
+          "final_validation_ratio": 6.92501377430979,
+          "best_validation_reduction_vs_final": 0.8555959550997905
+        },
+        "3e-05": {
+          "best_epoch": 11,
+          "optimizer_updates": 512,
+          "initial_train_kl": 2.244727311067899e-06,
+          "initial_validation_kl": 2.359116089941733e-06,
+          "first_step_train_ratio": 1.1313105186690189,
+          "steps_worse_than_initial": 2,
+          "best_train_kl": 5.692129739545908e-07,
+          "best_train_ratio": 0.25357778254312563,
+          "best_validation_kl": 9.525230530778528e-07,
+          "best_validation_ratio": 0.40376268770282464,
+          "final_train_kl": 6.23885405768044e-07,
+          "final_train_ratio": 0.27793371724569915,
+          "final_validation_kl": 1.0376809974235436e-06,
+          "final_validation_ratio": 0.4398600822773299,
+          "best_validation_reduction_vs_final": 0.0820656295693275
+        }
+      },
+      "candidates": [
+        {
+          "data_seed": "43",
+          "candidate": "direction4_target",
+          "direction_epochs": "4",
+          "direction_updates": "128",
+          "target_sha256": "7a941d224dc3f36c6d6a0a2237fbcde23f757cc369cc2a63a1cf80e7d7a12fce",
+          "candidate_kind": "teacher",
+          "raw_actual_kl": "2.360008657681102e-06",
+          "common_kl": "",
+          "matched_actual_kl": "2.360008657681102e-06",
+          "mixture_alpha": "1.0",
+          "low_common_kl": "False",
+          "old_return": "-97.18367032116821",
+          "candidate_return": "-97.21118081820319",
+          "return_gain": "-0.027510497034984382",
+          "gain_scene_ci_low": "-0.62713468130532",
+          "gain_scene_ci_high": "0.5958250532516953",
+          "success_rate": "0.0",
+          "old_success_rate": "0.0",
+          "evaluation_reused_from": "",
+          "diagnostic_steps_total": "118400",
+          "init_seed": "",
+          "actor_lr": "",
+          "fit_epochs": "",
+          "actor_optimizer_updates": "",
+          "initial_train_target_kl": "",
+          "final_train_target_kl": "",
+          "best_epoch": "",
+          "best_train_target_kl": "",
+          "fit_seconds": "",
+          "candidate_checkpoint": "",
+          "selection_rule": "",
+          "selected_epoch": "",
+          "selected_train_target_kl": "",
+          "selected_validation_target_kl": "",
+          "selected_zero_update": "",
+          "actor_changed": "",
+          "recomputed": {
+            "mean": -0.027510497034984382,
+            "bootstrap_ci95": [
+              -0.6273320927536841,
+              0.5993133789017517
+            ],
+            "t_ci95": [
+              -0.6656774776614924,
+              0.6106564835915236
+            ],
+            "median": -0.0023926845001369657,
+            "wins": 14,
+            "losses": 20,
+            "ties": 6,
+            "minimum": -5.137400949375035,
+            "maximum": 7.213263985130993,
+            "leave_one_out_mean_range": [
+              -0.21317138119308637,
+              0.10351233507629896
+            ],
+            "worst_two": [
+              {
+                "episode": 15,
+                "gain": -5.137400949375035
+              },
+              {
+                "episode": 4,
+                "gain": -4.391985869631199
+              }
+            ],
+            "worst_two_fraction_of_net_sum": 8.65977340112027
+          }
+        },
+        {
+          "data_seed": "43",
+          "candidate": "direction4_lr0.0003_final",
+          "direction_epochs": "4",
+          "direction_updates": "128",
+          "target_sha256": "7a941d224dc3f36c6d6a0a2237fbcde23f757cc369cc2a63a1cf80e7d7a12fce",
+          "candidate_kind": "actor",
+          "raw_actual_kl": "1.5411834624437503e-05",
+          "common_kl": "",
+          "matched_actual_kl": "1.5411834624437503e-05",
+          "mixture_alpha": "1.0",
+          "low_common_kl": "False",
+          "old_return": "-97.18367032116821",
+          "candidate_return": "-96.57491609782635",
+          "return_gain": "0.6087542233418614",
+          "gain_scene_ci_low": "-0.8494240949966075",
+          "gain_scene_ci_high": "2.2545695240294843",
+          "success_rate": "0.0",
+          "old_success_rate": "0.0",
+          "evaluation_reused_from": "",
+          "diagnostic_steps_total": "158400",
+          "init_seed": "40",
+          "actor_lr": "0.0003",
+          "fit_epochs": "16",
+          "actor_optimizer_updates": "512",
+          "initial_train_target_kl": "2.244727311067899e-06",
+          "final_train_target_kl": "1.6917854309931724e-05",
+          "best_epoch": "0",
+          "best_train_target_kl": "2.244727311067899e-06",
+          "fit_seconds": "2637.3601882999064",
+          "candidate_checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\actor_fit_e1_confirm_20261018_v1\\a0_s43_44_u128\\fit_candidates\\data_s43_u128_lr0.0003.pt",
+          "selection_rule": "last",
+          "selected_epoch": "16",
+          "selected_train_target_kl": "1.6917854309931724e-05",
+          "selected_validation_target_kl": "1.6336911418042357e-05",
+          "selected_zero_update": "False",
+          "actor_changed": "True",
+          "recomputed": {
+            "mean": 0.6087542233418614,
+            "bootstrap_ci95": [
+              -0.8545350719290202,
+              2.2300427933573257
+            ],
+            "t_ci95": [
+              -1.006494305481573,
+              2.2240027521652954
+            ],
+            "median": -0.5249512953252164,
+            "wins": 17,
+            "losses": 23,
+            "ties": 0,
+            "minimum": -7.79040960664328,
+            "maximum": 18.65078854406447,
+            "leave_one_out_mean_range": [
+              0.14613795870794832,
+              0.8241173984696855
+            ],
+            "worst_two": [
+              {
+                "episode": 11,
+                "gain": -7.79040960664328
+              },
+              {
+                "episode": 16,
+                "gain": -7.049966955014142
+              }
+            ],
+            "worst_two_fraction_of_net_sum": -0.6094568215144617
+          }
+        },
+        {
+          "data_seed": "43",
+          "candidate": "direction4_lr0.0003_best",
+          "direction_epochs": "4",
+          "direction_updates": "128",
+          "target_sha256": "7a941d224dc3f36c6d6a0a2237fbcde23f757cc369cc2a63a1cf80e7d7a12fce",
+          "candidate_kind": "actor",
+          "raw_actual_kl": "9.261942842620457e-15",
+          "common_kl": "",
+          "matched_actual_kl": "9.261942842620457e-15",
+          "mixture_alpha": "1.0",
+          "low_common_kl": "False",
+          "old_return": "-97.18367032116821",
+          "candidate_return": "-97.18367032116821",
+          "return_gain": "0.0",
+          "gain_scene_ci_low": "0.0",
+          "gain_scene_ci_high": "0.0",
+          "success_rate": "0.0",
+          "old_success_rate": "0.0",
+          "evaluation_reused_from": "old",
+          "diagnostic_steps_total": "158400",
+          "init_seed": "40",
+          "actor_lr": "0.0003",
+          "fit_epochs": "16",
+          "actor_optimizer_updates": "512",
+          "initial_train_target_kl": "2.244727311067899e-06",
+          "final_train_target_kl": "1.6917854309931724e-05",
+          "best_epoch": "0",
+          "best_train_target_kl": "2.244727311067899e-06",
+          "fit_seconds": "2637.3601882999064",
+          "candidate_checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\actor_fit_e1_confirm_20261018_v1\\a0_s43_44_u128\\fit_candidates\\data_s43_u128_lr0.0003.pt",
+          "selection_rule": "best_train_kl",
+          "selected_epoch": "0",
+          "selected_train_target_kl": "2.244727311067899e-06",
+          "selected_validation_target_kl": "2.359116089941733e-06",
+          "selected_zero_update": "True",
+          "actor_changed": "False",
+          "recomputed": {
+            "mean": 0.0,
+            "bootstrap_ci95": [
+              0.0,
+              0.0
+            ],
+            "t_ci95": [
+              0.0,
+              0.0
+            ],
+            "median": 0.0,
+            "wins": 0,
+            "losses": 0,
+            "ties": 40,
+            "minimum": 0.0,
+            "maximum": 0.0,
+            "leave_one_out_mean_range": [
+              0.0,
+              0.0
+            ],
+            "worst_two": [
+              {
+                "episode": 0,
+                "gain": 0.0
+              },
+              {
+                "episode": 1,
+                "gain": 0.0
+              }
+            ],
+            "worst_two_fraction_of_net_sum": null
+          }
+        },
+        {
+          "data_seed": "43",
+          "candidate": "direction4_lr3e-05_final",
+          "direction_epochs": "4",
+          "direction_updates": "128",
+          "target_sha256": "7a941d224dc3f36c6d6a0a2237fbcde23f757cc369cc2a63a1cf80e7d7a12fce",
+          "candidate_kind": "actor",
+          "raw_actual_kl": "1.7819716860874219e-06",
+          "common_kl": "",
+          "matched_actual_kl": "1.7819716860874219e-06",
+          "mixture_alpha": "1.0",
+          "low_common_kl": "False",
+          "old_return": "-97.18367032116821",
+          "candidate_return": "-97.51802615967753",
+          "return_gain": "-0.3343558385093221",
+          "gain_scene_ci_low": "-1.2096255481979514",
+          "gain_scene_ci_high": "0.5642365958236172",
+          "success_rate": "0.0",
+          "old_success_rate": "0.0",
+          "evaluation_reused_from": "",
+          "diagnostic_steps_total": "198400",
+          "init_seed": "40",
+          "actor_lr": "3e-05",
+          "fit_epochs": "16",
+          "actor_optimizer_updates": "512",
+          "initial_train_target_kl": "2.244727311067899e-06",
+          "final_train_target_kl": "6.23885405768044e-07",
+          "best_epoch": "11",
+          "best_train_target_kl": "5.692129739545908e-07",
+          "fit_seconds": "2640.7021590999793",
+          "candidate_checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\actor_fit_e1_confirm_20261018_v1\\a0_s43_44_u128\\fit_candidates\\data_s43_u128_lr3e-05.pt",
+          "selection_rule": "last",
+          "selected_epoch": "16",
+          "selected_train_target_kl": "6.23885405768044e-07",
+          "selected_validation_target_kl": "1.0376809974235436e-06",
+          "selected_zero_update": "False",
+          "actor_changed": "True",
+          "recomputed": {
+            "mean": -0.3343558385093221,
+            "bootstrap_ci95": [
+              -1.2209383908035725,
+              0.5493309748780426
+            ],
+            "t_ci95": [
+              -1.2565295423351792,
+              0.5878178653165349
+            ],
+            "median": -0.007536284005738025,
+            "wins": 15,
+            "losses": 24,
+            "ties": 1,
+            "minimum": -8.696248050221058,
+            "maximum": 7.958257039433107,
+            "leave_one_out_mean_range": [
+              -0.5469869379437434,
+              -0.11994834590132888
+            ],
+            "worst_two": [
+              {
+                "episode": 16,
+                "gain": -8.696248050221058
+              },
+              {
+                "episode": 23,
+                "gain": -5.877263975192733
+              }
+            ],
+            "worst_two_fraction_of_net_sum": 1.0896708197460914
+          }
+        },
+        {
+          "data_seed": "43",
+          "candidate": "direction4_lr3e-05_best",
+          "direction_epochs": "4",
+          "direction_updates": "128",
+          "target_sha256": "7a941d224dc3f36c6d6a0a2237fbcde23f757cc369cc2a63a1cf80e7d7a12fce",
+          "candidate_kind": "actor",
+          "raw_actual_kl": "1.5632860908363403e-06",
+          "common_kl": "",
+          "matched_actual_kl": "1.5632860908363403e-06",
+          "mixture_alpha": "1.0",
+          "low_common_kl": "False",
+          "old_return": "-97.18367032116821",
+          "candidate_return": "-97.37371737140045",
+          "return_gain": "-0.1900470502322385",
+          "gain_scene_ci_low": "-0.962918949198601",
+          "gain_scene_ci_high": "0.6472894382597504",
+          "success_rate": "0.0",
+          "old_success_rate": "0.0",
+          "evaluation_reused_from": "",
+          "diagnostic_steps_total": "238400",
+          "init_seed": "40",
+          "actor_lr": "3e-05",
+          "fit_epochs": "16",
+          "actor_optimizer_updates": "512",
+          "initial_train_target_kl": "2.244727311067899e-06",
+          "final_train_target_kl": "6.23885405768044e-07",
+          "best_epoch": "11",
+          "best_train_target_kl": "5.692129739545908e-07",
+          "fit_seconds": "2640.7021590999793",
+          "candidate_checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\actor_fit_e1_confirm_20261018_v1\\a0_s43_44_u128\\fit_candidates\\data_s43_u128_lr3e-05.pt",
+          "selection_rule": "best_train_kl",
+          "selected_epoch": "11",
+          "selected_train_target_kl": "5.692129739545908e-07",
+          "selected_validation_target_kl": "9.525230530778528e-07",
+          "selected_zero_update": "False",
+          "actor_changed": "True",
+          "recomputed": {
+            "mean": -0.1900470502322385,
+            "bootstrap_ci95": [
+              -0.9637976380764877,
+              0.634333631428209
+            ],
+            "t_ci95": [
+              -1.0285313389110653,
+              0.6484372384465884
+            ],
+            "median": -0.021003528475539213,
+            "wins": 14,
+            "losses": 25,
+            "ties": 1,
+            "minimum": -5.877263975192733,
+            "maximum": 8.545868052954134,
+            "leave_one_out_mean_range": [
+              -0.41404487339086343,
+              -0.044220975233251456
+            ],
+            "worst_two": [
+              {
+                "episode": 23,
+                "gain": -5.877263975192733
+              },
+              {
+                "episode": 15,
+                "gain": -5.133186556156403
+              }
+            ],
+            "worst_two_fraction_of_net_sum": 1.4483848233758834
+          }
+        }
+      ],
+      "contrasts": {
+        "B-A": {
+          "mean": -0.9431100618511834,
+          "bootstrap_ci95": [
+            -2.2072016166696455,
+            0.18171320361684243
+          ],
+          "t_ci95": [
+            -2.195666838313524,
+            0.30944671461115725
+          ],
+          "median": -0.719859298229089,
+          "wins": 16,
+          "losses": 24,
+          "ties": 0,
+          "minimum": -16.894301032444872,
+          "maximum": 6.600389367501947,
+          "leave_one_out_mean_range": [
+            -1.1365331241422894,
+            -0.534105165169294
+          ],
+          "worst_two": [
+            {
+              "episode": 14,
+              "gain": -16.894301032444872
+            },
+            {
+              "episode": 31,
+              "gain": -7.882153555180878
+            }
+          ],
+          "worst_two_fraction_of_net_sum": 0.6567752691290688
+        },
+        "C-A": {
+          "mean": -0.6087542233418614,
+          "bootstrap_ci95": [
+            -2.2300427933573244,
+            0.8545350719290203
+          ],
+          "t_ci95": [
+            -2.2240027521652954,
+            1.006494305481573
+          ],
+          "median": 0.5249512953252164,
+          "wins": 23,
+          "losses": 17,
+          "ties": 0,
+          "minimum": -18.65078854406447,
+          "maximum": 7.79040960664328,
+          "leave_one_out_mean_range": [
+            -0.8241173984696855,
+            -0.14613795870794832
+          ],
+          "worst_two": [
+            {
+              "episode": 14,
+              "gain": -18.65078854406447
+            },
+            {
+              "episode": 6,
+              "gain": -10.90278714378826
+            }
+          ],
+          "worst_two_fraction_of_net_sum": 1.213690786636899
+        },
+        "D-A": {
+          "mean": -0.7988012735740998,
+          "bootstrap_ci95": [
+            -2.1058700272179207,
+            0.400798839993856
+          ],
+          "t_ci95": [
+            -2.1107541682209323,
+            0.5131516210727328
+          ],
+          "median": -0.2804050125357662,
+          "wins": 18,
+          "losses": 22,
+          "ties": 0,
+          "minimum": -15.786904741345666,
+          "maximum": 6.600389367501947,
+          "leave_one_out_mean_range": [
+            -0.9885241105247677,
+            -0.41449092824662376
+          ],
+          "worst_two": [
+            {
+              "episode": 14,
+              "gain": -15.786904741345666
+            },
+            {
+              "episode": 27,
+              "gain": -8.495630475346786
+            }
+          ],
+          "worst_two_fraction_of_net_sum": 0.7599679676286818
+        },
+        "D-B": {
+          "mean": 0.14430878827708363,
+          "bootstrap_ci95": [
+            -0.27144316052297923,
+            0.6645775440453183
+          ],
+          "t_ci95": [
+            -0.3444972940129485,
+            0.6331148705671157
+          ],
+          "median": 0.0,
+          "wins": 16,
+          "losses": 18,
+          "ties": 6,
+          "minimum": -4.087398755849421,
+          "maximum": 7.889708102551907,
+          "leave_one_out_mean_range": [
+            -0.054291194140219545,
+            0.25281410992135295
+          ],
+          "worst_two": [
+            {
+              "episode": 27,
+              "gain": -4.087398755849421
+            },
+            {
+              "episode": 9,
+              "gain": -1.7119944117302595
+            }
+          ],
+          "worst_two_fraction_of_net_sum": -1.004684682897554
+        },
+        "D-Teacher": {
+          "mean": -0.1625365531972541,
+          "bootstrap_ci95": [
+            -0.9226649577592237,
+            0.6106063926419754
+          ],
+          "t_ci95": [
+            -0.9616593586282592,
+            0.636586252233751
+          ],
+          "median": -0.00897410482075145,
+          "wins": 13,
+          "losses": 25,
+          "ties": 2,
+          "minimum": -7.119205934511797,
+          "maximum": 8.544770520550784,
+          "leave_one_out_mean_range": [
+            -0.3858008371395115,
+            0.015839584785170065
+          ],
+          "worst_two": [
+            {
+              "episode": 11,
+              "gain": -7.119205934511797
+            },
+            {
+              "episode": 23,
+              "gain": -5.884185485762771
+            }
+          ],
+          "worst_two_fraction_of_net_sum": 2.000071855297324
+        }
+      },
+      "candidate_history_state_and_schedule_checks_passed": true,
+      "evaluation_steps": 200000,
+      "success_counts": {
+        "direction4_lr3e-05_best": 0.0,
+        "direction4_lr0.0003_best": 0.0,
+        "direction4_lr3e-05_final": 0.0,
+        "direction4_lr0.0003_final": 0.0,
+        "direction4_target": 0.0,
+        "old": 0.0
+      }
+    },
+    "44": {
+      "target": {
+        "path": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\actor_fit_e1_confirm_20261018_v1\\a0_s43_44_u128\\fixed_targets\\data_s44_direction_u128.pt",
+        "sha256": "12e0f86e2c861098dcfb1b9532ab7e47b027eb0086c61631ebf3f49fbc922532",
+        "frozen_sha256": "446bb3cecb54306674b60ad22f5a27997c2bcde278e002a9cecdbf3073a62f88",
+        "data_seed": 44,
+        "direction_updates": 128,
+        "newly_prepared": true
+      },
+      "fixed_target_present": false,
+      "direction_scores": [
+        {
+          "data_seed": "44",
+          "direction_epochs": "4",
+          "split": "train",
+          "init_seed": "40",
+          "optimizer_updates": "128",
+          "score": "0.00158818019886799",
+          "B_label": "0.00158818019886799",
+          "D_label": "0.0008990495575130923",
+          "fisher_energy": "0.00020991891615819457",
+          "sampled_energy": "0.000210208928235609",
+          "analytic_risk": "-0.00158818019886799",
+          "sampled_risk": "-0.0015878901867905756",
+          "tanh_saturation": "0.0",
+          "effective_bound_fraction": "0.0",
+          "q_action_span": "0.0325369184670285",
+          "q_abs_mean": "0.00842891278094568",
+          "q_abs_max": "0.12906445562839508",
+          "saturation_threshold": "0.95",
+          "effective_component_bound": "0.8",
+          "q_max": "1.0",
+          "action_count": "5",
+          "interpretation": "surrogate with frozen-critic GAE labels, not true advantage"
+        },
+        {
+          "data_seed": "44",
+          "direction_epochs": "4",
+          "split": "validation",
+          "init_seed": "40",
+          "optimizer_updates": "128",
+          "score": "-0.0002626760558376882",
+          "B_label": "-0.0002626760558376882",
+          "D_label": "-3.726656814132095e-05",
+          "fisher_energy": "0.0001881429195550463",
+          "sampled_energy": "0.00018535026191060562",
+          "analytic_risk": "0.0002626760558376882",
+          "sampled_risk": "0.0002598833981932475",
+          "tanh_saturation": "0.0",
+          "effective_bound_fraction": "0.0",
+          "q_action_span": "0.031912828716726835",
+          "q_abs_mean": "0.008366727027264617",
+          "q_abs_max": "0.0967307835817337",
+          "saturation_threshold": "0.95",
+          "effective_component_bound": "0.8",
+          "q_max": "1.0",
+          "action_count": "5",
+          "interpretation": "surrogate with frozen-critic GAE labels, not true advantage"
+        }
+      ],
+      "fits": {
+        "0.0003": {
+          "best_epoch": 0,
+          "optimizer_updates": 512,
+          "initial_train_kl": 1.0494611802479006e-06,
+          "initial_validation_kl": 9.408593236244469e-07,
+          "first_step_train_ratio": 359.5391371174742,
+          "steps_worse_than_initial": 512,
+          "best_train_kl": 1.0494611802479006e-06,
+          "best_train_ratio": 1.0,
+          "best_validation_kl": 9.408593236244469e-07,
+          "best_validation_ratio": 1.0,
+          "final_train_kl": 0.00010798846608276899,
+          "final_train_ratio": 102.89896197709788,
+          "final_validation_kl": 0.00010218503582736673,
+          "final_validation_ratio": 108.60819812437218,
+          "best_validation_reduction_vs_final": 0.9907925919288814
+        },
+        "3e-05": {
+          "best_epoch": 2,
+          "optimizer_updates": 512,
+          "initial_train_kl": 1.0494611802479006e-06,
+          "initial_validation_kl": 9.408593236244469e-07,
+          "first_step_train_ratio": 1.6692985483747704,
+          "steps_worse_than_initial": 54,
+          "best_train_kl": 2.2926967520050024e-07,
+          "best_train_ratio": 0.21846417906219537,
+          "best_validation_kl": 2.3146653095721542e-07,
+          "best_validation_ratio": 0.24601608885114,
+          "final_train_kl": 3.7135618815612564e-07,
+          "final_train_ratio": 0.3538541445319635,
+          "final_validation_kl": 3.594729376239348e-07,
+          "final_validation_ratio": 0.3820687414130594,
+          "best_validation_reduction_vs_final": 0.3560946966211799
+        }
+      },
+      "candidates": [
+        {
+          "data_seed": "44",
+          "candidate": "direction4_target",
+          "direction_epochs": "4",
+          "direction_updates": "128",
+          "target_sha256": "12e0f86e2c861098dcfb1b9532ab7e47b027eb0086c61631ebf3f49fbc922532",
+          "candidate_kind": "teacher",
+          "raw_actual_kl": "9.407883535316119e-07",
+          "common_kl": "",
+          "matched_actual_kl": "9.407883535316119e-07",
+          "mixture_alpha": "1.0",
+          "low_common_kl": "False",
+          "old_return": "-98.16574305348065",
+          "candidate_return": "-99.4383342431113",
+          "return_gain": "-1.272591189630646",
+          "gain_scene_ci_low": "-2.816932617708775",
+          "gain_scene_ci_high": "-0.058819303164594224",
+          "success_rate": "0.0",
+          "old_success_rate": "0.0",
+          "evaluation_reused_from": "",
+          "diagnostic_steps_total": "356800",
+          "init_seed": "",
+          "actor_lr": "",
+          "fit_epochs": "",
+          "actor_optimizer_updates": "",
+          "initial_train_target_kl": "",
+          "final_train_target_kl": "",
+          "best_epoch": "",
+          "best_train_target_kl": "",
+          "fit_seconds": "",
+          "candidate_checkpoint": "",
+          "selection_rule": "",
+          "selected_epoch": "",
+          "selected_train_target_kl": "",
+          "selected_validation_target_kl": "",
+          "selected_zero_update": "",
+          "actor_changed": "",
+          "recomputed": {
+            "mean": -1.272591189630646,
+            "bootstrap_ci95": [
+              -2.842192252340364,
+              -0.05867395364853769
+            ],
+            "t_ci95": [
+              -2.750315227398121,
+              0.20513284813682864
+            ],
+            "median": -0.0023262113098709847,
+            "wins": 15,
+            "losses": 24,
+            "ties": 1,
+            "minimum": -21.706296558849814,
+            "maximum": 5.546966514874285,
+            "leave_one_out_mean_range": [
+              -1.4474516435923108,
+              -0.748650026317334
+            ],
+            "worst_two": [
+              {
+                "episode": 30,
+                "gain": -21.706296558849814
+              },
+              {
+                "episode": 8,
+                "gain": -17.02064691769513
+              }
+            ],
+            "worst_two_fraction_of_net_sum": 0.760789163717709
+          }
+        },
+        {
+          "data_seed": "44",
+          "candidate": "direction4_lr0.0003_final",
+          "direction_epochs": "4",
+          "direction_updates": "128",
+          "target_sha256": "12e0f86e2c861098dcfb1b9532ab7e47b027eb0086c61631ebf3f49fbc922532",
+          "candidate_kind": "actor",
+          "raw_actual_kl": "0.0001045739170925905",
+          "common_kl": "",
+          "matched_actual_kl": "0.0001045739170925905",
+          "mixture_alpha": "1.0",
+          "low_common_kl": "False",
+          "old_return": "-98.16574305348065",
+          "candidate_return": "-99.96581712585007",
+          "return_gain": "-1.8000740723694038",
+          "gain_scene_ci_low": "-3.115189855520273",
+          "gain_scene_ci_high": "-0.5274218677323957",
+          "success_rate": "0.0",
+          "old_success_rate": "0.0",
+          "evaluation_reused_from": "",
+          "diagnostic_steps_total": "396800",
+          "init_seed": "40",
+          "actor_lr": "0.0003",
+          "fit_epochs": "16",
+          "actor_optimizer_updates": "512",
+          "initial_train_target_kl": "1.0494611802479006e-06",
+          "final_train_target_kl": "0.00010798846608276899",
+          "best_epoch": "0",
+          "best_train_target_kl": "1.0494611802479006e-06",
+          "fit_seconds": "2658.022970699938",
+          "candidate_checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\actor_fit_e1_confirm_20261018_v1\\a0_s43_44_u128\\fit_candidates\\data_s44_u128_lr0.0003.pt",
+          "selection_rule": "last",
+          "selected_epoch": "16",
+          "selected_train_target_kl": "0.00010798846608276899",
+          "selected_validation_target_kl": "0.00010218503582736673",
+          "selected_zero_update": "False",
+          "actor_changed": "True",
+          "recomputed": {
+            "mean": -1.8000740723694038,
+            "bootstrap_ci95": [
+              -3.138518067555669,
+              -0.5380186460522107
+            ],
+            "t_ci95": [
+              -3.159548104311317,
+              -0.44060004042749057
+            ],
+            "median": -1.9749140870169128,
+            "wins": 17,
+            "losses": 23,
+            "ties": 0,
+            "minimum": -12.740970970354681,
+            "maximum": 4.814489414954124,
+            "leave_one_out_mean_range": [
+              -1.9696782643520583,
+              -1.5195382544723453
+            ],
+            "worst_two": [
+              {
+                "episode": 10,
+                "gain": -12.740970970354681
+              },
+              {
+                "episode": 17,
+                "gain": -10.868649973560352
+              }
+            ],
+            "worst_two_fraction_of_net_sum": 0.3278979085682587
+          }
+        },
+        {
+          "data_seed": "44",
+          "candidate": "direction4_lr0.0003_best",
+          "direction_epochs": "4",
+          "direction_updates": "128",
+          "target_sha256": "12e0f86e2c861098dcfb1b9532ab7e47b027eb0086c61631ebf3f49fbc922532",
+          "candidate_kind": "actor",
+          "raw_actual_kl": "9.26857888160953e-15",
+          "common_kl": "",
+          "matched_actual_kl": "9.26857888160953e-15",
+          "mixture_alpha": "1.0",
+          "low_common_kl": "False",
+          "old_return": "-98.16574305348065",
+          "candidate_return": "-98.16574305348065",
+          "return_gain": "0.0",
+          "gain_scene_ci_low": "0.0",
+          "gain_scene_ci_high": "0.0",
+          "success_rate": "0.0",
+          "old_success_rate": "0.0",
+          "evaluation_reused_from": "old",
+          "diagnostic_steps_total": "396800",
+          "init_seed": "40",
+          "actor_lr": "0.0003",
+          "fit_epochs": "16",
+          "actor_optimizer_updates": "512",
+          "initial_train_target_kl": "1.0494611802479006e-06",
+          "final_train_target_kl": "0.00010798846608276899",
+          "best_epoch": "0",
+          "best_train_target_kl": "1.0494611802479006e-06",
+          "fit_seconds": "2658.022970699938",
+          "candidate_checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\actor_fit_e1_confirm_20261018_v1\\a0_s43_44_u128\\fit_candidates\\data_s44_u128_lr0.0003.pt",
+          "selection_rule": "best_train_kl",
+          "selected_epoch": "0",
+          "selected_train_target_kl": "1.0494611802479006e-06",
+          "selected_validation_target_kl": "9.408593236244469e-07",
+          "selected_zero_update": "True",
+          "actor_changed": "False",
+          "recomputed": {
+            "mean": 0.0,
+            "bootstrap_ci95": [
+              0.0,
+              0.0
+            ],
+            "t_ci95": [
+              0.0,
+              0.0
+            ],
+            "median": 0.0,
+            "wins": 0,
+            "losses": 0,
+            "ties": 40,
+            "minimum": 0.0,
+            "maximum": 0.0,
+            "leave_one_out_mean_range": [
+              0.0,
+              0.0
+            ],
+            "worst_two": [
+              {
+                "episode": 0,
+                "gain": 0.0
+              },
+              {
+                "episode": 1,
+                "gain": 0.0
+              }
+            ],
+            "worst_two_fraction_of_net_sum": null
+          }
+        },
+        {
+          "data_seed": "44",
+          "candidate": "direction4_lr3e-05_final",
+          "direction_epochs": "4",
+          "direction_updates": "128",
+          "target_sha256": "12e0f86e2c861098dcfb1b9532ab7e47b027eb0086c61631ebf3f49fbc922532",
+          "candidate_kind": "actor",
+          "raw_actual_kl": "1.4059547259354326e-06",
+          "common_kl": "",
+          "matched_actual_kl": "1.4059547259354326e-06",
+          "mixture_alpha": "1.0",
+          "low_common_kl": "False",
+          "old_return": "-98.16574305348065",
+          "candidate_return": "-99.74901421400264",
+          "return_gain": "-1.5832711605219925",
+          "gain_scene_ci_low": "-3.57344012650906",
+          "gain_scene_ci_high": "0.05250706437446432",
+          "success_rate": "0.0",
+          "old_success_rate": "0.0",
+          "evaluation_reused_from": "",
+          "diagnostic_steps_total": "436800",
+          "init_seed": "40",
+          "actor_lr": "3e-05",
+          "fit_epochs": "16",
+          "actor_optimizer_updates": "512",
+          "initial_train_target_kl": "1.0494611802479006e-06",
+          "final_train_target_kl": "3.7135618815612564e-07",
+          "best_epoch": "2",
+          "best_train_target_kl": "2.2926967520050024e-07",
+          "fit_seconds": "2718.023572099977",
+          "candidate_checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\actor_fit_e1_confirm_20261018_v1\\a0_s43_44_u128\\fit_candidates\\data_s44_u128_lr3e-05.pt",
+          "selection_rule": "last",
+          "selected_epoch": "16",
+          "selected_train_target_kl": "3.7135618815612564e-07",
+          "selected_validation_target_kl": "3.594729376239348e-07",
+          "selected_zero_update": "False",
+          "actor_changed": "True",
+          "recomputed": {
+            "mean": -1.5832711605219925,
+            "bootstrap_ci95": [
+              -3.5126195148603694,
+              0.08778523355084003
+            ],
+            "t_ci95": [
+              -3.4607741369171237,
+              0.29423181587313896
+            ],
+            "median": -0.12206186789478579,
+            "wins": 18,
+            "losses": 22,
+            "ties": 0,
+            "minimum": -21.735149050783107,
+            "maximum": 9.9915486836056,
+            "leave_one_out_mean_range": [
+              -1.8800614129355204,
+              -1.0665563428229894
+            ],
+            "worst_two": [
+              {
+                "episode": 30,
+                "gain": -21.735149050783107
+              },
+              {
+                "episode": 8,
+                "gain": -17.42213677069776
+              }
+            ],
+            "worst_two_fraction_of_net_sum": 0.6182972127239881
+          }
+        },
+        {
+          "data_seed": "44",
+          "candidate": "direction4_lr3e-05_best",
+          "direction_epochs": "4",
+          "direction_updates": "128",
+          "target_sha256": "12e0f86e2c861098dcfb1b9532ab7e47b027eb0086c61631ebf3f49fbc922532",
+          "candidate_kind": "actor",
+          "raw_actual_kl": "8.588163733012816e-07",
+          "common_kl": "",
+          "matched_actual_kl": "8.588163733012816e-07",
+          "mixture_alpha": "1.0",
+          "low_common_kl": "False",
+          "old_return": "-98.16574305348065",
+          "candidate_return": "-98.87333295988932",
+          "return_gain": "-0.7075899064086627",
+          "gain_scene_ci_low": "-1.8208602726054275",
+          "gain_scene_ci_high": "0.1460475350402936",
+          "success_rate": "0.0",
+          "old_success_rate": "0.0",
+          "evaluation_reused_from": "",
+          "diagnostic_steps_total": "476800",
+          "init_seed": "40",
+          "actor_lr": "3e-05",
+          "fit_epochs": "16",
+          "actor_optimizer_updates": "512",
+          "initial_train_target_kl": "1.0494611802479006e-06",
+          "final_train_target_kl": "3.7135618815612564e-07",
+          "best_epoch": "2",
+          "best_train_target_kl": "2.2926967520050024e-07",
+          "fit_seconds": "2718.023572099977",
+          "candidate_checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\actor_fit_e1_confirm_20261018_v1\\a0_s43_44_u128\\fit_candidates\\data_s44_u128_lr3e-05.pt",
+          "selection_rule": "best_train_kl",
+          "selected_epoch": "2",
+          "selected_train_target_kl": "2.2926967520050024e-07",
+          "selected_validation_target_kl": "2.3146653095721542e-07",
+          "selected_zero_update": "False",
+          "actor_changed": "True",
+          "recomputed": {
+            "mean": -0.7075899064086627,
+            "bootstrap_ci95": [
+              -1.8302764841479846,
+              0.15478068950241286
+            ],
+            "t_ci95": [
+              -1.7612938913372913,
+              0.3461140785199658
+            ],
+            "median": -0.00582352197555025,
+            "wins": 18,
+            "losses": 22,
+            "ties": 0,
+            "minimum": -17.408483822425865,
+            "maximum": 5.546966514874285,
+            "leave_one_out_mean_range": [
+              -0.8679631479800204,
+              -0.2793618572800165
+            ],
+            "worst_two": [
+              {
+                "episode": 8,
+                "gain": -17.408483822425865
+              },
+              {
+                "episode": 22,
+                "gain": -6.143863421066214
+              }
+            ],
+            "worst_two_fraction_of_net_sum": 0.8321326742431517
+          }
+        }
+      ],
+      "contrasts": {
+        "B-A": {
+          "mean": 0.2168029118474113,
+          "bootstrap_ci95": [
+            -1.9460107934724469,
+            2.2691139422755917
+          ],
+          "t_ci95": [
+            -1.985043903112928,
+            2.4186497268077507
+          ],
+          "median": 0.28400181814009073,
+          "wins": 22,
+          "losses": 18,
+          "ties": 0,
+          "minimum": -22.826548133993995,
+          "maximum": 16.490731821843468,
+          "leave_one_out_mean_range": [
+            -0.20047731661402607,
+            0.8076580668689858
+          ],
+          "worst_two": [
+            {
+              "episode": 30,
+              "gain": -22.826548133993995
+            },
+            {
+              "episode": 24,
+              "gain": -13.41644484532442
+            }
+          ],
+          "worst_two_fraction_of_net_sum": -4.1792557893349125
+        },
+        "C-A": {
+          "mean": 1.8000740723694038,
+          "bootstrap_ci95": [
+            0.5380186460522114,
+            3.1385180675556694
+          ],
+          "t_ci95": [
+            0.44060004042749057,
+            3.159548104311317
+          ],
+          "median": 1.9749140870169128,
+          "wins": 23,
+          "losses": 17,
+          "ties": 0,
+          "minimum": -4.814489414954124,
+          "maximum": 12.740970970354681,
+          "leave_one_out_mean_range": [
+            1.5195382544723453,
+            1.9696782643520583
+          ],
+          "worst_two": [
+            {
+              "episode": 7,
+              "gain": -4.814489414954124
+            },
+            {
+              "episode": 4,
+              "gain": -3.535668103216153
+            }
+          ],
+          "worst_two_fraction_of_net_sum": -0.11596963767134208
+        },
+        "D-A": {
+          "mean": 1.092484165960741,
+          "bootstrap_ci95": [
+            -0.3406560453328265,
+            2.580256914461879
+          ],
+          "t_ci95": [
+            -0.44946457128566353,
+            2.6344329032071454
+          ],
+          "median": 0.542166520564372,
+          "wins": 22,
+          "losses": 18,
+          "ties": 0,
+          "minimum": -10.713240279068671,
+          "maximum": 13.079787804251296,
+          "leave_one_out_mean_range": [
+            0.7851174060045728,
+            1.3951950491666234
+          ],
+          "worst_two": [
+            {
+              "episode": 8,
+              "gain": -10.713240279068671
+            },
+            {
+              "episode": 7,
+              "gain": -5.765622573146857
+            }
+          ],
+          "worst_two_fraction_of_net_sum": -0.37709614852229595
+        },
+        "D-B": {
+          "mean": 0.8756812541133296,
+          "bootstrap_ci95": [
+            -0.5543388996500159,
+            2.648566990269924
+          ],
+          "t_ci95": [
+            -0.791914541256447,
+            2.5432770494831063
+          ],
+          "median": -0.019205952933297965,
+          "wins": 12,
+          "losses": 25,
+          "ties": 3,
+          "minimum": -7.120571026112827,
+          "maximum": 21.834961388283915,
+          "leave_one_out_mean_range": [
+            0.33826381477562234,
+            1.0807133638627182
+          ],
+          "worst_two": [
+            {
+              "episode": 3,
+              "gain": -7.120571026112827
+            },
+            {
+              "episode": 32,
+              "gain": -5.177118495711397
+            }
+          ],
+          "worst_two_fraction_of_net_sum": -0.3510892080896559
+        },
+        "D-Teacher": {
+          "mean": 0.5650012832219833,
+          "bootstrap_ci95": [
+            -0.2044219090803299,
+            1.8359875570199062
+          ],
+          "t_ci95": [
+            -0.582871307792717,
+            1.7128738742366836
+          ],
+          "median": 0.0,
+          "wins": 15,
+          "losses": 17,
+          "ties": 8,
+          "minimum": -2.207844377676423,
+          "maximum": 21.806108896350622,
+          "leave_one_out_mean_range": [
+            0.020357498269966905,
+            0.636099889911686
+          ],
+          "worst_two": [
+            {
+              "episode": 2,
+              "gain": -2.207844377676423
+            },
+            {
+              "episode": 25,
+              "gain": -1.911801627742662
+            }
+          ],
+          "worst_two_fraction_of_net_sum": -0.182284807475407
+        }
+      },
+      "candidate_history_state_and_schedule_checks_passed": true,
+      "evaluation_steps": 200000,
+      "success_counts": {
+        "direction4_lr3e-05_best": 0.0,
+        "direction4_lr0.0003_best": 0.0,
+        "direction4_lr3e-05_final": 0.0,
+        "direction4_lr0.0003_final": 0.0,
+        "direction4_target": 0.0,
+        "old": 0.0
+      }
+    }
+  },
+  "prior_development_seed40": {
+    "source": "D:\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\actor_fit_e1_20261017_v1\\a0_s40_u128\\diagnostics.csv",
+    "sha256": "40e0758b17c4daf5e1a7414759993c7846c71f7393b9449846d3f68841e0a1a6",
+    "validation_best_ratio": 0.03999956486014742,
+    "best_epoch": 12,
+    "return_gain": -0.6678742241311756
+  },
+  "verified": true
+}

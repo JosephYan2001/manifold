@@ -1,7 +1,8 @@
-"""Frozen-checkpoint probes: matched-KL directions and fixed-target Actor fitting.
+"""Frozen-checkpoint probes: directions, Actor fitting, and teacher-only evaluation.
 
 Checkpoint mode collects new samples. Fixed-target mode reuses a saved batch,
-direction and target without sampling or direction training. Sources are read-only.
+direction and target without sampling or direction training. teacher-eval executes
+only the saved old policy and teacher, with no fitting. Sources are read-only.
 """
 import argparse
 from copy import deepcopy
@@ -19,23 +20,23 @@ def parser():
     source.add_argument('--checkpoint', type=Path)
     source.add_argument('--fixed-target', type=Path, help='Replay one saved fixed target without collecting data or training a direction')
     p.add_argument('--output', type=Path, required=True)
-    p.add_argument('--mode', choices=['direction', 'fit'], required=True)
+    p.add_argument('--mode', choices=['direction', 'fit', 'teacher-eval'], required=True)
     p.add_argument('--seeds', nargs='+', type=int, help='Diagnostic data seeds; checkpoint default: 40 41 42; snapshot replay inherits its seed')
     p.add_argument('--batch-episodes', type=int, help='Defaults to the saved training batch size')
     p.add_argument('--validation-episodes', type=int)
-    p.add_argument('--evaluation-episodes', type=int)
-    p.add_argument('--evaluation-seed', type=int, help='Independent evaluation scene-set seed; candidates within a unit share scenes/actions')
+    p.add_argument('--evaluation-episodes', type=int, help='Per policy; teacher-eval defaults to 100 complete pairs')
+    p.add_argument('--evaluation-seed', type=int, help='Independent scene-set seed; teacher-eval requires a new explicit seed')
     direction_budget = p.add_mutually_exclusive_group()
     direction_budget.add_argument('--direction-epochs', nargs='+', type=int, help='Explicit direction budget, also supported in fit mode')
     p.add_argument('--sample-sizes', nargs='+', type=int, help='Expand an N x U matrix; same data seed gives nested batches')
     direction_budget.add_argument('--direction-updates', nargs='+', type=int, help='Exact direction updates in either mode; divisible by minibatches per epoch')
     p.add_argument('--init-seeds', nargs='+', type=int, help='Separate direction initialization seed axis')
     p.add_argument('--init-seed', type=int, help='One initialization seed, independent from --seeds data seeds')
-    p.add_argument('--fit-trace-every-updates', type=int, default=0, help='Also recompute full train/validation KL every N optimizer steps; 0 means epoch only')
+    p.add_argument('--fit-trace-every-updates', type=int, help='Also recompute full train/validation KL every N optimizer steps; default 0 means epoch only')
     p.add_argument('--fit-epochs', type=int, help='Defaults to saved Actor epochs')
     p.add_argument('--prepare-only', action='store_true', help='Fit mode: collect and save fixed targets, then stop before Actor fitting/evaluation')
-    p.add_argument('--actor-lrs', nargs='+', type=float, default=[3e-4, 1e-4, 3e-5])
-    p.add_argument('--target-kl', type=float, default=1e-4)
+    p.add_argument('--actor-lrs', nargs='+', type=float, help='Fit default: 0.0003 0.0001 0.00003')
+    p.add_argument('--target-kl', type=float, help='Direction mode default: 0.0001')
     p.add_argument('--eta', type=float, help='Defaults to saved first step size')
     p.add_argument('--device', choices=['cpu', 'cuda'], default='cuda')
     p.add_argument('--allow-duplicate-openmp', action='store_true')
@@ -75,6 +76,14 @@ def run(args):
     started = time.perf_counter()
     from ..common.runtime import configure_runtime
     configure_runtime(args.allow_duplicate_openmp)
+    if args.mode == 'teacher-eval':
+        from .evaluation.teacher_probe import run_teacher_evaluation
+        return run_teacher_evaluation(args)
+    # Preserve existing fit/direction defaults; None lets teacher-eval reject
+    # explicitly supplied fitting arguments instead of silently ignoring them.
+    args.actor_lrs = args.actor_lrs if args.actor_lrs is not None else [3e-4, 1e-4, 3e-5]
+    args.target_kl = args.target_kl if args.target_kl is not None else 1e-4
+    args.fit_trace_every_updates = args.fit_trace_every_updates if args.fit_trace_every_updates is not None else 0
     import torch
     from torch import nn
     from .training.runner import Runner

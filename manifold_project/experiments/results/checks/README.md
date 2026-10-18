@@ -4,7 +4,8 @@
 
 | 目录 | 状态与用途 |
 |---|---|
-| [actor_fit_acceptance_20261017_v1](actor_fit_acceptance_20261017_v1/验收报告.md) | Actor 候选选择、固定目标重放及既有回归共 17/17 CPU 测试通过；当前最新工程验收 |
+| [teacher_evaluation_acceptance_20261018_v1](teacher_evaluation_acceptance_20261018_v1/验收报告.md) | 固定教师零训练评价、配对统计、冻结与成本记录，加既有回归共 21/21 CPU 测试通过；当前最新工程验收 |
+| [actor_fit_acceptance_20261017_v1](actor_fit_acceptance_20261017_v1/验收报告.md) | Actor 候选选择、固定目标重放及既有回归共 17/17 CPU 测试通过；历史验收记录 |
 | [repair_acceptance_20261015_v2](repair_acceptance_20261015_v2/验收报告.md) | 10 月 15 日修复验收记录，12/12 CPU 测试通过；覆盖冻结、统计、KL、方法开关和只读监控 |
 | [repair_acceptance_20261015_v1](repair_acceptance_20261015_v1/) | 首次验收记录；v2 收紧了实际路径的 KL 数值容差，读取结论时优先看 v2 |
 
