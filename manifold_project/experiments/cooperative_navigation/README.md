@@ -202,7 +202,7 @@ CPU 集成验证：`python -m unittest manifold_project.experiments.tests.test_r
 
 ## Actor 最佳拟合与固定目标实验
 
-2026-10-18 新增 `diagnose --mode teacher-eval --fixed-target`，直接执行保存的 old 与教师策略，不重新采样训练数据或优化任何网络。43、44 各 100 对新场景的完整命令、成本与结果判断规则见 [固定教师收益复核执行说明](固定教师收益复核执行说明.md)；[21/21 CPU 验收](../results/checks/teacher_evaluation_acceptance_20261018_v1/验收报告.md) 已通过，正式收益复核待在保有原固定包的训练机器执行。
+2026-10-18 新增 `diagnose --mode teacher-eval --fixed-target`，直接执行保存的 old 与教师策略，不重新采样训练数据或优化任何网络。协议与命令见 [固定教师收益复核执行说明](固定教师收益复核执行说明.md)；[21/21 CPU 验收](../results/checks/teacher_evaluation_acceptance_20261018_v1/验收报告.md) 已通过。[正式收益复核](../results/evidence/navigation/teacher_return_review_20261018_v1/analysis_20261018/固定教师复核分析.md) 已完成：43、44 各 100 对、合计 398,890 环境步，两组收益区间均跨零，结束复核后转向短训练探索。
 
 2026-10-17 新增 `actor_fit_selection=last|best_train_kl`，默认保留 last；best_train_kl 按完整训练批次的 FP64 目标 KL 在 epoch 边界选择，包含零更新点。正式训练和 diagnose 共用同一个拟合实现。
 

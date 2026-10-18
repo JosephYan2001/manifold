@@ -1,0 +1,14 @@
+{
+  "direction_check": false,
+  "return_check": false,
+  "batch_episodes": 64,
+  "minibatch_size": 3200,
+  "direction_steps": 4,
+  "actor_fit_steps": 16,
+  "actor_lr": 0.0003,
+  "actor_fit_selection": "best_train_kl",
+  "evaluation_seed": 20261020,
+  "save_fit_diagnostics": false,
+  "direction_diagnostic_rounds": [],
+  "save_direction_snapshots": false
+}

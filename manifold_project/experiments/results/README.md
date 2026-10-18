@@ -1,6 +1,6 @@
 # 实验结果索引
 
-2026-10-18 已完成 [A0 数据种子 43、44 的确认分析](evidence/navigation/actor_fit_e1_confirm_20261018_v1/analysis_20261018/新种子确认分析.md)：两组小学习率最佳候选均产生非零验证拟合改善，但尚未确认回报提高，seed 44 的教师有待复核的负向信号。固定教师纯评价入口已接入，[最新 CPU 工程验收](checks/teacher_evaluation_acceptance_20261018_v1/验收报告.md) 21/21 通过；正式 100 对收益复核尚未运行，需使用训练机器上的完整快照，见[当前安排](notes/README.md)。此前 [E1 开发结果](evidence/navigation/actor_fit_e1_20261017_v1/analysis_20261017/E1结果分析.md)和 17/17 工程验收作为既有证据保留。
+2026-10-18 已完成 [固定教师收益复核](evidence/navigation/teacher_return_review_20261018_v1/analysis_20261018/固定教师复核分析.md)：43、44 各 100 对新评价回合，平均差 +0.077、+0.202，95% 配对区间均跨零。此前 44 的负向信号未在本轮复现，正收益仍未确认；实际评价 398,890 步，新增训练采样和优化为零。按预定规则结束复核，下一步四格短训练尚未启动，见[当前安排](notes/README.md)。此前 [Actor 新数据确认](evidence/navigation/actor_fit_e1_confirm_20261018_v1/analysis_20261018/新种子确认分析.md)支持非零拟合改善，[CPU 工程验收](checks/teacher_evaluation_acceptance_20261018_v1/验收报告.md) 21/21 通过；它们均不能替代连续训练收益证据。
 
 ## 按用途查找
 

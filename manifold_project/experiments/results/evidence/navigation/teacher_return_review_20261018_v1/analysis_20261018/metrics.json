@@ -1,0 +1,371 @@
+{
+  "raw_artifact_sha256": {
+    "s43/diagnostics.csv": "d97aeb010027e74a3746859551da4c09e9487204a77cde2350beeb5d907ccdaf",
+    "s43/effective_evaluation_config.json": "508577486369a02f9acff45d3f3421be296b44a03fe64d5ce5a2d73b9baae995",
+    "s43/evaluation_episodes.csv": "cd0c2098e8fd41170ea776ea3821835c24cae07af491d1231291f480932bcfb1",
+    "s43/manifest.json": "7687cb153d11af648769c87cd683373ee5959a88f83422954f1ebf1577fbfef4",
+    "s43/paired_gains.csv": "13377b9d51456f800a7680f85e6a3a7b04aa1d9f5f2f6902709b93b7ef5f04fb",
+    "s43/summary.json": "dffebc107040f23f66f01df18b2216b1d2b902649ee81c895c7a74ca62220bdf",
+    "s44/diagnostics.csv": "6819947416e8e1a8801853acf23ff2d8153444147fd5ead82e242125d08396c3",
+    "s44/effective_evaluation_config.json": "508577486369a02f9acff45d3f3421be296b44a03fe64d5ce5a2d73b9baae995",
+    "s44/evaluation_episodes.csv": "7e4962facffc748bbe5a4ee53bcb8c4f6a63b036ccbac830bd58a1663f8b7cc3",
+    "s44/manifest.json": "8eac387a2a197a77a2659bad28a3990890e4cdf9ab7de6707bd75139912d0193",
+    "s44/paired_gains.csv": "b3ec60b1f73e292672fde4fcc4133199fb369b9755ce4466e4bc3c42fb95f1a2",
+    "s44/summary.json": "30d35ed0fef18466c6071978f8b33cea942e7652ca6c8a2b947d1bc04e0bba32"
+  },
+  "discovery_artifact_sha256": {
+    "manifest.json": "4a7106b257406088254d3605e90a145b055279659a780e25b71519b9d2523c0b",
+    "evaluation_episodes.csv": "58dbf91d7a411f9b32ab3e1836a511427aa4dee0d1bc33c4fb3f4645105e2952",
+    "effective_runner_config.json": "8462f756d9bdd47997af3031c85d7398e55449337cb3f69565b01a9275963481"
+  },
+  "primary_result": "new 100 pairs per fixed teacher, separately from discovery 40 pairs",
+  "units": {
+    "43": {
+      "review": {
+        "mean": 0.07725640180809734,
+        "bootstrap_ci95": [
+          -0.5667879670284213,
+          0.7790858453649745
+        ],
+        "standard_error": 0.34082368704926,
+        "median": 0.0004706244664305359,
+        "minimum": -15.322552059139355,
+        "maximum": 22.468222234546005,
+        "positive": 52,
+        "negative": 38,
+        "zero": 10,
+        "absolute_gain_le_01": 42,
+        "absolute_gain_le_1": 75,
+        "old_return": -100.05596150877507,
+        "teacher_return": -99.97870510696694,
+        "old_successes": 0,
+        "teacher_successes": 0,
+        "successful_pairs": [],
+        "worst_five_negative_fraction": 0.6291392837407501,
+        "worst_loss_pairs": [
+          {
+            "data_seed": 43,
+            "pair_id": 50,
+            "reset_seed": 1733537923,
+            "action_seed": 2249589078,
+            "old_return": -87.66815734901763,
+            "teacher_return": -102.99070940815699,
+            "return_gain": -15.322552059139355,
+            "old_success": 0.0,
+            "teacher_success": 0.0,
+            "old_steps": 1000,
+            "teacher_steps": 1000
+          },
+          {
+            "data_seed": 43,
+            "pair_id": 96,
+            "reset_seed": 685995004,
+            "action_seed": 1023263979,
+            "old_return": -95.97501616302517,
+            "teacher_return": -104.99344068922119,
+            "return_gain": -9.018424526196014,
+            "old_success": 0.0,
+            "teacher_success": 0.0,
+            "old_steps": 1000,
+            "teacher_steps": 1000
+          },
+          {
+            "data_seed": 43,
+            "pair_id": 14,
+            "reset_seed": 2636508407,
+            "action_seed": 1377485418,
+            "old_return": -89.95784157377533,
+            "teacher_return": -97.04938598042536,
+            "return_gain": -7.09154440665003,
+            "old_success": 0.0,
+            "teacher_success": 0.0,
+            "old_steps": 1000,
+            "teacher_steps": 1000
+          },
+          {
+            "data_seed": 43,
+            "pair_id": 32,
+            "reset_seed": 1420798739,
+            "action_seed": 1627716178,
+            "old_return": -96.1436186156472,
+            "teacher_return": -101.06464977286637,
+            "return_gain": -4.921031157219176,
+            "old_success": 0.0,
+            "teacher_success": 0.0,
+            "old_steps": 1000,
+            "teacher_steps": 1000
+          },
+          {
+            "data_seed": 43,
+            "pair_id": 29,
+            "reset_seed": 2318390925,
+            "action_seed": 583471206,
+            "old_return": -95.9070424550763,
+            "teacher_return": -99.83509876526003,
+            "return_gain": -3.9280563101837345,
+            "old_success": 0.0,
+            "teacher_success": 0.0,
+            "old_steps": 1000,
+            "teacher_steps": 1000
+          }
+        ],
+        "largest_gain_pair": 88,
+        "positive_gain_sum": 71.75217532240993,
+        "negative_gain_magnitude": 64.02653514160019
+      },
+      "discovery": {
+        "mean": -0.027510497034984382,
+        "bootstrap_ci95": [
+          -0.6273320927536841,
+          0.5993133789017517
+        ],
+        "standard_error": 0.3155039528307716,
+        "median": -0.0023926845001369657,
+        "minimum": -5.137400949375035,
+        "maximum": 7.213263985130993,
+        "positive": 14,
+        "negative": 20,
+        "zero": 6,
+        "absolute_gain_le_01": 17,
+        "absolute_gain_le_1": 28
+      },
+      "code_matches": {
+        "model_code_sha256": {
+          "models/__init__.py": [
+            "LF"
+          ],
+          "models/deployment.py": [
+            "LF"
+          ],
+          "models/entities.py": [
+            "LF"
+          ],
+          "training/ppo.py": [
+            "LF"
+          ]
+        },
+        "execution_code_sha256": {
+          "configs.py": [
+            "CRLF"
+          ],
+          "diagnose.py": [
+            "CRLF"
+          ],
+          "envs/__init__.py": [
+            "CRLF"
+          ],
+          "envs/navigation.py": [
+            "CRLF"
+          ],
+          "envs/tasks.py": [
+            "CRLF"
+          ],
+          "evaluation/teacher_probe.py": [
+            "CRLF"
+          ],
+          "observations/__init__.py": [
+            "CRLF"
+          ],
+          "observations/history.py": [
+            "CRLF"
+          ],
+          "training/collector.py": [
+            "CRLF"
+          ],
+          "training/fixed_target.py": [
+            "CRLF"
+          ]
+        }
+      },
+      "evaluation_steps": 200000,
+      "elapsed_seconds": 1648.5303299999796,
+      "target_sha256": "7a941d224dc3f36c6d6a0a2237fbcde23f757cc369cc2a63a1cf80e7d7a12fce",
+      "actor_sha256": "4d06824d3f9f7a03f45ad05c3a5b49f2b679a3b877ca8fa5417458e27a034b3e",
+      "target_packet_present": false,
+      "new_scenes_disjoint_from_discovery": true,
+      "records_consistent": true
+    },
+    "44": {
+      "review": {
+        "mean": 0.2018187328730963,
+        "bootstrap_ci95": [
+          -0.31639639951451687,
+          0.7269581530700528
+        ],
+        "standard_error": 0.2661122792354037,
+        "median": 0.0,
+        "minimum": -12.197720805093255,
+        "maximum": 10.691623725911668,
+        "positive": 49,
+        "negative": 41,
+        "zero": 10,
+        "absolute_gain_le_01": 43,
+        "absolute_gain_le_1": 76,
+        "old_return": -101.14522598369024,
+        "teacher_return": -100.94340725081713,
+        "old_successes": 1,
+        "teacher_successes": 1,
+        "successful_pairs": [
+          {
+            "pair_id": 2,
+            "old_steps": 445,
+            "teacher_steps": 445,
+            "gain": 0.0,
+            "old_success": 1.0,
+            "teacher_success": 1.0
+          }
+        ],
+        "worst_five_negative_fraction": 0.6150152032027595,
+        "worst_loss_pairs": [
+          {
+            "data_seed": 44,
+            "pair_id": 34,
+            "reset_seed": 3179507605,
+            "action_seed": 3050621772,
+            "old_return": -98.3292376722476,
+            "teacher_return": -110.52695847734086,
+            "return_gain": -12.197720805093255,
+            "old_success": 0.0,
+            "teacher_success": 0.0,
+            "old_steps": 1000,
+            "teacher_steps": 1000
+          },
+          {
+            "data_seed": 44,
+            "pair_id": 95,
+            "reset_seed": 786470467,
+            "action_seed": 3738539414,
+            "old_return": -70.26785884785727,
+            "teacher_return": -75.98513780002484,
+            "return_gain": -5.717278952167575,
+            "old_success": 0.0,
+            "teacher_success": 0.0,
+            "old_steps": 1000,
+            "teacher_steps": 1000
+          },
+          {
+            "data_seed": 44,
+            "pair_id": 77,
+            "reset_seed": 2129473470,
+            "action_seed": 1680085668,
+            "old_return": -107.54252412162461,
+            "teacher_return": -112.98852148773254,
+            "return_gain": -5.445997366107932,
+            "old_success": 0.0,
+            "teacher_success": 0.0,
+            "old_steps": 1000,
+            "teacher_steps": 1000
+          },
+          {
+            "data_seed": 44,
+            "pair_id": 69,
+            "reset_seed": 3476350433,
+            "action_seed": 2545329753,
+            "old_return": -106.20294930196414,
+            "teacher_return": -111.42630680488327,
+            "return_gain": -5.223357502919129,
+            "old_success": 0.0,
+            "teacher_success": 0.0,
+            "old_steps": 1000,
+            "teacher_steps": 1000
+          },
+          {
+            "data_seed": 44,
+            "pair_id": 7,
+            "reset_seed": 1259064674,
+            "action_seed": 3759098970,
+            "old_return": -111.38707793205344,
+            "teacher_return": -114.102856203818,
+            "return_gain": -2.715778271764563,
+            "old_success": 0.0,
+            "teacher_success": 0.0,
+            "old_steps": 1000,
+            "teacher_steps": 1000
+          }
+        ],
+        "largest_gain_pair": 45,
+        "positive_gain_sum": 71.0751402099053,
+        "negative_gain_magnitude": 50.89326692259567
+      },
+      "discovery": {
+        "mean": -1.272591189630646,
+        "bootstrap_ci95": [
+          -2.842192252340364,
+          -0.05867395364853769
+        ],
+        "standard_error": 0.7305733283959265,
+        "median": -0.0023262113098709847,
+        "minimum": -21.706296558849814,
+        "maximum": 5.546966514874285,
+        "positive": 15,
+        "negative": 24,
+        "zero": 1,
+        "absolute_gain_le_01": 13,
+        "absolute_gain_le_1": 28
+      },
+      "code_matches": {
+        "model_code_sha256": {
+          "models/__init__.py": [
+            "LF"
+          ],
+          "models/deployment.py": [
+            "LF"
+          ],
+          "models/entities.py": [
+            "LF"
+          ],
+          "training/ppo.py": [
+            "LF"
+          ]
+        },
+        "execution_code_sha256": {
+          "configs.py": [
+            "CRLF"
+          ],
+          "diagnose.py": [
+            "CRLF"
+          ],
+          "envs/__init__.py": [
+            "CRLF"
+          ],
+          "envs/navigation.py": [
+            "CRLF"
+          ],
+          "envs/tasks.py": [
+            "CRLF"
+          ],
+          "evaluation/teacher_probe.py": [
+            "CRLF"
+          ],
+          "observations/__init__.py": [
+            "CRLF"
+          ],
+          "observations/history.py": [
+            "CRLF"
+          ],
+          "training/collector.py": [
+            "CRLF"
+          ],
+          "training/fixed_target.py": [
+            "CRLF"
+          ]
+        }
+      },
+      "evaluation_steps": 198890,
+      "elapsed_seconds": 1635.4446314999368,
+      "target_sha256": "12e0f86e2c861098dcfb1b9532ab7e47b027eb0086c61631ebf3f49fbc922532",
+      "actor_sha256": "4d06824d3f9f7a03f45ad05c3a5b49f2b679a3b877ca8fa5417458e27a034b3e",
+      "target_packet_present": false,
+      "new_scenes_disjoint_from_discovery": true,
+      "records_consistent": true
+    }
+  },
+  "total_evaluation_steps": 398890,
+  "total_elapsed_seconds": 3283.9749614999164,
+  "scope": "record and code audit; original large fixed-target packets remain unavailable locally",
+  "shared_reset_scenes_across_teachers": true,
+  "action_seeds_differ_across_teachers": true,
+  "new_training_steps_and_optimizer_updates": 0,
+  "raw_artifacts_unchanged": true,
+  "verified": true
+}
