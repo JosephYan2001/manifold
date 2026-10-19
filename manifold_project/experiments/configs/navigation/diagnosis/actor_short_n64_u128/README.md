@@ -1,6 +1,10 @@
 # Actor 四格短训练运行命令
 
+> 2026-10-19 状态：四格短训练配置及命令作为历史执行记录保留；不作为下一轮六组配置。 当前执行安排以[当前六组实验方案](../../../../results/notes/导航采样量与学习率六组实验方案_20261019.md)为准。
+
 2026-10-18：固定教师收益复核已结束，本轮观察 Actor 学习率和候选选择能否影响连续学习。四组从相同随机初始化开始，训练种子均为 40；不加载历史 4M checkpoint，也不依赖固定目标大文件。这回答早期学习问题，不等同于 4M 状态附近的分支续训。
+
+2026-10-19：四组已完成，见 [结果分析](../../../../results/evidence/navigation/actor_fit_short_n64_u128_500k_s40_20261018_v1/analysis_20261019/四格短训练分析.md)。各 16 轮，均 0/100 成功；小学习率两组较差，C 相对 A 的优势未确认。下方命令保留为执行记录，不需原样重复运行。
 
 | 组别 | Actor 学习率 | 候选选择 | 配置 |
 |---|---:|---|---|
@@ -34,7 +38,7 @@ python -m manifold_project.experiments --experiments N-C --profile pilot --metho
 python -m manifold_project.experiments --experiments N-C --profile pilot --methods AN --config "$cfg/d_lr3e5_best.json" --budget 500000 --seeds 40 --evaluation-episodes 100 --device cuda --output "$out/d_lr3e5_best" --plot --plot-every 5 --allow-duplicate-openmp
 ```
 
-四条命令已通过公共入口 dry-run，并核对映射到 Runner 后的方向/Actor 更新预算；解析后的配置仅 `actor_lr` 和 `actor_fit_selection` 不同。未启动训练。任一命令末尾可加 `--dry-run` 再检查本机配置，它不创建训练结果，也不验证 CUDA 实际执行。
+四条命令执行前已通过公共入口 dry-run，并核对映射到 Runner 后的方向/Actor 更新预算；解析后的配置仅 `actor_lr` 和 `actor_fit_selection` 不同。训练现已完成。任一命令末尾可加 `--dry-run` 再检查本机配置，它不创建训练结果，也不验证 CUDA 实际执行。
 
 ## 预算与读取结果
 

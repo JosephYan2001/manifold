@@ -89,6 +89,8 @@ def resolve(args):
         if exp.environment == "pair_entities" and args.budget is None:
             c["budget"] = {"smoke": 256, "pilot": 8192, "formal": 65536}[args.profile]
         validate_config(c)
+        if c.get('actor_lr_schedule', 'fixed') != 'fixed' and (name != 'N-C' or c['methods'] != ['AN']):
+            raise ValueError('Actor linear scheduling currently requires --experiments N-C --methods AN')
         plan.append((exp, c))
     requested = {exp.id for exp, _ in plan}
     for exp, _ in plan:

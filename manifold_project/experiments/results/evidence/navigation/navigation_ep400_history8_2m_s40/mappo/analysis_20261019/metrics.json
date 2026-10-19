@@ -1,0 +1,175 @@
+{
+  "analysis_date": "2026-10-19",
+  "scope": "saved_results_only_no_new_environment_or_optimizer_steps",
+  "training_seed": [
+    40
+  ],
+  "experiment_code_sha256": "6820ad62ce5888c0aa7c56306f12ea1f5b078fd1ec7daa54dff976c9531826ab",
+  "implementation": {
+    "backend": "author_mappo",
+    "commit": "de66d7a4b23fac2513f56f96f73b3f5cb96695ac"
+  },
+  "protocol": {
+    "n_agents": 4,
+    "history": 8,
+    "train_reset_horizon": 400,
+    "evaluation_horizon": 1000,
+    "train_episodes": 16,
+    "minibatch_episodes": 2,
+    "ppo_epochs": 10,
+    "actor_lr": 0.0003,
+    "critic_lr": 0.001,
+    "ppo_value_normalization": true,
+    "ppo_value_clipping": true,
+    "ppo_huber_loss": true,
+    "ppo_normalize_advantage": true
+  },
+  "final_independent_evaluation": {
+    "checkpoint": "final.pt",
+    "episodes": 20,
+    "scene_seeds": [
+      1000000,
+      1000001,
+      1000002,
+      1000003,
+      1000004,
+      1000005,
+      1000006,
+      1000007,
+      1000008,
+      1000009,
+      1000010,
+      1000011,
+      1000012,
+      1000013,
+      1000014,
+      1000015,
+      1000016,
+      1000017,
+      1000018,
+      1000019
+    ],
+    "policy_mode": [
+      "stochastic"
+    ],
+    "mean_discounted_return": -54.319522339867525,
+    "successes": 7,
+    "success_rate": 0.35,
+    "restricted_mean_steps": 782.65,
+    "successful_mean_steps": 379,
+    "successes_by_400": 5,
+    "evaluation_steps": 15653
+  },
+  "source_monitoring": {
+    "nodes": 32,
+    "selected_nodes": [
+      {
+        "budget_checkpoint": 0,
+        "actor_source_steps": 0,
+        "episodes": 8,
+        "J": -168.63547924454613,
+        "success_rate": 0.0,
+        "restricted_mean_steps": 1000.0,
+        "scene_set": "source-grid"
+      },
+      {
+        "budget_checkpoint": 262144,
+        "actor_source_steps": 261523,
+        "episodes": 8,
+        "J": -64.91049471922656,
+        "success_rate": 0.125,
+        "restricted_mean_steps": 894.875,
+        "scene_set": "source-grid"
+      },
+      {
+        "budget_checkpoint": 458752,
+        "actor_source_steps": 458457,
+        "episodes": 8,
+        "J": -54.54050291839857,
+        "success_rate": 0.375,
+        "restricted_mean_steps": 775.75,
+        "scene_set": "source-grid"
+      },
+      {
+        "budget_checkpoint": 1048576,
+        "actor_source_steps": 1044552,
+        "episodes": 8,
+        "J": -49.34690527976849,
+        "success_rate": 0.5,
+        "restricted_mean_steps": 659.75,
+        "scene_set": "source-grid"
+      },
+      {
+        "budget_checkpoint": 1966080,
+        "actor_source_steps": 1965669,
+        "episodes": 8,
+        "J": -63.99954062960023,
+        "success_rate": 0.25,
+        "restricted_mean_steps": 892.0,
+        "scene_set": "source-grid"
+      },
+      {
+        "budget_checkpoint": 2000000,
+        "actor_source_steps": 1991132,
+        "episodes": 8,
+        "J": -49.00851803229412,
+        "success_rate": 0.375,
+        "restricted_mean_steps": 761.125,
+        "scene_set": "source-final"
+      }
+    ],
+    "final_summary_is_8_scene_monitor_not_20_scene_report": true
+  },
+  "costs": {
+    "source_budget": 2000000,
+    "source_steps": 1997221,
+    "training_steps": 1778507,
+    "source_monitoring_steps": 218714,
+    "unused_source_budget": 2779,
+    "final_report_steps": 15653,
+    "total_environment_steps": 2012874,
+    "rounds": 295,
+    "optimizer_steps_by_module": {
+      "ppo": 23600,
+      "critic": 23600
+    }
+  },
+  "training_diagnostics_first_last": [
+    {
+      "source_steps": 14400.0,
+      "explained_variance": 0.281638674482531,
+      "policy_entropy": 1.6029706001281738,
+      "train_J": -176.04621648788452
+    },
+    {
+      "source_steps": 1991132.0,
+      "explained_variance": 0.9609029048844226,
+      "policy_entropy": 0.501636803150177,
+      "train_J": -60.19548583030701
+    }
+  ],
+  "raw_files_sha256": {
+    "manifest.json": "b6997608fe8122326a0ec3bd77ed8158340286e336470f0a3b0aaa1592784f2b",
+    "N-C_source_learning/analysis.md": "2a44c16f013c7d3f8c00c897d90fa0211e4e6540b588bb209470d05800f0ad7e",
+    "N-C_source_learning/full/MAPPO-E_s40/checkpoints/best.pt": "7f230703cbe0b678d9bc5c3d7d132e5ffa5603ba0ff600d235f1013c3f9ca2ca",
+    "N-C_source_learning/full/MAPPO-E_s40/checkpoints/final.pt": "88e2013593c610303dcf30d9186b3c283edafe920441a924ebb20b065c6bc59b",
+    "N-C_source_learning/full/MAPPO-E_s40/config.json": "15a3492422ccd37c6df269c0605152b7feb193bc200ee6ad575814ca5764c19f",
+    "N-C_source_learning/full/MAPPO-E_s40/events.jsonl": "a41c24c9c4600f2fb19ae135acf2b78ee1d4e93d72841564de41065de5531bfc",
+    "N-C_source_learning/full/MAPPO-E_s40/final_evaluation/evaluation_episodes.csv": "ac5a3c9c693b613232473ca8102704cdd5c391a0c4c9815eb53afa7ef7ed84e4",
+    "N-C_source_learning/full/MAPPO-E_s40/gifs/checkpoint_steps1941258_sampled_scene1000000.gif": "b5259efa4d4f2b537b31e55e391ee07854675ab91b2712b6437ebc407d8967ba",
+    "N-C_source_learning/full/MAPPO-E_s40/gifs/checkpoint_steps1941258_sampled_scene1000001.gif": "b01b3e63b524e6a3edfa0a01614aa6538608e975d9f23c84f1a092626d1914fd",
+    "N-C_source_learning/full/MAPPO-E_s40/overview.png": "5f525cbca0c142262581d79015937057d4c227b2f14deda0f28f3d59eb17fc45",
+    "N-C_source_learning/full/MAPPO-E_s40/summary.json": "82f56270bf8c5190378609670cced350708aeb861393f184baa9b5629f8b3807",
+    "N-C_source_learning/full/MAPPO-E_s40/training.csv": "4bb29ae8a4517267871bb15f7defe10b74cf1e05646527634323464c1712f8c6",
+    "N-C_source_learning/overview.png": "fd344d33506a6b88be3cc5bd252e9d08889971682df20e200156589bdd8e2bbf",
+    "N-C_source_learning/summary.csv": "ac0bae297ee8cb7b94422c0b59957a289fab3ab93fb238337660e5139df7c158",
+    "summary.csv": "ac0bae297ee8cb7b94422c0b59957a289fab3ab93fb238337660e5139df7c158"
+  },
+  "limitations": [
+    "One training seed; final report contains only 20 scenarios.",
+    "Historical code differs from the planned six AN runs.",
+    "Future AN evaluation uses different scenarios; no paired comparison yet.",
+    "Monitoring nodes and final independent report are separate scenario sets.",
+    "No checkpoint loading or inference compatibility check was performed."
+  ]
+}

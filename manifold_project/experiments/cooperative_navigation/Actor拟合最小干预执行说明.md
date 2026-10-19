@@ -1,6 +1,8 @@
 # Actor 拟合最小干预实验
 
-2026-10-17。最佳候选选择已接入正式 Runner，诊断复用同一个拟合函数；固定目标保存、重放和显式方向更新预算已接入原 `diagnose` 入口。下一步先做下面两组固定基点实验，不重跑完整训练。
+> 2026-10-19 状态：E1 与新数据确认已完成，小学习率收益限于对应固定目标。 当前执行安排以[当前六组实验方案](../results/notes/导航采样量与学习率六组实验方案_20261019.md)为准。
+
+2026-10-17。最佳候选选择已接入正式 Runner，诊断复用同一个拟合函数；固定目标保存、重放和显式方向更新预算已接入原 `diagnose` 入口。下列两组固定基点实验及后续确认现已完成，命令保留作执行记录。
 
 ## 已完成的实现与验收
 
@@ -8,11 +10,11 @@
 
 验证集和执行回报不参与拟合候选选择。原有回报检查是否启用仍由原开关决定。零更新单独记录为 `actor_changed=false`，并保留全部采样、优化成本；no_checks 不会因此额外尝试其他 η。Actor 的优化损失、Adam 初始化、梯度裁剪和优化预算保持原定义，整批候选检查会增加计算时间。
 
-公共训练入口可读取 [actor_bestfit.json](../configs/navigation/diagnosis/actor_bestfit.json) 或 [actor_bestfit_lr3e5.json](../configs/navigation/diagnosis/actor_bestfit_lr3e5.json)。它们供后续短训练使用；当前固定目标实验使用下方 diagnose 命令。此选择规则作用于应用 Runner 的 AN/SA 目标拟合，不改变有限表策略、DA 或 PPO 的优化规则。公共 `--resume` 仍继承原配置，不允许用恢复操作悄悄切换选择规则。
+公共训练入口可读取 [actor_bestfit.json](../configs/navigation/diagnosis/actor_bestfit.json) 或 [actor_bestfit_lr3e5.json](../configs/navigation/diagnosis/actor_bestfit_lr3e5.json)。它们保留为历史变体配置；下方 diagnose 命令记录已完成的固定目标实验。此选择规则作用于应用 Runner 的 AN/SA 目标拟合，不改变有限表策略、DA 或 PPO 的优化规则。公共 `--resume` 仍继承原配置，不允许用恢复操作悄悄切换选择规则。
 
-CPU 工程验收 17/17 通过，包含中间最佳、零更新、实际参数提交、全预算计费、旧优化轨迹一致、固定目标重放以及原有恢复/梯度隔离检查。证据见[验收记录](../results/checks/actor_fit_acceptance_20261017_v1/验收报告.md)。真实 A2、A0 checkpoint 的下列命令已通过 dry-run；尚未执行这些完整 CUDA 诊断，因此没有新的性能结论。
+CPU 工程验收 17/17 通过，包含中间最佳、零更新、实际参数提交、全预算计费、旧优化轨迹一致、固定目标重放以及原有恢复/梯度隔离检查。证据见[验收记录](../results/checks/actor_fit_acceptance_20261017_v1/验收报告.md)。真实 A2、A0 的 CUDA 诊断及新数据确认已完成，见[结果索引](../results/evidence/navigation/README.md)；工程验收与任务收益分别解释。
 
-## 先运行这两组
+## 已完成的两组历史命令
 
 两组都生成两条拟合轨迹，每条各取最终和最佳结果，形成四组候选；额外评价旧 Actor 和原始教师目标。不匹配或缩放实际 KL，不调整 η。方向在每个数据种子下只训练一次，随后两档学习率共享同一目标、数据和小批次顺序。
 

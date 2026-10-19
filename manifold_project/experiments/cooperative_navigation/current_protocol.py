@@ -54,6 +54,7 @@ def runner_config(config, environment='navigation', method=None):
                  direction_gate=method in ('AN','SA') and config['direction_check'],
                  return_gate=method in ('AN','SA','DA') and config['return_check'])
     for key, default in [('direction_diagnostic_rounds', []), ('direction_diagnostic_episodes', 16),
+                         ('actor_lr_schedule', 'fixed'), ('actor_lr_final', None), ('actor_lr_decay_steps', None),
                          ('save_direction_snapshots', False), ('actor_fit_selection', 'last'),
                          ('actor_fit_selection_atol', 1e-12), ('actor_fit_selection_rtol', 1e-6)]:
         c[key] = config.get(key, default)

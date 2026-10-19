@@ -185,17 +185,39 @@ def summarize(rows):
     return out
 
 
-def evaluate_actor(actor, environment, config, seeds, n_agents=None, deterministic=False):
+def evaluate_actor(actor, environment, config, seeds, n_agents=None, deterministic=False,
+                   expected_protocol=None, episode_observer=None):
     env = make_env(environment, config, n_agents=n_agents)
     try:
-        rows = [rollout_episode(env, actor, seed, config.get('gamma', .99),
-                               deterministic=deterministic)[0] for seed in seeds]
+        if expected_protocol is not None:
+            actual = env.protocol()
+            # The evaluation cap is an explicit reporting axis. Preserve all
+            # other historical task/input/physics fields that were recorded.
+            changed = [key for key in expected_protocol if key != 'evaluation_horizon'
+                       and actual.get(key) != expected_protocol[key]]
+            if changed:
+                raise ValueError(f'Frozen source protocol mismatch: {changed}')
+        rows = []
+        for seed in seeds:
+            if episode_observer:
+                episode_observer('start', dict(scene_seed=int(seed), n_agents=env.n_agents,
+                                               reserved_steps=env.horizon))
+            row = rollout_episode(env, actor, seed, config.get('gamma', .99),
+                                  deterministic=deterministic)[0]
+            rows.append(row)
+            if episode_observer:
+                episode_observer('complete', row)
         return rows, env.protocol()
     finally:
         env.close()
 
 
 def evaluate_checkpoint(checkpoint, config, output, experiment='N-T'):
+    import hashlib
+    from ..common.reporting import write_json
+    from ..cooperative_navigation.training.fixed_target import fingerprint
+    from ..cooperative_navigation.training.storage import event
+    source_hash = hashlib.sha256(Path(checkpoint).read_bytes()).hexdigest()
     actor, saved = load_actor(checkpoint, config.get('device', 'cpu'))
     # Frozen source protocol is authoritative. Only declared evaluation axes and
     # reporting settings can override it; target fitting hyperparameters cannot.
@@ -209,6 +231,31 @@ def evaluate_checkpoint(checkpoint, config, output, experiment='N-T'):
     count = int(c.get('evaluation_episodes', 500))
     sizes = list(dict.fromkeys([int(saved['config']['n_agents'])] + list(c.get('target_sizes', [2, 6, 8]))))
     state_before = {key: value.detach().clone() for key, value in actor.state_dict().items()}
+    attempt = 1
+    while (Path(output) / f'evaluation_audit_{attempt:03d}.json').exists():
+        attempt += 1
+    audit_path = Path(output) / f'evaluation_audit_{attempt:03d}.json'
+    ledger_path = Path(output) / f'evaluation_ledger_{attempt:03d}.jsonl'
+    audit = dict(status='running', attempt=attempt, checkpoint=str(Path(checkpoint).resolve()), checkpoint_sha256=source_hash,
+                 actor_state_sha256=fingerprint(state_before), training_environment_steps=0,
+                 optimizer_updates=0, evaluation_steps=0, completed_episodes=0,
+                 pending_episode_reserved_steps=0, target_sizes=sizes,
+                 evaluation_seed=base_seed, episodes_per_size=count,
+                 action_rng='numpy.default_rng(scene_seed + 170000003)',
+                 source_protocol=saved['protocol'])
+    def persist_audit():
+        # Retry attempts retain their individual ledgers and consumed costs.
+        write_json(audit_path, audit)
+        write_json(Path(output) / 'evaluation_audit.json', audit)
+    persist_audit()
+    def observe(stage, row):
+        if stage == 'start':
+            audit['pending_episode_reserved_steps'] = row['reserved_steps']
+        else:
+            audit['evaluation_steps'] += row['steps']
+            audit['completed_episodes'] += 1
+            audit['pending_episode_reserved_steps'] = 0
+        event(ledger_path, stage, **row)
     records, all_rows, protocols = [], [], []
     source_tags = dict(observation_mode=saved['actor_config'].get('mode', 'full'),
         source_history=saved['actor_config'].get('history', 1),
@@ -229,9 +276,16 @@ def evaluate_checkpoint(checkpoint, config, output, experiment='N-T'):
             target['initial_scale'] = float(saved['config'].get('initial_scale', 1.)) * math.sqrt(n_agents / saved['config']['n_agents'])
         if experiment == 'W-L':
             target['request_queue_size'] = n_agents
-        rows, protocol = evaluate_actor(actor, environment, target,
-            range(base_seed, base_seed + count), n_agents=n_agents,
-            deterministic=bool(c.get('deterministic_evaluation', False)))
+        try:
+            rows, protocol = evaluate_actor(actor, environment, target,
+                range(base_seed, base_seed + count), n_agents=n_agents,
+                deterministic=bool(c.get('deterministic_evaluation', False)),
+                expected_protocol=saved['protocol'] if n_agents == saved['config']['n_agents'] else None,
+                episode_observer=observe)
+        except BaseException as error:
+            audit.update(status='failed', error=f'{type(error).__name__}: {error}')
+            persist_audit()
+            raise
         for row in rows:
             row.update(experiment=experiment, method=saved['method'], seed=saved['config']['seed'],
                        source_n=saved['config']['n_agents'], target_n=n_agents,
@@ -248,6 +302,11 @@ def evaluate_checkpoint(checkpoint, config, output, experiment='N-T'):
         protocols.append(protocol)
     if any(not torch.equal(value, actor.state_dict()[key]) for key, value in state_before.items()):
         raise AssertionError('Frozen evaluation changed Actor parameters or buffers.')
+    if hashlib.sha256(Path(checkpoint).read_bytes()).hexdigest() != source_hash:
+        raise AssertionError('Frozen evaluation source checkpoint changed.')
+    audit.update(status='completed', checkpoint_unchanged=True, frozen_actor_verified=True,
+                 actor_state_sha256_after=fingerprint(actor.state_dict()), protocols=protocols)
+    persist_audit()
     write_rows(Path(output) / 'evaluation_episodes.csv', all_rows)
     return dict(records=records, protocols=protocols, evaluation_steps=sum(row['steps'] for row in all_rows),
                 frozen_actor_verified=True)

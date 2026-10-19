@@ -56,6 +56,8 @@ def load_config(environment: str, profile: str, overrides: str | Path | None = N
 
 
 def validate_config(c: dict) -> None:
+    from .actor_schedule import validate_actor_schedule
+    validate_actor_schedule(c)
     if c.get('actor_fit_selection', 'last') not in ('last', 'best_train_kl'):
         raise ValueError('actor_fit_selection must be last or best_train_kl')
     if c['environment'] in ('pair', 'two_step') and c.get('actor_fit_selection', 'last') != 'last':

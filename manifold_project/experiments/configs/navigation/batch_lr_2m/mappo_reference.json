@@ -1,0 +1,10 @@
+{
+  "target_sizes": [
+    4
+  ],
+  "evaluation_seed": 20262000,
+  "evaluation_episodes": 100,
+  "evaluation_horizon": 1000,
+  "deterministic_evaluation": false,
+  "save_fit_diagnostics": false
+}

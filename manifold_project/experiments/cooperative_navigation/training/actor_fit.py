@@ -91,6 +91,7 @@ def fit_actor(runner, old, batch, epochs, *, lr=None, selection=None, orders=Non
     selected = candidate if rule == 'last' else best
     selected_epoch = epochs if rule == 'last' else best_epoch
     info = dict(actor_fit_semantics_version='actor-fit-selection-v1', actor_fit_selection=rule,
+                fit_actor_lr=optimizer.param_groups[0]['lr'],
                 actor_fit_selection_atol=runner.c.get('actor_fit_selection_atol', 1e-12),
                 actor_fit_selection_rtol=runner.c.get('actor_fit_selection_rtol', 1e-6),
                 fit_initial_train_kl=initial, fit_minimum_train_kl=minimum,

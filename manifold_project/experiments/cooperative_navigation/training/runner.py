@@ -19,6 +19,8 @@ from .semantics import direction_check_enabled, return_check_enabled, objective_
 from .diagnostics import (categorical_kl, direction_metrics, critic_metrics, observe_direction,
                           save_direction_snapshot, probe_steps)
 from .actor_fit import fit_actor, validate_fit_config
+from ...common.actor_schedule import initial_schedule, restore_schedule, rate_at
+from .fixed_target import fingerprint
 
 
 def minimum_cost(config, condition):
@@ -32,6 +34,10 @@ def minimum_cost(config, condition):
 
 class Runner:
     def __init__(self, directory, config, condition, seed, audit=False, resume=False, progress=None):
+        self.actor_lr_schedule_state = initial_schedule(config)
+        if (config.get('actor_lr_schedule', 'fixed') != 'fixed'
+                and effective_settings(config, condition)['requested_method'] != 'AN'):
+            raise ValueError('Actor linear scheduling currently supports AN only')
         self.directory, self.c, self.condition, self.seed = Path(directory), config, condition, seed
         validate_fit_config(config)
         self.directory.mkdir(parents=True, exist_ok=True)
@@ -64,6 +70,8 @@ class Runner:
             self.actor_optimizer = torch.optim.Adam(self.actor.parameters(), lr=config['actor_lr'])
             self.critic_optimizer = torch.optim.Adam(self.critic.parameters(), lr=config['critic_lr'])
         self.grid = [round(f*config['budget']) for f in config['eval_fractions']]
+        self.initial_model_sha256 = dict(actor=fingerprint(self.actor.state_dict()),
+                                        critic=fingerprint(self.critic.state_dict()))
         identity = {'config':config, 'condition':condition, 'seed':seed, 'audit':self.audit}
         self.complete = False
         if resume:
@@ -82,6 +90,8 @@ class Runner:
         event(self.log_path, stream, round=self.round+1, **record)
 
     def restore(self, state, external=False):
+        self.actor_lr_schedule_state = restore_schedule(self.c, state.get('actor_lr_schedule_state'))
+        self.initial_model_sha256 = state.get('initial_model_sha256')
         if state['config'].get('task_mode', 'finite_horizon') != self.c.get('task_mode', 'finite_horizon'):
             raise ValueError('不能在不同任务定义之间直接恢复；请新建实验')
         if state.get('actor_kind', 'local_mlp_v1') != self.actor_kind:
@@ -134,6 +144,8 @@ class Runner:
         state = {name: getattr(self, name) for name in ('round','curves','rounds','snapshots',
                  'train_seconds','eval_seconds','eval_steps','best','complete')}
         state.update(format_version=2, config=self.c, condition=self.condition, seed=self.seed,
+            actor_lr_schedule_state=self.actor_lr_schedule_state,
+            initial_model_sha256=self.initial_model_sha256,
             actor_kind=self.actor_kind,
             input_dim=self.input_dim, actor=self.actor.state_dict(), critic=self.critic.state_dict(),
             actor_optimizer=self.actor_optimizer.state_dict(), critic_optimizer=self.critic_optimizer.state_dict(),
@@ -261,6 +273,12 @@ class Runner:
                  baseline_checkpoint=f'committed_round_{self.round}')
         if self.author_ppo:
             return self.update_author_ppo()
+        initialize_clock = self.actor_lr_schedule_state['start_source_steps'] is None
+        lr_info = rate_at(self.actor_lr_schedule_state, self.sampler.used)
+        if initialize_clock:
+            # Persist s0 before an interrupted first sampling can consume budget.
+            self.checkpoint()
+        self.log('actor_learning_rate', **lr_info)
         old = deepcopy(self.actor)
         old_critic = deepcopy(self.critic).eval()
         batch = self.sampler.collect(old, self.c['train_episodes'], 'train')
@@ -283,7 +301,8 @@ class Runner:
                 explained = float(1-valid_values(mb['value_target']-value, mb).var(unbiased=False)/variance) if variance > 1e-12 else None
             return self.c['value_coef']*mse, {'value_mse':float(mse.detach()), 'explained_variance':explained}
         critic_info = self.optimize(self.critic, self.critic_optimizer, batch, self.c['critic_epochs'], 'critic', critic_loss)
-        self.log('critic_full_batch',**critic_metrics(self.critic,batch,self.c,local=self.condition=='ippo'),
+        post_metrics = critic_metrics(self.critic,batch,self.c,local=self.condition=='ippo')
+        self.log('critic_full_batch',**post_metrics,
                  stage='postfit',data_split='train',label_kind=self.c['direction_label'],
                  label_source=f'old_critic_round_{self.round}')
         info = dict(accepted=False, candidates=0, direction_pass=None, direction_score=None,
@@ -294,6 +313,11 @@ class Runner:
                     fit_kl_p95=None, fit_kl_max=None, target_below_floor=None)
         info.update(critic_mse_last_minibatch_pre_step=critic_info['value_mse'],
                     explained_variance_last_minibatch_pre_step=critic_info['explained_variance'],
+                    **lr_info,
+                    **{f'critic_prefit_{k}':v for k,v in old_metrics.items() if k != 'aggregation'},
+                    **{f'critic_postfit_{k}':v for k,v in post_metrics.items() if k != 'aggregation'},
+                    label_mean_unweighted=float(valid_advantage.mean()),
+                    label_std_unweighted=float(valid_advantage.std(unbiased=False)),
                     **effective_settings(self.c,self.condition))
         if self.condition in ('mappo','ippo'):
             if self.c['ppo_normalize_advantage']:
@@ -347,6 +371,7 @@ class Runner:
         if hasattr(self, 'fit_probe'):
             self.fit_probe(old, direction, batch, old_critic)
         train_metrics=direction_metrics(direction,batch,self.c)
+        info.update({f'direction_train_{k}':v for k,v in train_metrics.items()})
         self.log('direction_fit',**train_metrics, data_split='train',
                  label_kind=self.c['direction_label'],label_source=f'old_critic_round_{self.round}',
                  aggregation='discount_weighted_valid_transitions_agents',
@@ -381,7 +406,7 @@ class Runner:
                     return (batch['target']*(batch['target'].log()-model(batch['x']).log())).sum(-1)
             before = float(self.weighted(kl_values(candidate), batch))
             epochs = math.ceil(self.c['actor_epochs']/4) if self.condition == 'fit_quarter' else self.c['actor_epochs']
-            fitted = fit_actor(self, old, batch, epochs)
+            fitted = fit_actor(self, old, batch, epochs, lr=lr_info['actor_lr_used'])
             candidate = fitted['selected']
             info.update(fitted['info'])
             self.log('actor_fit_selection', attempt=attempt+1, eta=eta,

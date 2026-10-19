@@ -53,6 +53,8 @@ def critic_metrics(critic, batch, config, local=False):
     return dict(mse=float(weight(error.square())),
                 explained_variance=float(1-error_variance/variance) if variance>1e-12 else None,
                 target_mean=float(weight(target)/mass),value_mean=float(weight(value)/mass),
+                target_variance=float(variance/mass),
+                value_variance=float(weight((value-weight(value)/mass).square())/mass),
                 aggregation='discount_weighted_valid_transitions_fixed_episode_denominator')
 
 

@@ -1,0 +1,28 @@
+{
+  "budget": 2000000,
+  "seeds": [
+    40
+  ],
+  "direction_check": false,
+  "return_check": false,
+  "minibatch_size": 3200,
+  "direction_steps": 4,
+  "actor_fit_steps": 16,
+  "critic_steps": 10,
+  "actor_lr": 0.0003,
+  "actor_lr_final": 3e-05,
+  "actor_lr_decay_steps": 2000000,
+  "actor_fit_selection": "best_train_kl",
+  "evaluation_seed": 20262000,
+  "evaluation_episodes": 100,
+  "source_eval_episodes": 8,
+  "eval_every_steps": 65536,
+  "target_sizes": [
+    4
+  ],
+  "save_fit_diagnostics": false,
+  "direction_diagnostic_rounds": [],
+  "save_direction_snapshots": false,
+  "batch_episodes": 64,
+  "actor_lr_schedule": "linear"
+}
