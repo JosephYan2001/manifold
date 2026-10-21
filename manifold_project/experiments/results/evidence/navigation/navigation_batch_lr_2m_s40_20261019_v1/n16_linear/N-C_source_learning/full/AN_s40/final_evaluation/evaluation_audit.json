@@ -1,0 +1,201 @@
+{
+  "status": "completed",
+  "attempt": 1,
+  "checkpoint": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\navigation_batch_lr_2m_s40_20261019_v1\\n16_linear\\N-C_source_learning\\full\\AN_s40\\checkpoints\\final.pt",
+  "checkpoint_sha256": "a4a312fa63e153a23d2e781a1611c34b14fc310c4a96ca1d6211297a9b307be0",
+  "actor_state_sha256": "cfa643c3df35859f8090ea82c0550f80ea3fc4eba1764549f27eae43c55cedcc",
+  "training_environment_steps": 0,
+  "optimizer_updates": 0,
+  "evaluation_steps": 100000,
+  "completed_episodes": 100,
+  "pending_episode_reserved_steps": 0,
+  "target_sizes": [
+    4
+  ],
+  "evaluation_seed": 20262000,
+  "episodes_per_size": 100,
+  "action_rng": "numpy.default_rng(scene_seed + 170000003)",
+  "source_protocol": {
+    "environment": "mpe2.simple_spread_v3",
+    "version": "1.1.1",
+    "n_agents": 4,
+    "n_landmarks": 4,
+    "horizon": 400,
+    "actions": [
+      "noop",
+      "left",
+      "right",
+      "down",
+      "up"
+    ],
+    "task_mode": "success_only",
+    "sampling_horizon": 400,
+    "train_reset_horizon": 400,
+    "training_collection": "episodes",
+    "training_reset_is_terminal": false,
+    "evaluation_horizon": 1000,
+    "self_fields": [
+      "self_velocity_x",
+      "self_velocity_y",
+      "self_position_x",
+      "self_position_y"
+    ],
+    "entity_fields": [
+      "is_landmark",
+      "is_peer",
+      "relative_x",
+      "relative_y",
+      "communication_0",
+      "communication_1"
+    ],
+    "critic_fields": [
+      "all_agent_positions_and_velocities",
+      "all_landmark_positions"
+    ],
+    "observation": "native_full_lists_no_truncation",
+    "local_ratio": 0.5,
+    "history_length": 8,
+    "history_fields": [
+      "observation",
+      "previous_local_action",
+      "frame_valid"
+    ],
+    "reward_aggregation": "mean_native_agent_rewards",
+    "success": "first_simultaneous_coverage",
+    "coverage_radius": 0.1,
+    "deadline_is_terminal": false,
+    "initial_position_range": [
+      -1.0,
+      1.0
+    ],
+    "agent_radius": [
+      0.15,
+      0.15,
+      0.15,
+      0.15
+    ],
+    "agent_acceleration": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "resolved_discrete_action_force": [
+      5.0,
+      5.0,
+      5.0,
+      5.0
+    ],
+    "agent_max_speed": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "agent_mass": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "physics_dt": 0.1,
+    "physics_damping": 0.25,
+    "contact_force": 100.0,
+    "contact_margin": 0.001,
+    "transport_classification": "B_empirical_extrapolation"
+  },
+  "checkpoint_unchanged": true,
+  "frozen_actor_verified": true,
+  "actor_state_sha256_after": "cfa643c3df35859f8090ea82c0550f80ea3fc4eba1764549f27eae43c55cedcc",
+  "protocols": [
+    {
+      "environment": "mpe2.simple_spread_v3",
+      "version": "1.1.1",
+      "n_agents": 4,
+      "n_landmarks": 4,
+      "horizon": 400,
+      "actions": [
+        "noop",
+        "left",
+        "right",
+        "down",
+        "up"
+      ],
+      "task_mode": "success_only",
+      "sampling_horizon": 400,
+      "train_reset_horizon": 400,
+      "training_collection": "episodes",
+      "training_reset_is_terminal": false,
+      "evaluation_horizon": 1000,
+      "self_fields": [
+        "self_velocity_x",
+        "self_velocity_y",
+        "self_position_x",
+        "self_position_y"
+      ],
+      "entity_fields": [
+        "is_landmark",
+        "is_peer",
+        "relative_x",
+        "relative_y",
+        "communication_0",
+        "communication_1"
+      ],
+      "critic_fields": [
+        "all_agent_positions_and_velocities",
+        "all_landmark_positions"
+      ],
+      "observation": "native_full_lists_no_truncation",
+      "local_ratio": 0.5,
+      "history_length": 8,
+      "history_fields": [
+        "observation",
+        "previous_local_action",
+        "frame_valid"
+      ],
+      "reward_aggregation": "mean_native_agent_rewards",
+      "success": "first_simultaneous_coverage",
+      "coverage_radius": 0.1,
+      "deadline_is_terminal": false,
+      "initial_position_range": [
+        -1.0,
+        1.0
+      ],
+      "agent_radius": [
+        0.15,
+        0.15,
+        0.15,
+        0.15
+      ],
+      "agent_acceleration": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "resolved_discrete_action_force": [
+        5.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "agent_max_speed": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "agent_mass": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "physics_dt": 0.1,
+      "physics_damping": 0.25,
+      "contact_force": 100.0,
+      "contact_margin": 0.001,
+      "transport_classification": "B_empirical_extrapolation"
+    }
+  ]
+}
