@@ -1,6 +1,8 @@
 # 实验结果索引
 
-**最新结果：[六组训练与旧基线对比](evidence/navigation/navigation_batch_lr_2m_s40_20261019_v1/analysis_20261022/六组训练与旧基线对比.md)，2026-10-22 已复算并补充归因审查。** 六组各约 2M、各 100 场景评价均已完成，全部 0/100 成功；六组源监控曲线均落后于旧 an_base。衰减改善 N16、损害 N32、N64 差异未确认。方向预算 16→4 epoch 后首轮目标尺度已分叉，四组后期 Critic 近似常数且离线探针显示严重 tanh 饱和。撤回默认追加两组 500k 的建议，下一项仅考虑固定数据的 Critic 数值机制验证；尚未实施，不自动扩展训练。
+**最新结果：[Critic 价值尺度诊断](evidence/navigation/critic_scale_probe_20261022_v1/analysis_20261022/Critic尺度诊断结果分析.md)，2026-10-22 已完成并复算。** 实际采样 25,600 步、Critic 优化 5,120 次，无 Actor/方向更新。fresh 归一化改善训练拟合和饱和，但验证 MSE 从 1,540.04 升至 2,373.73；已有饱和模型未恢复。两个起点均未通过预定筛选，不将此干预接入主训练、不自动追加 2M 训练；归因转向价值目标与跨回合泛化。
+
+[六组训练与旧基线对比](evidence/navigation/navigation_batch_lr_2m_s40_20261019_v1/analysis_20261022/六组训练与旧基线对比.md)保留完整历史证据。六组各约 2M、各 100 场景评价均已完成，全部 0/100 成功；六组源监控曲线均落后于旧 an_base。衰减改善 N16、损害 N32、N64 差异未确认。方向预算 16→4 epoch 后首轮目标尺度已分叉；这与后期 Critic 失效不能合并为一个已证实根因。
 
 此前的 [N64 四格短训练分析](evidence/navigation/actor_fit_short_n64_u128_500k_s40_20261018_v1/analysis_20261019/四格短训练分析.md)是本轮设计依据。六组实际新增交互共 12,580,529 步；四组 Critic 在多数批次上的输出近似常数，但尚未确定因果。原[六组实验方案](notes/导航采样量与学习率六组实验方案_20261019.md)、[命令](../configs/navigation/batch_lr_2m/README.md)和[工程验收](checks/navigation_batch_lr_acceptance_20261019_v1/验收报告.md)保留用于复现。
 

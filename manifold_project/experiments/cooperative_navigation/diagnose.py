@@ -21,7 +21,7 @@ def parser():
     source.add_argument('--fixed-target', type=Path, help='Replay one saved fixed target without collecting data or training a direction')
     source.add_argument('--critic-data', type=Path, help='Critic mode: replay a compact frozen value-data packet without sampling')
     p.add_argument('--output', type=Path, required=True)
-    p.add_argument('--mode', choices=['direction', 'fit', 'teacher-eval', 'critic'], required=True)
+    p.add_argument('--mode', choices=['direction', 'fit', 'teacher-eval', 'critic', 'critic-target'], required=True)
     p.add_argument('--critic-epochs', type=int, help='Critic-only fixed fitting budget; default 80, replay inherits')
     p.add_argument('--critic-starts', nargs='+', choices=['fresh', 'checkpoint'], help='Critic-only starts; default both, each compared with raw/fixed-normalized targets')
     p.add_argument('--seeds', nargs='+', type=int, help='Diagnostic data seeds; checkpoint default: 40 41 42; snapshot replay inherits its seed')
@@ -79,6 +79,9 @@ def run(args):
     started = time.perf_counter()
     from ..common.runtime import configure_runtime
     configure_runtime(args.allow_duplicate_openmp)
+    if args.mode == 'critic-target':
+        from .training.critic_target_probe import run_critic_target_probe
+        return run_critic_target_probe(args)
     if args.mode == 'critic':
         from .training.critic_probe import run_critic_probe
         return run_critic_probe(args)

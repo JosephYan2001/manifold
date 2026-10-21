@@ -1,6 +1,6 @@
 # Critic 价值尺度诊断执行说明
 
-2026-10-22。用一次固定数据实验检验：当前价值拟合是否容易形成常数输出，固定的价值目标归一化能否改善这一过程。入口已接入 `diagnose --mode critic`；正式诊断尚未运行。本轮不进行连续策略训练，不评价任务回报，也不改变主训练器。
+2026-10-22。**正式诊断已完成，见[结果分析](../results/evidence/navigation/critic_scale_probe_20261022_v1/analysis_20261022/Critic尺度诊断结果分析.md)。** 归一化改善新 Critic 的训练拟合和饱和，但独立回合预测变差；已有饱和模型未恢复。两个起点均未通过预定筛选，本轮结束，不推进完整训练。下文保留执行前实验定义与命令，已有输出目录不得覆盖。本轮没有连续策略训练或任务回报评价。
 
 ## 实验对象与四个分支
 
@@ -79,8 +79,27 @@ python -m manifold_project.experiments.cooperative_navigation.diagnose --mode cr
 
 ## 工程验证
 
-新增 3 项 CPU 测试通过：输出尺度变换不改变初始实际预测且统计排除 padding；raw 分支与生产 Critic 优化路径逐参数一致；四分支共享固定包、源文件不变、无方向/Actor 更新、零采样重放得到相同参数且拒绝篡改/覆盖。原方向/Actor 拟合和教师评价的 11 项相关回归测试通过。正式检查点的上述主命令已通过 dry-run；尚未执行正式 CUDA 拟合。
+新增 3 项 CPU 测试通过：输出尺度变换不改变初始实际预测且统计排除 padding；raw 分支与生产 Critic 优化路径逐参数一致；四分支共享固定包、源文件不变、无方向/Actor 更新、零采样重放得到相同参数且拒绝篡改/覆盖。原方向/Actor 拟合和教师评价的 11 项相关回归测试通过。正式 CUDA 拟合已完成；固定包、实际候选、目标与成本复核见上方结果分析，工程通过不代表研究筛选通过。
 
 ```powershell
 python -m unittest manifold_project.experiments.tests.test_critic_probe manifold_project.experiments.tests.test_navigation_diagnose manifold_project.experiments.tests.test_actor_fit_selection manifold_project.experiments.tests.test_teacher_evaluation -v
 ```
+
+## 长回报与 λ-return 的下一项对照
+
+归一化诊断未通过后，用已有固定包单独比较价值目标。`diagnose --mode critic-target` 已接入，正式目标对照尚未运行。A 组直接加载原 `fresh_fixed_normalized` 最终模型；只新增 B 组拟合，不重跑 A、不采样。源目录必须包含已完成的 `manifest.json`、`diagnostics.csv`、`critic_data.pt` 和 `candidates/fresh_fixed_normalized.pt`。
+
+B 使用固定包保存的 `frozen_old_values + frozen_gae`，继承 λ=0.95、fresh 初始参数、80 epoch/1,280 次更新、小批次顺序、新 Adam、学习率和裁剪。**归一化仍使用原长回报训练均值 −163.9381 和标准差 33.8661**，不为 λ-return 重新计算尺度。Actor 与方向均不更新。
+
+```powershell
+Set-Location D:\manifold
+python -m manifold_project.experiments.cooperative_navigation.diagnose --mode critic-target --critic-data "manifold_project/experiments/results/evidence/navigation/critic_scale_probe_20261022_v1/critic_data.pt" --output "manifold_project/experiments/results/evidence/navigation/critic_target_probe_20261022_v1" --device cuda --allow-duplicate-openmp
+```
+
+在末尾加 `--dry-run` 可核对来源、对照模型、数据指纹和继承预算，不创建输出目录。不要额外传 `--seeds`、`--critic-epochs` 或初始化参数；入口会拒绝改变冻结条件。中断后使用新输出目录重跑，仍为零采样，但新增拟合成本单列；本入口不提供逐 epoch 中断恢复。
+
+主要终点是第 80 epoch 的 **`long_validation_mse` 和 `long_validation_explained_variance`**，A/B 均面对同一个已保存的长回报验证目标。`lambda_validation_*` 仅说明 λ-return 自身是否容易拟合，不决定实验成功。
+
+预定描述性筛选：B 的共同长回报验证 MSE 至少比训练均值常数参照 930.22 低 10%（约低于 837.20），且 EV>0.05。只优于较差的 A 组不足以通过；只在自己的 λ-return 上表现好也不足以通过。结果见 `summary.json`、`diagnostics.csv`、`critic_trace.csv`、`episode_errors.csv` 和 `manifest.json`，实际新增交互为零、Critic 更新为 1,280 次。
+
+这批验证数据已经查看过，本轮仅用于探索机制；不把它当作新的独立确认。共同长回报仍含冻结旧 Critic 的自举误差，也不是真实价值。通过后才考虑封顶短训练与新评价场景；未通过不继续扩大归一化、epoch 或网络组合。

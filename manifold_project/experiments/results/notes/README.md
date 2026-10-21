@@ -1,8 +1,10 @@
 # 当前计划与历史判断入口
 
-**[导航六组实验](导航采样量与学习率六组实验方案_20261019.md)已完成，最新判断见[六组与旧基线对比](../evidence/navigation/navigation_batch_lr_2m_s40_20261019_v1/analysis_20261022/六组训练与旧基线对比.md)第 6 节。** 六组内部只改变 N 与日程；相对旧基线还改变了方向 epoch 与候选选择。归因审查后撤回默认追加两组 500k 的建议；下一项只考虑固定数据的 Critic 数值机制验证，尚未实施，不扩展训练矩阵。
+**最新判断见[Critic 价值尺度诊断](../evidence/navigation/critic_scale_probe_20261022_v1/analysis_20261022/Critic尺度诊断结果分析.md)。** 该实验已完成：归一化降低饱和并改善训练拟合，独立回合预测未改善；两个起点均未通过预定筛选，不推进完整训练。继续定位时先关注价值目标与跨回合泛化，不自动追加种子、epoch 或配置矩阵。[六组旧基线对比](../evidence/navigation/navigation_batch_lr_2m_s40_20261019_v1/analysis_20261022/六组训练与旧基线对比.md)保留此前归因过程。
 
-[Critic 价值尺度诊断命令](../../cooperative_navigation/Critic价值尺度诊断执行说明.md)已接入原 `diagnose` 入口：同一批数据上的四条 Critic 拟合轨迹，最多采集 25,600 步，不训练 Actor/方向。14 项相关 CPU 检查通过，正式数据尚未生成。
+[Critic 价值尺度诊断命令](../../cooperative_navigation/Critic价值尺度诊断执行说明.md)保留用于复现：已完成 25,600 步和四条拟合轨迹，不训练 Actor/方向。14 项相关 CPU 工程检查与正式 CUDA 结果分别解读；既有目录不得覆盖。
+
+下一项长回报/λ-return 对照已接入 `diagnose --mode critic-target`，命令见同一执行说明末节。直接复用现有固定包和 A 组模型，仅拟合 B 组；新增交互为零、优化 1,280 次，共同长回报验证目标和原归一化尺度保持一致。正式目标对照尚未运行。
 
 状态更新于 2026-10-22：六组源训练与最终评价实际合计 **12,580,529** 步，均 0/100 成功。日程和候选选择按定义执行，但没有恢复旧基线水平。计划中的 MAPPO 同 100 场景冻结评价尚未提供结果；历史[28 项 CPU 验收](../checks/navigation_batch_lr_acceptance_20261019_v1/验收报告.md)与[六组命令](../../configs/navigation/batch_lr_2m/README.md)保留用于复现。Critic 输出近似常数是明确的批次观测，不等于已定位唯一根因。
 
