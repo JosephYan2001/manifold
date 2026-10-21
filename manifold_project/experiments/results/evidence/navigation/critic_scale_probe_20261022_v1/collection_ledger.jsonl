@@ -1,0 +1,160 @@
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 0, "reserved_through": 400}}
+{"stream": "train_episode", "record": {"episode_index": 0, "steps": 400, "discounted_return": -175.99996608087233, "return_undiscounted": -775.959911154785, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 0, "used": 400}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 1, "reserved_through": 800}}
+{"stream": "train_episode", "record": {"episode_index": 1, "steps": 400, "discounted_return": -119.36647703227979, "return_undiscounted": -547.5217866319789, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 1, "used": 800}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 2, "reserved_through": 1200}}
+{"stream": "train_episode", "record": {"episode_index": 2, "steps": 400, "discounted_return": -125.3582637946589, "return_undiscounted": -534.4492998971327, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 2, "used": 1200}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 3, "reserved_through": 1600}}
+{"stream": "train_episode", "record": {"episode_index": 3, "steps": 400, "discounted_return": -139.1911506271647, "return_undiscounted": -770.6513062313966, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 3, "used": 1600}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 4, "reserved_through": 2000}}
+{"stream": "train_episode", "record": {"episode_index": 4, "steps": 400, "discounted_return": -118.12785100527721, "return_undiscounted": -575.4172058118469, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 4, "used": 2000}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 5, "reserved_through": 2400}}
+{"stream": "train_episode", "record": {"episode_index": 5, "steps": 400, "discounted_return": -182.97263795365097, "return_undiscounted": -673.4809505964637, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 5, "used": 2400}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 6, "reserved_through": 2800}}
+{"stream": "train_episode", "record": {"episode_index": 6, "steps": 400, "discounted_return": -147.36980155747813, "return_undiscounted": -644.2658522531259, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 6, "used": 2800}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 7, "reserved_through": 3200}}
+{"stream": "train_episode", "record": {"episode_index": 7, "steps": 400, "discounted_return": -141.03057084266874, "return_undiscounted": -690.8508657686127, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 7, "used": 3200}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 8, "reserved_through": 3600}}
+{"stream": "train_episode", "record": {"episode_index": 8, "steps": 400, "discounted_return": -158.66793666542046, "return_undiscounted": -746.2859629063396, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 8, "used": 3600}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 9, "reserved_through": 4000}}
+{"stream": "train_episode", "record": {"episode_index": 9, "steps": 400, "discounted_return": -112.72569175391706, "return_undiscounted": -536.0990035794644, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 9, "used": 4000}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 10, "reserved_through": 4400}}
+{"stream": "train_episode", "record": {"episode_index": 10, "steps": 400, "discounted_return": -141.19727408107752, "return_undiscounted": -682.4809548841442, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 10, "used": 4400}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 11, "reserved_through": 4800}}
+{"stream": "train_episode", "record": {"episode_index": 11, "steps": 400, "discounted_return": -167.08386765714852, "return_undiscounted": -725.8214140807579, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 11, "used": 4800}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 12, "reserved_through": 5200}}
+{"stream": "train_episode", "record": {"episode_index": 12, "steps": 400, "discounted_return": -156.0049520273812, "return_undiscounted": -848.0957112528538, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 12, "used": 5200}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 13, "reserved_through": 5600}}
+{"stream": "train_episode", "record": {"episode_index": 13, "steps": 400, "discounted_return": -161.09023127119923, "return_undiscounted": -754.3499798745057, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 13, "used": 5600}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 14, "reserved_through": 6000}}
+{"stream": "train_episode", "record": {"episode_index": 14, "steps": 400, "discounted_return": -113.75144807346057, "return_undiscounted": -457.5384335025659, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 14, "used": 6000}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 15, "reserved_through": 6400}}
+{"stream": "train_episode", "record": {"episode_index": 15, "steps": 400, "discounted_return": -140.32883859485355, "return_undiscounted": -720.7456352967587, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 15, "used": 6400}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 16, "reserved_through": 6800}}
+{"stream": "train_episode", "record": {"episode_index": 16, "steps": 400, "discounted_return": -107.70780908832393, "return_undiscounted": -473.93122292499004, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 16, "used": 6800}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 17, "reserved_through": 7200}}
+{"stream": "train_episode", "record": {"episode_index": 17, "steps": 400, "discounted_return": -128.63038068117837, "return_undiscounted": -657.291771670756, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 17, "used": 7200}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 18, "reserved_through": 7600}}
+{"stream": "train_episode", "record": {"episode_index": 18, "steps": 400, "discounted_return": -151.69662601151936, "return_undiscounted": -671.1317019689964, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 18, "used": 7600}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 19, "reserved_through": 8000}}
+{"stream": "train_episode", "record": {"episode_index": 19, "steps": 400, "discounted_return": -164.17209880853096, "return_undiscounted": -724.6966146077602, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 19, "used": 8000}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 20, "reserved_through": 8400}}
+{"stream": "train_episode", "record": {"episode_index": 20, "steps": 400, "discounted_return": -127.96808680558102, "return_undiscounted": -614.1633709641329, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 20, "used": 8400}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 21, "reserved_through": 8800}}
+{"stream": "train_episode", "record": {"episode_index": 21, "steps": 400, "discounted_return": -110.89159081376901, "return_undiscounted": -539.7788766795614, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 21, "used": 8800}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 22, "reserved_through": 9200}}
+{"stream": "train_episode", "record": {"episode_index": 22, "steps": 400, "discounted_return": -147.37068347130656, "return_undiscounted": -585.7157823257095, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 22, "used": 9200}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 23, "reserved_through": 9600}}
+{"stream": "train_episode", "record": {"episode_index": 23, "steps": 400, "discounted_return": -200.51422618494337, "return_undiscounted": -907.4158869333494, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 23, "used": 9600}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 24, "reserved_through": 10000}}
+{"stream": "train_episode", "record": {"episode_index": 24, "steps": 400, "discounted_return": -170.98434375655066, "return_undiscounted": -778.8719025282934, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 24, "used": 10000}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 25, "reserved_through": 10400}}
+{"stream": "train_episode", "record": {"episode_index": 25, "steps": 400, "discounted_return": -208.82416030919424, "return_undiscounted": -813.814937327499, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 25, "used": 10400}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 26, "reserved_through": 10800}}
+{"stream": "train_episode", "record": {"episode_index": 26, "steps": 400, "discounted_return": -166.61682224067061, "return_undiscounted": -869.4076313015529, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 26, "used": 10800}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 27, "reserved_through": 11200}}
+{"stream": "train_episode", "record": {"episode_index": 27, "steps": 400, "discounted_return": -172.0114404933276, "return_undiscounted": -769.4811020197926, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 27, "used": 11200}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 28, "reserved_through": 11600}}
+{"stream": "train_episode", "record": {"episode_index": 28, "steps": 400, "discounted_return": -101.57944618095924, "return_undiscounted": -460.618875542009, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 28, "used": 11600}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 29, "reserved_through": 12000}}
+{"stream": "train_episode", "record": {"episode_index": 29, "steps": 400, "discounted_return": -147.89406023855162, "return_undiscounted": -660.2651763197056, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 29, "used": 12000}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 30, "reserved_through": 12400}}
+{"stream": "train_episode", "record": {"episode_index": 30, "steps": 400, "discounted_return": -168.1396737786164, "return_undiscounted": -676.273240450269, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 30, "used": 12400}}
+{"stream": "sampling_start", "record": {"purpose": "train", "episode": 31, "reserved_through": 12800}}
+{"stream": "train_episode", "record": {"episode_index": 31, "steps": 400, "discounted_return": -117.21006635191058, "return_undiscounted": -489.4786269352973, "end_reason": "training_reset_cutoff", "terminated": false, "truncated": true, "bootstrap": "pre_reset_final_state"}}
+{"stream": "sampling", "record": {"purpose": "train", "episode": 31, "used": 12800}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 0, "reserved_through": 13200}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 0, "used": 13200}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 1, "reserved_through": 13600}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 1, "used": 13600}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 2, "reserved_through": 14000}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 2, "used": 14000}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 3, "reserved_through": 14400}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 3, "used": 14400}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 4, "reserved_through": 14800}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 4, "used": 14800}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 5, "reserved_through": 15200}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 5, "used": 15200}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 6, "reserved_through": 15600}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 6, "used": 15600}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 7, "reserved_through": 16000}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 7, "used": 16000}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 8, "reserved_through": 16400}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 8, "used": 16400}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 9, "reserved_through": 16800}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 9, "used": 16800}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 10, "reserved_through": 17200}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 10, "used": 17200}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 11, "reserved_through": 17600}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 11, "used": 17600}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 12, "reserved_through": 18000}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 12, "used": 18000}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 13, "reserved_through": 18400}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 13, "used": 18400}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 14, "reserved_through": 18800}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 14, "used": 18800}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 15, "reserved_through": 19200}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 15, "used": 19200}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 16, "reserved_through": 19600}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 16, "used": 19600}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 17, "reserved_through": 20000}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 17, "used": 20000}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 18, "reserved_through": 20400}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 18, "used": 20400}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 19, "reserved_through": 20800}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 19, "used": 20800}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 20, "reserved_through": 21200}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 20, "used": 21200}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 21, "reserved_through": 21600}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 21, "used": 21600}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 22, "reserved_through": 22000}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 22, "used": 22000}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 23, "reserved_through": 22400}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 23, "used": 22400}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 24, "reserved_through": 22800}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 24, "used": 22800}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 25, "reserved_through": 23200}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 25, "used": 23200}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 26, "reserved_through": 23600}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 26, "used": 23600}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 27, "reserved_through": 24000}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 27, "used": 24000}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 28, "reserved_through": 24400}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 28, "used": 24400}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 29, "reserved_through": 24800}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 29, "used": 24800}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 30, "reserved_through": 25200}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 30, "used": 25200}}
+{"stream": "sampling_start", "record": {"purpose": "validation", "episode": 31, "reserved_through": 25600}}
+{"stream": "sampling", "record": {"purpose": "validation", "episode": 31, "used": 25600}}

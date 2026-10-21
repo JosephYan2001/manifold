@@ -1,0 +1,67 @@
+{
+  "mode": "critic",
+  "semantics_version": "navigation-fixed-critic-scale-v1",
+  "input_path": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\navigation_batch_lr_2m_s40_20261019_v1\\n16_fixed\\N-C_source_learning\\full\\AN_s40\\checkpoints\\final.pt",
+  "input_sha256": "296534bbac94eb69b1165429aefc0d1f62a0b95999f36bf1ba095aafec4fce2e",
+  "scope": "new frozen-policy data; not historical replay",
+  "data_seed": 45,
+  "init_seed": 40,
+  "starts": [
+    "fresh",
+    "checkpoint"
+  ],
+  "normalizations": [
+    "raw",
+    "fixed_normalized"
+  ],
+  "train_episodes": 32,
+  "validation_episodes": 32,
+  "epochs": 80,
+  "optimizer": "fresh Adam in every arm; source moments not resumed",
+  "optimizer_updates_per_arm": 1280,
+  "critic_lr": 0.001,
+  "maximum_collection_steps": 25600,
+  "device": "cuda",
+  "actor_optimizer_updates": 0,
+  "direction_optimizer_updates": 0,
+  "evaluation_steps": 0,
+  "target_rule": "raw returns with frozen source Critic bootstrap; never recomputed during fitting",
+  "normalization_rule": "fixed discounted train-target mean/std; no validation statistics; output-preserving head transform",
+  "primary_endpoint": "final epoch raw-unit validation MSE/EV, paired by start; no best-epoch selection",
+  "mechanism_screen": "validation MSE at least 10% lower and EV at least 0.05 higher than raw at the same start; descriptive, not significance",
+  "limitation": "Frozen bootstrap targets are not true values; this does not establish return improvement",
+  "numpy_version": "1.26.4",
+  "torch_version": "2.7.1+cu128",
+  "probe_code_sha256": "f44fe436447fd4ce2938092e8097f46df87b97dcaee70f33a0cb80f8bc3947ca",
+  "model_code_sha256": {
+    "models/__init__.py": "0f4803119431914e15c5b4dd2b8bee88a55ed8bd12e0dece64c4c99b6b4aa418",
+    "models/deployment.py": "1a48c30dd5a02785d4aa955d786948586eaead42538dffa5d0e91ead6a90b0fc",
+    "models/entities.py": "7e36e7ec533a865331ada9ba330321fc251c6f7200e4178b88d3338f0e96629f",
+    "training/ppo.py": "e28429b68865555087f4cd0985f800eb6833b7abbe9c2d040391787e0af9e008"
+  },
+  "frozen_data_sha256": "e420fe8b748bb4d98eb188d5be9816a4f00e95c35c06b16a102076de41ee422f",
+  "critic_data_sha256": "134304b29c10a27b334ec15f38f28f401dd58d70fd59d9797d0b020be21e1af9",
+  "normalization": {
+    "mean": -163.93808855684028,
+    "scale": 33.8661301026226,
+    "variance": 1146.9147681277605,
+    "std_floor": 0.001
+  },
+  "source_provenance": {
+    "path": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\navigation_batch_lr_2m_s40_20261019_v1\\n16_fixed\\N-C_source_learning\\full\\AN_s40\\checkpoints\\final.pt",
+    "sha256": "296534bbac94eb69b1165429aefc0d1f62a0b95999f36bf1ba095aafec4fce2e",
+    "round": 272,
+    "actor_sha256": "e29f96b44210447ccd746f32ae63a9a4b3503a061c55e644ca6299cd67a89a51",
+    "critic_sha256": "286479b322a717e7595899b30b01c815373852b368ca15610307ce2d2ff3c554"
+  },
+  "original_collection_steps": 25600,
+  "status": "completed",
+  "collection_steps": 25600,
+  "diagnostic_steps": 25600,
+  "critic_optimizer_updates": 5120,
+  "critic_data_path": "D:\\manifold\\manifold\\manifold_project\\experiments\\results\\evidence\\navigation\\critic_scale_probe_20261022_v1\\critic_data.pt",
+  "elapsed_seconds": 168.47213139990345,
+  "input_unchanged": true,
+  "frozen_data_unchanged": true,
+  "source_actor_critic_frozen": true
+}
