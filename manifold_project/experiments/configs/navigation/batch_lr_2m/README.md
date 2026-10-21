@@ -1,6 +1,6 @@
 # 六组 AN 2M 训练与冻结 MAPPO-E 评价命令
 
-2026-10-19。已接入公共入口并完成 [CPU 工程验收](../../../results/checks/navigation_batch_lr_acceptance_20261019_v1/验收报告.md)。正式训练和 100 场景冻结评价尚未运行。实验定义以[六组方案](../../../results/notes/导航采样量与学习率六组实验方案_20261019.md)为准。
+2026-10-19 编写，2026-10-22 更新状态：六组 AN 训练及各 100 场景终点评价已完成，见[结果分析](../../../results/evidence/navigation/navigation_batch_lr_2m_s40_20261019_v1/analysis_20261022/六组训练与旧基线对比.md)。MAPPO-E 同场景冻结评价尚未提供。下列命令保留用于复现，已有结果目录不要再次普通启动覆盖。[CPU 工程验收](../../../results/checks/navigation_batch_lr_acceptance_20261019_v1/验收报告.md)与[原六组方案](../../../results/notes/导航采样量与学习率六组实验方案_20261019.md)分别记录工程检查和实验定义。
 
 ## 设置
 

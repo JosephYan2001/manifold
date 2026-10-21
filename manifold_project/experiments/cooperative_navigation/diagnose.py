@@ -1,4 +1,4 @@
-"""Frozen-checkpoint probes: directions, Actor fitting, and teacher-only evaluation.
+"""Frozen-checkpoint probes: direction/Actor/Critic fitting and teacher evaluation.
 
 Checkpoint mode collects new samples. Fixed-target mode reuses a saved batch,
 direction and target without sampling or direction training. teacher-eval executes
@@ -19,8 +19,11 @@ def parser():
     source = p.add_mutually_exclusive_group(required=True)
     source.add_argument('--checkpoint', type=Path)
     source.add_argument('--fixed-target', type=Path, help='Replay one saved fixed target without collecting data or training a direction')
+    source.add_argument('--critic-data', type=Path, help='Critic mode: replay a compact frozen value-data packet without sampling')
     p.add_argument('--output', type=Path, required=True)
-    p.add_argument('--mode', choices=['direction', 'fit', 'teacher-eval'], required=True)
+    p.add_argument('--mode', choices=['direction', 'fit', 'teacher-eval', 'critic'], required=True)
+    p.add_argument('--critic-epochs', type=int, help='Critic-only fixed fitting budget; default 80, replay inherits')
+    p.add_argument('--critic-starts', nargs='+', choices=['fresh', 'checkpoint'], help='Critic-only starts; default both, each compared with raw/fixed-normalized targets')
     p.add_argument('--seeds', nargs='+', type=int, help='Diagnostic data seeds; checkpoint default: 40 41 42; snapshot replay inherits its seed')
     p.add_argument('--batch-episodes', type=int, help='Defaults to the saved training batch size')
     p.add_argument('--validation-episodes', type=int)
@@ -34,7 +37,7 @@ def parser():
     p.add_argument('--init-seed', type=int, help='One initialization seed, independent from --seeds data seeds')
     p.add_argument('--fit-trace-every-updates', type=int, help='Also recompute full train/validation KL every N optimizer steps; default 0 means epoch only')
     p.add_argument('--fit-epochs', type=int, help='Defaults to saved Actor epochs')
-    p.add_argument('--prepare-only', action='store_true', help='Fit mode: collect and save fixed targets, then stop before Actor fitting/evaluation')
+    p.add_argument('--prepare-only', action='store_true', help='Fit/critic mode: collect and save fixed data, then stop before fitting/evaluation')
     p.add_argument('--actor-lrs', nargs='+', type=float, help='Fit default: 0.0003 0.0001 0.00003')
     p.add_argument('--target-kl', type=float, help='Direction mode default: 0.0001')
     p.add_argument('--eta', type=float, help='Defaults to saved first step size')
@@ -76,6 +79,11 @@ def run(args):
     started = time.perf_counter()
     from ..common.runtime import configure_runtime
     configure_runtime(args.allow_duplicate_openmp)
+    if args.mode == 'critic':
+        from .training.critic_probe import run_critic_probe
+        return run_critic_probe(args)
+    if args.critic_data is not None or args.critic_epochs is not None or args.critic_starts is not None:
+        raise ValueError('Critic data/budget/starts require --mode critic')
     if args.mode == 'teacher-eval':
         from .evaluation.teacher_probe import run_teacher_evaluation
         return run_teacher_evaluation(args)

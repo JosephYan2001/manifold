@@ -1,8 +1,8 @@
 # 实验结果索引
 
-**当前唯一执行安排：[导航六组实验方案](notes/导航采样量与学习率六组实验方案_20261019.md)。** N16/N32/N64 × 固定/线性衰减 Actor 学习率，同一初始化 seed 40，每组 2M。[配置与命令](../configs/navigation/batch_lr_2m/README.md)已就绪，[28 项 CPU 工程验收](checks/navigation_batch_lr_acceptance_20261019_v1/验收报告.md)通过；正式训练未启动，不把计划列为已完成结果。
+**最新结果：[六组训练与旧基线对比](evidence/navigation/navigation_batch_lr_2m_s40_20261019_v1/analysis_20261022/六组训练与旧基线对比.md)，2026-10-22 已复算并补充归因审查。** 六组各约 2M、各 100 场景评价均已完成，全部 0/100 成功；六组源监控曲线均落后于旧 an_base。衰减改善 N16、损害 N32、N64 差异未确认。方向预算 16→4 epoch 后首轮目标尺度已分叉，四组后期 Critic 近似常数且离线探针显示严重 tanh 饱和。撤回默认追加两组 500k 的建议，下一项仅考虑固定数据的 Critic 数值机制验证；尚未实施，不自动扩展训练。
 
-最新已完成证据是 [N64 四格短训练分析](evidence/navigation/actor_fit_short_n64_u128_500k_s40_20261018_v1/analysis_20261019/四格短训练分析.md)：各 16 轮，A/B/C/D 最终回报 -179.04/-186.05/-176.15/-185.72，均 0/100 成功。小学习率两组在本轮较差，C 的优势未确认；最佳候选生效但整体收益尚未确认。此前固定教师复核已按预算结束，不再重复设为连续训练门槛。
+此前的 [N64 四格短训练分析](evidence/navigation/actor_fit_short_n64_u128_500k_s40_20261018_v1/analysis_20261019/四格短训练分析.md)是本轮设计依据。六组实际新增交互共 12,580,529 步；四组 Critic 在多数批次上的输出近似常数，但尚未确定因果。原[六组实验方案](notes/导航采样量与学习率六组实验方案_20261019.md)、[命令](../configs/navigation/batch_lr_2m/README.md)和[工程验收](checks/navigation_batch_lr_acceptance_20261019_v1/验收报告.md)保留用于复现。
 
 2M 性能参照见[历史 MAPPO 复算](evidence/navigation/navigation_ep400_history8_2m_s40/mappo/analysis_20261019/MAPPO_2M参照分析.md)：final.pt 为 −54.32、7/20 成功，实际源步数 1,997,221。六组方案已纳入一次同场景冻结 MAPPO 评价，新增总预算上限 12.7M；不新增 MAPPO 训练，复评尚未执行。历史结果与新 AN 的版本、评价场景差异须明确保留。
 
@@ -18,8 +18,8 @@
 
 ## 当前先看这四项
 
-1. [六组完整方案](notes/导航采样量与学习率六组实验方案_20261019.md)：唯一当前计划，包含变量、预算、评价、日程定义与启动前验收。
-2. [最新短训练结果](evidence/navigation/actor_fit_short_n64_u128_500k_s40_20261018_v1/analysis_20261019/四格短训练分析.md)：本轮计划的直接依据。
+1. [六组最新结果](evidence/navigation/navigation_batch_lr_2m_s40_20261019_v1/analysis_20261022/六组训练与旧基线对比.md)：旧基线差距、学习率配对对比、Critic 离线机制审查，以及收敛排查范围的决策。
+2. [六组完整方案](notes/导航采样量与学习率六组实验方案_20261019.md)：已完成运行的原始设计，不再列为待启动任务。
 3. [导航证据索引](evidence/navigation/README.md)：固定目标、教师复核、历史 2M/4M 和 GIF，按阶段查找。
 4. [整理记录](notes/maintenance_20261019/整理记录.md)：历史建议归档、19 张重复概览图清理及原始证据哈希核验。
 

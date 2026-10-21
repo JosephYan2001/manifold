@@ -1,6 +1,8 @@
 # 协作导航实验手册
 
-**当前执行安排见[导航六组实验方案](../results/notes/导航采样量与学习率六组实验方案_20261019.md)：N16/N32/N64 × 固定/衰减 Actor 学习率，每组 2M，从相同初始化开始。** 日程接入与 28 项 CPU 工程检查已完成，正式训练尚未启动；使用[六组训练与冻结 MAPPO-E 评价命令](../configs/navigation/batch_lr_2m/README.md)。本手册的默认配置示例不替代六组规格。
+**2026-10-22：导航六组训练已完成，见[与旧基线的对比分析](../results/evidence/navigation/navigation_batch_lr_2m_s40_20261019_v1/analysis_20261022/六组训练与旧基线对比.md)。** 六组均 0/100 成功，尚未恢复旧 an_base 的回报与学习速度；最新归因审查撤回默认追加两组 500k 的建议，下一项只考虑固定数据的 Critic 数值机制验证，尚未实施。[原实验方案](../results/notes/导航采样量与学习率六组实验方案_20261019.md)和[运行命令](../configs/navigation/batch_lr_2m/README.md)保留用于复现，MAPPO 同场景冻结评价尚未提供。本手册默认配置示例不替代具体实验规格。
+
+Critic 机制诊断入口已接入 `diagnose --mode critic`，命令与预定判据见 [Critic 价值尺度诊断执行说明](Critic价值尺度诊断执行说明.md)。同一固定数据包比较 fresh/checkpoint × raw/fixed_normalized，最多采样 25,600 步；不更新 Actor/方向。`--critic-data` 支持零采样重放。工程验证已完成，正式诊断尚未运行。
 
 2M→4M 数据和已完成的 D1/D2 历史命令见[续训结果与诊断执行清单](续训结果与诊断执行清单.md)，首批三组配置见[历史实验清单](下一轮实验执行清单.md)。它们不再是当前待执行任务。
 
